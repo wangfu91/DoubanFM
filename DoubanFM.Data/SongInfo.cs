@@ -8,5 +8,6 @@ namespace DoubanFM.Data
 {
     class SongInfo
     {
+
     }
 }
