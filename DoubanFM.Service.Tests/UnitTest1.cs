@@ -16,5 +16,13 @@ namespace DoubanFM.Service.Tests
 
             var people = cs1.Post("/j/app/radio/people");
         }
+
+        [TestMethod]
+        public void ChannelTest()
+        {
+            var channelService = new ChannelService();
+            channelService.GetChannels(1, "n");
+            
+        }
     }
 }

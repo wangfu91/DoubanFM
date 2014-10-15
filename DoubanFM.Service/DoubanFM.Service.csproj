@@ -42,8 +42,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BaseService.cs" />
+    <Compile Include="ChannelService.cs" />
     <Compile Include="Class1.cs" />
+    <Compile Include="PlayListService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServiceParameter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
