@@ -113,7 +113,7 @@ namespace DoubanFM.Data
         /// <summary>
         /// 是否已喜欢
         /// </summary>
-        [JsonProperty("title")]
+        [JsonProperty("like")]
         public uint Like { get; set; }
 
 

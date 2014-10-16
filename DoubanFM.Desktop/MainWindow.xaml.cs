@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DoubanFM.Service;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,20 @@ namespace DoubanFM.Desktop
         public MainWindow()
         {
             InitializeComponent();
+            Load();
+        }
+
+
+        private  async void Load()
+        {
+            var channelService = new ChannelService();
+            //var channels=await channelService.GetChannels(1,"n");
+            //var count = channels.Count;
+
+            var playListService=new PlayListService();
+            var playList = await playListService.GetPlayList(1, "n", "");
+            var songs = playList.Song;
+            
         }
     }
 }

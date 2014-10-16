@@ -18,11 +18,11 @@ namespace DoubanFM.Service.Tests
         }
 
         [TestMethod]
-        public void ChannelTest()
+        public async void ChannelTest()
         {
             var channelService = new ChannelService();
-            channelService.GetChannels(1, "n");
-            
+            var content = await channelService.GetChannels(1, "n");
+            var len = content.Count;            
         }
     }
 }
