@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DoubanFM.Data
+namespace DoubanFM.Service
 {
-    class UserInfo
+    public class UserService
     {
+
     }
 }

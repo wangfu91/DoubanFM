@@ -1,28 +1,17 @@
-﻿using System;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
-using System.Diagnostics;
+﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace DoubanFM.Service.Tests
 {
     [TestClass]
     public class UnitTest1
     {
-        [TestMethod]
-        public void TestMethod1()
-        {
-            var cs1 = new Class1();
-
-            //var chanels = cs1.Get("j/app/radio/channels");
-
-            var people = cs1.Post("/j/app/radio/people");
-        }
 
         [TestMethod]
         public async void ChannelTest()
         {
             var channelService = new ChannelService();
             var content = await channelService.GetChannels(1, "n");
-            var len = content.Count;            
+            var len = content.Count;
         }
     }
 }

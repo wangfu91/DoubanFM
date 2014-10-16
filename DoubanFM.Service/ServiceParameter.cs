@@ -20,6 +20,9 @@ namespace DoubanFM.Service
 
         public string sid { get; set; }
 
+        public string email { get; set; }
+
+        public string password { get; set; }
 
     }
 }
