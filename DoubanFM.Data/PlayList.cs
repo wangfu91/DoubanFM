@@ -1,4 +1,5 @@
 ﻿
+using Newtonsoft.Json;
 using System.Collections.Generic;
 namespace DoubanFM.Data
 {
@@ -7,13 +8,17 @@ namespace DoubanFM.Data
     /// </summary>
     public class PlayList
     {
+        [JsonProperty("r")]
         public int R { get; set; }
 
+        [JsonProperty("version_max")]
         public int VersionMax { get; set; }
 
+        [JsonProperty("is_show_quick_start")]
         public int IsShowQuickStart { get; set; }
 
-        public List<Song> Song { get; set; }
+        [JsonProperty("song")]
+        public List<Song> Songs { get; set; }
 
     }
 }

@@ -1,8 +1,12 @@
-﻿using Microsoft.Practices.Prism.Commands;
+﻿using DoubanFM.Data;
+using DoubanFM.Service;
+using Microsoft.Practices.Prism.Commands;
 using NAudio.Wave;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 
@@ -16,6 +20,7 @@ namespace DoubanFM.Audio
         private WaveOut waveOutDevice;
         private WaveStream fileStream;
         private double songLength = 0.0;
+        private PlayListService playListService = new PlayListService();
 
         #region Notification Properties
 
@@ -33,7 +38,7 @@ namespace DoubanFM.Audio
                 {
                     canPlay = value;
                     NotifyPropertyChanged("CanPlay");
-                    PlayCommand.RaiseCanExecuteChanged();
+                    PlayOrPauseCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -51,8 +56,8 @@ namespace DoubanFM.Audio
                 if (value != canPause)
                 {
                     canPause = value;
-                    NotifyPropertyChanged("canPause");
-                    PauseCommand.RaiseCanExecuteChanged();
+                    NotifyPropertyChanged("CanPause");
+                    LikeCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -71,7 +76,7 @@ namespace DoubanFM.Audio
                 if (value != canStop)
                 {
                     canStop = value;
-                    NotifyPropertyChanged("canStop");
+                    NotifyPropertyChanged("CanStop");
                     StopCommand.RaiseCanExecuteChanged();
                 }
             }
@@ -91,18 +96,81 @@ namespace DoubanFM.Audio
                 if (value != isPlaying)
                 {
                     isPlaying = value;
-                    NotifyPropertyChanged("isPlaying");
+                    NotifyPropertyChanged("IsPlaying");
                 }
             }
         }
 
+        private bool isLiked;
+
+        public bool IsLiked
+        {
+            get
+            {
+                return isLiked;
+            }
+            set
+            {
+                if (value != isLiked)
+                {
+                    isLiked = value;
+                    NotifyPropertyChanged("IsLiked");
+                }
+            }
+        }
+
+
+
+        private Song currentSong;
+
+        public Song CurrentSong
+        {
+            get
+            {
+                return currentSong;
+            }
+            set
+            {
+                if (value != currentSong)
+                {
+                    currentSong = value;
+                    NotifyPropertyChanged("CurrentSong");
+                }
+            }
+        }
+
+        private Queue<Song> playList;
+
+        public Queue<Song> PlayList
+        {
+            get
+            {
+                return playList;
+            }
+            set
+            {
+                if (value != playList)
+                {
+                    playList = value;
+                    NotifyPropertyChanged("PlayList");
+                }
+            }
+        }
+
+
         #endregion
 
-        public DelegateCommand PlayCommand { get; set; }
 
-        public DelegateCommand PauseCommand { get; set; }
+
+        public DelegateCommand PlayOrPauseCommand { get; set; }
+
+        public DelegateCommand LikeCommand { get; set; }
 
         public DelegateCommand StopCommand { get; set; }
+
+        public DelegateCommand NextCommand { get; set; }
+
+        public DelegateCommand DeleteCommand { get; set; }
 
         public static NAudioEngine Instance
         {
@@ -116,26 +184,81 @@ namespace DoubanFM.Audio
 
         private NAudioEngine()
         {
-            this.PlayCommand = new DelegateCommand(async () => await Play(), () => CanPlay);
-            this.PauseCommand = new DelegateCommand(async () => await Pause(), () => CanPause);
+            this.PlayOrPauseCommand = new DelegateCommand(async () =>
+                {
+                    if (IsPlaying)
+                        await Pause();
+                    else
+                        await Play();
+                });
+            this.LikeCommand = new DelegateCommand(async () =>
+                {
+                    if (CurrentSong.Like)
+                        await UnLike();
+                    else
+                        await Like();
+                });
             this.StopCommand = new DelegateCommand(async () => await Stop(), () => CanStop);
+            this.NextCommand = new DelegateCommand(async () => await PlayNext());
+            this.DeleteCommand = new DelegateCommand(async () => await Delete());
+            PlayList = new Queue<Song>();
+            waveOutDevice = new WaveOut();
+            waveOutDevice.PlaybackStopped += waveOutDevice_PlaybackStopped;
         }
 
-        public Task Initialize(string filePath)
+
+        async void waveOutDevice_PlaybackStopped(object sender, StoppedEventArgs e)
+        {
+            await PlayNext();
+        }
+
+        private Task Initialize(string filePath)
         {
             return Task.Run(() =>
                 {
-                    StopAndCloseStream();
+                    CloseStream();
 
                     if (File.Exists(filePath))
                     {
-                        waveOutDevice = new WaveOut();
                         fileStream = new AudioFileReader(filePath);
                         waveOutDevice.Init(fileStream);
                         songLength = fileStream.TotalTime.TotalSeconds;
                         CanPlay = true;
                     }
                 });
+        }
+
+
+        public async Task PlayNext()
+        {
+            if (PlayList.Count < 1)
+                await GetPlayList();
+
+            if (waveOutDevice.PlaybackState != PlaybackState.Stopped)
+                waveOutDevice.Pause();
+
+            CurrentSong = PlayList.Dequeue();
+
+            var filePath = Path.Combine(Environment.CurrentDirectory, CurrentSong.Title + ".mp3");
+
+            using (var httpClient = new HttpClient())
+            {
+                var bytes = await httpClient.GetByteArrayAsync(CurrentSong.URL);
+                using (var writer = new FileStream(filePath, FileMode.Create))
+                {
+                    await writer.WriteAsync(bytes, 0, bytes.Length);
+                }
+            }
+
+            await Instance.Initialize(filePath);
+            await Instance.Play();
+
+        }
+
+        private async Task GetPlayList()
+        {
+            var songList = await playListService.SendRequest("1", "n", "");
+            songList.Songs.ForEach(s => this.PlayList.Enqueue(s));
         }
 
         public Task Play()
@@ -153,6 +276,7 @@ namespace DoubanFM.Audio
                 });
         }
 
+
         public Task Pause()
         {
             return Task.Run(() =>
@@ -167,6 +291,33 @@ namespace DoubanFM.Audio
                 });
 
         }
+
+        public Task Like()
+        {
+            return Task.Run(() =>
+            {
+                var result = playListService.SendRequest("", "r", CurrentSong.SID);
+
+            });
+        }
+
+        public Task UnLike()
+        {
+            return Task.Run(() =>
+            {
+                var result = playListService.SendRequest("", "u", CurrentSong.SID);
+
+            });
+        }
+
+        public Task Delete()
+        {
+            return Task.Run(() =>
+                {
+                    var result = playListService.SendRequest("", "s", CurrentSong.SSID);
+                });
+        }
+
 
         public Task Stop()
         {
@@ -185,7 +336,16 @@ namespace DoubanFM.Audio
         }
 
 
-        private void StopAndCloseStream()
+        private void CloseStream()
+        {
+            if (fileStream != null)
+            {
+                fileStream.Dispose();
+                fileStream = null;
+            }
+        }
+
+        private void StopAndCloseWave()
         {
             if (waveOutDevice != null)
             {
@@ -195,11 +355,6 @@ namespace DoubanFM.Audio
             {
                 waveOutDevice.Dispose();
                 waveOutDevice = null;
-            }
-            if (fileStream != null)
-            {
-                fileStream.Dispose();
-                fileStream = null;
             }
         }
 
@@ -215,7 +370,8 @@ namespace DoubanFM.Audio
             {
                 if (disposing)
                 {
-                    StopAndCloseStream();
+                    CloseStream();
+                    StopAndCloseWave();
                 }
                 disposed = true;
             }

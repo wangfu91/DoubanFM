@@ -44,6 +44,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,6 +57,16 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DoubanFM.Data\DoubanFM.Data.csproj">
+      <Project>{2a8a3818-56cd-493c-99c9-f6ec446eaedd}</Project>
+      <Name>DoubanFM.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DoubanFM.Service\DoubanFM.Service.csproj">
+      <Project>{bc64c67c-e916-4a76-93ea-17d24dea2e72}</Project>
+      <Name>DoubanFM.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

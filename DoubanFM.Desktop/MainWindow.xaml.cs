@@ -1,5 +1,5 @@
-﻿using DoubanFM.Service;
-using System.Windows;
+﻿using System.Windows;
+using System.Windows.Input;
 
 namespace DoubanFM.Desktop
 {
@@ -12,30 +12,12 @@ namespace DoubanFM.Desktop
         {
             InitializeComponent();
             this.DataContext = new ViewModels.MainPageViewModel();
-            //Load();
-
-            //Login();
         }
 
 
-        private async void Load()
+        private void Window_MouseDown(object sender, System.Windows.Input.MouseButtonEventArgs e)
         {
-            var channelService = new ChannelService();
-            //var channels=await channelService.GetChannels(1,"n");
-            //var count = channels.Count;
-
-            var playListService = new PlayListService();
-            var playList = await playListService.GetPlayList(1, "n", "");
-            var songs = playList.Song;
-
-        }
-
-
-
-        private async void Login()
-        {
-            var service = new LoginService();
-            var logonInfo = await service.Login("wangfu91@hotmail.com", "wf19912012");
+            if (e.ChangedButton == MouseButton.Left) this.DragMove();
         }
     }
 

@@ -1,8 +1,14 @@
 ﻿<Application x:Class="DoubanFM.Desktop.App"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:DoubanFM.Desktop.Converters"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <Image x:Key="PlayIcon" Source="/Assets/Icons/Media-Play.png"/>
+        <Image x:Key="PauseIcon" Source="/Assets/Icons/Media-Pause.png"/>
+        <Image x:Key="NotLikedIcon" Source="/Assets/Icons/Heart.png"/>
+        <Image x:Key="LikedIcon" Source="/Assets/Icons/Red-Heart.png"/>
+
+        <converters:BoolToResourceConverter x:Key="BoolToResourceConverter"/>
     </Application.Resources>
 </Application>

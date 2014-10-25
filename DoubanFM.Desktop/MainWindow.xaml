@@ -4,21 +4,40 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 		mc:Ignorable="d" 
-        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
+		xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
 		xmlns:viewmodels="clr-namespace:DoubanFM.Desktop.ViewModels"
 		xmlns:views="clr-namespace:DoubanFM.Desktop.Views"
-		Title="MainWindow" Height="350" Width="525" WindowStyle="SingleBorderWindow"
+		Title="Douban FM" 
+        AllowsTransparency="True"
+        WindowStyle="None"
+        Height="Auto" Width="Auto"
 		DataContext="{Binding viewmodels.MainPageViewModel}"
-		Background="Black"
+        Background="Transparent"
+        MouseDown="Window_MouseDown"
 		>
 
-	<Grid x:Name="LayoutRoot">
-		<views:PlayControl VerticalAlignment="Bottom"/>
+        <Window.Resources>
+            <ImageBrush x:Key="AlbumImage" ImageSource="{Binding Player.CurrentSong.Picture}" Stretch="Uniform"/>
+        </Window.Resources>
+
+    <Grid x:Name="LayoutRoot" Background="{DynamicResource AlbumImage}">
+        
+        <!--<Grid.Background>
+            <ImageBrush ImageSource="{Binding Player.CurrentSong.Picture}" Stretch="Uniform"/>
+        </Grid.Background>-->
+        
+        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Opacity="0.6" Background="Black">
+            <TextBlock Text="{Binding Player.CurrentSong.Title}" FontSize="32" Foreground="White"/>
+            <TextBlock Text="{Binding Player.CurrentSong.Artist}" FontSize="24" Foreground="White"/>
+            <TextBlock Text="{Binding Player.CurrentSong.AlbumTitle}" FontSize="24" Foreground="White"/>
+            <TextBlock Text="{Binding Player.CurrentSong.Company}" FontSize="24" Foreground="White"/>
+        </StackPanel>
+		<views:PlayControl Background="Black" Opacity="0.7" VerticalAlignment="Bottom"  Width="300" />
 	</Grid>
 
-    <i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
-        </i:EventTrigger>
-    </i:Interaction.Triggers>
+	<i:Interaction.Triggers>
+		<i:EventTrigger EventName="Loaded">
+			<i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+		</i:EventTrigger>
+	</i:Interaction.Triggers>
 </Window>

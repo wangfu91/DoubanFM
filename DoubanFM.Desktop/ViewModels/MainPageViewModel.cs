@@ -1,4 +1,5 @@
 ﻿using DoubanFM.Audio;
+using DoubanFM.Data;
 using Microsoft.Practices.Prism.Commands;
 
 namespace DoubanFM.Desktop.ViewModels
@@ -8,8 +9,10 @@ namespace DoubanFM.Desktop.ViewModels
         private NAudioEngine player;
         public MainPageViewModel()
         {
-            this.LoadedCommand = new DelegateCommand(async () => await Player.Initialize(@"C:\Users\WangFu\Desktop\You Raise Me Up.mp3"));
-
+            this.LoadedCommand = new DelegateCommand(async () =>
+                {
+                    await Player.PlayNext();
+                });
         }
 
         public NAudioEngine Player
@@ -22,32 +25,28 @@ namespace DoubanFM.Desktop.ViewModels
             }
         }
 
-        private int myVar;
 
-        public int MyProperty
+        private Song currentSong;
+
+        public Song CurrentSong
         {
             get
             {
-                return myVar;
+                return currentSong;
             }
             set
             {
-                if (value != myVar)
+                if (value != currentSong)
                 {
-                    myVar = value;
-                    OnPropertyChanged(() => this.MyProperty);
+                    currentSong = value;
+                    OnPropertyChanged(() => this.CurrentSong);
                 }
             }
         }
 
 
 
-
         public DelegateCommand LoadedCommand { get; set; }
-
-
-
-
 
     }
 }

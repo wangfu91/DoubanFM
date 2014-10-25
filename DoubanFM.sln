@@ -17,6 +17,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DoubanFM.Tests", "DoubanFM.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubanFM.Audio.Tests", "DoubanFM.Audio.Tests\DoubanFM.Audio.Tests.csproj", "{843B398C-044F-4D93-A268-E1128A07934D}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A9C8536E-29F9-412C-9F40-97792713BBB3}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WPF SVL", "WPF SVL", "{D9400AE4-B7A3-4342-A112-7C8FFDDB07C4}"
+	ProjectSection(SolutionItems) = preProject
+		WPF SVL\license.txt = WPF SVL\license.txt
+		WPF SVL\WPFSoundVisualizationLib.dll = WPF SVL\WPFSoundVisualizationLib.dll
+		WPF SVL\WPFSoundVisualizationLib.pdb = WPF SVL\WPFSoundVisualizationLib.pdb
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -52,6 +61,8 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{A8C7277D-CAAD-4523-A357-164B29170927} = {37EC7D07-3463-4892-9008-F569289F1A97}
 		{843B398C-044F-4D93-A268-E1128A07934D} = {37EC7D07-3463-4892-9008-F569289F1A97}
+		{D9400AE4-B7A3-4342-A112-7C8FFDDB07C4} = {A9C8536E-29F9-412C-9F40-97792713BBB3}
 	EndGlobalSection
 EndGlobal
