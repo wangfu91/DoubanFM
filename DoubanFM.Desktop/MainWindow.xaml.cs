@@ -11,9 +11,10 @@ namespace DoubanFM.Desktop
         public MainWindow()
         {
             InitializeComponent();
-            Load();
+            this.DataContext = new ViewModels.MainPageViewModel();
+            //Load();
 
-            Login();
+            //Login();
         }
 
 

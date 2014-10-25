@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31010.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubanFM.Desktop", "DoubanFM.Desktop\DoubanFM.Desktop.csproj", "{7CFABBCC-16F9-42A5-9519-6DCF8BAA17C4}"
 EndProject
@@ -10,6 +10,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubanFM.Service.Tests", "DoubanFM.Service.Tests\DoubanFM.Service.Tests.csproj", "{A8C7277D-CAAD-4523-A357-164B29170927}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubanFM.Data", "DoubanFM.Data\DoubanFM.Data.csproj", "{2A8A3818-56CD-493C-99C9-F6EC446EAEDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubanFM.Audio", "DoubanFM.Audio\DoubanFM.Audio.csproj", "{B2A424D7-D03F-4CC4-9480-6A47ADD66FE2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DoubanFM.Tests", "DoubanFM.Tests", "{37EC7D07-3463-4892-9008-F569289F1A97}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubanFM.Audio.Tests", "DoubanFM.Audio.Tests\DoubanFM.Audio.Tests.csproj", "{843B398C-044F-4D93-A268-E1128A07934D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,8 +39,19 @@ Global
 		{2A8A3818-56CD-493C-99C9-F6EC446EAEDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2A8A3818-56CD-493C-99C9-F6EC446EAEDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2A8A3818-56CD-493C-99C9-F6EC446EAEDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B2A424D7-D03F-4CC4-9480-6A47ADD66FE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2A424D7-D03F-4CC4-9480-6A47ADD66FE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2A424D7-D03F-4CC4-9480-6A47ADD66FE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2A424D7-D03F-4CC4-9480-6A47ADD66FE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{843B398C-044F-4D93-A268-E1128A07934D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{843B398C-044F-4D93-A268-E1128A07934D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{843B398C-044F-4D93-A268-E1128A07934D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{843B398C-044F-4D93-A268-E1128A07934D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{843B398C-044F-4D93-A268-E1128A07934D} = {37EC7D07-3463-4892-9008-F569289F1A97}
 	EndGlobalSection
 EndGlobal
