@@ -26,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WPF SVL", "WPF SVL", "{D940
 		WPF SVL\WPFSoundVisualizationLib.pdb = WPF SVL\WPFSoundVisualizationLib.pdb
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubanFM.Desktop.Tests", "DoubanFM.Desktop.Tests\DoubanFM.Desktop.Tests.csproj", "{D12F7627-0405-4AAE-96CD-1754910F276A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -56,6 +58,10 @@ Global
 		{843B398C-044F-4D93-A268-E1128A07934D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{843B398C-044F-4D93-A268-E1128A07934D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{843B398C-044F-4D93-A268-E1128A07934D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D12F7627-0405-4AAE-96CD-1754910F276A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D12F7627-0405-4AAE-96CD-1754910F276A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D12F7627-0405-4AAE-96CD-1754910F276A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D12F7627-0405-4AAE-96CD-1754910F276A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -64,5 +70,6 @@ Global
 		{A8C7277D-CAAD-4523-A357-164B29170927} = {37EC7D07-3463-4892-9008-F569289F1A97}
 		{843B398C-044F-4D93-A268-E1128A07934D} = {37EC7D07-3463-4892-9008-F569289F1A97}
 		{D9400AE4-B7A3-4342-A112-7C8FFDDB07C4} = {A9C8536E-29F9-412C-9F40-97792713BBB3}
+		{D12F7627-0405-4AAE-96CD-1754910F276A} = {37EC7D07-3463-4892-9008-F569289F1A97}
 	EndGlobalSection
 EndGlobal

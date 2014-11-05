@@ -1,4 +1,5 @@
-﻿using System.Windows;
+﻿using DoubanFM.Desktop.ViewModels;
+using System.Windows;
 using System.Windows.Input;
 
 namespace DoubanFM.Desktop
@@ -8,10 +9,13 @@ namespace DoubanFM.Desktop
     /// </summary>
     public partial class MainWindow : Window
     {
+
         public MainWindow()
         {
             InitializeComponent();
-            this.DataContext = new ViewModels.MainPageViewModel();
+            var vm = new MainPageViewModel();
+            this.DataContext = vm;
+            this.spectrumAnalyzer.RegisterSoundPlayer(vm.Player);
         }
 
 
@@ -19,6 +23,7 @@ namespace DoubanFM.Desktop
         {
             if (e.ChangedButton == MouseButton.Left) this.DragMove();
         }
+
     }
 
 }

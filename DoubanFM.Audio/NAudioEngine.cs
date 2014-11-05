@@ -8,19 +8,24 @@ using System.ComponentModel;
 using System.IO;
 using System.Net.Http;
 using System.Threading.Tasks;
+using WPFSoundVisualizationLib;
 
 
 namespace DoubanFM.Audio
 {
-    public class NAudioEngine : INotifyPropertyChanged, IDisposable
+    public class NAudioEngine : ISpectrumPlayer, INotifyPropertyChanged, IDisposable
     {
 
         private static NAudioEngine instance;
         private bool disposed;
         private WaveOut waveOutDevice;
-        private WaveStream fileStream;
+        private WaveStream activeStream;
         private double songLength = 0.0;
         private PlayListService playListService = new PlayListService();
+        private SampleAggregator sampleAggregator;
+        private readonly int fftDataSize = (int)FFTDataSize.FFT2048;
+        private WaveChannel32 inputStream;
+
 
         #region Notification Properties
 
@@ -212,7 +217,7 @@ namespace DoubanFM.Audio
             await PlayNext();
         }
 
-        private Task Initialize(string filePath)
+        public Task Initialize(string filePath)
         {
             return Task.Run(() =>
                 {
@@ -220,13 +225,19 @@ namespace DoubanFM.Audio
 
                     if (File.Exists(filePath))
                     {
-                        fileStream = new AudioFileReader(filePath);
-                        waveOutDevice.Init(fileStream);
-                        songLength = fileStream.TotalTime.TotalSeconds;
+                        activeStream = new AudioFileReader(filePath);
+                        sampleAggregator = new SampleAggregator(fftDataSize);
+                        waveOutDevice.Init(activeStream);
+                        songLength = activeStream.TotalTime.TotalSeconds;
                         CanPlay = true;
+                    }
+                    else
+                    {
+                        throw (new FileNotFoundException());
                     }
                 });
         }
+
 
 
         public async Task PlayNext()
@@ -257,7 +268,7 @@ namespace DoubanFM.Audio
 
         private async Task GetPlayList()
         {
-            var songList = await playListService.SendRequest("1", "n", "");
+            var songList = await playListService.SendRequest("2", "n", "");
             songList.Songs.ForEach(s => this.PlayList.Enqueue(s));
         }
 
@@ -338,10 +349,10 @@ namespace DoubanFM.Audio
 
         private void CloseStream()
         {
-            if (fileStream != null)
+            if (activeStream != null)
             {
-                fileStream.Dispose();
-                fileStream = null;
+                activeStream.Dispose();
+                activeStream = null;
             }
         }
 
@@ -386,5 +397,26 @@ namespace DoubanFM.Audio
                 PropertyChanged(this, new PropertyChangedEventArgs(propName));
             }
         }
+
+        #region ISpectrumPlayer
+
+        public bool GetFFTData(float[] fftDataBuffer)
+        {
+            sampleAggregator.GetFFTResults(fftDataBuffer);
+            return isPlaying;
+        }
+
+        public int GetFFTFrequencyIndex(int frequency)
+        {
+            double maxFrequency;
+            if (activeStream != null)
+                maxFrequency = activeStream.WaveFormat.SampleRate / 2.0d;
+            else
+                maxFrequency = 22050; // Assume a default 44.1 kHz sample rate.
+            return (int)((frequency / maxFrequency) * (fftDataSize / 2));
+
+        }
+
+        #endregion
     }
 }

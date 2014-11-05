@@ -7,32 +7,53 @@
 		xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity" 
 		xmlns:viewmodels="clr-namespace:DoubanFM.Desktop.ViewModels"
 		xmlns:views="clr-namespace:DoubanFM.Desktop.Views"
+		xmlns:svl="clr-namespace:WPFSoundVisualizationLib;assembly=WPFSoundVisualizationLib"
 		Title="Douban FM" 
-        AllowsTransparency="True"
-        WindowStyle="None"
-        Height="Auto" Width="Auto"
+		AllowsTransparency="True"
+		WindowStyle="None"
 		DataContext="{Binding viewmodels.MainPageViewModel}"
-        Background="Transparent"
-        MouseDown="Window_MouseDown"
+		Background="Transparent"
+		MouseDown="Window_MouseDown"
+		Height="Auto" Width="Auto"
 		>
 
-        <Window.Resources>
-            <ImageBrush x:Key="AlbumImage" ImageSource="{Binding Player.CurrentSong.Picture}" Stretch="Uniform"/>
-        </Window.Resources>
+		<Window.Resources>
+			<ImageBrush x:Key="AlbumImage" ImageSource="{Binding Player.CurrentSong.Picture}" Stretch="Uniform"/>
+		</Window.Resources>
 
-    <Grid x:Name="LayoutRoot" Background="{DynamicResource AlbumImage}">
-        
-        <!--<Grid.Background>
-            <ImageBrush ImageSource="{Binding Player.CurrentSong.Picture}" Stretch="Uniform"/>
-        </Grid.Background>-->
-        
-        <StackPanel VerticalAlignment="Top" HorizontalAlignment="Center" Opacity="0.6" Background="Black">
-            <TextBlock Text="{Binding Player.CurrentSong.Title}" FontSize="32" Foreground="White"/>
-            <TextBlock Text="{Binding Player.CurrentSong.Artist}" FontSize="24" Foreground="White"/>
-            <TextBlock Text="{Binding Player.CurrentSong.AlbumTitle}" FontSize="24" Foreground="White"/>
-            <TextBlock Text="{Binding Player.CurrentSong.Company}" FontSize="24" Foreground="White"/>
-        </StackPanel>
-		<views:PlayControl Background="Black" Opacity="0.7" VerticalAlignment="Bottom"  Width="300" />
+	<Grid x:Name="LayoutRoot" Background="{DynamicResource AlbumImage}">
+		
+		<!--<Grid.Background>
+			<ImageBrush ImageSource="{Binding Player.CurrentSong.Picture}" Stretch="Uniform"/>
+		</Grid.Background>-->
+		
+		<Grid.RowDefinitions>
+			<RowDefinition />
+			<RowDefinition/>
+			<RowDefinition/>
+		</Grid.RowDefinitions>
+		
+		<StackPanel Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center" Opacity="0.6" Background="Black">
+			<TextBlock Text="{Binding Player.CurrentSong.Title}" FontSize="32" Foreground="White"/>
+			<TextBlock Text="{Binding Player.CurrentSong.Artist}" FontSize="24" Foreground="White"/>
+			<TextBlock Text="{Binding Player.CurrentSong.AlbumTitle}" FontSize="24" Foreground="White"/>
+			<TextBlock Text="{Binding Player.CurrentSong.Company}" FontSize="24" Foreground="White"/>
+		</StackPanel>
+		
+		<svl:SpectrumAnalyzer Grid.Row="1"
+							  x:Name="spectrumAnalyzer"
+					          HorizontalAlignment="Stretch"
+					          VerticalAlignment="Bottom"
+                              Height="80"
+					          BarSpacing="2"
+					          AveragePeaks="False"
+					          MinimumFrequency="20"
+					          MaximumFrequency="20000"
+					          BarCount="32"
+					          PeakFallDelay="10"
+					          BarHeightScaling="Decibel"/>
+		
+		<views:PlayControl Grid.Row="2" Opacity="0.7" VerticalAlignment="Bottom"  Width="300" />
 	</Grid>
 
 	<i:Interaction.Triggers>

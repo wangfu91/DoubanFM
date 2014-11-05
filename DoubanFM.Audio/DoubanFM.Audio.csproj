@@ -50,10 +50,14 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="WPFSoundVisualizationLib">
+      <HintPath>..\WPF SVL\WPFSoundVisualizationLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="NAudioEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleAggregator.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

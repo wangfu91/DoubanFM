@@ -3,11 +3,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{843B398C-044F-4D93-A268-E1128A07934D}</ProjectGuid>
+    <ProjectGuid>{D12F7627-0405-4AAE-96CD-1754910F276A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DoubanFM.Audio.Tests</RootNamespace>
-    <AssemblyName>DoubanFM.Audio.Tests</AssemblyName>
+    <RootNamespace>DoubanFM.Desktop.Tests</RootNamespace>
+    <AssemblyName>DoubanFM.Desktop.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -50,14 +50,8 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="AudioEngineTests.cs" />
+    <Compile Include="UnitTest1.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\DoubanFM.Audio\DoubanFM.Audio.csproj">
-      <Project>{b2a424d7-d03f-4cc4-9480-6a47add66fe2}</Project>
-      <Name>DoubanFM.Audio</Name>
-    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
