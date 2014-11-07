@@ -369,6 +369,8 @@ namespace DoubanFM.Audio
             }
         }
 
+        #region IDisposable
+
         public void Dispose()
         {
             Dispose(true);
@@ -388,6 +390,10 @@ namespace DoubanFM.Audio
             }
         }
 
+        #endregion
+
+        #region INotifyPropertyChanged
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged(string propName)
@@ -398,12 +404,14 @@ namespace DoubanFM.Audio
             }
         }
 
+        #endregion
+
         #region ISpectrumPlayer
 
         public bool GetFFTData(float[] fftDataBuffer)
         {
             sampleAggregator.GetFFTResults(fftDataBuffer);
-            return isPlaying;
+            return IsPlaying;
         }
 
         public int GetFFTFrequencyIndex(int frequency)

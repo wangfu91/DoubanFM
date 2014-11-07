@@ -17,30 +17,30 @@
 		Height="Auto" Width="Auto"
 		>
 
-		<Window.Resources>
+    <!--<Window.Resources>
 			<ImageBrush x:Key="AlbumImage" ImageSource="{Binding Player.CurrentSong.Picture}" Stretch="Uniform"/>
-		</Window.Resources>
+		</Window.Resources>-->
 
-	<Grid x:Name="LayoutRoot" Background="{DynamicResource AlbumImage}">
-		
-		<!--<Grid.Background>
+    <!--<Grid x:Name="LayoutRoot" Background="{DynamicResource AlbumImage}">-->
+    <Grid x:Name="LayoutRoot" >
+        <!--<Grid.Background>
 			<ImageBrush ImageSource="{Binding Player.CurrentSong.Picture}" Stretch="Uniform"/>
 		</Grid.Background>-->
-		
-		<Grid.RowDefinitions>
-			<RowDefinition />
-			<RowDefinition/>
-			<RowDefinition/>
-		</Grid.RowDefinitions>
-		
-		<StackPanel Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center" Opacity="0.6" Background="Black">
-			<TextBlock Text="{Binding Player.CurrentSong.Title}" FontSize="32" Foreground="White"/>
-			<TextBlock Text="{Binding Player.CurrentSong.Artist}" FontSize="24" Foreground="White"/>
-			<TextBlock Text="{Binding Player.CurrentSong.AlbumTitle}" FontSize="24" Foreground="White"/>
-			<TextBlock Text="{Binding Player.CurrentSong.Company}" FontSize="24" Foreground="White"/>
-		</StackPanel>
-		
-		<svl:SpectrumAnalyzer Grid.Row="1"
+
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" VerticalAlignment="Top" HorizontalAlignment="Center" Opacity="0.6" Background="Black">
+            <TextBlock Text="{Binding Player.CurrentSong.Title}" FontSize="32" Foreground="White"/>
+            <TextBlock Text="{Binding Player.CurrentSong.Artist}" FontSize="24" Foreground="White"/>
+            <TextBlock Text="{Binding Player.CurrentSong.AlbumTitle}" FontSize="24" Foreground="White"/>
+            <TextBlock Text="{Binding Player.CurrentSong.Company}" FontSize="24" Foreground="White"/>
+        </StackPanel>
+
+        <svl:SpectrumAnalyzer Grid.Row="1"
 							  x:Name="spectrumAnalyzer"
 					          HorizontalAlignment="Stretch"
 					          VerticalAlignment="Bottom"
@@ -52,13 +52,13 @@
 					          BarCount="32"
 					          PeakFallDelay="10"
 					          BarHeightScaling="Decibel"/>
-		
-		<views:PlayControl Grid.Row="2" Opacity="0.7" VerticalAlignment="Bottom"  Width="300" />
-	</Grid>
 
-	<i:Interaction.Triggers>
-		<i:EventTrigger EventName="Loaded">
-			<i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
-		</i:EventTrigger>
-	</i:Interaction.Triggers>
+        <views:PlayControl Grid.Row="2" Opacity="0.7" VerticalAlignment="Bottom"  Width="300" />
+    </Grid>
+
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 </Window>

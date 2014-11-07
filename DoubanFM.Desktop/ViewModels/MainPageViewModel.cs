@@ -6,22 +6,33 @@ namespace DoubanFM.Desktop.ViewModels
 {
     public class MainPageViewModel : ViewModelBase
     {
-        private NAudioEngine player;
+        //private NAudioEngine player;
+        private BassEngine player;
+
         public MainPageViewModel()
         {
-            this.LoadedCommand = new DelegateCommand(async () =>
+            this.LoadedCommand = new DelegateCommand(/*async */ () =>
                 {
-                    await Player.PlayNext();
+                    //await Player.PlayNext();
+                    Player.OpenFile(@"C:\Users\Frank\Desktop\Need You Now.mp3");
+                    Player.Play();
                 });
         }
 
-        public NAudioEngine Player
+        //public NAudioEngine Player
+        //{
+        //    get
+        //    {
+        //        return player ?? NAudioEngine.Instance;
+        //    }
+        //}
+
+
+        public BassEngine Player
         {
             get
             {
-                if (player == null)
-                    player = NAudioEngine.Instance;
-                return player;
+                return player ?? BassEngine.Instance;                 
             }
         }
 
