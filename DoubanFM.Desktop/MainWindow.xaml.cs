@@ -13,9 +13,11 @@ namespace DoubanFM.Desktop
         public MainWindow()
         {
             InitializeComponent();
+
             var vm = new MainPageViewModel();
             this.DataContext = vm;
             this.spectrumAnalyzer.RegisterSoundPlayer(vm.Player);
+            this.waveformTimeline.RegisterSoundPlayer(vm.Player);
         }
 
 

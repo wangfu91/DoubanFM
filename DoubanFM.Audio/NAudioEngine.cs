@@ -1,35 +1,90 @@
-﻿using DoubanFM.Data;
-using DoubanFM.Service;
-using Microsoft.Practices.Prism.Commands;
-using NAudio.Wave;
+﻿using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.IO;
-using System.Net.Http;
-using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 using WPFSoundVisualizationLib;
 
 
 namespace DoubanFM.Audio
 {
-    public class NAudioEngine : ISpectrumPlayer, INotifyPropertyChanged, IDisposable
+    public class NAudioEngine : INotifyPropertyChanged, ISpectrumPlayer, IWaveformPlayer, IDisposable
     {
-
+        #region Fields
         private static NAudioEngine instance;
+        private readonly DispatcherTimer positionTimer = new DispatcherTimer(DispatcherPriority.ApplicationIdle);
+        private readonly BackgroundWorker waveformGenerateWorker = new BackgroundWorker();
+        private readonly int fftDataSize = (int)FFTDataSize.FFT2048;
         private bool disposed;
+        private bool canPlay;
+        private bool canPause;
+        private bool canStop;
+        private bool isPlaying;
+        private bool inChannelTimerUpdate;
+        private double channelLength;
+        private double channelPosition;
+        private bool inChannelSet;
         private WaveOut waveOutDevice;
         private WaveStream activeStream;
-        private double songLength = 0.0;
-        private PlayListService playListService = new PlayListService();
-        private SampleAggregator sampleAggregator;
-        private readonly int fftDataSize = (int)FFTDataSize.FFT2048;
         private WaveChannel32 inputStream;
+        private SampleAggregator sampleAggregator;
+        private SampleAggregator waveformAggregator;
+        private string pendingWaveformPath;
+        private float[] fullLevelData;
+        private float[] waveformData;
+        private TagLib.File fileTag;
+        private TimeSpan repeatStart;
+        private TimeSpan repeatStop;
+        private bool inRepeatSet;
+        private BitmapImage albumImage;
+        #endregion
 
+        #region Constants
+        private const int waveformCompressedPointCount = 2000;
+        private const int repeatThreshold = 200;
+        #endregion
+
+        #region Singleton Pattern
+        public static NAudioEngine Instance
+        {
+            get
+            {
+                if (instance == null)
+                    instance = new NAudioEngine();
+                return instance;
+            }
+        }
+        #endregion
+
+        #region Constructor
+        private NAudioEngine()
+        {
+
+            positionTimer.Interval = TimeSpan.FromMilliseconds(50);
+            positionTimer.Tick += positionTimer_Tick;
+
+            waveformGenerateWorker.DoWork += waveformGenerateWorker_DoWork;
+            waveformGenerateWorker.RunWorkerCompleted += waveformGenerateWorker_RunWorkerCompleted;
+            waveformGenerateWorker.WorkerSupportsCancellation = true;
+
+            //this.PlayOrPauseCommand = new DelegateCommand(() =>
+            //    {
+            //        if (IsPlaying && CanPause)
+            //            Pause();
+            //        else if (CanPlay)
+            //            Play();
+            //    });
+
+            //this.StopCommand = new DelegateCommand(() => Stop(), () => CanStop);
+        }
+        #endregion
 
         #region Notification Properties
 
-        private bool canPlay;
 
         public bool CanPlay
         {
@@ -43,12 +98,10 @@ namespace DoubanFM.Audio
                 {
                     canPlay = value;
                     NotifyPropertyChanged("CanPlay");
-                    PlayOrPauseCommand.RaiseCanExecuteChanged();
                 }
             }
         }
 
-        private bool canPause;
 
         public bool CanPause
         {
@@ -62,13 +115,11 @@ namespace DoubanFM.Audio
                 {
                     canPause = value;
                     NotifyPropertyChanged("CanPause");
-                    LikeCommand.RaiseCanExecuteChanged();
                 }
             }
         }
 
 
-        private bool canStop;
 
         public bool CanStop
         {
@@ -82,285 +133,195 @@ namespace DoubanFM.Audio
                 {
                     canStop = value;
                     NotifyPropertyChanged("CanStop");
-                    StopCommand.RaiseCanExecuteChanged();
                 }
             }
         }
 
 
-        private bool isPlaying;
+
+        //public bool IsPlaying
+        //{
+        //    get
+        //    {
+        //        return isPlaying;
+        //    }
+        //    set
+        //    {
+        //        if (value != isPlaying)
+        //        {
+        //            isPlaying = value;
+        //            NotifyPropertyChanged("IsPlaying");
+        //        }
+        //        positionTimer.IsEnabled = value;
+        //    }
+        //}
 
         public bool IsPlaying
         {
-            get
+            get { return isPlaying; }
+            protected set
             {
-                return isPlaying;
-            }
-            set
-            {
-                if (value != isPlaying)
-                {
-                    isPlaying = value;
+                bool oldValue = isPlaying;
+                isPlaying = value;
+                if (oldValue != isPlaying)
                     NotifyPropertyChanged("IsPlaying");
-                }
+                positionTimer.IsEnabled = value;
             }
         }
 
-        private bool isLiked;
 
-        public bool IsLiked
+
+        public WaveStream ActiveStream
         {
             get
             {
-                return isLiked;
+                return activeStream;
             }
             set
             {
-                if (value != isLiked)
+                if (value != activeStream)
                 {
-                    isLiked = value;
-                    NotifyPropertyChanged("IsLiked");
+                    activeStream = value;
+                    NotifyPropertyChanged("ActiveStream");
                 }
             }
         }
 
-
-
-        private Song currentSong;
-
-        public Song CurrentSong
+        public BitmapImage AlbumImage
         {
             get
             {
-                return currentSong;
+                return albumImage;
             }
             set
             {
-                if (value != currentSong)
+                if (value != albumImage)
                 {
-                    currentSong = value;
-                    NotifyPropertyChanged("CurrentSong");
+                    albumImage = value;
+                    NotifyPropertyChanged("AlbumImage");
                 }
             }
         }
 
-        private Queue<Song> playList;
+        #endregion
 
-        public Queue<Song> PlayList
-        {
-            get
-            {
-                return playList;
-            }
-            set
-            {
-                if (value != playList)
-                {
-                    playList = value;
-                    NotifyPropertyChanged("PlayList");
-                }
-            }
-        }
+        #region Commands
+        //public DelegateCommand PlayOrPauseCommand { get; set; }
 
-
+        //public DelegateCommand StopCommand { get; set; }
         #endregion
 
 
 
-        public DelegateCommand PlayOrPauseCommand { get; set; }
+        #region Public Methods
 
-        public DelegateCommand LikeCommand { get; set; }
-
-        public DelegateCommand StopCommand { get; set; }
-
-        public DelegateCommand NextCommand { get; set; }
-
-        public DelegateCommand DeleteCommand { get; set; }
-
-        public static NAudioEngine Instance
+        public void OpenFile(string path)
         {
-            get
+
+            Stop();
+
+            if (ActiveStream != null)
             {
-                if (instance == null)
-                    instance = new NAudioEngine();
-                return instance;
+                SelectionBegin = TimeSpan.Zero;
+                SelectionEnd = TimeSpan.Zero;
+                ChannelPosition = 0;
             }
-        }
 
-        private NAudioEngine()
-        {
-            this.PlayOrPauseCommand = new DelegateCommand(async () =>
-                {
-                    if (IsPlaying)
-                        await Pause();
-                    else
-                        await Play();
-                });
-            this.LikeCommand = new DelegateCommand(async () =>
-                {
-                    if (CurrentSong.Like)
-                        await UnLike();
-                    else
-                        await Like();
-                });
-            this.StopCommand = new DelegateCommand(async () => await Stop(), () => CanStop);
-            this.NextCommand = new DelegateCommand(async () => await PlayNext());
-            this.DeleteCommand = new DelegateCommand(async () => await Delete());
-            PlayList = new Queue<Song>();
-            waveOutDevice = new WaveOut();
-            waveOutDevice.PlaybackStopped += waveOutDevice_PlaybackStopped;
-        }
+            StopAndCloseStream();
 
-
-        async void waveOutDevice_PlaybackStopped(object sender, StoppedEventArgs e)
-        {
-            await PlayNext();
-        }
-
-        public Task Initialize(string filePath)
-        {
-            return Task.Run(() =>
-                {
-                    CloseStream();
-
-                    if (File.Exists(filePath))
-                    {
-                        activeStream = new AudioFileReader(filePath);
-                        sampleAggregator = new SampleAggregator(fftDataSize);
-                        waveOutDevice.Init(activeStream);
-                        songLength = activeStream.TotalTime.TotalSeconds;
-                        CanPlay = true;
-                    }
-                    else
-                    {
-                        throw (new FileNotFoundException());
-                    }
-                });
-        }
-
-
-
-        public async Task PlayNext()
-        {
-            if (PlayList.Count < 1)
-                await GetPlayList();
-
-            if (waveOutDevice.PlaybackState != PlaybackState.Stopped)
-                waveOutDevice.Pause();
-
-            CurrentSong = PlayList.Dequeue();
-
-            var filePath = Path.Combine(Environment.CurrentDirectory, CurrentSong.Title + ".mp3");
-
-            using (var httpClient = new HttpClient())
+            if (File.Exists(path))
             {
-                var bytes = await httpClient.GetByteArrayAsync(CurrentSong.URL);
-                using (var writer = new FileStream(filePath, FileMode.Create))
+                try
                 {
-                    await writer.WriteAsync(bytes, 0, bytes.Length);
+                    waveOutDevice = new WaveOut()
+                    {
+                        DesiredLatency = 100
+                    };
+                    ActiveStream = new Mp3FileReader(path);
+                    inputStream = new WaveChannel32(ActiveStream);
+                    sampleAggregator = new SampleAggregator(fftDataSize);
+                    inputStream.Sample += inputStream_Sample;
+                    waveOutDevice.Init(inputStream);
+                    ChannelLength = inputStream.TotalTime.TotalSeconds;
+                    fileTag = TagLib.File.Create(path);
+                    GetAlbumImage();
+                    GenerateWaveformData(path);
+                    CanPlay = true;
+                }
+                catch (Exception ex)
+                {
+                    ActiveStream = null;
+                    CanPlay = false;
+
+                    Debug.WriteLine("Open file:{0} failed !", path);
+                    Debug.WriteLine("Exception:{0}", ex.Message);
                 }
             }
-
-            await Instance.Initialize(filePath);
-            await Instance.Play();
-
-        }
-
-        private async Task GetPlayList()
-        {
-            var songList = await playListService.SendRequest("2", "n", "");
-            songList.Songs.ForEach(s => this.PlayList.Enqueue(s));
-        }
-
-        public Task Play()
-        {
-            return Task.Run(() =>
-                {
-                    if (CanPlay)
-                    {
-                        waveOutDevice.Play();
-                        IsPlaying = true;
-                        CanPause = true;
-                        CanPlay = false;
-                        CanStop = true;
-                    }
-                });
-        }
-
-
-        public Task Pause()
-        {
-            return Task.Run(() =>
-                {
-                    if (IsPlaying && CanPause)
-                    {
-                        waveOutDevice.Pause();
-                        IsPlaying = false;
-                        CanPause = false;
-                        CanPlay = true;
-                    }
-                });
-
-        }
-
-        public Task Like()
-        {
-            return Task.Run(() =>
+            else
             {
-                var result = playListService.SendRequest("", "r", CurrentSong.SID);
-
-            });
-        }
-
-        public Task UnLike()
-        {
-            return Task.Run(() =>
-            {
-                var result = playListService.SendRequest("", "u", CurrentSong.SID);
-
-            });
-        }
-
-        public Task Delete()
-        {
-            return Task.Run(() =>
-                {
-                    var result = playListService.SendRequest("", "s", CurrentSong.SSID);
-                });
-        }
-
-
-        public Task Stop()
-        {
-            return Task.Run(() =>
-                {
-                    if (waveOutDevice != null)
-                    {
-                        waveOutDevice.Stop();
-                    }
-
-                    IsPlaying = false;
-                    CanStop = false;
-                    CanPlay = true;
-                    CanPause = false;
-                });
-        }
-
-
-        private void CloseStream()
-        {
-            if (activeStream != null)
-            {
-                activeStream.Dispose();
-                activeStream = null;
+                throw (new FileNotFoundException());
             }
         }
 
-        private void StopAndCloseWave()
+
+        public void Play()
+        {
+
+            if (CanPlay)
+            {
+                waveOutDevice.Play();
+                IsPlaying = true;
+                CanPause = true;
+                CanPlay = false;
+                CanStop = true;
+            }
+        }
+
+
+        public void Pause()
+        {
+
+            if (IsPlaying && CanPause)
+            {
+                waveOutDevice.Pause();
+                IsPlaying = false;
+                CanPause = false;
+                CanPlay = true;
+            }
+
+        }
+
+
+        public void Stop()
+        {
+
+            if (waveOutDevice != null)
+            {
+                waveOutDevice.Stop();
+            }
+
+            IsPlaying = false;
+            CanStop = false;
+            CanPlay = true;
+            CanPause = false;
+        }
+
+        #endregion
+
+        #region Private Methods
+
+        private void StopAndCloseStream()
         {
             if (waveOutDevice != null)
             {
                 waveOutDevice.Stop();
+            }
+            if (activeStream != null)
+            {
+                inputStream.Close();
+                inputStream = null;
+                ActiveStream.Close();
+                ActiveStream = null;
             }
             if (waveOutDevice != null)
             {
@@ -369,27 +330,284 @@ namespace DoubanFM.Audio
             }
         }
 
-        #region IDisposable
-
-        public void Dispose()
+        private void GetAlbumImage()
         {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
-
-        private void Dispose(bool disposing)
-        {
-            if (!disposed)
+            if (fileTag != null)
             {
-                if (disposing)
+                var tag = fileTag.Tag;
+                if (tag.Pictures.Length > 0)
                 {
-                    CloseStream();
-                    StopAndCloseWave();
+                    using (var ms = new MemoryStream(tag.Pictures[0].Data.Data))
+                    {
+                        try
+                        {
+                            var bmp = new BitmapImage();
+                            bmp.BeginInit();
+                            bmp.CacheOption = BitmapCacheOption.OnLoad;
+                            bmp.StreamSource = ms;
+                            bmp.EndInit();
+                            AlbumImage = bmp;
+                        }
+                        catch (NotSupportedException)
+                        {
+                            AlbumImage = null;
+                        }
+                        ms.Close();
+                    }
                 }
-                disposed = true;
+                else
+                {
+                    AlbumImage = null;
+                }
+            }
+            else
+            {
+                albumImage = null;
             }
         }
 
+        #endregion
+
+        #region Event Handlers
+
+        private void inputStream_Sample(object sender, SampleEventArgs e)
+        {
+            sampleAggregator.Add(e.Left, e.Right);
+            long repeatStartPosition = (long)((SelectionBegin.TotalSeconds / ActiveStream.TotalTime.TotalSeconds) * ActiveStream.Length);
+            long repeatStopPosition = (long)((SelectionEnd.TotalSeconds / ActiveStream.TotalTime.TotalSeconds) * ActiveStream.Length);
+            if (((SelectionEnd - SelectionBegin) >= TimeSpan.FromMilliseconds(repeatThreshold)) && ActiveStream.Position >= repeatStopPosition)
+            {
+                sampleAggregator.Clear();
+                ActiveStream.Position = repeatStartPosition;
+            }
+        }
+
+        void waveStream_Sample(object sender, SampleEventArgs e)
+        {
+            waveformAggregator.Add(e.Left, e.Right);
+        }
+
+        void positionTimer_Tick(object sender, EventArgs e)
+        {
+            inChannelTimerUpdate = true;
+            ChannelPosition = ((double)ActiveStream.Position / (double)ActiveStream.Length) * ActiveStream.TotalTime.TotalSeconds;
+            inChannelTimerUpdate = false;
+        }
+        #endregion
+
+        #region Waveform Generation
+        private class WaveformGenerationParams
+        {
+            public WaveformGenerationParams(int points, string path)
+            {
+                Points = points;
+                Path = path;
+            }
+
+            public int Points { get; protected set; }
+            public string Path { get; protected set; }
+        }
+
+        private void GenerateWaveformData(string path)
+        {
+            if (waveformGenerateWorker.IsBusy)
+            {
+                pendingWaveformPath = path;
+                waveformGenerateWorker.CancelAsync();
+                return;
+            }
+
+            if (!waveformGenerateWorker.IsBusy && waveformCompressedPointCount != 0)
+                waveformGenerateWorker.RunWorkerAsync(new WaveformGenerationParams(waveformCompressedPointCount, path));
+        }
+
+        private void waveformGenerateWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
+        {
+            if (e.Cancelled)
+            {
+                if (!waveformGenerateWorker.IsBusy && waveformCompressedPointCount != 0)
+                    waveformGenerateWorker.RunWorkerAsync(new WaveformGenerationParams(waveformCompressedPointCount, pendingWaveformPath));
+            }
+        }
+
+        private void waveformGenerateWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            WaveformGenerationParams waveformParams = e.Argument as WaveformGenerationParams;
+            Mp3FileReader waveformMp3Stream = new Mp3FileReader(waveformParams.Path);
+            WaveChannel32 waveformInputStream = new WaveChannel32(waveformMp3Stream);
+            waveformInputStream.Sample += waveStream_Sample;
+
+            int frameLength = fftDataSize;
+            int frameCount = (int)((double)waveformInputStream.Length / (double)frameLength);
+            int waveformLength = frameCount * 2;
+            byte[] readBuffer = new byte[frameLength];
+            waveformAggregator = new SampleAggregator(frameLength);
+
+            float maxLeftPointLevel = float.MinValue;
+            float maxRightPointLevel = float.MinValue;
+            int currentPointIndex = 0;
+            float[] waveformCompressedPoints = new float[waveformParams.Points];
+            List<float> waveformData = new List<float>();
+            List<int> waveMaxPointIndexes = new List<int>();
+
+            for (int i = 1; i <= waveformParams.Points; i++)
+            {
+                waveMaxPointIndexes.Add((int)Math.Round(waveformLength * ((double)i / (double)waveformParams.Points), 0));
+            }
+            int readCount = 0;
+            while (currentPointIndex * 2 < waveformParams.Points)
+            {
+                waveformInputStream.Read(readBuffer, 0, readBuffer.Length);
+
+                waveformData.Add(waveformAggregator.LeftMaxVolume);
+                waveformData.Add(waveformAggregator.RightMaxVolume);
+
+                if (waveformAggregator.LeftMaxVolume > maxLeftPointLevel)
+                    maxLeftPointLevel = waveformAggregator.LeftMaxVolume;
+                if (waveformAggregator.RightMaxVolume > maxRightPointLevel)
+                    maxRightPointLevel = waveformAggregator.RightMaxVolume;
+
+                if (readCount > waveMaxPointIndexes[currentPointIndex])
+                {
+                    waveformCompressedPoints[(currentPointIndex * 2)] = maxLeftPointLevel;
+                    waveformCompressedPoints[(currentPointIndex * 2) + 1] = maxRightPointLevel;
+                    maxLeftPointLevel = float.MinValue;
+                    maxRightPointLevel = float.MinValue;
+                    currentPointIndex++;
+                }
+                if (readCount % 3000 == 0)
+                {
+                    float[] clonedData = (float[])waveformCompressedPoints.Clone();
+                    Application.Current.Dispatcher.Invoke(new Action(() =>
+                    {
+                        WaveformData = clonedData;
+                    }));
+                }
+
+                if (waveformGenerateWorker.CancellationPending)
+                {
+                    e.Cancel = true;
+                    break;
+                }
+                readCount++;
+            }
+
+            float[] finalClonedData = (float[])waveformCompressedPoints.Clone();
+            Application.Current.Dispatcher.Invoke(new Action(() =>
+            {
+                fullLevelData = waveformData.ToArray();
+                WaveformData = finalClonedData;
+            }));
+            waveformInputStream.Close();
+            waveformInputStream.Dispose();
+            waveformInputStream = null;
+            waveformMp3Stream.Close();
+            waveformMp3Stream.Dispose();
+            waveformMp3Stream = null;
+        }
+        #endregion
+
+        #region ISpectrumPlayer
+        public bool GetFFTData(float[] fftDataBuffer)
+        {
+            sampleAggregator.GetFFTResults(fftDataBuffer);
+            return isPlaying;
+        }
+
+        public int GetFFTFrequencyIndex(int frequency)
+        {
+            double maxFrequency;
+            if (ActiveStream != null)
+                maxFrequency = ActiveStream.WaveFormat.SampleRate / 2.0d;
+            else
+                maxFrequency = 22050; // Assume a default 44.1 kHz sample rate.
+            return (int)((frequency / maxFrequency) * (fftDataSize / 2));
+        }
+        #endregion
+
+        #region IWaveformPlayer
+        public TimeSpan SelectionBegin
+        {
+            get { return repeatStart; }
+            set
+            {
+                if (!inRepeatSet)
+                {
+                    inRepeatSet = true;
+                    if (value != repeatStart)
+                    {
+                        repeatStart = value;
+                        NotifyPropertyChanged("SelectionBegin");
+                    }
+                    inRepeatSet = false;
+                }
+            }
+        }
+
+        public TimeSpan SelectionEnd
+        {
+            get { return repeatStop; }
+            set
+            {
+                if (!inChannelSet)
+                {
+                    inRepeatSet = true;
+                    if (value != repeatStop)
+                    {
+                        repeatStop = value;
+                        NotifyPropertyChanged("SelectionEnd");
+                    }
+                    inRepeatSet = false;
+                }
+            }
+        }
+
+        public float[] WaveformData
+        {
+            get { return waveformData; }
+            protected set
+            {
+                if (value != waveformData)
+                {
+                    waveformData = value;
+                    NotifyPropertyChanged("WaveformData");
+                }
+            }
+        }
+
+        public double ChannelLength
+        {
+            get { return channelLength; }
+            protected set
+            {
+                if (value != channelLength)
+                {
+                    channelLength = value;
+                    NotifyPropertyChanged("ChannelLength");
+                }
+            }
+        }
+
+        public double ChannelPosition
+        {
+            get { return channelPosition; }
+            set
+            {
+                if (!inChannelSet)
+                {
+                    inChannelSet = true; // Avoid recursion
+                    double position = Math.Max(0, Math.Min(value, ChannelLength));
+                    if (!inChannelTimerUpdate && ActiveStream != null)
+                        ActiveStream.Position = (long)((position / ActiveStream.TotalTime.TotalSeconds) * ActiveStream.Length);
+                    if (position != channelPosition)
+                    {
+                        channelPosition = position;
+                        NotifyPropertyChanged("ChannelPosition");
+                    }
+                    inChannelSet = false;
+                }
+            }
+        }
         #endregion
 
         #region INotifyPropertyChanged
@@ -406,25 +624,28 @@ namespace DoubanFM.Audio
 
         #endregion
 
-        #region ISpectrumPlayer
+        #region IDisposable
 
-        public bool GetFFTData(float[] fftDataBuffer)
+        public void Dispose()
         {
-            sampleAggregator.GetFFTResults(fftDataBuffer);
-            return IsPlaying;
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
-        public int GetFFTFrequencyIndex(int frequency)
+        private void Dispose(bool disposing)
         {
-            double maxFrequency;
-            if (activeStream != null)
-                maxFrequency = activeStream.WaveFormat.SampleRate / 2.0d;
-            else
-                maxFrequency = 22050; // Assume a default 44.1 kHz sample rate.
-            return (int)((frequency / maxFrequency) * (fftDataSize / 2));
-
+            if (!disposed)
+            {
+                if (disposing)
+                {
+                    StopAndCloseStream();
+                }
+                disposed = true;
+            }
         }
 
         #endregion
     }
+
 }
+

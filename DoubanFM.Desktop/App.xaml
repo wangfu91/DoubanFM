@@ -10,5 +10,6 @@
         <Image x:Key="LikedIcon" Source="/Assets/Icons/Red-Heart.png"/>
 
         <converters:BoolToResourceConverter x:Key="BoolToResourceConverter"/>
+        <converters:DoubleToTimeSpanConverter x:Key="DoubleToTimeSpanConverter"/>
     </Application.Resources>
 </Application>

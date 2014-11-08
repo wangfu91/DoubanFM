@@ -7,34 +7,44 @@ namespace DoubanFM.Desktop.ViewModels
     public class MainPageViewModel : ViewModelBase
     {
         //private NAudioEngine player;
-        private BassEngine player;
+        //private BassEngine player=BassEngine.Instance;
 
         public MainPageViewModel()
         {
-            this.LoadedCommand = new DelegateCommand(/*async */ () =>
+            this.LoadedCommand = new DelegateCommand(() =>
                 {
-                    //await Player.PlayNext();
-                    Player.OpenFile(@"C:\Users\Frank\Desktop\Need You Now.mp3");
+
+                    Player.OpenFile(@"C:\Users\WangFu\Desktop\You Raise Me Up.mp3");
+
                     Player.Play();
                 });
         }
 
-        //public NAudioEngine Player
-        //{
-        //    get
-        //    {
-        //        return player ?? NAudioEngine.Instance;
-        //    }
-        //}
-
-
-        public BassEngine Player
+        public NAudioEngine Player
         {
             get
             {
-                return player ?? BassEngine.Instance;                 
+                return NAudioEngine.Instance;
+                //if(player==null)
+                //{
+                //    player = NAudioEngine.Instance;
+                //}
+                //return player;
             }
         }
+
+
+        //public BassEngine Player
+        //{
+        //    get
+        //    {
+        //        if(player==null)
+        //        {
+        //            player = BassEngine.Instance;
+        //        }
+        //        return player;
+        //    }
+        //}
 
 
         private Song currentSong;

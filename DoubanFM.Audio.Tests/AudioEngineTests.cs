@@ -9,10 +9,10 @@ namespace DoubanFM.Audio.Tests
         private NAudioEngine player;
 
         [TestInitialize]
-        private async Task PlayerSetup()
+        private void PlayerSetup()
         {
             player = NAudioEngine.Instance;
-            await player.Initialize(@"C:\Users\WangFu\Desktop\You Raise Me Up.mp3");
+            player.OpenFile(@"C:\Users\WangFu\Desktop\You Raise Me Up.mp3");
         }
 
 
@@ -25,19 +25,18 @@ namespace DoubanFM.Audio.Tests
         }
 
         [TestMethod]
-        public async Task PlayLocalMp3FileTest()
+        public void PlayLocalMp3FileTest()
         {
 
-            await player.Play();
-            await Task.Delay(5000);
+            player.Play();
             Assert.IsTrue(player.IsPlaying);
 
         }
 
         [TestMethod]
-        public async Task PauseTest()
+        public void PauseTest()
         {
-            await player.Pause();
+            player.Pause();
             Assert.IsFalse(player.IsPlaying);
         }
     }

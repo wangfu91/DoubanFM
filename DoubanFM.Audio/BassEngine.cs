@@ -5,14 +5,12 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Un4seen.Bass;
-using WPFSoundVisualizationLib;
-using System.Windows.Threading;
 using System.Windows;
 using System.Windows.Interop;
+using System.Windows.Threading;
+using Un4seen.Bass;
+using WPFSoundVisualizationLib;
+using System.Linq;
 
 namespace DoubanFM.Audio
 {
@@ -33,7 +31,11 @@ namespace DoubanFM.Audio
         {
             get
             {
-                return instance ?? new BassEngine();
+                if(instance==null)
+                {
+                    instance = new BassEngine();
+                }
+                return instance;
             }
         }
 
@@ -313,14 +315,14 @@ namespace DoubanFM.Audio
 
         public void Play()
         {
-            if (CanPlay)
-            {
+            //if (CanPlay)
+            //{
                 PlayCurrentStream();
                 IsPlaying = true;
                 CanPause = true;
                 CanPlay = false;
                 CanStop = true;
-            }
+            //}
         }
 
         public bool OpenFile(string path)
@@ -377,10 +379,15 @@ namespace DoubanFM.Audio
 
             IsPlaying = false;
 
-            //Window mainWindow = Application.Current.MainWindow;
-            //WindowInteropHelper interopHelper = new WindowInteropHelper(mainWindow);
+            IntPtr handle = IntPtr.Zero;
+            if (Application.Current.MainWindow != null)
+            {
+                handle = new WindowInteropHelper(Application.Current.MainWindow).EnsureHandle();
+            }
 
-            if (Bass.BASS_Init(-1, sampleFrequency, BASSInit.BASS_DEVICE_SPEAKERS, IntPtr.Zero))
+            var defaultDevice = FindDefaultDevice();
+            var init = Bass.BASS_Init(defaultDevice, sampleFrequency, BASSInit.BASS_DEVICE_SPEAKERS, handle);
+            if (init)
             {
                 int pluginAAC = Bass.BASS_PluginLoad("bass_aac.dll");
 #if DEBUG
@@ -394,7 +401,7 @@ namespace DoubanFM.Audio
             }
             else
             {
-                Debug.WriteLine("Bass Engine initialize failed !");
+                Debug.WriteLine("Bass Initialize error!");
             }
 
 
@@ -408,12 +415,80 @@ namespace DoubanFM.Audio
             {
                 // Do nothing
             }
-            #if DEBUG
+#if DEBUG
             else
             {
                 Debug.WriteLine("Error={0}", Bass.BASS_ErrorGetCode());
             }
-            #endif
+#endif
+        }
+
+        /// <summary>
+        /// 查找设备的序号
+        /// </summary>
+        /// <param name="device">要查找的设备</param>
+        /// <param name="returnDefault">当找不到设备时，是否返回默认设备的序号</param>
+        /// <returns></returns>
+        //private static int FindDevice(DeviceInfo? device, bool returnDefault = false)
+        //{
+
+
+        //    if (device.HasValue)
+        //    {
+        //        int deviceNO = -1;
+        //        var devices = Un4seen.Bass.Bass.BASS_GetDeviceInfos().ToList();
+        //        var filteredDevices = from d in devices where d.id != null && d.id == device.Value.ID select Array.IndexOf(devices, d);
+        //        if (filteredDevices.Count() == 1)
+        //        {
+        //            deviceNO = filteredDevices.First();
+        //        }
+        //        if (deviceNO == -1)
+        //        {
+        //            filteredDevices = from d in devices where d.name == device.Value.Name select Array.IndexOf(devices, d);
+        //            if (filteredDevices.Count() == 1)
+        //            {
+        //                deviceNO = filteredDevices.First();
+        //            }
+        //        }
+        //        if (deviceNO == -1)
+        //        {
+        //            filteredDevices = from d in devices where d.driver == device.Value.Driver select Array.IndexOf(devices, d);
+        //            if (filteredDevices.Count() == 1)
+        //            {
+        //                deviceNO = filteredDevices.First();
+        //            }
+        //        }
+        //        if (deviceNO == -1 && returnDefault)
+        //        {
+        //            return FindDefaultDevice();
+        //        }
+        //        else if (deviceNO != -1)
+        //        {
+        //            return deviceNO;
+        //        }
+        //        else
+        //        {
+        //            throw new Exception("找不到此设备：" + device.Value.Name);
+        //        }
+        //    }
+        //    else
+        //    {
+        //        return FindDefaultDevice();
+        //    }
+        //}
+
+        /// <summary>
+        /// 返回默认设备的序号
+        /// </summary>
+        /// <returns></returns>
+        private static int FindDefaultDevice()
+        {
+            var devices = Un4seen.Bass.Bass.BASS_GetDeviceInfos();
+            for (int i = 0; i < devices.Length; ++i)
+            {
+                if (devices[i].IsDefault) return i;
+            }
+            throw new Exception("没有默认设备");
         }
 
         #endregion

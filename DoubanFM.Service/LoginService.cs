@@ -1,4 +1,5 @@
-﻿using DoubanFM.Data;
+﻿
+using DoubanFM.Data;
 using Newtonsoft.Json.Linq;
 using System.Net;
 using System.Threading.Tasks;
