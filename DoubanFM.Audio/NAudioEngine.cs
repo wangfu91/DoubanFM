@@ -1,4 +1,5 @@
-﻿using NAudio.Wave;
+﻿using Microsoft.Practices.Prism.Commands;
+using NAudio.Wave;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -71,15 +72,15 @@ namespace DoubanFM.Audio
             waveformGenerateWorker.RunWorkerCompleted += waveformGenerateWorker_RunWorkerCompleted;
             waveformGenerateWorker.WorkerSupportsCancellation = true;
 
-            //this.PlayOrPauseCommand = new DelegateCommand(() =>
-            //    {
-            //        if (IsPlaying && CanPause)
-            //            Pause();
-            //        else if (CanPlay)
-            //            Play();
-            //    });
+            this.PlayOrPauseCommand = new DelegateCommand(() =>
+                {
+                    if (IsPlaying)
+                        Pause();
+                    else
+                        Play();
+                });
 
-            //this.StopCommand = new DelegateCommand(() => Stop(), () => CanStop);
+            this.StopCommand = new DelegateCommand(() => Stop(), () => CanStop);
         }
         #endregion
 
@@ -206,12 +207,10 @@ namespace DoubanFM.Audio
         #endregion
 
         #region Commands
-        //public DelegateCommand PlayOrPauseCommand { get; set; }
+        public DelegateCommand PlayOrPauseCommand { get; set; }
 
-        //public DelegateCommand StopCommand { get; set; }
+        public DelegateCommand StopCommand { get; set; }
         #endregion
-
-
 
         #region Public Methods
 

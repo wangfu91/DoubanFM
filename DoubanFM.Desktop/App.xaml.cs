@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Windows;
+﻿using System.Windows;
 
 namespace DoubanFM.Desktop
 {
@@ -13,5 +7,14 @@ namespace DoubanFM.Desktop
     /// </summary>
     public partial class App : Application
     {
+        protected override void OnStartup(StartupEventArgs e)
+        {
+            base.OnStartup(e);
+
+            //The bootstrapper will create the shell instance,
+            //so the App.xaml does not have a StartupUri.
+            var bootstrapper = new DoubanFMBootstrapper();
+            bootstrapper.Run();
+        }
     }
 }

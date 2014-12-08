@@ -4,12 +4,10 @@ using Microsoft.Practices.Prism.Commands;
 
 namespace DoubanFM.Desktop.ViewModels
 {
-    public class MainPageViewModel : ViewModelBase
+    public class MainWindowViewModel : ViewModelBase
     {
-        //private NAudioEngine player;
-        //private BassEngine player=BassEngine.Instance;
 
-        public MainPageViewModel()
+        public MainWindowViewModel()
         {
             this.LoadedCommand = new DelegateCommand(() =>
                 {
@@ -25,11 +23,6 @@ namespace DoubanFM.Desktop.ViewModels
             get
             {
                 return NAudioEngine.Instance;
-                //if(player==null)
-                //{
-                //    player = NAudioEngine.Instance;
-                //}
-                //return player;
             }
         }
 
@@ -38,11 +31,7 @@ namespace DoubanFM.Desktop.ViewModels
         //{
         //    get
         //    {
-        //        if(player==null)
-        //        {
-        //            player = BassEngine.Instance;
-        //        }
-        //        return player;
+        //        return BassEngine.Instance;
         //    }
         //}
 

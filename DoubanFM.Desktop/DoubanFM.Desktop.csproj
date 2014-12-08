@@ -55,8 +55,20 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\Prism.Mvvm.1.1.1\lib\net45\Microsoft.Practices.Prism.SharedInterfaces.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.Prism.UnityExtensions">
+      <HintPath>..\packages\Prism.UnityExtensions.5.0.1\lib\NET45\Microsoft.Practices.Prism.UnityExtensions.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
       <HintPath>..\packages\CommonServiceLocator.1.2\lib\portable-windows8+net40+sl5+windowsphone8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.Configuration">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.Unity.RegistrationByConvention">
+      <HintPath>..\packages\Unity.3.5.1404.0\lib\net45\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -83,14 +95,23 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CallbackLogger.cs" />
     <Compile Include="Converters\BoolToResourceConverter.cs" />
     <Compile Include="Converters\DoubleToTimeSpanConverter.cs" />
-    <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="DoubanFMBootstrapper.cs" />
+    <Compile Include="Shell.xaml.cs">
+      <DependentUpon>Shell.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Views\PlayControl.xaml.cs">
       <DependentUpon>PlayControl.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Shell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -98,7 +119,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -144,9 +165,17 @@
       <Project>{2a8a3818-56cd-493c-99c9-f6ec446eaedd}</Project>
       <Name>DoubanFM.Data</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DoubanFM.LocalPlayer\DoubanFM.LocalPlayer.csproj">
+      <Project>{05f46c85-870c-44be-8326-b30e7d9972cd}</Project>
+      <Name>DoubanFM.LocalPlayer</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DoubanFM.Service\DoubanFM.Service.csproj">
       <Project>{bc64c67c-e916-4a76-93ea-17d24dea2e72}</Project>
       <Name>DoubanFM.Service</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DoubanFM.WebPlayer\DoubanFM.WebPlayer.csproj">
+      <Project>{ff244ea2-e376-4865-aa61-f1b119fcc7aa}</Project>
+      <Name>DoubanFM.WebPlayer</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
