@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Windows;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 using WPFSoundVisualizationLib;
@@ -13,7 +14,7 @@ using WPFSoundVisualizationLib;
 
 namespace DoubanFM.Audio
 {
-    public class NAudioEngine : INotifyPropertyChanged, ISpectrumPlayer, IWaveformPlayer, IDisposable
+    public class NAudioEngine :IPlayerEngine,IWaveformPlayer
     {
         #region Fields
         private static NAudioEngine instance;
@@ -25,6 +26,7 @@ namespace DoubanFM.Audio
         private bool canPause;
         private bool canStop;
         private bool isPlaying;
+        private bool isLiked;
         private bool inChannelTimerUpdate;
         private double channelLength;
         private double channelPosition;
@@ -72,7 +74,7 @@ namespace DoubanFM.Audio
             waveformGenerateWorker.RunWorkerCompleted += waveformGenerateWorker_RunWorkerCompleted;
             waveformGenerateWorker.WorkerSupportsCancellation = true;
 
-            this.PlayOrPauseCommand = new DelegateCommand(() =>
+            this.PlayPauseCommand = new DelegateCommand(() =>
                 {
                     if (IsPlaying)
                         Pause();
@@ -170,6 +172,19 @@ namespace DoubanFM.Audio
             }
         }
 
+        public bool IsLiked
+        {
+            get { return isLiked; }
+            set
+            {
+                if(value!=isLiked)
+                {
+                    isLiked = value;
+                    NotifyPropertyChanged("IsLiked");
+                }
+            }
+        }
+
 
 
         public WaveStream ActiveStream
@@ -207,9 +222,11 @@ namespace DoubanFM.Audio
         #endregion
 
         #region Commands
-        public DelegateCommand PlayOrPauseCommand { get; set; }
+        public ICommand PlayPauseCommand { get; set; }
 
-        public DelegateCommand StopCommand { get; set; }
+        public ICommand PlayNextCommand { get; set; }
+
+        public ICommand StopCommand { get; set; }
         #endregion
 
         #region Public Methods

@@ -11,10 +11,11 @@ using System.Windows.Threading;
 using Un4seen.Bass;
 using WPFSoundVisualizationLib;
 using System.Linq;
+using System.Windows.Input;
 
 namespace DoubanFM.Audio
 {
-    public class BassEngine : ISpectrumPlayer, INotifyPropertyChanged, IDisposable
+    public class BassEngine : IPlayerEngine
     {
         private bool disposed;
         private double currentChannelPosition;
@@ -261,17 +262,17 @@ namespace DoubanFM.Audio
         #endregion
 
 
-        #region DelegateCommands
+        #region ICommands
 
-        public DelegateCommand PlayOrPauseCommand { get; set; }
+        public ICommand PlayPauseCommand { get; set; }
 
-        public DelegateCommand LikeCommand { get; set; }
+        public ICommand LikeCommand { get; set; }
 
-        public DelegateCommand StopCommand { get; set; }
+        public ICommand StopCommand { get; set; }
 
-        public DelegateCommand NextCommand { get; set; }
+        public ICommand PlayNextCommand { get; set; }
 
-        public DelegateCommand DeleteCommand { get; set; }
+        public ICommand DeleteCommand { get; set; }
 
         #endregion
 

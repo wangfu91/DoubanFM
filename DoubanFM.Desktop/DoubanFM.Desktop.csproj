@@ -102,12 +102,16 @@
     <Compile Include="Shell.xaml.cs">
       <DependentUpon>Shell.xaml</DependentUpon>
     </Compile>
-    <Compile Include="ViewModels\MainWindowViewModel.cs" />
-    <Compile Include="ViewModels\ViewModelBase.cs" />
-    <Compile Include="Views\PlayControl.xaml.cs">
+    <Compile Include="UserControls\PlayControl.xaml.cs">
       <DependentUpon>PlayControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
     <Page Include="Shell.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\PlayControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -123,10 +127,6 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\PlayControl.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -161,6 +161,10 @@
       <Project>{b2a424d7-d03f-4cc4-9480-6a47add66fe2}</Project>
       <Name>DoubanFM.Audio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DoubanFM.Common\DoubanFM.Common.csproj">
+      <Project>{6b0efe88-ef4f-4605-90da-67a01bda3c3f}</Project>
+      <Name>DoubanFM.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DoubanFM.Data\DoubanFM.Data.csproj">
       <Project>{2a8a3818-56cd-493c-99c9-f6ec446eaedd}</Project>
       <Name>DoubanFM.Data</Name>
@@ -182,19 +186,28 @@
     <Folder Include="Common\" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\Icons\Media-Next.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Resource Include="Assets\Icons\Red-Heart.png" />
-    <Resource Include="Assets\Icons\Media-Next.png" />
-    <Resource Include="Assets\Icons\RecycleBin.png" />
-    <Resource Include="Assets\Icons\Heart.png" />
-    <Content Include="Assets\Icons\Media-Pause.png">
+    <Resource Include="Assets\Icons\RecycleBin.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Icons\Media-Play.png">
+    </Resource>
+    <Resource Include="Assets\Icons\Heart.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Icons\Media-Stop.png">
+    </Resource>
+    <Resource Include="Assets\Icons\Media-Pause.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    </Resource>
+    <Resource Include="Assets\Icons\Media-Play.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Media-Previous.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Assets\Icons\Media-Stop.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

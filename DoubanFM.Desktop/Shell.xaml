@@ -2,7 +2,9 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://www.codeplex.com/prism"
-        Title="Shell" Height="300" Width="300">
+        xmlns:uc="clr-namespace:DoubanFM.Desktop.UserControls"
+        Title="Shell"
+        Background="SkyBlue">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -12,6 +14,6 @@
         <ItemsControl x:Name="MainRegion" Grid.RowSpan="2"
                   prism:RegionManager.RegionName="MainRegion"/>
 
-
+        <uc:PlayControl Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>

@@ -71,6 +71,7 @@
   <ItemGroup>
     <Compile Include="BassEngine.cs" />
     <Compile Include="DeviceInfo.cs" />
+    <Compile Include="IPlayerEngine.cs" />
     <Compile Include="NAudioEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleAggregator.cs" />

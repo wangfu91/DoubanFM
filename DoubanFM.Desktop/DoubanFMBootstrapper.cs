@@ -40,7 +40,7 @@ namespace DoubanFM.Desktop
         {
             return base.CreateLogger();
 
-            return this.callbackLogger;
+            //return this.callbackLogger;
         }
 
         /// <summary>

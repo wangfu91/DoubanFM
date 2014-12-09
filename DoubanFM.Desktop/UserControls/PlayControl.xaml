@@ -1,0 +1,52 @@
+﻿<UserControl x:Class="DoubanFM.Desktop.UserControls.PlayControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DoubanFM.Desktop.UserControls"
+             mc:Ignorable="d" 
+             d:DesignHeight="100" d:DesignWidth="500"
+             >
+    
+    	<StackPanel Background="Transparent" Orientation="Horizontal" >
+		<Button Height="75" Width="75" 
+				Background="Transparent" BorderThickness="0" 
+                Visibility="{Binding IsWebPlayer,Converter={StaticResource BoolToVisibilityConverter}}"
+				Command="{Binding Player.DeleteCommand}">
+			<Image Source="/Assets/Icons/RecycleBin.png"/>
+		</Button>
+
+        <Button Height="75" Width="75"
+                Background="Transparent" BorderThickness="0"
+                Visibility="{Binding IsWebPlayer,Converter={StaticResource BooleanNegationToVisibilityConverter}}"
+                Command="{Binding Player.StopCommand}">
+            <Image Source="/Assets/Icons/Media-Stop.png"/>
+        </Button>
+                    
+            
+		<Button Height="75" Width="75"
+				Background="Transparent" BorderThickness="0" 
+				Command="{Binding Player.LikeCommand}"
+				Content="{Binding Player.IsLiked,Converter={StaticResource BoolToResourceConverter},ConverterParameter=Like}" />
+
+        <Button Height="75" Width="75"
+                    Background="Transparent" BorderThickness="0"
+                    Visibility="{Binding IsWebPlayer,Converter={StaticResource BooleanNegationToVisibilityConverter}}"
+                    Command="{Binding Player.PreviousCommand}">
+            <Image Source="/Assets/Icons/Media-Previous.png"/>
+        </Button>
+                    
+		<Button Height="75" Width="75"
+				Background="Transparent" BorderThickness="0" 
+				Command="{Binding Player.PlayOrPauseCommand}"
+				Content="{Binding Player.IsPlaying,Converter={StaticResource BoolToResourceConverter},ConverterParameter=Play}" />
+
+
+		<Button Height="75" Width="75"
+				Background="Transparent" BorderThickness="0" 
+				Command="{Binding Player.NextCommand}">
+			<Image Source="/Assets/Icons/Media-Next.png"/>
+		</Button>
+	</StackPanel>
+
+</UserControl>

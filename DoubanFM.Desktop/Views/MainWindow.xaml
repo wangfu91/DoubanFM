@@ -55,7 +55,7 @@
 							  VerticalAlignment="Bottom"
 							  />
 
-		<views:PlayControl Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Bottom"  Width="300" />
+		<!--<views:PlayControl Grid.Row="3" Grid.ColumnSpan="2" VerticalAlignment="Bottom"  Width="300" />-->
 		
 	</Grid>
 
