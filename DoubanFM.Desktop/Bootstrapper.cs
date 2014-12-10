@@ -1,11 +1,12 @@
-﻿using Microsoft.Practices.Prism.Modularity;
+﻿using DoubanFM.Desktop.Views;
+using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.ServiceLocation;
 using System.Windows;
 
 namespace DoubanFM.Desktop
 {
-    public class DoubanFMBootstrapper : UnityBootstrapper
+    public class Bootstrapper : UnityBootstrapper
     {
         private readonly CallbackLogger callbackLogger = new CallbackLogger();
 
@@ -60,7 +61,7 @@ namespace DoubanFM.Desktop
         {
             base.ConfigureModuleCatalog();
             var moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
-            moduleCatalog.AddModule(typeof(DoubanFM.LocalPlayer.LocalPlayerModule), InitializationMode.WhenAvailable);
+            moduleCatalog.AddModule(typeof(DoubanFM.LocalPlayer.ModuleInit), InitializationMode.WhenAvailable);
             moduleCatalog.AddModule(typeof(DoubanFM.WebPlayer.WebPlayerModule), InitializationMode.OnDemand);
 
         }

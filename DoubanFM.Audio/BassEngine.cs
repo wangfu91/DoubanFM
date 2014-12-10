@@ -12,10 +12,11 @@ using Un4seen.Bass;
 using WPFSoundVisualizationLib;
 using System.Linq;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 
 namespace DoubanFM.Audio
 {
-    public class BassEngine : IPlayerEngine
+    public class BassEngine : IPlayEngine
     {
         private bool disposed;
         private double currentChannelPosition;
@@ -32,7 +33,7 @@ namespace DoubanFM.Audio
         {
             get
             {
-                if(instance==null)
+                if (instance == null)
                 {
                     instance = new BassEngine();
                 }
@@ -124,7 +125,6 @@ namespace DoubanFM.Audio
             }
         }
 
-
         private bool canPlay;
 
         public bool CanPlay
@@ -158,7 +158,6 @@ namespace DoubanFM.Audio
                 {
                     canPause = value;
                     NotifyPropertyChanged("CanPause");
-                    //LikeCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -220,7 +219,20 @@ namespace DoubanFM.Audio
             }
         }
 
+        private TagLib.File fileTag;
 
+        public TagLib.File FileTag
+        {
+            get { return fileTag; }
+            set
+            {
+                if (value != fileTag)
+                {
+                    fileTag = value;
+                    NotifyPropertyChanged("FileTag");
+                }
+            }
+        }
 
         private Song currentSong;
 
@@ -257,6 +269,25 @@ namespace DoubanFM.Audio
                 }
             }
         }
+
+        private BitmapImage albumImage;
+
+        public BitmapImage AlbumImage
+        {
+            get
+            {
+                return albumImage;
+            }
+            set
+            {
+                if (value != albumImage)
+                {
+                    albumImage = value;
+                    NotifyPropertyChanged("AlbumImage");
+                }
+            }
+        }
+
 
 
         #endregion
@@ -318,15 +349,15 @@ namespace DoubanFM.Audio
         {
             //if (CanPlay)
             //{
-                PlayCurrentStream();
-                IsPlaying = true;
-                CanPause = true;
-                CanPlay = false;
-                CanStop = true;
+            PlayCurrentStream();
+            IsPlaying = true;
+            CanPause = true;
+            CanPlay = false;
+            CanStop = true;
             //}
         }
 
-        public bool OpenFile(string path)
+        public void OpenFile(string path)
         {
             Stop();
             if (ActiveStreamHandle != 0)
@@ -339,7 +370,9 @@ namespace DoubanFM.Audio
             {
                 FileStreamHandle = ActiveStreamHandle = Bass.BASS_StreamCreateFile(path, 0, 0, BASSFlag.BASS_SAMPLE_FLOAT | BASSFlag.BASS_STREAM_PRESCAN);
                 ChannelLength = Bass.BASS_ChannelBytes2Seconds(FileStreamHandle, Bass.BASS_ChannelGetLength(FileStreamHandle, 0));
-
+                FileTag = TagLib.File.Create(path);
+                GetCurrentSongInfo();
+                GetAlbumImage();
                 if (ActiveStreamHandle != 0)
                 {
                     //Obtain the sample rate of the sstream
@@ -358,15 +391,14 @@ namespace DoubanFM.Audio
                         throw new ArgumentException("Error establishing End Sync on file stream.", "path");
 
                     CanPlay = true;
-                    return true;
                 }
                 else
                 {
                     ActiveStreamHandle = 0;
+                    FileTag = null;
                     canPlay = false;
                 }
             }
-            return false;
         }
 
         #endregion
@@ -408,6 +440,57 @@ namespace DoubanFM.Audio
 
 
         }
+
+        private void GetCurrentSongInfo()
+        {
+            var tag = FileTag.Tag;
+            if (tag != null)
+            {
+                CurrentSong = new Song
+                {
+                    Title = tag.Title,
+                    Artist = tag.AlbumArtists.FirstOrDefault(),
+                    AlbumTitle = tag.Album
+                };
+            }
+        }
+
+        private void GetAlbumImage()
+        {
+            if (fileTag != null)
+            {
+                var tag = fileTag.Tag;
+                if (tag.Pictures.Length > 0)
+                {
+                    using (var ms = new MemoryStream(tag.Pictures[0].Data.Data))
+                    {
+                        try
+                        {
+                            var bmp = new BitmapImage();
+                            bmp.BeginInit();
+                            bmp.CacheOption = BitmapCacheOption.OnLoad;
+                            bmp.StreamSource = ms;
+                            bmp.EndInit();
+                            AlbumImage = bmp;
+                        }
+                        catch (NotSupportedException)
+                        {
+                            AlbumImage = null;
+                        }
+                        ms.Close();
+                    }
+                }
+                else
+                {
+                    AlbumImage = null;
+                }
+            }
+            else
+            {
+                AlbumImage = null;
+            }
+        }
+
 
         private void PlayCurrentStream()
         {

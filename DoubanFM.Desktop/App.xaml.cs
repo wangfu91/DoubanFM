@@ -13,7 +13,7 @@ namespace DoubanFM.Desktop
 
             //The bootstrapper will create the shell instance,
             //so the App.xaml does not have a StartupUri.
-            var bootstrapper = new DoubanFMBootstrapper();
+            var bootstrapper = new Bootstrapper();
             bootstrapper.Run();
         }
     }

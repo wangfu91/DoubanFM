@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Data;
 
-namespace DoubanFM.Desktop.Converters
+namespace DoubanFM.Common.Converters
 {
     public class DoubleToTimeSpanConverter : IValueConverter
     {
@@ -21,4 +25,5 @@ namespace DoubanFM.Desktop.Converters
             throw new NotImplementedException();
         }
     }
+
 }

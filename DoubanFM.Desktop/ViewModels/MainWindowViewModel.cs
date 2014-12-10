@@ -1,4 +1,5 @@
 ﻿using DoubanFM.Audio;
+using DoubanFM.Common;
 using DoubanFM.Data;
 using Microsoft.Practices.Prism.Commands;
 

@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DoubanFM.Desktop.UserControls
+namespace DoubanFM.Desktop.Views
 {
     /// <summary>
-    /// Interaction logic for PlayControl.xaml
+    /// Interaction logic for Shell.xaml
     /// </summary>
-    public partial class PlayControl : UserControl
+    public partial class Shell : Window
     {
-        public PlayControl()
+        public Shell()
         {
             InitializeComponent();
         }

@@ -1,0 +1,49 @@
+﻿<UserControl x:Class="DoubanFM.LocalPlayer.Views.PlayerUI"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:viewModel="clr-namespace:DoubanFM.LocalPlayer.ViewModels"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="200">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="75"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="45"/>
+        </Grid.RowDefinitions>
+        <StackPanel Margin="30,10,0,0">
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" 
+                       Margin="0,5,0,0"
+                   Foreground="White"
+                   TextWrapping="NoWrap"
+                   TextTrimming="WordEllipsis"
+                   Text="{Binding Player.CurrentSong.Artist}" FontFamily="Segoe UI Light" FontSize="24"
+                   />
+            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top"
+                       Margin="0,5,0,0"
+                   Foreground="White"
+                   TextWrapping="NoWrap"
+                   TextTrimming="WordEllipsis"
+                   Text="{Binding Player.CurrentSong.AlbumTitle}" FontFamily="Segoe UI Light" FontSize="16"
+                   />
+        </StackPanel>
+        <StackPanel Grid.Row="1" Margin="30,10,0,0">
+            <Border HorizontalAlignment="Left" Grid.Row="1" BorderBrush="White" BorderThickness="2" Height="120"  Width="120">
+                <Grid>
+                    <Image  Source="/Assets/CD-Music.png"/>
+                    <Image  Source="{Binding Player.AlbumImage}"/>
+                </Grid>
+            </Border>
+            <Slider HorizontalAlignment="Left" VerticalAlignment="Top" Width="120"
+                    Minimum="0" Maximum="100" Value="{Binding Player.ChannelLength}"/>
+        </StackPanel>
+        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top"
+                   Foreground="White"
+                   Margin="30,5,0,0" Grid.Row="2"
+                   TextWrapping="NoWrap" 
+                   TextTrimming="WordEllipsis"
+                   Text="{Binding Player.CurrentSong.Title}" FontFamily="Segoe UI Light" FontSize="22" />
+    </Grid>
+</UserControl>

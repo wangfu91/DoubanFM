@@ -1,7 +1,11 @@
 ﻿using Microsoft.Practices.Prism.Mvvm;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DoubanFM.Desktop.ViewModels
+namespace DoubanFM.Common
 {
     public abstract class ViewModelBase : BindableBase, IDisposable
     {
@@ -29,4 +33,5 @@ namespace DoubanFM.Desktop.ViewModels
             }
         }
     }
+
 }

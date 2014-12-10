@@ -1,10 +1,8 @@
-﻿<Window x:Class="DoubanFM.Desktop.Shell"
+﻿<Window x:Class="DoubanFM.Desktop.Views.Shell"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://www.codeplex.com/prism"
-        xmlns:uc="clr-namespace:DoubanFM.Desktop.UserControls"
-        Title="Shell"
-        Background="SkyBlue">
+        Title="Shell" Height="500" Width="500" Background="Green">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
@@ -14,6 +12,8 @@
         <ItemsControl x:Name="MainRegion" Grid.RowSpan="2"
                   prism:RegionManager.RegionName="MainRegion"/>
 
-        <uc:PlayControl Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+        <ItemsControl Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" BorderBrush="Gold" BorderThickness="3"
+                      prism:RegionManager.RegionName="PlayControlRegion"/>
     </Grid>
+
 </Window>

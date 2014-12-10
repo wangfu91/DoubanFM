@@ -9,7 +9,7 @@ using WPFSoundVisualizationLib;
 
 namespace DoubanFM.Audio
 {
-    public interface IPlayerEngine :IDisposable,INotifyPropertyChanged,ISpectrumPlayer
+    public interface IPlayEngine :IDisposable,INotifyPropertyChanged,ISpectrumPlayer
     {
         bool CanPlay { get; set; }
 
@@ -25,6 +25,8 @@ namespace DoubanFM.Audio
         ICommand PlayPauseCommand { get; set; }
 
         ICommand PlayNextCommand { get; set; }
+
+        void OpenFile(string filePath);
 
         void Stop();
 
