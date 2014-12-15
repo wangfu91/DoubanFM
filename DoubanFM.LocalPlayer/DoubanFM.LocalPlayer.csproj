@@ -116,30 +116,14 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\CD-Music.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Heart.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Media-Next.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Media-Pause.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Media-Play.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Media-Previous.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Media-Stop.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Assets\Red-Heart.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
+    <Resource Include="Assets\CD-Music.png" />
+    <Resource Include="Assets\Heart.png" />
+    <Resource Include="Assets\Media-Next.png" />
+    <Resource Include="Assets\Media-Pause.png" />
+    <Resource Include="Assets\Media-Play.png" />
+    <Resource Include="Assets\Media-Previous.png" />
+    <Resource Include="Assets\Media-Stop.png" />
+    <Resource Include="Assets\Red-Heart.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\DoubanFM.Audio\DoubanFM.Audio.csproj">

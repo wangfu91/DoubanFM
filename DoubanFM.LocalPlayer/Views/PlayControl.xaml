@@ -11,32 +11,28 @@
                 Background="Transparent"
                 BorderThickness="0"                
                 Command="{Binding StopCommand}">
-            <Image Source="/Assets/Media-Stop.png"/>
-        </Button>
+            <Image Source="../Assets/Media-Stop.png"/>
+        </Button>    
         
-        <Button Background="Transparent" Height="75" Width="75">
-            <Image Source="Assets/Red-Heart.png"/>
-        </Button>
-
         <Button Height="75" Width="75"
                 Background="Transparent"
 				BorderThickness="0" 
 				Command="{Binding LikeCommand}">
-            <Image Source="{Binding IsLiked,Converter={StaticResource BoolToUriConverter},ConverterParameter=Like}" />
+            <Image Source="{Binding IsLiked,Converter={StaticResource BoolToImageConverter},ConverterParameter=Like}" />
         </Button>				
 
         <Button Height="75" Width="75"
                     Background="Transparent"
                     BorderThickness="0"
                     Command="{Binding PlayPreviousCommand}">
-            <Image Source="/Assets/Media-Previous.png"/>
+            <Image Source="../Assets/Media-Previous.png"/>
         </Button>
 
         <Button Height="75" Width="75"
                 Background="Transparent"
 				BorderThickness="0" 
 				Command="{Binding PlayPauseCommand}" >
-            <Image Source="{Binding IsPlaying,Converter={StaticResource BoolToUriConverter},ConverterParameter=Play}"/>
+            <Image Source="{Binding IsPlaying,Converter={StaticResource BoolToImageConverter},ConverterParameter=Play}"/>
         </Button>
 
 
@@ -44,7 +40,7 @@
                 Background="Transparent"
 				BorderThickness="0" 
 				Command="{Binding PlayNextCommand}">
-            <Image Source="Assets/Media-Next.png"/>
+            <Image Source="../Assets/Media-Next.png"/>
         </Button>
     </StackPanel>
 

@@ -6,13 +6,18 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <TextBlock Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center"
+        <!--<TextBlock Foreground="Green" HorizontalAlignment="Center" VerticalAlignment="Center"
                        FontFamily="Colibri" FontSize="32" FontWeight="Black"
                    TextWrapping="Wrap">
             <Run Text="Hello, "/>
             <LineBreak/>
             <Run Text="This is Local Player Module..."/>
 
-        </TextBlock>
+        </TextBlock>-->
+        
+        <ListBox x:Name="playListBox" >
+            
+        </ListBox>
+        
     </Grid>
 </UserControl>

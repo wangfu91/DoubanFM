@@ -18,7 +18,21 @@ namespace DoubanFM.Audio
 {
     public class BassEngine : IPlayEngine
     {
+        #region Fileds 
+        private static BassEngine instance;
         private bool disposed;
+        private int fileStreamhandle;
+        private int activeStreamHandle;
+        private double channelLength;
+        private bool canPlay;
+        private bool canPause;
+        private bool canStop;
+        private bool isPlaying;
+        private bool isLiked;
+        private TagLib.File fileTag;
+        private Song currentSong;
+        private Queue<Song> playList;
+        private BitmapImage albumImage;
         private double currentChannelPosition;
         private bool inChannelSet;
         private bool inChannelTimerUpdate;
@@ -28,7 +42,9 @@ namespace DoubanFM.Audio
         private readonly int fftDataSize = (int)FFTDataSize.FFT2048;
         private readonly int maxFFT = (int)(BASSData.BASS_DATA_AVAILABLE | BASSData.BASS_DATA_FFT2048);
 
-        private static BassEngine instance;
+        #endregion
+
+        #region Singleton
         public static BassEngine Instance
         {
             get
@@ -40,12 +56,9 @@ namespace DoubanFM.Audio
                 return instance;
             }
         }
-
+        #endregion
 
         #region Notification Properties
-
-        private int fileStreamhandle;
-
         public int FileStreamHandle
         {
             get
@@ -62,7 +75,6 @@ namespace DoubanFM.Audio
             }
         }
 
-        private int activeStreamHandle;
 
         public int ActiveStreamHandle
         {
@@ -80,7 +92,6 @@ namespace DoubanFM.Audio
             }
         }
 
-        private double channelLength;
 
         public double ChannelLength
         {
@@ -125,7 +136,6 @@ namespace DoubanFM.Audio
             }
         }
 
-        private bool canPlay;
 
         public bool CanPlay
         {
@@ -144,7 +154,6 @@ namespace DoubanFM.Audio
             }
         }
 
-        private bool canPause;
 
         public bool CanPause
         {
@@ -163,7 +172,6 @@ namespace DoubanFM.Audio
         }
 
 
-        private bool canStop;
 
         public bool CanStop
         {
@@ -183,7 +191,6 @@ namespace DoubanFM.Audio
         }
 
 
-        private bool isPlaying;
 
         public bool IsPlaying
         {
@@ -201,7 +208,6 @@ namespace DoubanFM.Audio
             }
         }
 
-        private bool isLiked;
 
         public bool IsLiked
         {
@@ -219,7 +225,6 @@ namespace DoubanFM.Audio
             }
         }
 
-        private TagLib.File fileTag;
 
         public TagLib.File FileTag
         {
@@ -234,7 +239,6 @@ namespace DoubanFM.Audio
             }
         }
 
-        private Song currentSong;
 
         public Song CurrentSong
         {
@@ -252,7 +256,6 @@ namespace DoubanFM.Audio
             }
         }
 
-        private Queue<Song> playList;
 
         public Queue<Song> PlayList
         {
@@ -270,7 +273,6 @@ namespace DoubanFM.Audio
             }
         }
 
-        private BitmapImage albumImage;
 
         public BitmapImage AlbumImage
         {
@@ -292,9 +294,7 @@ namespace DoubanFM.Audio
 
         #endregion
 
-
         #region ICommands
-
         public ICommand PlayPauseCommand { get; set; }
 
         public ICommand LikeCommand { get; set; }
@@ -320,7 +320,6 @@ namespace DoubanFM.Audio
         #endregion
 
         #region Public Methods
-
         public void Stop()
         {
             if (ActiveStreamHandle != 0)
@@ -404,7 +403,6 @@ namespace DoubanFM.Audio
         #endregion
 
         #region Private Methods
-
         private void Initialize()
         {
             positionTimer.Interval = TimeSpan.FromMilliseconds(50);
@@ -572,7 +570,8 @@ namespace DoubanFM.Audio
             {
                 if (devices[i].IsDefault) return i;
             }
-            throw new Exception("没有默认设备");
+            return 0;
+            //throw new Exception("没有默认设备");
         }
 
         #endregion
@@ -592,7 +591,6 @@ namespace DoubanFM.Audio
             }
         }
         #endregion
-
 
         #region INotifyPopertyChanged
         public event PropertyChangedEventHandler PropertyChanged;

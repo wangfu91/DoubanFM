@@ -27,6 +27,8 @@ namespace DoubanFM.LocalPlayer.Views
             InitializeComponent();
 
             this.DataContext = playUIViewModel;
+            this.spectrumAnalyzer.RegisterSoundPlayer(playUIViewModel.Player);
+
         }
     }
 }

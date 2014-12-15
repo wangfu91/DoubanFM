@@ -7,6 +7,6 @@
         <converters:DoubleToTimeSpanConverter x:Key="DoubleToTimeSpanConverter"/>        
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <converters:BooleanNegationToVisibilityConverter x:Key="BooleanNegationToVisibilityConverter"/>
-        <converters:BoolToUriConverter x:Key="BoolToUriConverter"/>
+        <converters:BoolToImageConverter x:Key="BoolToImageConverter"/>
     </Application.Resources>
 </Application>

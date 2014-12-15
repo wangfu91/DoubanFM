@@ -56,7 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\BooleanNegationToVisibilityConverter.cs" />
-    <Compile Include="Converters\BoolToUriConverter.cs" />
+    <Compile Include="Converters\BoolToImageConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\DoubleToTimeSpanConverter.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:viewModel="clr-namespace:DoubanFM.LocalPlayer.ViewModels"
+		     xmlns:svl="clr-namespace:WPFSoundVisualizationLib;assembly=WPFSoundVisualizationLib"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="200">
 
@@ -11,7 +12,9 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="75"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="45"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Margin="30,10,0,0">
             <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" 
@@ -32,18 +35,28 @@
         <StackPanel Grid.Row="1" Margin="30,10,0,0">
             <Border HorizontalAlignment="Left" Grid.Row="1" BorderBrush="White" BorderThickness="2" Height="120"  Width="120">
                 <Grid>
-                    <Image  Source="/Assets/CD-Music.png"/>
+                    <Image  Source="../Assets/CD-Music.png"/>
                     <Image  Source="{Binding Player.AlbumImage}"/>
                 </Grid>
             </Border>
             <Slider HorizontalAlignment="Left" VerticalAlignment="Top" Width="120"
-                    Minimum="0" Maximum="100" Value="{Binding Player.ChannelLength}"/>
+                    Minimum="0" Maximum="{Binding Player.ChannelLength}" Value="{Binding Player.ChannelPosition}"/>
         </StackPanel>
+        		<svl:DigitalClock Grid.Row="2" Time="{Binding Player.ChannelPosition,Converter={StaticResource DoubleToTimeSpanConverter}}"/>
+        
         <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top"
                    Foreground="White"
-                   Margin="30,5,0,0" Grid.Row="2"
+                   Margin="30,5,0,0" Grid.Row="3"
                    TextWrapping="NoWrap" 
                    TextTrimming="WordEllipsis"
                    Text="{Binding Player.CurrentSong.Title}" FontFamily="Segoe UI Light" FontSize="22" />
+        
+
+		<svl:SpectrumAnalyzer Grid.Row="4"
+							  Grid.ColumnSpan="2"
+							  Height="100"
+							  x:Name="spectrumAnalyzer"
+							  VerticalAlignment="Bottom"
+							  />
     </Grid>
 </UserControl>

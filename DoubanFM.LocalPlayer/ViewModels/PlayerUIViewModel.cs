@@ -30,7 +30,7 @@ namespace DoubanFM.LocalPlayer.ViewModels
         {
             this.playEngine = playEngine;
 
-            this.playEngine.OpenFile(@"C:\Users\WangFu\Desktop\You Raise Me Up.mp3");
+            this.playEngine.OpenFile(@"C:\Users\Frank\Music\You Raise Me Up.mp3");
 
             this.playEngine.Play();
         }
