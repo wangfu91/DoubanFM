@@ -16,21 +16,13 @@ namespace DoubanFM.LocalPlayer.ViewModels
         public IPlayEngine Player
         {
             get { return playEngine; }
-            set
-            {
-                if (value != playEngine)
-                {
-                    playEngine = value;
-                    OnPropertyChanged(() => this.Player);
-                }
-            }
         }
 
         public PlayerUIViewModel(IPlayEngine playEngine)
         {
             this.playEngine = playEngine;
 
-            this.playEngine.OpenFile(@"C:\Users\Frank\Music\You Raise Me Up.mp3");
+            this.playEngine.OpenFile(@"C:\Users\WangFu\Desktop\You Raise Me Up.mp3");
 
             this.playEngine.Play();
         }

@@ -121,13 +121,14 @@ namespace DoubanFM.Audio
                 if (!inChannelSet)
                 {
                     inChannelSet = true; //Avoid recursion
+                    var oldValue = currentChannelPosition;
                     var position = Math.Max(0, Math.Min(value, channelLength));
                     if (!inChannelTimerUpdate)
                     {
                         Bass.BASS_ChannelSetPosition(ActiveStreamHandle, Bass.BASS_ChannelSeconds2Bytes(ActiveStreamHandle, position));
                     }
                     currentChannelPosition = position;
-                    if (value != currentChannelPosition)
+                    if (value != oldValue)
                     {
                         NotifyPropertyChanged("ChannelPosition");
                     }
@@ -203,6 +204,7 @@ namespace DoubanFM.Audio
                 if (value != isPlaying)
                 {
                     isPlaying = value;
+                    positionTimer.IsEnabled = value;
                     NotifyPropertyChanged("IsPlaying");
                 }
             }
@@ -311,6 +313,16 @@ namespace DoubanFM.Audio
 
         private BassEngine()
         {
+            this.PlayPauseCommand = new DelegateCommand(() =>
+            {
+                if (IsPlaying)
+                    Pause();
+                else
+                    Play();
+            });
+
+            this.StopCommand = new DelegateCommand(() => Stop(), () => CanStop);
+
             //注册Bass.Net，不注册就会弹出一个启动画面
             Un4seen.Bass.BassNet.Registration("yk000123@sina.com", "2X34201017282922");
             Initialize();

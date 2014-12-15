@@ -6,25 +6,25 @@
              xmlns:viewModel="clr-namespace:DoubanFM.LocalPlayer.ViewModels"
 		     xmlns:svl="clr-namespace:WPFSoundVisualizationLib;assembly=WPFSoundVisualizationLib"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="200">
+             d:DesignHeight="300" d:DesignWidth="300">
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="75"/>
-            <RowDefinition Height="Auto"/>
-            <RowDefinition Height="Auto"/>
             <RowDefinition Height="45"/>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
-        <StackPanel Margin="30,10,0,0">
-            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top" 
+        <StackPanel Margin="10,0">
+            <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Top" 
                        Margin="0,5,0,0"
                    Foreground="White"
                    TextWrapping="NoWrap"
                    TextTrimming="WordEllipsis"
                    Text="{Binding Player.CurrentSong.Artist}" FontFamily="Segoe UI Light" FontSize="24"
                    />
-            <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top"
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top"
                        Margin="0,5,0,0"
                    Foreground="White"
                    TextWrapping="NoWrap"
@@ -32,31 +32,54 @@
                    Text="{Binding Player.CurrentSong.AlbumTitle}" FontFamily="Segoe UI Light" FontSize="16"
                    />
         </StackPanel>
-        <StackPanel Grid.Row="1" Margin="30,10,0,0">
-            <Border HorizontalAlignment="Left" Grid.Row="1" BorderBrush="White" BorderThickness="2" Height="120"  Width="120">
+            <Border Grid.Row="1" Margin="10,0" HorizontalAlignment="Center" BorderBrush="White" BorderThickness="2" Height="120"  Width="120">
                 <Grid>
                     <Image  Source="../Assets/CD-Music.png"/>
                     <Image  Source="{Binding Player.AlbumImage}"/>
                 </Grid>
             </Border>
-            <Slider HorizontalAlignment="Left" VerticalAlignment="Top" Width="120"
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Margin="5,0" VerticalAlignment="Center" Foreground="White"
+                       Text="{Binding Player.ChannelPosition, Converter={StaticResource DoubleToTimeSpanConverter}, StringFormat=\{0:mm\\:ss\}, FallbackValue=00.00,TargetNullValue=0.00}" HorizontalAlignment="Left"/>
+            <TextBlock Grid.Column="2"  Margin="5,0" VerticalAlignment="Center" Foreground="White"
+                       Text="{Binding Player.ChannelLength, Converter={StaticResource DoubleToTimeSpanConverter}, StringFormat=\{0:mm\\:ss\}, FallbackValue=00.00,TargetNullValue=00.00}" HorizontalAlignment="Right"/>
+            <Slider Grid.Row="1" Grid.ColumnSpan="2" Width="Auto"
                     Minimum="0" Maximum="{Binding Player.ChannelLength}" Value="{Binding Player.ChannelPosition}"/>
-        </StackPanel>
-        		<svl:DigitalClock Grid.Row="2" Time="{Binding Player.ChannelPosition,Converter={StaticResource DoubleToTimeSpanConverter}}"/>
-        
-        <TextBlock HorizontalAlignment="Left" VerticalAlignment="Top"
+        </Grid>
+
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top"
                    Foreground="White"
-                   Margin="30,5,0,0" Grid.Row="3"
+                   Margin="10,5" Grid.Row="3"
                    TextWrapping="NoWrap" 
                    TextTrimming="WordEllipsis"
                    Text="{Binding Player.CurrentSong.Title}" FontFamily="Segoe UI Light" FontSize="22" />
-        
 
-		<svl:SpectrumAnalyzer Grid.Row="4"
-							  Grid.ColumnSpan="2"
-							  Height="100"
-							  x:Name="spectrumAnalyzer"
-							  VerticalAlignment="Bottom"
-							  />
+        <svl:SpectrumAnalyzer Grid.Row="4" Height="100"
+                              x:Name="spectrumAnalyzer" VerticalAlignment="Bottom"
+                              BarSpacing="-1" PeakStyle="{x:Null}"
+                              IsFrequencyScaleLinear="True" BarCount="300"
+							  >
+            <svl:SpectrumAnalyzer.BarStyle>
+                <Style TargetType="{x:Type Rectangle}">
+                    <Setter Property="Fill">
+                        <Setter.Value>
+                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" >
+                                <GradientStop Color="LightBlue" Offset="0"/>
+                                <GradientStop Color="Green" Offset="0.7"/>
+                            </LinearGradientBrush>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </svl:SpectrumAnalyzer.BarStyle>
+
+        </svl:SpectrumAnalyzer>
     </Grid>
 </UserControl>

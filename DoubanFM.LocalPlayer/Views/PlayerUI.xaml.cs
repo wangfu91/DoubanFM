@@ -28,7 +28,6 @@ namespace DoubanFM.LocalPlayer.Views
 
             this.DataContext = playUIViewModel;
             this.spectrumAnalyzer.RegisterSoundPlayer(playUIViewModel.Player);
-
         }
     }
 }
