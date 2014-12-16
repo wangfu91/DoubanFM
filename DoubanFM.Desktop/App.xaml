@@ -4,9 +4,15 @@
              xmlns:converters="clr-namespace:DoubanFM.Common.Converters;assembly=DoubanFM.Common"
              >
     <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Themes/Style.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
         <converters:DoubleToTimeSpanConverter x:Key="DoubleToTimeSpanConverter"/>        
         <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
         <converters:BooleanNegationToVisibilityConverter x:Key="BooleanNegationToVisibilityConverter"/>
         <converters:BoolToImageConverter x:Key="BoolToImageConverter"/>
+            <converters:OrdinaryColorToTranspantConverter x:Key="OrdinaryColorToTranspantConverter"/>
+        </ResourceDictionary>
     </Application.Resources>
 </Application>

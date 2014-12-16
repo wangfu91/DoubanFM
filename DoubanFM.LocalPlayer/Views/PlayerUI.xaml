@@ -62,24 +62,39 @@
                    TextTrimming="WordEllipsis"
                    Text="{Binding Player.CurrentSong.Title}" FontFamily="Segoe UI Light" FontSize="22" />
 
-        <svl:SpectrumAnalyzer Grid.Row="4" Height="100"
-                              x:Name="spectrumAnalyzer" VerticalAlignment="Bottom"
-                              BarSpacing="-1" PeakStyle="{x:Null}"
-                              IsFrequencyScaleLinear="True" BarCount="300"
-							  >
-            <svl:SpectrumAnalyzer.BarStyle>
-                <Style TargetType="{x:Type Rectangle}">
-                    <Setter Property="Fill">
-                        <Setter.Value>
-                            <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" >
-                                <GradientStop Color="LightBlue" Offset="0"/>
-                                <GradientStop Color="Green" Offset="0.7"/>
-                            </LinearGradientBrush>
-                        </Setter.Value>
-                    </Setter>
-                </Style>
-            </svl:SpectrumAnalyzer.BarStyle>
+        <Grid x:Name="SpectrumPanel" Grid.Row="4" Height="100" Margin="-5,0,-5,-15" VerticalAlignment="Bottom">
+            <Grid Opacity="0.7">
+                <Grid.Effect>
+                    <BlurEffect Radius="7"/>
+                </Grid.Effect>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Rectangle RenderTransformOrigin="0.5,0.5">
+                    <Rectangle.RenderTransform>
+                        <ScaleTransform ScaleX="-1"/>
+                    </Rectangle.RenderTransform>
+                    <Rectangle.Fill>
+                        <VisualBrush Visual="{Binding ElementName=spectrumAnalyzer}" Stretch="None" AlignmentX="Left" AlignmentY="Bottom"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <svl:SpectrumAnalyzer x:Name="spectrumAnalyzer" Grid.Column="1" BarSpacing="0" PeakStyle="{x:Null}" IsFrequencyScaleLinear="True" Margin="-1,0,0,-1" AveragePeaks="True">
+                    <svl:SpectrumAnalyzer.BarStyle>
+                        <Style TargetType="{x:Type Rectangle}">
+                            <Setter Property="Fill">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" x:Name="BarBrush">
+                                        <GradientStop Color="{Binding (GradientBrush.GradientStops)[1].Color, Converter={StaticResource OrdinaryColorToTranspantConverter}, RelativeSource={RelativeSource AncestorType={x:Type LinearGradientBrush}}}" Offset="0"/>
+                                        <GradientStop Color="Green" Offset="0.7"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </svl:SpectrumAnalyzer.BarStyle>
+                </svl:SpectrumAnalyzer>
+            </Grid>
+        </Grid>
 
-        </svl:SpectrumAnalyzer>
     </Grid>
 </UserControl>
