@@ -6,7 +6,7 @@ namespace DoubanFM.Data
     /// <summary>
     /// 播放列表
     /// </summary>
-    public class PlayList
+    public class SongResult
     {
         [JsonProperty("r")]
         public int R { get; set; }

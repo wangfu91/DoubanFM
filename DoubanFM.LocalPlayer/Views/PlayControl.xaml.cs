@@ -21,7 +21,7 @@ namespace DoubanFM.LocalPlayer.Views
     /// </summary>
     public partial class PlayControl : UserControl
     {
-        public PlayControl(IPlayEngine playEngine)
+        public PlayControl(IAudioEngine playEngine)
         {
             InitializeComponent();
 

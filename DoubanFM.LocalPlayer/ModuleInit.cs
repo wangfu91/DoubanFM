@@ -22,7 +22,7 @@ namespace DoubanFM.LocalPlayer
 
         public void Initialize()
         {
-            this.container.RegisterInstance<IPlayEngine>(BassEngine.Instance);
+            this.container.RegisterInstance<IAudioEngine>(BassEngine.Instance);
 
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion,
                                                  () => this.container.Resolve<Views.PlayerUI>());

@@ -14,7 +14,7 @@ using WPFSoundVisualizationLib;
 
 namespace DoubanFM.Audio
 {
-    public class NAudioEngine :IPlayEngine,IWaveformPlayer
+    public class NAudioEngine :IAudioEngine,IWaveformPlayer
     {
         #region Fields
         private static NAudioEngine instance;

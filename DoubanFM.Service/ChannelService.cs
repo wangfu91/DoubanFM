@@ -10,23 +10,19 @@ namespace DoubanFM.Service
     public class ChannelService : BaseService
     {
 
-        public async Task<List<Channel>> GetChannels(int channel, string type)
+        public async Task<ChannelList> GetChannels()
         {
-            var path = "j/app/radio/channels";
-            var param = new ServiceParameter
+            return await Get<ChannelList>(ChannelRequestPath, new ChannelSvcParams());
+        }
+
+        public async Task<SongResult> GetSongs(string channel)
+        {
+            var param = new ChannelSvcParams
             {
-                channel = channel.ToString(),
-                type = type 
+                channel = channel,
+                type = "n"
             };
-            var response = await Get(path, param);
-            var channels = new List<Channel>();
-            if (response.StatusCode == HttpStatusCode.OK)
-            {
-                var content = response.Content;
-                var jo = JObject.Parse(content)["channels"];
-                channels = jo.ToObject<List<Channel>>();
-            }
-            return channels;
+            return await Get<SongResult>(SongRequestPath, param);
         }
     }
 }

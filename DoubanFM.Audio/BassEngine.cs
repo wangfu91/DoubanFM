@@ -16,7 +16,7 @@ using System.Windows.Media.Imaging;
 
 namespace DoubanFM.Audio
 {
-    public class BassEngine : IPlayEngine
+    public class BassEngine : IAudioEngine
     {
         #region Fileds 
         private static BassEngine instance;

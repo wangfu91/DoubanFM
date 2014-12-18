@@ -1,7 +1,15 @@
 ﻿
 using Newtonsoft.Json;
+using System.Collections.Generic;
+
 namespace DoubanFM.Data
 {
+    public class ChannelList 
+    {
+        [JsonProperty("channels")]
+        public List<Channel> Channels { get; set; }
+    }
+
     [JsonObject]
     public class Channel
     {

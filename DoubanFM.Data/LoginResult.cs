@@ -3,7 +3,7 @@
 namespace DoubanFM.Data
 {
     [JsonObject]
-    public class LogonInfo
+    public class LoginResult
     {
         [JsonProperty("user_id")]
         public string UserId { get; set; }

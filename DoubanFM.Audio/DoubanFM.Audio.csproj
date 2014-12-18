@@ -73,7 +73,7 @@
   <ItemGroup>
     <Compile Include="BassEngine.cs" />
     <Compile Include="DeviceInfo.cs" />
-    <Compile Include="IPlayEngine.cs" />
+    <Compile Include="IAudioEngine.cs" />
     <Compile Include="NAudioEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleAggregator.cs" />
@@ -85,10 +85,6 @@
     <ProjectReference Include="..\DoubanFM.Data\DoubanFM.Data.csproj">
       <Project>{2a8a3818-56cd-493c-99c9-f6ec446eaedd}</Project>
       <Name>DoubanFM.Data</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DoubanFM.Service\DoubanFM.Service.csproj">
-      <Project>{bc64c67c-e916-4a76-93ea-17d24dea2e72}</Project>
-      <Name>DoubanFM.Service</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

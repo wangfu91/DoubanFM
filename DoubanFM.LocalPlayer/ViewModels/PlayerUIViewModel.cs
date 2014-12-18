@@ -11,18 +11,18 @@ namespace DoubanFM.LocalPlayer.ViewModels
 {
     public class PlayerUIViewModel:ViewModelBase
     {
-        private IPlayEngine playEngine;
+        private IAudioEngine playEngine;
 
-        public IPlayEngine Player
+        public IAudioEngine Player
         {
             get { return playEngine; }
         }
 
-        public PlayerUIViewModel(IPlayEngine playEngine)
+        public PlayerUIViewModel(IAudioEngine playEngine)
         {
             this.playEngine = playEngine;
 
-            this.playEngine.OpenFile(@"C:\Users\WangFu\Desktop\You Raise Me Up.mp3");
+            this.playEngine.OpenFile(@"C:\You Raise Me Up.mp3");
 
             this.playEngine.Play();
         }

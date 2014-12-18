@@ -6,13 +6,13 @@ namespace DoubanFM.Audio.Tests
     [TestClass]
     public class AudioEngineTests
     {
-        private NAudioEngine player;
+        private BassEngine player;
 
         [TestInitialize]
         private void PlayerSetup()
         {
-            player = NAudioEngine.Instance;
-            player.OpenFile(@"C:\Users\WangFu\Desktop\You Raise Me Up.mp3");
+            player = BassEngine.Instance;
+            player.OpenFile(@"C:\You Raise Me Up.mp3");
         }
 
 
@@ -27,7 +27,6 @@ namespace DoubanFM.Audio.Tests
         [TestMethod]
         public void PlayLocalMp3FileTest()
         {
-
             player.Play();
             Assert.IsTrue(player.IsPlaying);
 
