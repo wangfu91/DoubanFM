@@ -9,25 +9,39 @@ namespace DoubanFM.Service
 {
     public class ChannelService : BaseService
     {
+        private ChannelSvcParams channelSvcParams;
+
+        public ChannelService()
+        {
+            channelSvcParams = new ChannelSvcParams();
+        }
+
+        public ChannelService(LoginResult loginResult)
+        {
+            channelSvcParams = new ChannelSvcParams
+            {
+                user_id = loginResult.UserId,
+                token = loginResult.Token,
+                expire = loginResult.Expire
+            };
+        }
 
         public async Task<ChannelList> GetChannels()
         {
-            return await Get<ChannelList>(ChannelRequestPath, new ChannelSvcParams());
+            return await Get<ChannelList>(ChannelRequestPath, channelSvcParams);
         }
 
         public async Task<ChannelList> GetChannels(UserSvcParams userSvcParams)
         {
-            return await Get<ChannelList>(ChannelRequestPath, new ChannelSvcParams());
+
+            return await Get<ChannelList>(ChannelRequestPath, channelSvcParams);
         }
 
         public async Task<SongResult> GetSongs(string channel)
         {
-            var param = new ChannelSvcParams
-            {
-                channel = channel,
-                type = "n"
-            };
-            return await Get<SongResult>(SongRequestPath, param);
+            channelSvcParams.channel = channel;
+            channelSvcParams.type = "n";
+            return await Get<SongResult>(SongRequestPath, channelSvcParams);
         }
     }
 }

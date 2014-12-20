@@ -46,6 +46,10 @@ namespace DoubanFM.Audio
         private BitmapImage albumImage;
         #endregion
 
+        #region events
+        public event EventHandler TrackEnded;
+        #endregion
+
         #region Constants
         private const int waveformCompressedPointCount = 2000;
         private const int repeatThreshold = 200;
@@ -70,9 +74,7 @@ namespace DoubanFM.Audio
             positionTimer.Interval = TimeSpan.FromMilliseconds(50);
             positionTimer.Tick += positionTimer_Tick;
 
-            //waveformGenerateWorker.DoWork += waveformGenerateWorker_DoWork;
-            //waveformGenerateWorker.RunWorkerCompleted += waveformGenerateWorker_RunWorkerCompleted;
-            //waveformGenerateWorker.WorkerSupportsCancellation = true;
+            waveOutDevice.PlaybackStopped += waveOutDevice_PlaybackStopped;
 
             this.PlayPauseCommand = new DelegateCommand(() =>
                 {
@@ -84,6 +86,7 @@ namespace DoubanFM.Audio
 
             this.StopCommand = new DelegateCommand(() => Stop(), () => CanStop);
         }
+
         #endregion
 
         #region Notification Properties
@@ -261,7 +264,6 @@ namespace DoubanFM.Audio
                     ChannelLength = inputStream.TotalTime.TotalSeconds;
                     fileTag = TagLib.File.Create(path);
                     GetAlbumImage();
-                    //GenerateWaveformData(path);
                     CanPlay = true;
                 }
                 catch (Exception ex)
@@ -277,6 +279,11 @@ namespace DoubanFM.Audio
             {
                 throw (new FileNotFoundException());
             }
+        }
+
+        public void OpenUrl(string url)
+        {
+
         }
 
 
@@ -325,6 +332,10 @@ namespace DoubanFM.Audio
         #endregion
 
         #region Private Methods
+        private void waveOutDevice_PlaybackStopped(object sender, StoppedEventArgs e)
+        {
+            OnTrackEnded();
+        }
 
         private void StopAndCloseStream()
         {
@@ -385,6 +396,11 @@ namespace DoubanFM.Audio
         #endregion
 
         #region Event Handlers
+        private void OnTrackEnded()
+        {
+            if (TrackEnded != null)
+                TrackEnded(this, null);
+        }
 
         private void inputStream_Sample(object sender, SampleEventArgs e)
         {
@@ -398,11 +414,6 @@ namespace DoubanFM.Audio
             }
         }
 
-        //void waveStream_Sample(object sender, SampleEventArgs e)
-        //{
-        //    waveformAggregator.Add(e.Left, e.Right);
-        //}
-
         void positionTimer_Tick(object sender, EventArgs e)
         {
             inChannelTimerUpdate = true;
@@ -410,118 +421,6 @@ namespace DoubanFM.Audio
             inChannelTimerUpdate = false;
         }
         #endregion
-
-        //#region Waveform Generation
-        //private class WaveformGenerationParams
-        //{
-        //    public WaveformGenerationParams(int points, string path)
-        //    {
-        //        Points = points;
-        //        Path = path;
-        //    }
-
-        //    public int Points { get; protected set; }
-        //    public string Path { get; protected set; }
-        //}
-
-        //private void GenerateWaveformData(string path)
-        //{
-        //    if (waveformGenerateWorker.IsBusy)
-        //    {
-        //        pendingWaveformPath = path;
-        //        waveformGenerateWorker.CancelAsync();
-        //        return;
-        //    }
-
-        //    if (!waveformGenerateWorker.IsBusy && waveformCompressedPointCount != 0)
-        //        waveformGenerateWorker.RunWorkerAsync(new WaveformGenerationParams(waveformCompressedPointCount, path));
-        //}
-
-        //private void waveformGenerateWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
-        //{
-        //    if (e.Cancelled)
-        //    {
-        //        if (!waveformGenerateWorker.IsBusy && waveformCompressedPointCount != 0)
-        //            waveformGenerateWorker.RunWorkerAsync(new WaveformGenerationParams(waveformCompressedPointCount, pendingWaveformPath));
-        //    }
-        //}
-
-        //private void waveformGenerateWorker_DoWork(object sender, DoWorkEventArgs e)
-        //{
-        //    WaveformGenerationParams waveformParams = e.Argument as WaveformGenerationParams;
-        //    Mp3FileReader waveformMp3Stream = new Mp3FileReader(waveformParams.Path);
-        //    WaveChannel32 waveformInputStream = new WaveChannel32(waveformMp3Stream);
-        //    waveformInputStream.Sample += waveStream_Sample;
-
-        //    int frameLength = fftDataSize;
-        //    int frameCount = (int)((double)waveformInputStream.Length / (double)frameLength);
-        //    int waveformLength = frameCount * 2;
-        //    byte[] readBuffer = new byte[frameLength];
-        //    waveformAggregator = new SampleAggregator(frameLength);
-
-        //    float maxLeftPointLevel = float.MinValue;
-        //    float maxRightPointLevel = float.MinValue;
-        //    int currentPointIndex = 0;
-        //    float[] waveformCompressedPoints = new float[waveformParams.Points];
-        //    List<float> waveformData = new List<float>();
-        //    List<int> waveMaxPointIndexes = new List<int>();
-
-        //    for (int i = 1; i <= waveformParams.Points; i++)
-        //    {
-        //        waveMaxPointIndexes.Add((int)Math.Round(waveformLength * ((double)i / (double)waveformParams.Points), 0));
-        //    }
-        //    int readCount = 0;
-        //    while (currentPointIndex * 2 < waveformParams.Points)
-        //    {
-        //        waveformInputStream.Read(readBuffer, 0, readBuffer.Length);
-
-        //        waveformData.Add(waveformAggregator.LeftMaxVolume);
-        //        waveformData.Add(waveformAggregator.RightMaxVolume);
-
-        //        if (waveformAggregator.LeftMaxVolume > maxLeftPointLevel)
-        //            maxLeftPointLevel = waveformAggregator.LeftMaxVolume;
-        //        if (waveformAggregator.RightMaxVolume > maxRightPointLevel)
-        //            maxRightPointLevel = waveformAggregator.RightMaxVolume;
-
-        //        if (readCount > waveMaxPointIndexes[currentPointIndex])
-        //        {
-        //            waveformCompressedPoints[(currentPointIndex * 2)] = maxLeftPointLevel;
-        //            waveformCompressedPoints[(currentPointIndex * 2) + 1] = maxRightPointLevel;
-        //            maxLeftPointLevel = float.MinValue;
-        //            maxRightPointLevel = float.MinValue;
-        //            currentPointIndex++;
-        //        }
-        //        if (readCount % 3000 == 0)
-        //        {
-        //            float[] clonedData = (float[])waveformCompressedPoints.Clone();
-        //            Application.Current.Dispatcher.Invoke(new Action(() =>
-        //            {
-        //                WaveformData = clonedData;
-        //            }));
-        //        }
-
-        //        if (waveformGenerateWorker.CancellationPending)
-        //        {
-        //            e.Cancel = true;
-        //            break;
-        //        }
-        //        readCount++;
-        //    }
-
-        //    float[] finalClonedData = (float[])waveformCompressedPoints.Clone();
-        //    Application.Current.Dispatcher.Invoke(new Action(() =>
-        //    {
-        //        fullLevelData = waveformData.ToArray();
-        //        WaveformData = finalClonedData;
-        //    }));
-        //    waveformInputStream.Close();
-        //    waveformInputStream.Dispose();
-        //    waveformInputStream = null;
-        //    waveformMp3Stream.Close();
-        //    waveformMp3Stream.Dispose();
-        //    waveformMp3Stream = null;
-        //}
-        //#endregion
 
         #region ISpectrumPlayer
         public bool GetFFTData(float[] fftDataBuffer)
@@ -661,6 +560,7 @@ namespace DoubanFM.Audio
         }
 
         #endregion
+
     }
 
 }

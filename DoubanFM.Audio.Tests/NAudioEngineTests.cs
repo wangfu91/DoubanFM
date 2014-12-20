@@ -1,30 +1,50 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+using System.Threading.Tasks;
 
 namespace DoubanFM.Audio.Tests
 {
     [TestClass]
-    public class UnitTest1
+    public class NAudioEngineTests
     {
-        [TestMethod]
-        public void PlayTest()
+        private NAudioEngine player;
+
+        [TestInitialize]
+        public void NAudioEngineSetup()
         {
-            //var cs1 = new NAudioEngine();
-            //cs1.Play();
+            player = NAudioEngine.Instance;
+            player.OpenFile(@"C:\You Raise Me Up.mp3");
+        }
 
-            //Thread.Sleep(45000);
+        [TestCleanup]
+        public void NAudioEngineCleanUp()
+        {
+            player = null;
+        }
 
-            //cs1.Pause();
+        [TestMethod]
+        public void NAudioEngineSingletonTest()
+        {
+            var player1 = NAudioEngine.Instance;
+            var player2 = NAudioEngine.Instance;
+            Assert.AreSame(player1, player2);
+        }
 
-            //Thread.Sleep(5000);
+        [TestMethod]
+        public void NAudioEnginePlayLocalMp3FileTest()
+        {
+            player.Play();
+            Assert.IsTrue(player.IsPlaying);
+        }
 
-            //cs1.Play();
-
-            //Thread.Sleep(30000);
-
-            //cs1.Stop();
-
-            Assert.IsTrue(true);
-
+        [TestMethod]
+        public void NAudioEnginePauseTest()
+        {
+            if (!player.IsPlaying)
+            {
+                player.Play();
+            }
+            player.Pause();
+            Assert.IsFalse(player.IsPlaying);
         }
     }
 }

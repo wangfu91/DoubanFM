@@ -9,13 +9,13 @@ namespace DoubanFM.Service
     {
         private SongSvcParams songSvcParams;
 
-        public SongService(UserSvcParams userSvcParams)
+        public SongService(LoginResult loginResult)
         {
             songSvcParams = new SongSvcParams
             {
-                user_id = userSvcParams.user_id,
-                token = userSvcParams.token,
-                expire = userSvcParams.expire
+                user_id = loginResult.UserId,
+                token = loginResult.Token,
+                expire = loginResult.Expire
             };
         }
 

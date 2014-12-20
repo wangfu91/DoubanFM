@@ -17,16 +17,16 @@ namespace DoubanFM.Audio
 
         bool CanStop { get; set; }
 
-        //IsPlaying already defined in ISpectrumPlayer.
+        //Note:IsPlaying already defined in ISpectrumPlayer.
         //bool IsPlaying { get; set; }
-
-        bool IsLiked { get; set; }
 
         ICommand PlayPauseCommand { get; set; }
 
-        ICommand PlayNextCommand { get; set; }
+        event EventHandler TrackEnded;
 
         void OpenFile(string filePath);
+
+        void OpenUrl(string url);
 
         void Stop();
 

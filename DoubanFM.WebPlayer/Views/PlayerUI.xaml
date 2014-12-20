@@ -1,52 +1,99 @@
 ﻿<UserControl x:Class="DoubanFM.WebPlayer.Views.PlayerUI"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		     xmlns:svl="clr-namespace:WPFSoundVisualizationLib;assembly=WPFSoundVisualizationLib"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="600">
-    <Grid x:Name="playerUIGrid" Height="300">
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="300"/>
-            <ColumnDefinition Width="300"/>
-        </Grid.ColumnDefinitions>
-        <Grid x:Name="leftPanel" Background="Transparent" Panel.ZIndex="1" ClipToBounds="True">
-            <TabControl x:Name="controlPanel" ClipToBounds="True" FocusVisualStyle="{x:Null}">
-                <TabItem >
-                    <TabItem.Header>
-                        <Border Background="Transparent">
-                            <Viewbox>
-                                <Canvas x:Name="channelsCanvas" Width="256" Height="256" Clip="F1 M 0,0L 256,0L 256,256L 0,256L 0,0">
-                                    <Canvas Width="256" Height="256" Canvas.Left="0" Canvas.Top="0">
-                                        <Rectangle Width="32" Height="192" Canvas.Left="112" Canvas.Top="32" Stretch="Fill" Fill="White"/>
-                                        <Rectangle Width="24" Height="96" Canvas.Left="64" Canvas.Top="80" Stretch="Fill" Fill="White"/>
-                                        <Rectangle Width="24" Height="96" Canvas.Left="16" Canvas.Top="80" Stretch="Fill" Fill="White"/>
-                                        <Rectangle Width="24" Height="96" Canvas.Left="216" Canvas.Top="80" Stretch="Fill" Fill="White"/>
-                                        <Rectangle Width="24" Height="96" Canvas.Left="168" Canvas.Top="80" Stretch="Fill" Fill="White"/>
-                                    </Canvas>
-                                </Canvas>
-                            </Viewbox>
-                        </Border>
-                    </TabItem.Header>
-                    <Grid x:Name="channelsGrid" Visibility="{Binding IsInitialized,Source={StaticResource BoolToVisibilityConverter}}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="40"/>
-                            <RowDefinition />
-                        </Grid.RowDefinitions>
-                        <Grid Background="#4E000000">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                            <RadioButton x:Name="personalRadioButtoon" Margin="5" Content="我的电台" IsChecked="True" Style="{StaticResource ChannelCategoryStyle}">
-                                
-                            </RadioButton>
-                        </Grid>
-                    </Grid>
-                </TabItem>
-            </TabControl>
+             d:DesignHeight="300" d:DesignWidth="300">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="45"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <StackPanel Margin="10,0">
+            <TextBlock  HorizontalAlignment="Center" VerticalAlignment="Top" 
+                       Margin="0,5,0,0"
+                   Foreground="White"
+                   TextWrapping="NoWrap"
+                   TextTrimming="WordEllipsis"
+                   Text="{Binding CurrentSong.Artist, Mode=OneWay}" FontFamily="Segoe UI Light" FontSize="24"
+                   />
+            <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top"
+                       Margin="0,5,0,0"
+                   Foreground="White"
+                   TextWrapping="NoWrap"
+                   TextTrimming="WordEllipsis"
+                   Text="{Binding CurrentSong.AlbumTitle,Mode=TwoWay}" FontFamily="Segoe UI Light" FontSize="16"
+                   />
+        </StackPanel>
+        <Border Grid.Row="1" Margin="10,0" HorizontalAlignment="Center" BorderBrush="White" BorderThickness="2" Height="120"  Width="120">
+            <Grid>
+                <Image  Source="../Assets/CD-Music.png"/>
+                <Image  Source="{Binding CurrentSong.Picture}"/>
+            </Grid>
+        </Border>
+        <Grid Grid.Row="2">
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBlock Margin="5,0" VerticalAlignment="Center" Foreground="White"
+                       Text="{Binding Player.ChannelPosition, Converter={StaticResource DoubleToTimeSpanConverter}, StringFormat=\{0:mm\\:ss\}, FallbackValue=00.00,TargetNullValue=0.00}" HorizontalAlignment="Left"/>
+            <TextBlock Grid.Column="2"  Margin="5,0" VerticalAlignment="Center" Foreground="White"
+                       Text="{Binding Player.ChannelLength, Converter={StaticResource DoubleToTimeSpanConverter}, StringFormat=\{0:mm\\:ss\}, FallbackValue=00.00,TargetNullValue=00.00}" HorizontalAlignment="Right"/>
+            <Slider Grid.Row="1" Grid.ColumnSpan="2" Width="Auto"
+                    Minimum="0" Maximum="{Binding Player.ChannelLength}" Value="{Binding Player.ChannelPosition}"/>
         </Grid>
-            
+
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Top"
+                   Foreground="White"
+                   Margin="10,5" Grid.Row="3"
+                   TextWrapping="NoWrap" 
+                   TextTrimming="WordEllipsis"
+                   Text="{Binding CurrentSong.Title}" FontFamily="Segoe UI Light" FontSize="22" />
+
+        <Grid x:Name="SpectrumPanel" Grid.Row="4" Height="100" Margin="-5,0,-5,-15" VerticalAlignment="Bottom">
+            <Grid Opacity="0.8">
+                <Grid.Effect>
+                    <BlurEffect Radius="7"/>
+                </Grid.Effect>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Rectangle RenderTransformOrigin="0.5,0.5">
+                    <Rectangle.RenderTransform>
+                        <ScaleTransform ScaleX="-1"/>
+                    </Rectangle.RenderTransform>
+                    <Rectangle.Fill>
+                        <VisualBrush Visual="{Binding ElementName=spectrumAnalyzer}" Stretch="None" AlignmentX="Left" AlignmentY="Bottom"/>
+                    </Rectangle.Fill>
+                </Rectangle>
+                <svl:SpectrumAnalyzer x:Name="spectrumAnalyzer" Grid.Column="1" BarSpacing="0" PeakStyle="{x:Null}" IsFrequencyScaleLinear="True" Margin="-1,0,0,-1" AveragePeaks="True">
+                    <svl:SpectrumAnalyzer.BarStyle>
+                        <Style TargetType="{x:Type Rectangle}">
+                            <Setter Property="Fill">
+                                <Setter.Value>
+                                    <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" x:Name="BarBrush">
+                                        <GradientStop Color="{Binding (GradientBrush.GradientStops)[1].Color, Converter={StaticResource OrdinaryColorToTranspantConverter}, RelativeSource={RelativeSource AncestorType={x:Type LinearGradientBrush}}}" Offset="0"/>
+                                        <GradientStop Color="Green" Offset="0.7"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </svl:SpectrumAnalyzer.BarStyle>
+                </svl:SpectrumAnalyzer>
+            </Grid>
+        </Grid>
+
     </Grid>
+
 </UserControl>

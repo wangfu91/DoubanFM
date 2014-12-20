@@ -14,7 +14,7 @@ namespace DoubanFM.Common.Converters
         {
             return (string)parameter == "Like" ?
                 value is bool && (bool)value ?
-                new BitmapImage(new Uri("../Asstes/RedHeart.png", UriKind.Relative)) :
+                new BitmapImage(new Uri("../Assets/Red-Heart.png", UriKind.Relative)) :
                 new BitmapImage(new Uri("../Assets/Heart.png", UriKind.Relative))
                 :
                 value is bool && (bool)value ?

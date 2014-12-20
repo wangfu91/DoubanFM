@@ -61,8 +61,7 @@ namespace DoubanFM.Desktop
         {
             base.ConfigureModuleCatalog();
             var moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
-            moduleCatalog.AddModule(typeof(DoubanFM.LocalPlayer.ModuleInit), InitializationMode.WhenAvailable);
-            moduleCatalog.AddModule(typeof(DoubanFM.WebPlayer.WebPlayerModule), InitializationMode.OnDemand);
+            moduleCatalog.AddModule(typeof(DoubanFM.WebPlayer.WebPlayerModuleInit), InitializationMode.WhenAvailable);
 
         }
     }

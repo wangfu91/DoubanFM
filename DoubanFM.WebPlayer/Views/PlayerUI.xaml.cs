@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DoubanFM.WebPlayer.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,9 +21,12 @@ namespace DoubanFM.WebPlayer.Views
     /// </summary>
     public partial class PlayerUI : UserControl
     {
-        public PlayerUI()
+        public PlayerUI(PlayerUIViewModel playUIViewModel)
         {
             InitializeComponent();
+
+            this.DataContext = playUIViewModel;
+            this.spectrumAnalyzer.RegisterSoundPlayer(playUIViewModel.Player);
         }
     }
 }

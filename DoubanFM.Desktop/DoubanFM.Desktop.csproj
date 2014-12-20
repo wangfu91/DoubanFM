@@ -166,10 +166,6 @@
       <Project>{2a8a3818-56cd-493c-99c9-f6ec446eaedd}</Project>
       <Name>DoubanFM.Data</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DoubanFM.LocalPlayer\DoubanFM.LocalPlayer.csproj">
-      <Project>{05f46c85-870c-44be-8326-b30e7d9972cd}</Project>
-      <Name>DoubanFM.LocalPlayer</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DoubanFM.Service\DoubanFM.Service.csproj">
       <Project>{bc64c67c-e916-4a76-93ea-17d24dea2e72}</Project>
       <Name>DoubanFM.Service</Name>

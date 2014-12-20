@@ -1,4 +1,5 @@
 ﻿
+using DoubanFM.Data;
 namespace DoubanFM.Service
 {
 
@@ -32,6 +33,18 @@ namespace DoubanFM.Service
         public string token { get; set; }
 
         public string expire { get; set; }
+
+        public UserSvcParams()
+        {
+
+        }
+
+        public UserSvcParams(LoginResult loginResult)
+        {
+            this.user_id = loginResult.UserId;
+            this.token = loginResult.Token;
+            this.expire = loginResult.Expire;
+        }
 
     }
 

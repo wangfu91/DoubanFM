@@ -6,14 +6,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
     <Grid>
-        <TextBlock Foreground="Gold" HorizontalAlignment="Center" VerticalAlignment="Center"
-                       FontFamily="Segoe UI" FontSize="32" FontWeight="Black"
-                   TextWrapping="Wrap">
-            <Run Text="Hi, "/>
-            <LineBreak/>
-            <Run Text="This is Web Player Module..."/>
-
-        </TextBlock>
-
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Channel List" FontFamily="Segoe UI" FontSize="24" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <ListBox Grid.Row="1" ItemsSource="{Binding ChannelList.Channels}">
+            <ListBox.Template>
+                <ControlTemplate>
+                    <TextBlock Text="{Binding Name}" FontSize="16" FontWeight="Bold" Foreground="White"/>
+                </ControlTemplate>
+            </ListBox.Template>
+        </ListBox>
     </Grid>
 </UserControl>

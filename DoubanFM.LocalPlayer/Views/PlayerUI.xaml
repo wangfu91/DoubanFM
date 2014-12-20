@@ -63,7 +63,7 @@
                    Text="{Binding Player.CurrentSong.Title}" FontFamily="Segoe UI Light" FontSize="22" />
 
         <Grid x:Name="SpectrumPanel" Grid.Row="4" Height="100" Margin="-5,0,-5,-15" VerticalAlignment="Bottom">
-            <Grid Opacity="0.7">
+            <Grid Opacity="0.8">
                 <Grid.Effect>
                     <BlurEffect Radius="7"/>
                 </Grid.Effect>

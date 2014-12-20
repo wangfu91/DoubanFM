@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using DoubanFM.Data;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Diagnostics;
 using System.Threading.Tasks;
 
@@ -7,6 +8,24 @@ namespace DoubanFM.Service.Tests
     [TestClass]
     public class ServicesUnitTest
     {
+        private LoginResult loginResult;
+
+        [TestInitialize]
+        public void Initialize()
+        {
+            loginResult = new LoginResult
+            {
+                UserId = "67242159",
+                Token = "7c2c65101c",
+                Expire = "1434431471"
+            };
+        }
+
+        [TestCleanup]
+        public void Cleanup()
+        {
+
+        }
 
         [TestMethod]
         public async Task GetChannelsTest()
@@ -15,6 +34,16 @@ namespace DoubanFM.Service.Tests
             var channelList = await channelService.GetChannels();
             Assert.IsNotNull(channelList);
             Assert.IsTrue(channelList.Channels.Count> 0);
+        }
+
+        [TestMethod ]
+        public async Task GetChannelsAfterLoginTest()
+        {
+            var channelService = new ChannelService(loginResult);
+            var channelList = await channelService.GetChannels();
+            Assert.IsNotNull(channelList);
+            Assert.IsTrue(channelList.Channels.Count > 0);
+
         }
 
         [TestMethod]
@@ -62,13 +91,7 @@ namespace DoubanFM.Service.Tests
         [TestMethod]
         public async Task LikeASongTest()
         {
-            var userSvcParams = new UserSvcParams
-            {
-                user_id = "67242159",
-                token = "7c2c65101c",
-                expire = "1434431471"
-            };
-            var songService = new SongService(userSvcParams);
+            var songService = new SongService(loginResult);
             var result=await songService.Like("1742969", "1");
             Assert.IsNotNull(result);
             Assert.IsTrue(result.R==0);
@@ -77,13 +100,8 @@ namespace DoubanFM.Service.Tests
         [TestMethod]
         public async Task UnlikeASongTest()
         {
-            var userSvcParams = new UserSvcParams
-            {
-                user_id = "67242159",
-                token = "7c2c65101c",
-                expire = "1434431471"
-            };
-            var songService = new SongService(userSvcParams);
+            var songService = new SongService(loginResult);
+
             var result = await songService.Unlike("1742969", "1");
             Assert.IsNotNull(result);
             Assert.IsTrue(result.R == 0);
@@ -92,13 +110,7 @@ namespace DoubanFM.Service.Tests
         [TestMethod]
         public async Task BanASongTest()
         {
-            var userSvcParams = new UserSvcParams
-            {
-                user_id = "67242159",
-                token = "7c2c65101c",
-                expire = "1434431471"
-            };
-            var songService = new SongService(userSvcParams);
+            var songService = new SongService(loginResult);
             var result = await songService.Ban("1671513", "1");
             Assert.IsNotNull(result);
             Assert.IsTrue(result.R == 0);
@@ -107,13 +119,7 @@ namespace DoubanFM.Service.Tests
         [TestMethod]
         public async Task NormalEndASongTest()
         {
-            var userSvcParams = new UserSvcParams
-            {
-                user_id = "67242159",
-                token = "7c2c65101c",
-                expire = "1434431471"
-            };
-            var songService = new SongService(userSvcParams);
+            var songService = new SongService(loginResult);
             var result = await songService.NormalEnd("1742969", "1");
             Assert.IsNotNull(result);
             Assert.IsTrue(result.R == 0);
@@ -121,14 +127,8 @@ namespace DoubanFM.Service.Tests
 
         [TestMethod]
         public async Task SkipASongTest()
-        {
-            var userSvcParams = new UserSvcParams
-            {
-                user_id = "67242159",
-                token = "7c2c65101c",
-                expire = "1434431471"
-            };
-            var songService = new SongService(userSvcParams);
+        { 
+            var songService = new SongService(loginResult);
             var result = await songService.Skip("1742969", "1");
             Assert.IsNotNull(result);
             Assert.IsTrue(result.R == 0);

@@ -11,5 +11,7 @@ namespace DoubanFM.Common
         public const string MainRegion = "MainRegion"
 ;
         public const string PlayControlRegin = "PlayControlRegion";
+
+        public const string PlayListRegion = "PlayListRegion";
     }
 }

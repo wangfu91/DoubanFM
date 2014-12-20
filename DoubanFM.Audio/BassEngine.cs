@@ -18,7 +18,7 @@ namespace DoubanFM.Audio
 {
     public class BassEngine : IAudioEngine
     {
-        #region Fileds 
+        #region Fileds
         private static BassEngine instance;
         private bool disposed;
         private int fileStreamhandle;
@@ -28,20 +28,26 @@ namespace DoubanFM.Audio
         private bool canPause;
         private bool canStop;
         private bool isPlaying;
-        private bool isLiked;
-        private TagLib.File fileTag;
-        private Song currentSong;
-        private Queue<Song> playList;
-        private BitmapImage albumImage;
+        private bool isMuted;
+        private double volume = 1.0;//default volume is 100%
         private double currentChannelPosition;
         private bool inChannelSet;
         private bool inChannelTimerUpdate;
         private int sampleFrequency = 44100; //44.1KHZ
+        /// <summary>
+        /// 保存正在打开的文件的地址，当短时间内多次打开网络文件时，这个字段保存最后一次打开的文件，可以使其他打开文件的操作失效
+        /// </summary>
+        private string openningStream = null;
+
         private readonly SYNCPROC endTrackSyncProc;
         private readonly DispatcherTimer positionTimer = new DispatcherTimer(DispatcherPriority.ApplicationIdle);
         private readonly int fftDataSize = (int)FFTDataSize.FFT2048;
         private readonly int maxFFT = (int)(BASSData.BASS_DATA_AVAILABLE | BASSData.BASS_DATA_FFT2048);
 
+        #endregion
+
+        #region events
+        public event EventHandler TrackEnded;
         #endregion
 
         #region Singleton
@@ -87,6 +93,10 @@ namespace DoubanFM.Audio
                 if (value != activeStreamHandle)
                 {
                     activeStreamHandle = value;
+                    if (activeStreamHandle != 0)
+                    {
+                        SetVolume();
+                    }
                     NotifyPropertyChanged("ActiveStreamHandle");
                 }
             }
@@ -211,95 +221,39 @@ namespace DoubanFM.Audio
         }
 
 
-        public bool IsLiked
+        public bool IsMuted
         {
-            get
-            {
-                return isLiked;
-            }
+            get { return isMuted; }
             set
             {
-                if (value != isLiked)
+                if (value != isMuted)
                 {
-                    isLiked = value;
-                    NotifyPropertyChanged("IsLiked");
+                    isMuted = value;
+                    SetVolume();
+                    NotifyPropertyChanged("IsMute");
                 }
             }
         }
 
-
-        public TagLib.File FileTag
+        public double Volume
         {
-            get { return fileTag; }
+            get { return volume; }
             set
             {
-                if (value != fileTag)
+                value = Math.Max(0, Math.Min(1, value));
+                if (value != volume)
                 {
-                    fileTag = value;
-                    NotifyPropertyChanged("FileTag");
+                    volume = value;
+                    SetVolume();
+                    NotifyPropertyChanged("Volume");
                 }
             }
         }
-
-
-        public Song CurrentSong
-        {
-            get
-            {
-                return currentSong;
-            }
-            set
-            {
-                if (value != currentSong)
-                {
-                    currentSong = value;
-                    NotifyPropertyChanged("CurrentSong");
-                }
-            }
-        }
-
-
-        public Queue<Song> PlayList
-        {
-            get
-            {
-                return playList;
-            }
-            set
-            {
-                if (value != playList)
-                {
-                    playList = value;
-                    NotifyPropertyChanged("PlayList");
-                }
-            }
-        }
-
-
-        public BitmapImage AlbumImage
-        {
-            get
-            {
-                return albumImage;
-            }
-            set
-            {
-                if (value != albumImage)
-                {
-                    albumImage = value;
-                    NotifyPropertyChanged("AlbumImage");
-                }
-            }
-        }
-
-
 
         #endregion
 
         #region ICommands
         public ICommand PlayPauseCommand { get; set; }
-
-        public ICommand LikeCommand { get; set; }
 
         public ICommand StopCommand { get; set; }
 
@@ -324,9 +278,12 @@ namespace DoubanFM.Audio
             this.StopCommand = new DelegateCommand(() => Stop(), () => CanStop);
 
             //注册Bass.Net，不注册就会弹出一个启动画面
-            Un4seen.Bass.BassNet.Registration("yk000123@sina.com", "2X34201017282922");
+            BassNet.Registration("yk000123@sina.com", "2X34201017282922");
             Initialize();
-            endTrackSyncProc = (handle, channel, data, user) => Stop();
+            endTrackSyncProc = (handle, channel, data, user) =>
+                {
+                    OnTrackEnded();
+                };
         }
 
         #endregion
@@ -380,12 +337,11 @@ namespace DoubanFM.Audio
             if (File.Exists(path))
             {
                 FileStreamHandle = ActiveStreamHandle = Bass.BASS_StreamCreateFile(path, 0, 0, BASSFlag.BASS_SAMPLE_FLOAT | BASSFlag.BASS_STREAM_PRESCAN);
-                ChannelLength = Bass.BASS_ChannelBytes2Seconds(FileStreamHandle, Bass.BASS_ChannelGetLength(FileStreamHandle, 0));
-                FileTag = TagLib.File.Create(path);
-                GetCurrentSongInfo();
-                GetAlbumImage();
                 if (ActiveStreamHandle != 0)
                 {
+
+                    ChannelLength = Bass.BASS_ChannelBytes2Seconds(FileStreamHandle, Bass.BASS_ChannelGetLength(FileStreamHandle, 0));
+
                     //Obtain the sample rate of the sstream
                     var info = new BASS_CHANNELINFO();
                     Bass.BASS_ChannelGetInfo(ActiveStreamHandle, info);
@@ -405,11 +361,51 @@ namespace DoubanFM.Audio
                 }
                 else
                 {
-                    ActiveStreamHandle = 0;
-                    FileTag = null;
-                    canPlay = false;
+                    Debug.WriteLine(string.Format("Failed to open file: {0},Error Code: {1}", path, Bass.BASS_ErrorGetCode()));
                 }
             }
+        }
+
+        public void OpenUrl(string url)
+        {
+            openningStream = url;
+            Stop();
+            int handle = Bass.BASS_StreamCreateURL(url, 0, BASSFlag.BASS_STREAM_RESTRATE, null, IntPtr.Zero);
+            if (handle != 0)
+            {
+                if (openningStream == url)
+                {
+                    ActiveStreamHandle = handle;
+                    ChannelLength = Bass.BASS_ChannelBytes2Seconds(ActiveStreamHandle, Bass.BASS_ChannelGetLength(ActiveStreamHandle));
+                    var info = new BASS_CHANNELINFO();
+                    Bass.BASS_ChannelGetInfo(ActiveStreamHandle, info);
+                    sampleFrequency = info.freq;
+
+                    int syncHandle = Bass.BASS_ChannelSetSync(ActiveStreamHandle,
+                        BASSSync.BASS_SYNC_END,
+                        0,
+                        endTrackSyncProc,
+                        IntPtr.Zero);
+
+                    if (syncHandle == 0)
+                        throw new ArgumentException("Error establishing End Sync on file stream.", "url");
+
+                    CanPlay = true;
+                }
+                else
+                {
+                    if (!Un4seen.Bass.Bass.BASS_StreamFree(handle))
+                    {
+                        Debug.WriteLine("BASS_StreamFree() Failed：" + Un4seen.Bass.Bass.BASS_ErrorGetCode());
+                    }
+                }
+
+            }
+            else
+            {
+                Debug.WriteLine(string.Format("Failed to open URL: {0},Error Code: {1}", url, Bass.BASS_ErrorGetCode()));
+            }
+
         }
 
         #endregion
@@ -423,10 +419,10 @@ namespace DoubanFM.Audio
             IsPlaying = false;
 
             IntPtr handle = IntPtr.Zero;
-            if (Application.Current.MainWindow != null)
-            {
-                handle = new WindowInteropHelper(Application.Current.MainWindow).EnsureHandle();
-            }
+            //if (Application.Current.MainWindow != null)
+            //{
+            //    handle = new WindowInteropHelper(Application.Current.MainWindow).EnsureHandle();
+            //}
 
             var defaultDevice = FindDefaultDevice();
             var init = Bass.BASS_Init(defaultDevice, sampleFrequency, BASSInit.BASS_DEVICE_SPEAKERS, handle);
@@ -447,60 +443,16 @@ namespace DoubanFM.Audio
                 Debug.WriteLine("Bass Initialize error!");
             }
 
-
-
         }
 
-        private void GetCurrentSongInfo()
+        private void SetVolume()
         {
-            var tag = FileTag.Tag;
-            if (tag != null)
+            if (ActiveStreamHandle != 0)
             {
-                CurrentSong = new Song
-                {
-                    Title = tag.Title,
-                    Artist = tag.AlbumArtists.FirstOrDefault(),
-                    AlbumTitle = tag.Album
-                };
+                var value = IsMuted ? 0 : (float)Volume;
+                Bass.BASS_ChannelSetAttribute(ActiveStreamHandle, BASSAttribute.BASS_ATTRIB_VOL, value);
             }
         }
-
-        private void GetAlbumImage()
-        {
-            if (fileTag != null)
-            {
-                var tag = fileTag.Tag;
-                if (tag.Pictures.Length > 0)
-                {
-                    using (var ms = new MemoryStream(tag.Pictures[0].Data.Data))
-                    {
-                        try
-                        {
-                            var bmp = new BitmapImage();
-                            bmp.BeginInit();
-                            bmp.CacheOption = BitmapCacheOption.OnLoad;
-                            bmp.StreamSource = ms;
-                            bmp.EndInit();
-                            AlbumImage = bmp;
-                        }
-                        catch (NotSupportedException)
-                        {
-                            AlbumImage = null;
-                        }
-                        ms.Close();
-                    }
-                }
-                else
-                {
-                    AlbumImage = null;
-                }
-            }
-            else
-            {
-                AlbumImage = null;
-            }
-        }
-
 
         private void PlayCurrentStream()
         {
@@ -517,6 +469,18 @@ namespace DoubanFM.Audio
 #endif
         }
 
+        private void FreeCurrentStream()
+        {
+            if (ActiveStreamHandle != 0)
+            {
+                if (!Bass.BASS_StreamFree(ActiveStreamHandle))
+                {
+                    Debug.WriteLine("BASS_StreamFree失败：" + Un4seen.Bass.Bass.BASS_ErrorGetCode());
+                }
+                ActiveStreamHandle = 0;
+            }
+        }
+
         /// <summary>
         /// 查找设备的序号
         /// </summary>
@@ -530,7 +494,7 @@ namespace DoubanFM.Audio
         //    if (device.HasValue)
         //    {
         //        int deviceNO = -1;
-        //        var devices = Un4seen.Bass.Bass.BASS_GetDeviceInfos().ToList();
+        //        var devices = Bass.BASS_GetDeviceInfos().ToList();
         //        var filteredDevices = from d in devices where d.id != null && d.id == device.Value.ID select Array.IndexOf(devices, d);
         //        if (filteredDevices.Count() == 1)
         //        {
@@ -577,7 +541,7 @@ namespace DoubanFM.Audio
         /// <returns></returns>
         private static int FindDefaultDevice()
         {
-            var devices = Un4seen.Bass.Bass.BASS_GetDeviceInfos();
+            var devices = Bass.BASS_GetDeviceInfos();
             for (int i = 0; i < devices.Length; ++i)
             {
                 if (devices[i].IsDefault) return i;
@@ -589,6 +553,12 @@ namespace DoubanFM.Audio
         #endregion
 
         #region Event Handleres
+        private void OnTrackEnded()
+        {
+            if (TrackEnded != null)
+                TrackEnded(this, null);
+        }
+
         private void positionTimer_Tick(object sender, EventArgs e)
         {
             if (ActiveStreamHandle == 0)
@@ -641,7 +611,7 @@ namespace DoubanFM.Audio
             {
                 if (disposing)
                 {
-                    //To Do
+                    //TODO:dispose BassEngine
                 }
                 disposed = true;
             }
