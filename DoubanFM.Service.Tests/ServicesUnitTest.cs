@@ -58,5 +58,82 @@ namespace DoubanFM.Service.Tests
             Assert.IsNotNull(user);
             Assert.IsFalse(string.IsNullOrEmpty(user.Name));
         }
+
+        [TestMethod]
+        public async Task LikeASongTest()
+        {
+            var userSvcParams = new UserSvcParams
+            {
+                user_id = "67242159",
+                token = "7c2c65101c",
+                expire = "1434431471"
+            };
+            var songService = new SongService(userSvcParams);
+            var result=await songService.Like("1742969", "1");
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.R==0);
+        }
+
+        [TestMethod]
+        public async Task UnlikeASongTest()
+        {
+            var userSvcParams = new UserSvcParams
+            {
+                user_id = "67242159",
+                token = "7c2c65101c",
+                expire = "1434431471"
+            };
+            var songService = new SongService(userSvcParams);
+            var result = await songService.Unlike("1742969", "1");
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.R == 0);
+        }
+
+        [TestMethod]
+        public async Task BanASongTest()
+        {
+            var userSvcParams = new UserSvcParams
+            {
+                user_id = "67242159",
+                token = "7c2c65101c",
+                expire = "1434431471"
+            };
+            var songService = new SongService(userSvcParams);
+            var result = await songService.Ban("1671513", "1");
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.R == 0);
+        }
+
+        [TestMethod]
+        public async Task NormalEndASongTest()
+        {
+            var userSvcParams = new UserSvcParams
+            {
+                user_id = "67242159",
+                token = "7c2c65101c",
+                expire = "1434431471"
+            };
+            var songService = new SongService(userSvcParams);
+            var result = await songService.NormalEnd("1742969", "1");
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.R == 0);
+        }
+
+        [TestMethod]
+        public async Task SkipASongTest()
+        {
+            var userSvcParams = new UserSvcParams
+            {
+                user_id = "67242159",
+                token = "7c2c65101c",
+                expire = "1434431471"
+            };
+            var songService = new SongService(userSvcParams);
+            var result = await songService.Skip("1742969", "1");
+            Assert.IsNotNull(result);
+            Assert.IsTrue(result.R == 0);
+        }
+
+
     }
 }

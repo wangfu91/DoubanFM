@@ -20,33 +20,45 @@ namespace DoubanFM.Service
         }
 
 
-        public async Task<bool> Like(string sid,string channel)
+        public async Task<SongResult> Like(string sid,string channel)
         {
             songSvcParams.sid = sid;
             songSvcParams.channel = channel;
             songSvcParams.type = "r";
-            var result = await Get<SongResult>(SongRequestPath, songSvcParams);
-            return result != null && result.R == 0;
+            return await Get<SongResult>(SongRequestPath, songSvcParams);
         }
 
-        public async Task<bool> Unlike(string sid,string channel, string userId, string token, string expire)
+        public async Task<SongResult> Unlike(string sid,string channel)
         {
             songSvcParams.sid = sid;
             songSvcParams.channel = channel;
             songSvcParams.type = "u";
-            var result = await Get<SongResult>(SongRequestPath, songSvcParams);
-            return result != null && result.R == 0;
+            return await Get<SongResult>(SongRequestPath, songSvcParams);
         }
 
-        public async Task<bool> Ban(string sid, string channel)
+        public async Task<SongResult> Ban(string sid, string channel)
         {
             songSvcParams.sid = sid;
             songSvcParams.channel = channel;
             songSvcParams.type = "b";
-            var result = await Get<SongResult>(SongRequestPath, songSvcParams);
-            return result != null && result.R == 0;
+            return await Get<SongResult>(SongRequestPath, songSvcParams);
         }
 
+        public async Task<SongResult> Skip(string sid,string channel)
+        {
+            songSvcParams.sid = sid;
+            songSvcParams.channel = channel;
+            songSvcParams.type = "s";
+            return await Get<SongResult>(SongRequestPath, songSvcParams);
+        }
+
+        public async Task<SongResult> NormalEnd(string sid, string channel)
+        {
+            songSvcParams.sid = sid;
+            songSvcParams.channel = channel;
+            songSvcParams.type = "e";
+            return await Get<SongResult>(SongRequestPath, songSvcParams);
+        }
     }
 
 }
