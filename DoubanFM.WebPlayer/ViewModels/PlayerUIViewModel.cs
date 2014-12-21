@@ -104,29 +104,53 @@ namespace DoubanFM.WebPlayer.ViewModels
             Initialize();
             PlayNextCommand = new DelegateCommand(async () =>
                 {
-                    SetPlayList(await songService.Skip(CurrentSong.SID, CurrentChannel.ChannelId));
+                    if (PlayList.Count > 0)
+                    {
+                        CurrentSong = PlayList.Dequeue();
+                        SetPlayList(await songService.Skip(CurrentSong.SID, CurrentChannel.ChannelId));
+                    }
+                    else
+                    {
+                        SetPlayList(await songService.Skip(CurrentSong.SID, CurrentChannel.ChannelId));
+                        CurrentSong = PlayList.Dequeue();
+                    }
                 });
 
             LikeCommand = new DelegateCommand(async () =>
             {
                 if (CurrentSong.Like)
                 {
-                    var result=await songService.Unlike(CurrentSong.SID, CurrentChannel.ChannelId);
+                    var result = await songService.Unlike(CurrentSong.SID, CurrentChannel.ChannelId);
                     if (result.R == 0)
+                    {
                         CurrentSong.Like = false;
+                        SetPlayList(result);
+                    }
                 }
                 else
                 {
-                    var result=await songService.Like(CurrentSong.SID, CurrentChannel.ChannelId);
+                    var result = await songService.Like(CurrentSong.SID, CurrentChannel.ChannelId);
                     if (result.R == 0)
+                    {
                         CurrentSong.Like = true;
+                        SetPlayList(result);
+                    }
                 }
 
             });
 
             BanCommand = new DelegateCommand(async () =>
             {
-                SetPlayList(await songService.Ban(CurrentSong.SID, CurrentChannel.ChannelId));
+                if (PlayList.Count > 0)
+                {
+                    CurrentSong = PlayList.Dequeue();
+                    SetPlayList(await songService.Ban(CurrentSong.SID, CurrentChannel.ChannelId));
+                }
+                else
+                {
+                    SetPlayList(await songService.Ban(CurrentSong.SID, CurrentChannel.ChannelId));
+                    CurrentSong = PlayList.Dequeue();
+                }
             });
         }
 
@@ -156,6 +180,7 @@ namespace DoubanFM.WebPlayer.ViewModels
         {
             var result = await channelService.GetSongs(CurrentChannel.ChannelId);
             SetPlayList(result);
+            CurrentSong = PlayList.Dequeue();
         }
 
         private void SetPlayList(SongResult result)
@@ -163,17 +188,26 @@ namespace DoubanFM.WebPlayer.ViewModels
             if (result != null && result.Songs.Count > 0)
             {
                 PlayList.Clear();
-                result.Songs.Reverse();
                 result.Songs.ForEach(s => PlayList.Enqueue(s));
-                CurrentSong = PlayList.Dequeue();
             }
         }
 
 
         private async void playEngine_TrackeEnded(object sender, EventArgs e)
         {
-            var result = await songService.NormalEnd(CurrentSong.SID, CurrentChannel.ChannelId);
-            SetPlayList(result);
+
+            if (PlayList.Count > 0)
+            {
+                CurrentSong = PlayList.Dequeue();
+                var result = await songService.NormalEnd(CurrentSong.SID, CurrentChannel.ChannelId);
+                SetPlayList(result);
+            }
+            else
+            {
+                var result = await songService.NormalEnd(CurrentSong.SID, CurrentChannel.ChannelId);
+                SetPlayList(result);
+                CurrentSong = PlayList.Dequeue();
+            }
         }
 
     }

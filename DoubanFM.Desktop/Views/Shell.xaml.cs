@@ -23,5 +23,10 @@ namespace DoubanFM.Desktop.Views
         {
             InitializeComponent();
         }
+
+        private void DragWindow(object sender, MouseButtonEventArgs e)
+        {
+            this.DragMove();
+        }
     }
 }

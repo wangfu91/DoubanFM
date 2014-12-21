@@ -8,10 +8,10 @@ namespace DoubanFM.Common
 {
     public static class RegionNames
     {
-        public const string MainRegion = "MainRegion"
-;
-        public const string PlayControlRegin = "PlayControlRegion";
+        public const string MainRegion = "MainRegion";
 
-        public const string PlayListRegion = "PlayListRegion";
+        //public const string PlayControlRegin = "PlayControlRegion";
+
+        //public const string PlayListRegion = "PlayListRegion";
     }
 }

@@ -61,6 +61,7 @@
     <Compile Include="Converters\BooleanNegationToVisibilityConverter.cs" />
     <Compile Include="Converters\BoolToImageConverter.cs" />
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
+    <Compile Include="Converters\ChannelTimeLeftConverter.cs" />
     <Compile Include="Converters\DoubleToTimeSpanConverter.cs" />
     <Compile Include="Converters\OrdinaryColorToTranspantConverter.cs" />
     <Compile Include="PlayerEvents.cs" />

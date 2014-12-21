@@ -2,23 +2,19 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://www.codeplex.com/prism"
-        Title="Shell" Height="500" Width="600" Background="#FF1A1A1A">
+        Title="DoubanFM" Background="{x:Null}" 
+        WindowStartupLocation="CenterScreen" 
+        WindowStyle="None"
+        AllowsTransparency="True"
+        MouseLeftButtonDown="DragWindow">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="Auto"/>
-        </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*"/>
-            <ColumnDefinition Width="200"/>
-        </Grid.ColumnDefinitions>
-        <ItemsControl x:Name="MainRegion" 
+        <ItemsControl x:Name="MainRegion" HorizontalAlignment="Center" VerticalAlignment="Center"
                   prism:RegionManager.RegionName="MainRegion"/>
 
-        <ItemsControl Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
+        <!--<ItemsControl Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Bottom" 
                       prism:RegionManager.RegionName="PlayControlRegion"/>
         <ItemsControl Grid.RowSpan="2" Grid.Column="1" 
-                      prism:RegionManager.RegionName="PlayListRegion"/>
+                      prism:RegionManager.RegionName="PlayListRegion"/>-->
     </Grid>
 
 </Window>

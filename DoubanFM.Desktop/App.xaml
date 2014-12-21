@@ -8,11 +8,12 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Themes/Style.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-        <converters:DoubleToTimeSpanConverter x:Key="DoubleToTimeSpanConverter"/>        
-        <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-        <converters:BooleanNegationToVisibilityConverter x:Key="BooleanNegationToVisibilityConverter"/>
-        <converters:BoolToImageConverter x:Key="BoolToImageConverter"/>
+            <converters:DoubleToTimeSpanConverter x:Key="DoubleToTimeSpanConverter"/>
+            <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
+            <converters:BooleanNegationToVisibilityConverter x:Key="BooleanNegationToVisibilityConverter"/>
+            <converters:BoolToImageConverter x:Key="BoolToImageConverter"/>
             <converters:OrdinaryColorToTranspantConverter x:Key="OrdinaryColorToTranspantConverter"/>
+            <converters:ChannelTimeLeftConverter x:Key="ChannelTimeLeftConverter"/>
         </ResourceDictionary>
     </Application.Resources>
 </Application>

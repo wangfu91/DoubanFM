@@ -22,11 +22,9 @@ namespace DoubanFM.WebPlayer.Views
     /// </summary>
     public partial class PlayControl : UserControl
     {
-        public PlayControl(PlayerUIViewModel playUIViewModel)
+        public PlayControl()
         {
             InitializeComponent();
-
-            this.DataContext = playUIViewModel;
         }
     }
 }

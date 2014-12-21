@@ -21,11 +21,9 @@ namespace DoubanFM.WebPlayer.Views
     /// </summary>
     public partial class ChannelList : UserControl
     {
-        public ChannelList(PlayerUIViewModel playUIViewModel)
+        public ChannelList()
         {
             InitializeComponent();
-            this.DataContext = playUIViewModel;
-
         }
     }
 }

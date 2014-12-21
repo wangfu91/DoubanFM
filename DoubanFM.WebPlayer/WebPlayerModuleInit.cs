@@ -25,10 +25,10 @@ namespace DoubanFM.WebPlayer
 
             regionManager.RegisterViewWithRegion(RegionNames.MainRegion,
                                                  () => this.container.Resolve<Views.PlayerUI>());
-            regionManager.RegisterViewWithRegion(RegionNames.PlayControlRegin,
-                                                 () => this.container.Resolve<Views.PlayControl>());
-            regionManager.RegisterViewWithRegion(RegionNames.PlayListRegion,
-                                     () => this.container.Resolve<Views.ChannelList>());
+            //regionManager.RegisterViewWithRegion(RegionNames.PlayControlRegin,
+            //                                     () => this.container.Resolve<Views.PlayControl>());
+            //regionManager.RegisterViewWithRegion(RegionNames.PlayListRegion,
+            //                         () => this.container.Resolve<Views.ChannelList>());
 
         }
     }
