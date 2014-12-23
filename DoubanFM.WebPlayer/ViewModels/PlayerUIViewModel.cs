@@ -172,6 +172,7 @@ namespace DoubanFM.WebPlayer.ViewModels
             if (ChannelList != null)
             {
                 CurrentChannel = ChannelList.Channels.First();
+                CurrentChannel.ChannelId = "-3";
                 await GetSongs();
             }
         }

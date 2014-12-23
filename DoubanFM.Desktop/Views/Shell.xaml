@@ -2,11 +2,14 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://www.codeplex.com/prism"
-        Title="DoubanFM" Background="{x:Null}" 
-        WindowStartupLocation="CenterScreen" 
+        xmlns:mui="http://firstfloorsoftware.com/ModernUI"
+        Title="DoubanFM" 
+        WindowStartupLocation="CenterScreen"
+        MouseLeftButtonDown="DragWindow"   
+        Background="{x:Null}" 
         WindowStyle="None"
-        AllowsTransparency="True"
-        MouseLeftButtonDown="DragWindow">
+        AllowsTransparency="True">
+
     <Grid>
         <ItemsControl x:Name="MainRegion" HorizontalAlignment="Center" VerticalAlignment="Center"
                   prism:RegionManager.RegionName="MainRegion"/>

@@ -31,12 +31,6 @@ namespace DoubanFM.Service
             return await Get<ChannelList>(ChannelRequestPath, channelSvcParams);
         }
 
-        public async Task<ChannelList> GetChannels(UserSvcParams userSvcParams)
-        {
-
-            return await Get<ChannelList>(ChannelRequestPath, channelSvcParams);
-        }
-
         public async Task<SongResult> GetSongs(string channel)
         {
             channelSvcParams.channel = channel;

@@ -55,6 +55,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="SampleData\Channels.json" />
+    <None Include="SampleData\RedHeart.json" />
+    <None Include="SampleData\Songs.json" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

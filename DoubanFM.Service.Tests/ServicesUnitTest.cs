@@ -50,7 +50,7 @@ namespace DoubanFM.Service.Tests
         public async Task GetSongsByChannelTest()
         {
             var channelService = new ChannelService();
-            var songs = await channelService.GetSongs("1");
+            var songs = await channelService.GetSongs("-3");
             Assert.IsNotNull(songs);
         }
 
