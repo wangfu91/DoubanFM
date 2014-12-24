@@ -403,7 +403,7 @@ namespace DoubanFM.Audio
             }
             else
             {
-                Debug.WriteLine(string.Format("Failed to open URL: {0},Error Code: {1}", url, Bass.BASS_ErrorGetCode()));
+                Debug.WriteLine(string.Format("Failed to open URL: {0}, Error Code: {1}", url, Bass.BASS_ErrorGetCode()));
             }
 
         }

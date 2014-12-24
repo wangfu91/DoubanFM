@@ -6,8 +6,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="600"
-             Background="#FF1C1C1C">
+             d:DesignHeight="300" d:DesignWidth="600" Background="#F00CCCCC" 
+             >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="300"/>
@@ -59,13 +59,13 @@
                 </StackPanel>
             </StackPanel>
             <Grid x:Name="SpectrumPanel" Grid.Row="2" Height="80" VerticalAlignment="Bottom" Panel.ZIndex="0">
-                <Grid Opacity="0.7">
+                <Grid Opacity="0.9">
                     <Grid.Effect>
-                        <BlurEffect Radius="7"/>
+                        <BlurEffect Radius="16"/>
                     </Grid.Effect>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition/>
-                        <ColumnDefinition/>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
                     <Rectangle RenderTransformOrigin="0.5,0.5">
                         <Rectangle.RenderTransform>

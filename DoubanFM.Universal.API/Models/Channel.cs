@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 
 namespace DoubanFM.Universal.API.Models
 {
+    public class ChannelList
+    {
+        [JsonProperty("channels")]
+        public List<Channel> Channels { get; set; }
+    }
+
     [JsonObject]
     public class Channel
     {

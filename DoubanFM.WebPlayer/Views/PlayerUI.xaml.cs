@@ -24,7 +24,6 @@ namespace DoubanFM.WebPlayer.Views
         public PlayerUI(PlayerUIViewModel playUIViewModel)
         {
             InitializeComponent();
-
             this.DataContext = playUIViewModel;
             this.spectrumAnalyzer.RegisterSoundPlayer(playUIViewModel.Player);
         }

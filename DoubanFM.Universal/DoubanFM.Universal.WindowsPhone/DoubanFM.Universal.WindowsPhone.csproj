@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{7bfbcafa-bbf4-44ba-9219-5a99f5ceb281}</ProjectGuid>
+    <ProjectGuid>{7BFBCAFA-BBF4-44BA-9219-5A99F5CEB281}</ProjectGuid>
     <OutputType>AppContainerExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>DoubanFM.Universal</RootNamespace>
@@ -81,8 +81,12 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
+    <ProjectReference Include="..\..\DoubanFM.Universal.API\DoubanFM.Universal.API.csproj">
+      <Project>{fb986755-4659-478f-8be6-3b27f05bbf37}</Project>
+      <Name>DoubanFM.Universal.API</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>    
+  <ItemGroup>
     <Compile Include="HubPage.xaml.cs">
       <DependentUpon>HubPage.xaml</DependentUpon>
     </Compile>
@@ -123,11 +127,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="..\DoubanFM.Universal.Shared\DoubanFM.Universal.Shared.projitems" Label="Shared" />
-    <PropertyGroup Condition=" '$(TargetPlatformIdentifier)' == '' ">
+  <PropertyGroup Condition=" '$(TargetPlatformIdentifier)' == '' ">
     <TargetPlatformIdentifier>WindowsPhoneApp</TargetPlatformIdentifier>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />

@@ -16,13 +16,18 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DataModel\SampleDataSource.cs" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\CD-Music.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\Delete.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\Heart.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\Media-Next.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\Media-Pause.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\Media-Play.png" />
-    <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\Red-Heart.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\play.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\redHeart.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\trash.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Light\heart.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Light\music.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Light\next.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Light\pause.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Light\redHeart.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Light\trash.png" />
     <Content Include="$(MSBuildThisFileDirectory)DataModel\SampleData.json" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\LightGray.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\MediumGray.png" />
@@ -32,8 +37,5 @@
     <Compile Include="$(MSBuildThisFileDirectory)Common\SuspensionManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\ObservableDictionary.cs" />
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en-US\Resources.resw" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="$(MSBuildThisFileDirectory)Assets\Light\" />
   </ItemGroup>
 </Project>
