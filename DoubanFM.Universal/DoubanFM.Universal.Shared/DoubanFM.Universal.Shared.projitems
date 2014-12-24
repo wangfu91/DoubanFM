@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
@@ -16,6 +16,13 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DataModel\SampleDataSource.cs" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\CD-Music.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\Delete.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\Heart.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\Media-Next.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\Media-Pause.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\Media-Play.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\Red-Heart.png" />
     <Content Include="$(MSBuildThisFileDirectory)DataModel\SampleData.json" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\LightGray.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\MediumGray.png" />
@@ -25,5 +32,8 @@
     <Compile Include="$(MSBuildThisFileDirectory)Common\SuspensionManager.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Common\ObservableDictionary.cs" />
     <PRIResource Include="$(MSBuildThisFileDirectory)Strings\en-US\Resources.resw" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="$(MSBuildThisFileDirectory)Assets\Light\" />
   </ItemGroup>
 </Project>

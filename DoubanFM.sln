@@ -42,6 +42,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubanFM.Universal.Windows"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubanFM.Universal.WindowsPhone", "DoubanFM.Universal\DoubanFM.Universal.WindowsPhone\DoubanFM.Universal.WindowsPhone.csproj", "{7BFBCAFA-BBF4-44BA-9219-5A99F5CEB281}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubanFM.Universal.API", "DoubanFM.Universal.API\DoubanFM.Universal.API.csproj", "{FB986755-4659-478F-8BE6-3B27F05BBF37}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		DoubanFM.Universal\DoubanFM.Universal.Shared\DoubanFM.Universal.Shared.projitems*{7bfbcafa-bbf4-44ba-9219-5a99f5ceb281}*SharedItemsImports = 4
@@ -251,6 +253,22 @@ Global
 		{7BFBCAFA-BBF4-44BA-9219-5A99F5CEB281}.Release|x86.ActiveCfg = Release|x86
 		{7BFBCAFA-BBF4-44BA-9219-5A99F5CEB281}.Release|x86.Build.0 = Release|x86
 		{7BFBCAFA-BBF4-44BA-9219-5A99F5CEB281}.Release|x86.Deploy.0 = Release|x86
+		{FB986755-4659-478F-8BE6-3B27F05BBF37}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB986755-4659-478F-8BE6-3B27F05BBF37}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB986755-4659-478F-8BE6-3B27F05BBF37}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{FB986755-4659-478F-8BE6-3B27F05BBF37}.Debug|ARM.Build.0 = Debug|Any CPU
+		{FB986755-4659-478F-8BE6-3B27F05BBF37}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FB986755-4659-478F-8BE6-3B27F05BBF37}.Debug|x64.Build.0 = Debug|Any CPU
+		{FB986755-4659-478F-8BE6-3B27F05BBF37}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FB986755-4659-478F-8BE6-3B27F05BBF37}.Debug|x86.Build.0 = Debug|Any CPU
+		{FB986755-4659-478F-8BE6-3B27F05BBF37}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB986755-4659-478F-8BE6-3B27F05BBF37}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB986755-4659-478F-8BE6-3B27F05BBF37}.Release|ARM.ActiveCfg = Release|Any CPU
+		{FB986755-4659-478F-8BE6-3B27F05BBF37}.Release|ARM.Build.0 = Release|Any CPU
+		{FB986755-4659-478F-8BE6-3B27F05BBF37}.Release|x64.ActiveCfg = Release|Any CPU
+		{FB986755-4659-478F-8BE6-3B27F05BBF37}.Release|x64.Build.0 = Release|Any CPU
+		{FB986755-4659-478F-8BE6-3B27F05BBF37}.Release|x86.ActiveCfg = Release|Any CPU
+		{FB986755-4659-478F-8BE6-3B27F05BBF37}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -264,5 +282,6 @@ Global
 		{468AC502-BA4E-4BA7-A256-35F207BBCEF1} = {22F16BDA-1F56-40E9-81A3-D2F661C38597}
 		{49B36331-C87E-4338-8114-F1BBA5FAF793} = {22F16BDA-1F56-40E9-81A3-D2F661C38597}
 		{7BFBCAFA-BBF4-44BA-9219-5A99F5CEB281} = {22F16BDA-1F56-40E9-81A3-D2F661C38597}
+		{FB986755-4659-478F-8BE6-3B27F05BBF37} = {22F16BDA-1F56-40E9-81A3-D2F661C38597}
 	EndGlobalSection
 EndGlobal
