@@ -1,6 +1,7 @@
-﻿<Application
+﻿<prism:MvvmAppBase
     x:Class="DoubanFM.Universal.App"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:prism="using:Microsoft.Practices.Prism.Mvvm"
     xmlns:local="using:DoubanFM.Universal">
-</Application>
+</prism:MvvmAppBase>

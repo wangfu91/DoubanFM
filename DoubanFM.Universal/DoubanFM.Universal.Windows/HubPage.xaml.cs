@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using DoubanFM.Universal.Data;
 using DoubanFM.Universal.Common;
+using Microsoft.Practices.Prism.StoreApps;
 
 // The Universal Hub Application project template is documented at http://go.microsoft.com/fwlink/?LinkID=391955
 
@@ -22,7 +23,7 @@ namespace DoubanFM.Universal
     /// <summary>
     /// A page that displays a grouped collection of items.
     /// </summary>
-    public sealed partial class HubPage : Page
+    public sealed partial class HubPage : VisualStateAwarePage
     {
         private NavigationHelper navigationHelper;
         private ObservableDictionary defaultViewModel = new ObservableDictionary();

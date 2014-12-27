@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DoubanFM.Universal.API.Models
+namespace DoubanFM.Universal.APIs.Models
 {
     [JsonObject]
     public class LoginResult

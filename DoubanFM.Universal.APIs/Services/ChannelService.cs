@@ -1,17 +1,14 @@
-﻿using DoubanFM.Universal.API.Models;
+﻿using DoubanFM.Universal.APIs.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DoubanFM.Universal.API.Services
+namespace DoubanFM.Universal.APIs.Services
 {
-    public class ChannelService : ServiceBase
+    public class ChannelService : ServiceBase,IChannelService
     {
-        private const string ChannelRequestPath = "j/app/radio/channels";
-        private const string SongRequestPath = "j/app/radio/people";
-
         private ChannelParams channelParams;
 
         public ChannelService()
@@ -31,15 +28,9 @@ namespace DoubanFM.Universal.API.Services
 
         public async Task<ChannelList> GetChannels()
         {
-            return await Get<ChannelList>(ChannelRequestPath, channelParams);
+            return await Get<ChannelList>(ChannelReqPath, channelParams);
         }
 
-        public async Task<SongResult> GetSongs(string channel)
-        {
-            channelParams.channel = channel;
-            channelParams.type = "n";
-            return await Get<SongResult>(SongRequestPath, channelParams);
-        }
     }
 
 }

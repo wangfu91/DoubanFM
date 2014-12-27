@@ -16,6 +16,16 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 using DoubanFM.Universal.Common;
+using Microsoft.Practices.Prism.Mvvm;
+using Microsoft.Practices.Unity;
+using Microsoft.Practices.Prism.PubSubEvents;
+using System.Threading.Tasks;
+using DoubanFM.Universal.API.Models;
+using Microsoft.Practices.Prism.Mvvm.Interfaces;
+using Microsoft.Practices.Prism.StoreApps.Interfaces;
+using Microsoft.Practices.Prism.StoreApps;
+using Windows.ApplicationModel.Resources;
+using DoubanFM.Universal.API.Services;
 
 // The Universal Hub Application project template is documented at http://go.microsoft.com/fwlink/?LinkID=391955
 
@@ -24,11 +34,13 @@ namespace DoubanFM.Universal
     /// <summary>
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
-    public sealed partial class App : Application
+    public sealed partial class App : MvvmAppBase
     {
-#if WINDOWS_PHONE_APP
-        private TransitionCollection transitions;
-#endif
+        //create the singleton container that will be used for type resolution in the app.
+        private readonly IUnityContainer container = new UnityContainer();
+
+
+        public IEventAggregator EventAggregator { get; set; }
 
         /// <summary>
         /// Initializes the singleton instance of the <see cref="App"/> class. This is the first line of authored code
@@ -37,111 +49,66 @@ namespace DoubanFM.Universal
         public App()
         {
             this.InitializeComponent();
-            this.Suspending += this.OnSuspending;
         }
 
-        /// <summary>
-        /// Invoked when the application is launched normally by the end user.  Other entry points
-        /// will be used when the application is launched to open a specific file, to display
-        /// search results, and so forth.
-        /// </summary>
-        /// <param name="e">Details about the launch request and process.</param>
-        protected async override void OnLaunched(LaunchActivatedEventArgs e)
+        protected override Task OnLaunchApplicationAsync(LaunchActivatedEventArgs args)
         {
-#if DEBUG
-            if (System.Diagnostics.Debugger.IsAttached)
+            if (args != null && !string.IsNullOrEmpty(args.Arguments))
             {
-                this.DebugSettings.EnableFrameRateCounter = true;
+                //The app was launched from a Secondary Tile
+                //Navigate to the Item's page
+                NavigationService.Navigate("Item", args.Arguments);
             }
-#endif
-
-            Frame rootFrame = Window.Current.Content as Frame;
-
-            // Do not repeat app initialization when the Window already has content,
-            // just ensure that the window is active
-            if (rootFrame == null)
+            else
             {
-                // Create a Frame to act as the navigation context and navigate to the first page
-                rootFrame = new Frame();
-
-                //Associate the frame with a SuspensionManager key                                
-                SuspensionManager.RegisterFrame(rootFrame, "AppFrame");
-
-                // TODO: change this value to a cache size that is appropriate for your application
-                rootFrame.CacheSize = 1;
-
-                if (e.PreviousExecutionState == ApplicationExecutionState.Terminated)
-                {
-                    // Restore the saved session state only when appropriate
-                    try
-                    {
-                        await SuspensionManager.RestoreAsync();
-                    }
-                    catch (SuspensionManagerException)
-                    {
-                        // Something went wrong restoring state.
-                        // Assume there is no state and continue
-                    }
-                }
-
-                // Place the frame in the current Window
-                Window.Current.Content = rootFrame;
+                //Navigation to the initial page
+                NavigationService.Navigate("Main", null);
             }
 
-            if (rootFrame.Content == null)
-            {
-#if WINDOWS_PHONE_APP
-                // Removes the turnstile navigation for startup.
-                if (rootFrame.ContentTransitions != null)
-                {
-                    this.transitions = new TransitionCollection();
-                    foreach (var c in rootFrame.ContentTransitions)
-                    {
-                        this.transitions.Add(c);
-                    }
-                }
-
-                rootFrame.ContentTransitions = null;
-                rootFrame.Navigated += this.RootFrame_FirstNavigated;
-#endif
-
-                // When the navigation stack isn't restored navigate to the first page,
-                // configuring the new page by passing required information as a navigation
-                // parameter
-                if (!rootFrame.Navigate(typeof(HubPage), e.Arguments))
-                {
-                    throw new Exception("Failed to create initial page");
-                }
-            }
-
-            // Ensure the current window is active
             Window.Current.Activate();
+            return Task.FromResult<object>(null);
+
         }
 
-#if WINDOWS_PHONE_APP
-        /// <summary>
-        /// Restores the content transitions after the app has launched.
-        /// </summary>
-        /// <param name="sender">The object where the handler is attached.</param>
-        /// <param name="e">Details about the navigation event.</param>
-        private void RootFrame_FirstNavigated(object sender, NavigationEventArgs e)
+        protected override void OnRegisterKnownTypesForSerialization()
         {
-            var rootFrame = sender as Frame;
-            rootFrame.ContentTransitions = this.transitions ?? new TransitionCollection() { new NavigationThemeTransition() };
-            rootFrame.Navigated -= this.RootFrame_FirstNavigated;
-        }
-#endif
+            //setup the list for known type for the SuspensionManager
+            SessionStateService.RegisterKnownType(typeof(Channel));
+            SessionStateService.RegisterKnownType(typeof(ChannelList));
+            SessionStateService.RegisterKnownType(typeof(Song));
+            SessionStateService.RegisterKnownType(typeof(Queue<Song>));
+            SessionStateService.RegisterKnownType(typeof(User));
 
-        /// <summary>
-        /// Invoked when application execution is being suspended.  Application state is saved
-        /// without knowing whether the application will be terminated or resumed with the contents
-        /// of memory still intact.
-        /// </summary>
-        private async void OnSuspending(object sender, SuspendingEventArgs e)
-        {
-            var deferral = e.SuspendingOperation.GetDeferral();
-            await SuspensionManager.SaveAsync();
-            deferral.Complete();
+
+            base.OnRegisterKnownTypesForSerialization();
         }
+
+        protected override Task OnInitializeAsync(IActivatedEventArgs args)
+        {
+            this.EventAggregator = new EventAggregator();
+
+            container.RegisterInstance<INavigationService>(NavigationService);
+            container.RegisterInstance<ISessionStateService>(SessionStateService);
+            container.RegisterInstance<IEventAggregator>(EventAggregator);
+            container.RegisterInstance<IResourceLoader>(new ResourceLoaderAdapter(new ResourceLoader()));
+            //container.RegisterInstance(typeof(ChannelService), new ChannelService());
+            //container.RegisterInstance(typeof(UserService), new UserService());
+
+            container.RegisterType<ILoginService, LoginService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IUserService,UserService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<IChannelService, ChannelService>(new ContainerControlledLifetimeManager());
+            container.RegisterType<ISongService, SongService>(new ContainerControlledLifetimeManager());
+
+
+            return base.OnInitializeAsync(args);
+        }
+
+        protected override object Resolve(Type type)
+        {
+            //use the container to resolve types,
+            //so their dependencies get injected
+            return base.Resolve(type);
+        }
+
     }
 }

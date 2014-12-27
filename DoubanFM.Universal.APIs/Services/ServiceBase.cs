@@ -9,18 +9,24 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DoubanFM.Universal.API.Services
+namespace DoubanFM.Universal.APIs.Services
 {
     public abstract class ServiceBase
     {
-        private const string baseUrl = "http://www.douban.com";
+        protected const string baseUrl = "http://www.douban.com";
+        protected const string ChannelReqPath = "j/app/radio/channels";
+        protected const string SongReqPath = "j/app/radio/people";
+        protected const string LoginReqPath = "j/app/login";
+        protected const string UserReqPath = "/j/app/radio/user_info";
+
 
         protected async Task<T> Get<T>(string path,ParamsBase param)
         {
             var restClient = new RestClient(baseUrl);
             var request = new RestRequest(path, HttpMethod.Get);
 
-            //ForEach method has gone form RT, <see http://stackoverflow.com/questions/10299458/is-the-listt-foreach-method-gone >
+            //ForEach method has been removed form WinRT, 
+            //<see cref="http://stackoverflow.com/questions/10299458/is-the-listt-foreach-method-gone" >
             //GetParameters(param).ForEach(p => request.AddParameter(p.Name, p.GetValue(param)));
 
             foreach (var p in GetParameters(param))
@@ -58,7 +64,7 @@ namespace DoubanFM.Universal.API.Services
             //var props = type.GetType().GetTypeInfo().DeclaredProperties;
 
             //This is what I want, it returns all the properties.
-            //<see also http://dotnetbyexample.blogspot.com/2012/06/reflection-in-winrt-declaredproperties.html >
+            //<see cref=" http://dotnetbyexample.blogspot.com/2012/06/reflection-in-winrt-declaredproperties.html ">
             var props = type.GetRuntimeProperties();
 
             return props.Where(p => p.GetValue(param) != null).ToList();

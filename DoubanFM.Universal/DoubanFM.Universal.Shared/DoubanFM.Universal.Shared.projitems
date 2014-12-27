@@ -16,6 +16,7 @@
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
     <Compile Include="$(MSBuildThisFileDirectory)DataModel\SampleDataSource.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPageViewModel.cs" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\Heart.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\Media-Next.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\Media-Pause.png" />

@@ -4,10 +4,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DoubanFM.Data
-{
-    class SongInfo
+namespace DoubanFM.Universal.APIs.Models
+{    public enum ProRate
     {
-
+        Kbps64,
+        Kbps128,
+        Kbps192
     }
 }
