@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.Prism.StoreApps;
+﻿using DoubanFM.Universal.ViewModels;
+using Microsoft.Practices.Prism.StoreApps;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -26,6 +27,9 @@ namespace DoubanFM.Universal.Views
         public MainPage()
         {
             this.InitializeComponent();
+            var vm = this.DataContext as MainPageViewModel;
+            vm.MediaElement=me;
+            this.spectrumAnalyzer.RegisterSoundPlayer(vm);
         }
     }
 }
