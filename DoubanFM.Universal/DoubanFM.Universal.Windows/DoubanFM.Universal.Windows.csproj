@@ -178,6 +178,12 @@
       <HintPath>..\..\packages\Unity.3.5.1405-prerelease\lib\win8\Microsoft.Practices.Unity.RegistrationByConvention.dll</HintPath>
     </Reference>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\DoubanFM.Universal.APIs\DoubanFM.Universal.APIs.csproj">
+      <Project>{3efaef23-b75b-471c-9e94-a76a293b1234}</Project>
+      <Name>DoubanFM.Universal.APIs</Name>
+    </ProjectReference>
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>

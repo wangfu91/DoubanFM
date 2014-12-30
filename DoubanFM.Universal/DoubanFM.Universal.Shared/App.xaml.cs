@@ -20,12 +20,12 @@ using Microsoft.Practices.Prism.Mvvm;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.Prism.PubSubEvents;
 using System.Threading.Tasks;
-using DoubanFM.Universal.API.Models;
+using DoubanFM.Universal.APIs.Models;
 using Microsoft.Practices.Prism.Mvvm.Interfaces;
 using Microsoft.Practices.Prism.StoreApps.Interfaces;
 using Microsoft.Practices.Prism.StoreApps;
 using Windows.ApplicationModel.Resources;
-using DoubanFM.Universal.API.Services;
+using DoubanFM.Universal.APIs.Services;
 
 // The Universal Hub Application project template is documented at http://go.microsoft.com/fwlink/?LinkID=391955
 

@@ -3,6 +3,9 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:DoubanFM.Universal.Views"
+    xmlns:drawerLayout="using:DrawerLayout"
+    xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+    xmlns:core="using:Microsoft.Xaml.Interactions.Core"
     xmlns:prism="using:Microsoft.Practices.Prism.StoreApps"
     xmlns:prismmvvm="using:Microsoft.Practices.Prism.Mvvm"                            
     prismmvvm:ViewModelLocator.AutoWireViewModel="true"
@@ -12,7 +15,47 @@
     mc:Ignorable="d"
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
-    <Grid>
 
+    <Grid x:Name="RootLayout">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <!-- Title Bar -->
+        <Grid x:Name="TitleBar" Grid.Row ="0" Height="60" Background="#00ADEF">
+            <!-- —Title Bar Code Goes Here -->
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Image Margin="5" x:Name="DrawerIcon" Source="/Assets/drawer_icon.png" HorizontalAlignment="Left" Tapped="DrawerIcon_Tapped"/>
+            <TextBlock Grid.Column="1" Text="This is a Demo" Foreground="White" VerticalAlignment="Center" FontSize="18"/>
+        </Grid>
+        <!-- Drawer Layout -->
+        <drawerLayout:DrawerLayout Grid.Row="1"  x:Name="DrawerLayout">
+            <!-- DrawerLayout code goes here -->
+            <Grid x:Name="MainContent">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="75"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="100"/>
+                </Grid.RowDefinitions>
+            </Grid>
+            <Grid x:Name="NavigationDrawer" Background="#00AEDF" Width="300" HorizontalAlignment="Left">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Channel List" Foreground="White" VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18"/>
+                <ListView x:Name="channelsListView" ItemsSource="{Binding ChannelList.Channels}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <TextBlock Text="{Binding Name}" Margin="10" HorizontalAlignment="Left" VerticalAlignment="Center" FontSize="16" Foreground="White"/>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+        </drawerLayout:DrawerLayout>
     </Grid>
+
 </prism:VisualStateAwarePage>

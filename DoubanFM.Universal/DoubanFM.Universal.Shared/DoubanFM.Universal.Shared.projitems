@@ -23,6 +23,7 @@
     <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\play.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\redHeart.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\trash.png" />
+    <Content Include="$(MSBuildThisFileDirectory)Assets\drawer_icon.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Light\heart.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Light\music.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Light\next.png" />

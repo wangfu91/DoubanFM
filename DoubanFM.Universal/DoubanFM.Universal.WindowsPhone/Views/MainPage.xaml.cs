@@ -6,6 +6,7 @@ using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Phone.UI.Input;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -26,6 +27,7 @@ namespace DoubanFM.Universal.Views
         public MainPage()
         {
             this.InitializeComponent();
+            this.DrawerLayout.InitializeDrawerLayout();
         }
 
         /// <summary>
@@ -35,6 +37,32 @@ namespace DoubanFM.Universal.Views
         /// This parameter is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
+            HardwareButtons.BackPressed += HardwareButtons_BackPressed;
+        }
+
+        private void HardwareButtons_BackPressed(object sender, BackPressedEventArgs e)
+        {
+            if(DrawerLayout.IsDrawerOpen)
+            {
+                DrawerLayout.CloseDrawer();
+                e.Handled = true;
+            }
+            else
+            {
+                Application.Current.Exit();
+            }
+        }
+
+        private void DrawerIcon_Tapped(object sender, TappedRoutedEventArgs e)
+        {
+            if(this.DrawerLayout.IsDrawerOpen)
+            {
+                DrawerLayout.CloseDrawer();
+            }
+            else
+            {
+                DrawerLayout.OpenDrawer();
+            }
         }
     }
 }
