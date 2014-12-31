@@ -165,6 +165,14 @@
       <Project>{3efaef23-b75b-471c-9e94-a76a293b1234}</Project>
       <Name>DoubanFM.Universal.APIs</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\NAudio.Universal\NAudio.Universal.csproj">
+      <Project>{002bcc4b-593f-49b8-bee7-49bf49ec40d6}</Project>
+      <Name>NAudio.Universal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\SoundVisualizationLib.Universal\SoundVisualizationLib.Universal.csproj">
+      <Project>{b42b8d27-4cfd-4baf-8ad2-e44c7f007ea8}</Project>
+      <Name>SoundVisualizationLib.Universal</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
