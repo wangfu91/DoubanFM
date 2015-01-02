@@ -5,7 +5,7 @@ using System.ComponentModel;
 using System.Text;
 using System.Windows.Input;
 
-namespace DoubanFM.Universal
+namespace DoubanFM.Universal.Player
 {
     public interface IPlayer : IDisposable, INotifyPropertyChanged, ISpectrumPlayer
     {

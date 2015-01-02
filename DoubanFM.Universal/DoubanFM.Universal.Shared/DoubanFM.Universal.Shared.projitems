@@ -18,8 +18,10 @@
     <Compile Include="$(MSBuildThisFileDirectory)DataModel\SampleDataSource.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Player\IPlayer.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Player\MediaFoundationReaderRT.cs" />
-    <Compile Include="$(MSBuildThisFileDirectory)Player\Player.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Player\NAudioPlayer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Player\ReadFullyStream.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Player\SampleAggregator.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Player\StreamingPlaybackState.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MainPageViewModel.cs" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\Heart.png" />
     <Content Include="$(MSBuildThisFileDirectory)Assets\Dark\Media-Next.png" />
