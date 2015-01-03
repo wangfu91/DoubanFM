@@ -7,6 +7,7 @@ using System.Text;
 using Windows.UI.Xaml.Media.Imaging;
 using System.Linq;
 using System.Threading.Tasks;
+using DoubanFM.Universal.Player;
 
 namespace DoubanFM.Universal.ViewModels
 {
@@ -23,6 +24,13 @@ namespace DoubanFM.Universal.ViewModels
         private IUserService _userService;
         private IChannelService _channelService;
         private ISongService _songService;
+
+        private IPlayer _player;
+
+        public IPlayer Player
+        {
+            get { return _player; }
+        }
 
 
         public BitmapImage AlbumImage
@@ -60,6 +68,11 @@ namespace DoubanFM.Universal.ViewModels
                 {
                     _currentSong = value;
                     OnPropertyChanged(() => this.CurrentSong);
+                    if(_currentSong!=null)
+                    {
+                        //Player.OpenUrl(_currentSong.URL);
+                        //Player.Play();
+                    }
                 }
             }
         }
@@ -90,23 +103,40 @@ namespace DoubanFM.Universal.ViewModels
             }
         }
 
-        public MainPageViewModel(
-            ILoginService loginService,
-            IUserService userService,
-            IChannelService channelService,
-            ISongService songService)
-        {
-            _loginService = loginService;
-            _userService = userService;
-            _channelService = channelService;
-            _songService = songService;
+        //public MainPageViewModel(
+        //    ILoginService loginService,
+        //    IUserService userService,
+        //    IChannelService channelService,
+        //    ISongService songService)
+        //{
+        //    _loginService = loginService;
+        //    _userService = userService;
+        //    _channelService = channelService;
+        //    _songService = songService;
+
+        //    Initialize();
             
+        //}
+
+        public MainPageViewModel()
+        {
+            _channelService = new ChannelService();
+            _songService = new SongService();
+            PlayList = new Queue<Song>();
+            _player = NAudioPlayer.Instance;
+            Initialize();
         }
 
         private async void Initialize()
         {
             await LoadChannels();
             await LoadPlayList();
+            if(PlayList.Count>0)
+            {
+                CurrentSong = PlayList.Dequeue();
+                await Player.OpenUrl(CurrentSong.URL);
+                Player.Play();
+            }
         }
 
         private async Task LoadChannels()

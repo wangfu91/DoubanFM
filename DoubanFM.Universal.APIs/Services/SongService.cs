@@ -30,7 +30,7 @@ namespace DoubanFM.Universal.APIs.Services
         {
             songParams.channel = channel;
             songParams.type = "n";
-            return await Get<SongResult>(SongReqPath, songParams);
+            return await Post<SongResult>(SongReqPath, songParams);
         }
 
         public async Task<SongResult> Like(string sid, string channel)

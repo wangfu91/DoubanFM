@@ -35,7 +35,7 @@ namespace DoubanFM.Universal.Player
         private double channelLength;
         private double channelPosition;
         private bool inChannelSet;
-        private IWavePlayer wavePlayer;
+        private IWavePlayer wavePlayer = new WasapiOutRT(AudioClientShareMode.Shared, 200);
         private WaveStream waveStream;
         private IRandomAccessStream fileStream;
         private WaveChannel32 inputStream;
@@ -50,7 +50,7 @@ namespace DoubanFM.Universal.Player
         public event EventHandler TrackEnded;
         #endregion
 
-        #region Singleton 
+        #region Singleton
         public static NAudioPlayer Instance
         {
             get
@@ -198,7 +198,7 @@ namespace DoubanFM.Universal.Player
 
         #region Public Methods
 
-        public async void OpenFile(string path)
+        public async Task OpenFile(string path)
         {
 
             Stop();
@@ -208,7 +208,7 @@ namespace DoubanFM.Universal.Player
                 ChannelPosition = 0;
             }
 
-            StopAndCloseStream();
+            //StopAndCloseStream();
 
             var file = await StorageFile.GetFileFromPathAsync(path);
             if (file == null) return;
@@ -217,7 +217,7 @@ namespace DoubanFM.Universal.Player
 
             try
             {
-                wavePlayer = new WasapiOutRT(AudioClientShareMode.Shared, 200);
+                //wavePlayer = new WasapiOutRT(AudioClientShareMode.Shared, 200);
 
                 waveStream = new MediaFoundationReaderRT(fileStream);
                 inputStream = new WaveChannel32(waveStream);
@@ -237,135 +237,139 @@ namespace DoubanFM.Universal.Player
 
         }
 
-        public async void OpenUrl(string url)
+        public async Task OpenUrl(string url)
         {
-            Stop();
-
-            if (waveStream != null)
-            {
-                ChannelPosition = 0;
-            }
-
-            StopAndCloseStream();
-
             using (var client = new HttpClient())
             {
                 var stream = await client.GetStreamAsync(url);
-                var randomAccessStream = (IRandomAccessStream)stream.AsInputStream();
-                try
+                var memStream=new MemoryStream();
+                await stream.CopyToAsync(memStream);
+                memStream.Position=0;
+                var randomStream=memStream.AsRandomAccessStream();
+                using (var reader = new DataReader(randomStream))
                 {
-                    wavePlayer = new WasapiOutRT(AudioClientShareMode.Shared, 200);
+                    await reader.LoadAsync((uint)randomStream.Size);
+                    var buffer = new byte[(int)randomStream.Size];
+                    reader.ReadBytes(buffer);
+                    var folder = ApplicationData.Current.LocalFolder;
+                    var storageFile = await folder.CreateFileAsync("temp.mp3", CreationCollisionOption.ReplaceExisting);
+                    await FileIO.WriteBytesAsync(storageFile, buffer);
 
-                    waveStream = new MediaFoundationReaderRT(randomAccessStream);
-                    inputStream = new WaveChannel32(waveStream);
-                    sampleAggregator = new SampleAggregator(fftDataSize);
-                    await wavePlayer.Init(inputStream);
-                    ChannelLength = inputStream.TotalTime.TotalSeconds;
-                    CanPlay = true;
-                }
-                catch (Exception ex)
-                {
-                    waveStream = null;
-                    CanPlay = false;
-
-                    Debug.WriteLine("Open url:{0} failed !", url);
-                    Debug.WriteLine("Exception:{0}", ex.Message);
-                }
-            }
-        }
-
-
-        private async void StreamMp3(string url)
-        {
-            fullyDownloaded = false;
-            webRequest = (HttpWebRequest)WebRequest.Create(url);
-            HttpWebResponse response;
-            try
-            {
-                response = (HttpWebResponse)(await webRequest.GetResponseAsync());
-
-            }
-            catch (Exception ex)
-            {
-
-            }
-            var buffer = new byte[16384 * 4];
-            IMp3FrameDecompressor decompressor = null;
-            try
-            {
-                using (var responseStream=response.GetResponseStream())
-                {
-                    var readFullyStream = new ReadFullyStream(responseStream);
-                    do
+                    try
                     {
-                        if (IsBufferNearlyFull)
-                        {
-                            await Task.Delay(500);
-                        }
-                        else
-                        {
-                            Mp3Frame frame;
-                            try
-                            {
-                                frame = Mp3Frame.LoadFromStream(responseStream);
-                            }
-                            catch (EndOfStreamException)
-                            {
-                                fullyDownloaded = true;
-                                break;
-                            }
-                            catch (WebException)
-                            {
-                                break;
-                            }
-                            if (decompressor == null)
-                            {
-                                decompressor = CreateFrameDecompressor(frame);
-                                bufferedWaveProvider = new BufferedWaveProvider(decompressor.OutputFormat);
-                                bufferedWaveProvider.BufferDuration = TimeSpan.FromSeconds(20); // allow us to get well ahead of ourselves
+                        //wavePlayer = new WasapiOutRT(AudioClientShareMode.Shared, 200);
 
-                            }
-                            int decompressed = decompressor.DecompressFrame(frame, buffer, 0);
-                            bufferedWaveProvider.AddSamples(buffer, 0, decompressed);
+                        waveStream = new MediaFoundationReaderRT(await storageFile.OpenReadAsync());
+                        //inputStream = new WaveChannel32(waveStream);
+                        sampleAggregator = new SampleAggregator(fftDataSize);
+                        await wavePlayer.Init(waveStream);
+                        ChannelLength = inputStream.TotalTime.TotalSeconds;
+                        CanPlay = true;
+                    }
+                    catch (Exception ex)
+                    {
+                        waveStream = null;
+                        CanPlay = false;
 
-                        }
-                    } while (playbackState != StreamingPlaybackState.Stopped);
-
-                    Debug.WriteLine("streaming exiting");
-                    //decompressor.Dispose();
+                        Debug.WriteLine("Open file:{0} failed !", url);
+                        Debug.WriteLine("Exception:{0}", ex.Message);
+                    }
                 }
-            }
-            finally
-            {
-                if(decompressor!=null)
-                {
-                    decompressor.Dispose();
-                }
-            }
 
-
-        }
-
-
-
-        private static IMp3FrameDecompressor CreateFrameDecompressor(Mp3Frame frame)
-        {
-            var waveFormat = new Mp3WaveFormat(frame.SampleCount,
-                frame.ChannelMode == ChannelMode.Mono ? 1 : 2,
-                frame.FrameLength,
-                frame.BitRate);
-            return new AcmMp3FrameDecompressor(waveFormat);
-        }
-
-        private bool IsBufferNearlyFull
-        {
-            get
-            {
-                return bufferedWaveProvider != null &&
-                    bufferedWaveProvider.BufferLength - bufferedWaveProvider.BufferedBytes
-                    < bufferedWaveProvider.WaveFormat.AverageBytesPerSecond / 4;
             }
         }
+
+
+        //private async void StreamMp3(string url)
+        //{
+        //    fullyDownloaded = false;
+        //    webRequest = (HttpWebRequest)WebRequest.Create(url);
+        //    HttpWebResponse response;
+        //    try
+        //    {
+        //        response = (HttpWebResponse)(await webRequest.GetResponseAsync());
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //    }
+        //    var buffer = new byte[16384 * 4];
+        //    IMp3FrameDecompressor decompressor = null;
+        //    try
+        //    {
+        //        using (var responseStream = response.GetResponseStream())
+        //        {
+        //            var readFullyStream = new ReadFullyStream(responseStream);
+        //            do
+        //            {
+        //                if (IsBufferNearlyFull)
+        //                {
+        //                    await Task.Delay(500);
+        //                }
+        //                else
+        //                {
+        //                    Mp3Frame frame;
+        //                    try
+        //                    {
+        //                        frame = Mp3Frame.LoadFromStream(responseStream);
+        //                    }
+        //                    catch (EndOfStreamException)
+        //                    {
+        //                        fullyDownloaded = true;
+        //                        break;
+        //                    }
+        //                    catch (WebException)
+        //                    {
+        //                        break;
+        //                    }
+        //                    if (decompressor == null)
+        //                    {
+        //                        decompressor = CreateFrameDecompressor(frame);
+        //                        bufferedWaveProvider = new BufferedWaveProvider(decompressor.OutputFormat);
+        //                        bufferedWaveProvider.BufferDuration = TimeSpan.FromSeconds(20); // allow us to get well ahead of ourselves
+
+        //                    }
+        //                    int decompressed = decompressor.DecompressFrame(frame, buffer, 0);
+        //                    bufferedWaveProvider.AddSamples(buffer, 0, decompressed);
+
+        //                }
+        //            } while (playbackState != StreamingPlaybackState.Stopped);
+
+        //            Debug.WriteLine("streaming exiting");
+        //            //decompressor.Dispose();
+        //        }
+        //    }
+        //    finally
+        //    {
+        //        if (decompressor != null)
+        //        {
+        //            decompressor.Dispose();
+        //        }
+        //    }
+
+
+        //}
+
+
+        //private static IMp3FrameDecompressor CreateFrameDecompressor(Mp3Frame frame)
+        //{
+        //    var waveFormat = new Mp3WaveFormat(frame.SampleCount,
+        //        frame.ChannelMode == ChannelMode.Mono ? 1 : 2,
+        //        frame.FrameLength,
+        //        frame.BitRate);
+        //    return new AcmMp3FrameDecompressor(waveFormat);
+        //}
+
+        //private bool IsBufferNearlyFull
+        //{
+        //    get
+        //    {
+        //        return bufferedWaveProvider != null &&
+        //            bufferedWaveProvider.BufferLength - bufferedWaveProvider.BufferedBytes
+        //            < bufferedWaveProvider.WaveFormat.AverageBytesPerSecond / 4;
+        //    }
+        //}
 
 
         public void Play()

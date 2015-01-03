@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace DoubanFM.Universal.Player
@@ -22,9 +23,9 @@ namespace DoubanFM.Universal.Player
 
         event EventHandler TrackEnded;
 
-        void OpenFile(string filePath);
+        Task OpenFile(string filePath);
 
-        void OpenUrl(string url);
+        Task OpenUrl(string url);
 
         void Stop();
 

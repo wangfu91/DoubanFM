@@ -1,5 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
-using RestSharp.Portable;
+using PortableRest;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,9 +20,10 @@ namespace DoubanFM.Universal.APIs.Services
         protected const string UserReqPath = "/j/app/radio/user_info";
 
 
-        protected async Task<T> Get<T>(string path,ParamsBase param)
+        protected async Task<T> Get<T>(string path, ParamsBase param) where T : class
         {
-            var restClient = new RestClient(baseUrl);
+            var restClient = new RestClient();
+            restClient.BaseUrl = baseUrl;
             var request = new RestRequest(path, HttpMethod.Get);
 
             //ForEach method has been removed form WinRT, 
@@ -31,26 +32,42 @@ namespace DoubanFM.Universal.APIs.Services
 
             foreach (var p in GetParameters(param))
             {
-                request.AddParameter(p.Name, p.GetValue(param));                
+                request.AddParameter(p.Name, p.GetValue(param));
             }
-            var response = await restClient.Execute<T>(request);
-            return response.Data;
+
+            try
+            {
+                return await restClient.ExecuteAsync<T>(request);
+            }
+            catch (Exception ex)
+            {
+                return default(T);
+
+            }
 
         }
 
-        protected async Task<T> Post<T>(string path, ParamsBase param)
+        protected async Task<T> Post<T>(string path, ParamsBase param) where T : class
         {
-            var restClient = new RestClient(baseUrl);
+            var restClient = new RestClient();
+            restClient.BaseUrl = baseUrl;
             var request = new RestRequest(path, HttpMethod.Post);
             foreach (var p in GetParameters(param))
             {
                 request.AddParameter(p.Name, p.GetValue(param));
-            } 
-            var response = await restClient.Execute<T>(request);
-            return response.Data;
+            }
+            try
+            {
+                return await restClient.ExecuteAsync<T>(request);
+            }
+            catch (Exception ex)
+            {
+                return default(T);
+
+            }
         }
 
-  
+
         private List<PropertyInfo> GetParameters(ParamsBase param)
         {
             var type = param.GetType();

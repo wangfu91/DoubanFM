@@ -27,9 +27,6 @@ namespace DoubanFM.Universal.Views
         public MainPage()
         {
             this.InitializeComponent();
-            var vm = this.DataContext as MainPageViewModel;
-            vm.MediaElement=me;
-            this.spectrumAnalyzer.RegisterSoundPlayer(vm);
         }
     }
 }
