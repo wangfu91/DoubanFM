@@ -1,5 +1,4 @@
-﻿using System;
-
+﻿
 namespace NAudio.CoreAudioApi
 {
     /// <summary>

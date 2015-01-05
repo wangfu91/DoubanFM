@@ -22,7 +22,6 @@
 // modified from Ray Molenkamp's original
 
 
-using System;
 using NAudio.CoreAudioApi.Interfaces;
 
 namespace NAudio.CoreAudioApi

@@ -157,3 +157,4 @@ $RECYCLE.BIN/
 *.nupkg
 *.ps1
 /packages
+/DoubanFM.sln.ide

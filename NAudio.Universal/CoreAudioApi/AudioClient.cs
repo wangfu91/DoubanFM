@@ -1,7 +1,7 @@
-﻿using System;
-using NAudio.CoreAudioApi.Interfaces;
-using System.Runtime.InteropServices;
+﻿using NAudio.CoreAudioApi.Interfaces;
 using NAudio.Wave;
+using System;
+using System.Runtime.InteropServices;
 
 namespace NAudio.CoreAudioApi
 {

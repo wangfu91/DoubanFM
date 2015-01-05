@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using NAudio.Dmo;
+using System;
 using System.Runtime.InteropServices;
-using NAudio.Dmo;
 
 namespace NAudio.Wave
 {

@@ -1,0 +1,40 @@
+﻿<UserControl x:Class="DoubanFM.Desktop.Core.Views.PlayControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             mc:Ignorable="d" 
+             d:DesignHeight="75" d:DesignWidth="300" >
+    
+    <StackPanel Orientation="Horizontal" >
+        <Button Height="75" Width="75"
+                Background="Transparent"
+                BorderThickness="0"                
+                Command="{Binding BanCommand}">
+            <Image Source="../Assets/Delete.png"/>
+        </Button>
+
+        <Button Height="75" Width="75"
+                Background="Transparent"
+				BorderThickness="0" 
+				Command="{Binding LikeCommand}">
+            <Image Source="{Binding CurrentSong.Like,Converter={StaticResource BoolToImageConverter},ConverterParameter=Like}" />
+        </Button>
+
+
+        <Button Height="75" Width="75"
+                Background="Transparent"
+				BorderThickness="0" 
+				Command="{Binding Player.PlayPauseCommand}" >
+            <Image Source="{Binding Player.IsPlaying,Converter={StaticResource BoolToImageConverter},ConverterParameter=Play}"/>
+        </Button>
+
+
+        <Button Height="75" Width="75"
+                Background="Transparent"
+				BorderThickness="0" 
+				Command="{Binding PlayNextCommand}">
+            <Image Source="../Assets/Media-Next.png"/>
+        </Button>
+    </StackPanel>
+</UserControl>

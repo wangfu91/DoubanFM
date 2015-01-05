@@ -1,9 +1,4 @@
 ﻿using DoubanFM.Universal.APIs.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DoubanFM.Universal.APIs.Services
 {
@@ -20,7 +15,7 @@ namespace DoubanFM.Universal.APIs.Services
         }
     }
 
-       public class LoginParams : ParamsBase
+    public class LoginParams : ParamsBase
     {
         public string email { get; set; }
 

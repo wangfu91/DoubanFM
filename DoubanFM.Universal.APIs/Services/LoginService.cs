@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using DoubanFM.Universal.APIs.Models;
 using System.Threading.Tasks;
-using DoubanFM.Universal.APIs.Models;
 
 namespace DoubanFM.Universal.APIs.Services
 {

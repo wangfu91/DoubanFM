@@ -1,7 +1,5 @@
-using System;
-using System.IO;
-using System.Text;
 using NAudio.Utils;
+using System.IO;
 
 namespace NAudio.SoundFont
 {

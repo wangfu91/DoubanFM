@@ -1,4 +1,5 @@
-﻿/*
+﻿using NAudio.CoreAudioApi.Interfaces;
+/*
   LICENSE
   -------
   Copyright (C) 2007 Ray Molenkamp
@@ -21,7 +22,6 @@
 */
 // modified for NAudio
 using System;
-using NAudio.CoreAudioApi.Interfaces;
 using System.Runtime.InteropServices;
 
 namespace NAudio.CoreAudioApi

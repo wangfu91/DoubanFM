@@ -1,6 +1,6 @@
-﻿using System;
-using NAudio.MediaFoundation;
+﻿using NAudio.MediaFoundation;
 using NAudio.Wave;
+using System;
 using Windows.Storage.Streams;
 
 namespace DoubanFM.Universal.Player

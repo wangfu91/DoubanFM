@@ -1,31 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.ApplicationModel;
-using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Animation;
-using Windows.UI.Xaml.Navigation;
-using DoubanFM.Universal.Common;
-using Microsoft.Practices.Prism.Mvvm;
-using Microsoft.Practices.Unity;
-using Microsoft.Practices.Prism.PubSubEvents;
-using System.Threading.Tasks;
-using Microsoft.Practices.Prism.Mvvm.Interfaces;
-using Microsoft.Practices.Prism.StoreApps.Interfaces;
-using Microsoft.Practices.Prism.StoreApps;
-using Windows.ApplicationModel.Resources;
-using DoubanFM.Universal.APIs.Models;
+﻿using DoubanFM.Universal.APIs.Models;
 using DoubanFM.Universal.APIs.Services;
+using Microsoft.Practices.Prism.Mvvm;
+using Microsoft.Practices.Prism.Mvvm.Interfaces;
+using Microsoft.Practices.Prism.PubSubEvents;
+using Microsoft.Practices.Prism.StoreApps;
+using Microsoft.Practices.Prism.StoreApps.Interfaces;
+using Microsoft.Practices.Unity;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Windows.ApplicationModel.Activation;
+using Windows.ApplicationModel.Resources;
+using Windows.UI.Xaml;
 
 
 // The Universal Hub Application project template is documented at http://go.microsoft.com/fwlink/?LinkID=391955

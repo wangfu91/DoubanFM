@@ -1,5 +1,5 @@
-﻿using System;
-using NAudio.Wave.Compression;
+﻿using NAudio.Wave.Compression;
+using System;
 
 namespace NAudio.Wave
 {

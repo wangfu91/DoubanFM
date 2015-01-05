@@ -1,16 +1,13 @@
-﻿using System;
-using System.Linq;
+﻿using NAudio.CoreAudioApi;
+using NAudio.CoreAudioApi.Interfaces;
+using NAudio.Wave.SampleProviders;
+using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
-using Windows.System.Threading;
-using NAudio.CoreAudioApi;
-using NAudio.CoreAudioApi.Interfaces;
-using NAudio.Dsp;
-using NAudio.Wave;
 using Windows.Media.Devices;
-using NAudio.Wave.SampleProviders;
+using Windows.System.Threading;
 
 namespace NAudio.Wave.WaveOutputs
 {

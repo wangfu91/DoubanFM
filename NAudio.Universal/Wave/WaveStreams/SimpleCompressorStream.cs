@@ -1,7 +1,5 @@
-using System;
-using System.Collections.Generic;
-using System.Text;
 using NAudio.Dsp;
+using System;
 
 namespace NAudio.Wave
 {

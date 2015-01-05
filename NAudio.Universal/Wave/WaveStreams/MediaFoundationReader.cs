@@ -1,8 +1,8 @@
-﻿using System;
+﻿using NAudio.CoreAudioApi.Interfaces;
+using NAudio.MediaFoundation;
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
-using NAudio.CoreAudioApi.Interfaces;
-using NAudio.MediaFoundation;
 
 namespace NAudio.Wave
 {

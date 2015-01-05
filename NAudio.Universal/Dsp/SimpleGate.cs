@@ -1,6 +1,6 @@
-// based on SimpleGate v1.10 © 2006, ChunkWare Music Software, OPEN-SOURCE
-using System;
 using NAudio.Utils;
+// based on SimpleGate v1.10 ?2006, ChunkWare Music Software, OPEN-SOURCE
+using System;
 
 namespace NAudio.Dsp
 {

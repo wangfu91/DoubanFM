@@ -1,6 +1,5 @@
-using System;
-using System.Collections.Generic;
 using NAudio.Wave.SampleProviders;
+using System;
 
 namespace NAudio.Wave
 {
