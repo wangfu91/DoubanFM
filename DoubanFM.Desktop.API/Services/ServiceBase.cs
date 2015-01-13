@@ -10,7 +10,7 @@ namespace DoubanFM.Desktop.API.Services
 {
     public abstract class ServiceBase
     {
-        public const string baseUrl = "http://www.douban.com/";
+        public const string BaseUrl = "http://www.douban.com/";
         public const string LoginRequestPath = "j/app/login";
         public const string UserInfoRequestPath = "/j/app/radio/user_info";
         public const string ChannelRequestPath = "j/app/radio/channels";
@@ -19,7 +19,7 @@ namespace DoubanFM.Desktop.API.Services
 
         protected async Task<T> Get<T>(string path, ParamsBase param)
         {
-            var restClient = new RestClient(baseUrl);
+            var restClient = new RestClient(BaseUrl);
             var request = new RestRequest(path, Method.GET);
             GetParameters(param).ForEach(p => request.AddParameter(p.Name, p.GetValue(param)));
             var response = await restClient.ExecuteTaskAsync(request);
@@ -29,7 +29,7 @@ namespace DoubanFM.Desktop.API.Services
 
         protected async Task<T> Post<T>(string path, ParamsBase param)
         {
-            var restClient = new RestClient(baseUrl);
+            var restClient = new RestClient(BaseUrl);
             var request = new RestRequest(path, Method.POST);
             GetParameters(param).ForEach(p => request.AddParameter(p.Name, p.GetValue(param)));
             var response = await restClient.ExecuteTaskAsync(request);
