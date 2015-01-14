@@ -83,9 +83,6 @@
     <Compile Include="Views\ChannelList.xaml.cs">
       <DependentUpon>ChannelList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PlayControl.xaml.cs">
-      <DependentUpon>PlayControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\PlayerUI.xaml.cs">
       <DependentUpon>PlayerUI.xaml</DependentUpon>
     </Compile>
@@ -107,13 +104,13 @@
       <Project>{fd7645b4-79f7-4f80-8bb5-d78991907dc6}</Project>
       <Name>DoubanFM.Desktop.Infrastructure</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DoubanFM.Desktop.ResourceLibrary\DoubanFM.Desktop.ResourceLibrary.csproj">
+      <Project>{6bf4a4fd-6d35-4b9f-aee3-bb0d21025868}</Project>
+      <Name>DoubanFM.Desktop.ResourceLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\ChannelList.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Views\PlayControl.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -122,24 +119,7 @@
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\CD-Music.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Delete.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Assets\Heart.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Assets\Light\heart.PNG" />
-    <Content Include="Assets\Light\next.PNG" />
-    <Content Include="Assets\Light\trash.PNG" />
-    <Resource Include="Assets\Red-Heart.png" />
-    <Resource Include="Assets\Media-Play.png" />
-    <Resource Include="Assets\Media-Pause.png" />
-    <Resource Include="Assets\Media-Next.png" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

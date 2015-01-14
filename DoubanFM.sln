@@ -44,6 +44,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubanFM.Desktop.Audio", "D
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubanFM.Desktop.Audio.Tests", "DoubanFM.Desktop.Audio.Tests\DoubanFM.Desktop.Audio.Tests.csproj", "{5EC06B8D-EA5F-4311-A183-8CD5BB5D4E68}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubanFM.Desktop.ResourceLibrary", "DoubanFM.Desktop.ResourceLibrary\DoubanFM.Desktop.ResourceLibrary.csproj", "{6BF4A4FD-6D35-4B9F-AEE3-BB0D21025868}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		DoubanFM.Universal\DoubanFM.Universal.Shared\DoubanFM.Universal.Shared.projitems*{7bfbcafa-bbf4-44ba-9219-5a99f5ceb281}*SharedItemsImports = 4
@@ -281,6 +283,20 @@ Global
 		{5EC06B8D-EA5F-4311-A183-8CD5BB5D4E68}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 		{5EC06B8D-EA5F-4311-A183-8CD5BB5D4E68}.Release|x64.ActiveCfg = Release|Any CPU
 		{5EC06B8D-EA5F-4311-A183-8CD5BB5D4E68}.Release|x86.ActiveCfg = Release|Any CPU
+		{6BF4A4FD-6D35-4B9F-AEE3-BB0D21025868}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6BF4A4FD-6D35-4B9F-AEE3-BB0D21025868}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6BF4A4FD-6D35-4B9F-AEE3-BB0D21025868}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{6BF4A4FD-6D35-4B9F-AEE3-BB0D21025868}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6BF4A4FD-6D35-4B9F-AEE3-BB0D21025868}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6BF4A4FD-6D35-4B9F-AEE3-BB0D21025868}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{6BF4A4FD-6D35-4B9F-AEE3-BB0D21025868}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{6BF4A4FD-6D35-4B9F-AEE3-BB0D21025868}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6BF4A4FD-6D35-4B9F-AEE3-BB0D21025868}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6BF4A4FD-6D35-4B9F-AEE3-BB0D21025868}.Release|ARM.ActiveCfg = Release|Any CPU
+		{6BF4A4FD-6D35-4B9F-AEE3-BB0D21025868}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6BF4A4FD-6D35-4B9F-AEE3-BB0D21025868}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6BF4A4FD-6D35-4B9F-AEE3-BB0D21025868}.Release|x64.ActiveCfg = Release|Any CPU
+		{6BF4A4FD-6D35-4B9F-AEE3-BB0D21025868}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -300,5 +316,6 @@ Global
 		{FD7645B4-79F7-4F80-8BB5-D78991907DC6} = {5A46335B-2027-4930-B412-BC3D8445511E}
 		{177660A5-401C-403B-B343-3039FD028A89} = {5A46335B-2027-4930-B412-BC3D8445511E}
 		{5EC06B8D-EA5F-4311-A183-8CD5BB5D4E68} = {37EC7D07-3463-4892-9008-F569289F1A97}
+		{6BF4A4FD-6D35-4B9F-AEE3-BB0D21025868} = {5A46335B-2027-4930-B412-BC3D8445511E}
 	EndGlobalSection
 EndGlobal
