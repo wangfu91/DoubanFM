@@ -69,7 +69,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BassEngine.cs" />
-    <Compile Include="DeviceInfo.cs" />
     <Compile Include="IAudioEngine.cs" />
     <Compile Include="NAudioEngine.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

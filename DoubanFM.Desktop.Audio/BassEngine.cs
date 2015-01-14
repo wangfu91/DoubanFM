@@ -1,8 +1,10 @@
 ﻿using Microsoft.Practices.Prism.Commands;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Linq;
 using System.Windows.Input;
 using System.Windows.Threading;
 using Un4seen.Bass;
@@ -13,17 +15,17 @@ namespace DoubanFM.Desktop.Audio
     public class BassEngine : IAudioEngine
     {
         #region Fileds
-        private static BassEngine instance;
-        private bool disposed;
-        private int fileStreamhandle;
-        private int activeStreamHandle;
-        private double channelLength;
-        private bool canPlay;
-        private bool canPause;
-        private bool canStop;
-        private bool isPlaying;
-        private bool isMuted;
-        private double volume = 1.0;//default volume is 100%
+        private static BassEngine _instance;
+        private bool _disposed;
+        private int _fileStreamhandle;
+        private int _activeStreamHandle;
+        private double _channelLength;
+        private bool _canPlay;
+        private bool _canPause;
+        private bool _canStop;
+        private bool _isPlaying;
+        private bool _isMuted;
+        private double _volume = 1.0;//default volume is 100%
         private double currentChannelPosition;
         private bool inChannelSet;
         private bool inChannelTimerUpdate;
@@ -31,7 +33,8 @@ namespace DoubanFM.Desktop.Audio
         /// <summary>
         /// 保存正在打开的文件的地址，当短时间内多次打开网络文件时，这个字段保存最后一次打开的文件，可以使其他打开文件的操作失效
         /// </summary>
-        private string openningStream = null;
+        private string _openningStream = null;
+        private BASS_DEVICEINFO _device;
 
         private readonly SYNCPROC endTrackSyncProc;
         private readonly DispatcherTimer positionTimer = new DispatcherTimer(DispatcherPriority.ApplicationIdle);
@@ -49,11 +52,11 @@ namespace DoubanFM.Desktop.Audio
         {
             get
             {
-                if (instance == null)
+                if (_instance == null)
                 {
-                    instance = new BassEngine();
+                    _instance = new BassEngine();
                 }
-                return instance;
+                return _instance;
             }
         }
         #endregion
@@ -63,13 +66,13 @@ namespace DoubanFM.Desktop.Audio
         {
             get
             {
-                return fileStreamhandle;
+                return _fileStreamhandle;
             }
             set
             {
-                if (value != fileStreamhandle)
+                if (value != _fileStreamhandle)
                 {
-                    fileStreamhandle = value;
+                    _fileStreamhandle = value;
                     NotifyPropertyChanged("FileStreamHandle");
                 }
             }
@@ -80,14 +83,14 @@ namespace DoubanFM.Desktop.Audio
         {
             get
             {
-                return activeStreamHandle;
+                return _activeStreamHandle;
             }
             set
             {
-                if (value != activeStreamHandle)
+                if (value != _activeStreamHandle)
                 {
-                    activeStreamHandle = value;
-                    if (activeStreamHandle != 0)
+                    _activeStreamHandle = value;
+                    if (_activeStreamHandle != 0)
                     {
                         SetVolume();
                     }
@@ -101,13 +104,13 @@ namespace DoubanFM.Desktop.Audio
         {
             get
             {
-                return channelLength;
+                return _channelLength;
             }
             set
             {
-                if (value != channelLength)
+                if (value != _channelLength)
                 {
-                    channelLength = value;
+                    _channelLength = value;
                     NotifyPropertyChanged("ChannelLength");
                 }
             }
@@ -126,7 +129,7 @@ namespace DoubanFM.Desktop.Audio
                 {
                     inChannelSet = true; //Avoid recursion
                     var oldValue = currentChannelPosition;
-                    var position = Math.Max(0, Math.Min(value, channelLength));
+                    var position = Math.Max(0, Math.Min(value, _channelLength));
                     if (!inChannelTimerUpdate)
                     {
                         Bass.BASS_ChannelSetPosition(ActiveStreamHandle, Bass.BASS_ChannelSeconds2Bytes(ActiveStreamHandle, position));
@@ -146,13 +149,13 @@ namespace DoubanFM.Desktop.Audio
         {
             get
             {
-                return canPlay;
+                return _canPlay;
             }
             set
             {
-                if (value != canPlay)
+                if (value != _canPlay)
                 {
-                    canPlay = value;
+                    _canPlay = value;
                     NotifyPropertyChanged("CanPlay");
                     //PlayOrPauseCommand.RaiseCanExecuteChanged();
                 }
@@ -164,13 +167,13 @@ namespace DoubanFM.Desktop.Audio
         {
             get
             {
-                return canPause;
+                return _canPause;
             }
             set
             {
-                if (value != canPause)
+                if (value != _canPause)
                 {
-                    canPause = value;
+                    _canPause = value;
                     NotifyPropertyChanged("CanPause");
                 }
             }
@@ -182,13 +185,13 @@ namespace DoubanFM.Desktop.Audio
         {
             get
             {
-                return canStop;
+                return _canStop;
             }
             set
             {
-                if (value != canStop)
+                if (value != _canStop)
                 {
-                    canStop = value;
+                    _canStop = value;
                     NotifyPropertyChanged("CanStop");
                     //StopCommand.RaiseCanExecuteChanged();
                 }
@@ -201,13 +204,13 @@ namespace DoubanFM.Desktop.Audio
         {
             get
             {
-                return isPlaying;
+                return _isPlaying;
             }
             set
             {
-                if (value != isPlaying)
+                if (value != _isPlaying)
                 {
-                    isPlaying = value;
+                    _isPlaying = value;
                     positionTimer.IsEnabled = value;
                     NotifyPropertyChanged("IsPlaying");
                 }
@@ -217,12 +220,12 @@ namespace DoubanFM.Desktop.Audio
 
         public bool IsMuted
         {
-            get { return isMuted; }
+            get { return _isMuted; }
             set
             {
-                if (value != isMuted)
+                if (value != _isMuted)
                 {
-                    isMuted = value;
+                    _isMuted = value;
                     SetVolume();
                     NotifyPropertyChanged("IsMute");
                 }
@@ -231,15 +234,28 @@ namespace DoubanFM.Desktop.Audio
 
         public double Volume
         {
-            get { return volume; }
+            get { return _volume; }
             set
             {
                 value = Math.Max(0, Math.Min(1, value));
-                if (value != volume)
+                if (value != _volume)
                 {
-                    volume = value;
+                    _volume = value;
                     SetVolume();
                     NotifyPropertyChanged("Volume");
+                }
+            }
+        }
+
+        public BASS_DEVICEINFO Device
+        {
+            get { return _device; }
+            set
+            {
+                if (value != _device)
+                {
+                    _device = value;
+                    NotifyPropertyChanged("Device");
                 }
             }
         }
@@ -362,12 +378,12 @@ namespace DoubanFM.Desktop.Audio
 
         public void OpenUrl(string url)
         {
-            openningStream = url;
+            _openningStream = url;
             Stop();
             int handle = Bass.BASS_StreamCreateURL(url, 0, BASSFlag.BASS_STREAM_RESTRATE, null, IntPtr.Zero);
             if (handle != 0)
             {
-                if (openningStream == url)
+                if (_openningStream == url)
                 {
                     ActiveStreamHandle = handle;
                     ChannelLength = Bass.BASS_ChannelBytes2Seconds(ActiveStreamHandle, Bass.BASS_ChannelGetLength(ActiveStreamHandle));
@@ -417,8 +433,8 @@ namespace DoubanFM.Desktop.Audio
             //{
             //    handle = new WindowInteropHelper(Application.Current.MainWindow).EnsureHandle();
             //}
-
-            var defaultDevice = FindDefaultDevice();
+            //The device to use... -1 = default device, 0 = no sound, 1 = first real output device. 
+            var defaultDevice = -1;
             var init = Bass.BASS_Init(defaultDevice, sampleFrequency, BASSInit.BASS_DEVICE_SPEAKERS, handle);
             if (init)
             {
@@ -475,74 +491,7 @@ namespace DoubanFM.Desktop.Audio
             }
         }
 
-        /// <summary>
-        /// 查找设备的序号
-        /// </summary>
-        /// <param name="device">要查找的设备</param>
-        /// <param name="returnDefault">当找不到设备时，是否返回默认设备的序号</param>
-        /// <returns></returns>
-        //private static int FindDevice(DeviceInfo? device, bool returnDefault = false)
-        //{
 
-
-        //    if (device.HasValue)
-        //    {
-        //        int deviceNO = -1;
-        //        var devices = Bass.BASS_GetDeviceInfos().ToList();
-        //        var filteredDevices = from d in devices where d.id != null && d.id == device.Value.ID select Array.IndexOf(devices, d);
-        //        if (filteredDevices.Count() == 1)
-        //        {
-        //            deviceNO = filteredDevices.First();
-        //        }
-        //        if (deviceNO == -1)
-        //        {
-        //            filteredDevices = from d in devices where d.name == device.Value.Name select Array.IndexOf(devices, d);
-        //            if (filteredDevices.Count() == 1)
-        //            {
-        //                deviceNO = filteredDevices.First();
-        //            }
-        //        }
-        //        if (deviceNO == -1)
-        //        {
-        //            filteredDevices = from d in devices where d.driver == device.Value.Driver select Array.IndexOf(devices, d);
-        //            if (filteredDevices.Count() == 1)
-        //            {
-        //                deviceNO = filteredDevices.First();
-        //            }
-        //        }
-        //        if (deviceNO == -1 && returnDefault)
-        //        {
-        //            return FindDefaultDevice();
-        //        }
-        //        else if (deviceNO != -1)
-        //        {
-        //            return deviceNO;
-        //        }
-        //        else
-        //        {
-        //            throw new Exception("找不到此设备：" + device.Value.Name);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        return FindDefaultDevice();
-        //    }
-        //}
-
-        /// <summary>
-        /// 返回默认设备的序号
-        /// </summary>
-        /// <returns></returns>
-        private static int FindDefaultDevice()
-        {
-            var devices = Bass.BASS_GetDeviceInfos();
-            for (int i = 0; i < devices.Length; ++i)
-            {
-                if (devices[i].IsDefault) return i;
-            }
-            return 0;
-            //throw new Exception("没有默认设备");
-        }
 
         #endregion
 
@@ -592,6 +541,130 @@ namespace DoubanFM.Desktop.Audio
         }
         #endregion
 
+        #region  Utility Methods
+
+        public static List<BASS_DEVICEINFO> GetAvailableDevices()
+        {
+            var results = new List<BASS_DEVICEINFO>();
+            var devices = Bass.BASS_GetDeviceInfos().ToList();
+            foreach (var device in devices)
+            {
+                var comparison = StringComparison.InvariantCultureIgnoreCase;
+                if (device.IsEnabled && !string.Equals(device.name, "No sound", comparison))
+                {
+                    results.Add(device);
+                }
+            }
+            return results;
+        }
+
+
+        public void ChangeDevice(BASS_DEVICEINFO device)
+        {
+            var deviceNO = FindDevice(device);
+            var oldDeviceNO = Bass.BASS_GetDevice();
+            if (oldDeviceNO != deviceNO)
+            {
+                if (!Bass.BASS_GetDeviceInfo(deviceNO).IsInitialized)
+                {
+                    var handle = IntPtr.Zero;
+                    if (!Bass.BASS_Init(-1, sampleFrequency, BASSInit.BASS_DEVICE_SPEAKERS, handle))
+                    {
+                        Debug.WriteLine("Bass Initialize error!");
+                        throw new Exception(Bass.BASS_ErrorGetCode().ToString());
+                    }
+                }
+                if (_activeStreamHandle != 0)
+                {
+                    if (!Bass.BASS_ChannelSetDevice(_activeStreamHandle, deviceNO))
+                    {
+                        throw new Exception(Un4seen.Bass.Bass.BASS_ErrorGetCode().ToString());
+                    }
+                }
+                if (!Un4seen.Bass.Bass.BASS_SetDevice(oldDeviceNO))
+                {
+                    throw new Exception(Un4seen.Bass.Bass.BASS_ErrorGetCode().ToString());
+                }
+                if (!Un4seen.Bass.Bass.BASS_Free())
+                {
+                    throw new Exception(Un4seen.Bass.Bass.BASS_ErrorGetCode().ToString());
+                }
+                if (!Un4seen.Bass.Bass.BASS_SetDevice(deviceNO))
+                {
+                    throw new Exception(Un4seen.Bass.Bass.BASS_ErrorGetCode().ToString());
+                }
+            }
+            Device = device;
+        }
+
+
+        /// <summary>
+        /// 查找设备的序号
+        /// </summary>
+        /// <param name="device">要查找的设备</param>
+        /// <param name="returnDefault">当找不到设备时，是否返回默认设备的序号</param>
+        /// <returns></returns>
+        private static int FindDevice(BASS_DEVICEINFO device, bool returnDefault = false)
+        {
+            int deviceNO = -1;
+            var devices = Bass.BASS_GetDeviceInfos();
+
+            var filteredDevices =
+               from d in devices
+               where d.name == device.name
+               select Array.IndexOf(devices, d);
+            if (deviceNO == -1)
+            {
+                if (filteredDevices.Count() == 1)
+                {
+                    deviceNO = filteredDevices.First();
+                }
+            }
+            if (deviceNO == -1)
+            {
+                filteredDevices =
+                    from d in devices
+                    where d.driver == device.driver
+                    select Array.IndexOf(devices, d);
+                if (filteredDevices.Count() == 1)
+                {
+                    deviceNO = filteredDevices.First();
+                }
+            }
+            if (deviceNO == -1 && returnDefault)
+            {
+                return deviceNO;
+            }
+            else if (deviceNO != -1)
+            {
+                return deviceNO;
+            }
+            else
+            {
+                throw new Exception("找不到此设备：" + device.name);
+            }
+        }
+
+
+        /// <summary>
+        /// 返回默认设备的序号
+        /// </summary>
+        /// <returns></returns>
+        private static BASS_DEVICEINFO GetDefaultDevice()
+        {
+            var devices = Bass.BASS_GetDeviceInfos().ToList();
+            if (devices.Where(d => d.IsDefault).Count() > 0)
+            {
+                var device = devices.First();
+                return device;
+            }
+            else
+            {
+                throw new Exception("没有默认设备");
+            }
+        }
+
+        #endregion
 
         #region IDisposable
         public void Dispose()
@@ -601,13 +674,13 @@ namespace DoubanFM.Desktop.Audio
 
         private void Dispose(bool disposing)
         {
-            if (!disposed)
+            if (!_disposed)
             {
                 if (disposing)
                 {
                     //TODO:dispose BassEngine
                 }
-                disposed = true;
+                _disposed = true;
             }
         }
         #endregion
