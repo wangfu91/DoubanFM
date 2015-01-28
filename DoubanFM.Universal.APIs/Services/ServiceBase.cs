@@ -1,4 +1,4 @@
-﻿using PortableRest;
+﻿using RestSharp.Portable;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -19,8 +19,7 @@ namespace DoubanFM.Universal.APIs.Services
 
         protected async Task<T> Get<T>(string path, ParamsBase param) where T : class
         {
-            var restClient = new RestClient();
-            restClient.BaseUrl = baseUrl;
+            var restClient = new RestClient(baseUrl);
             var request = new RestRequest(path, HttpMethod.Get);
 
             //ForEach method has been removed form WinRT, 
@@ -34,7 +33,8 @@ namespace DoubanFM.Universal.APIs.Services
 
             try
             {
-                return await restClient.ExecuteAsync<T>(request);
+                var response= await restClient.Execute<T>(request);
+                return response.Data;
             }
             catch (Exception ex)
             {
@@ -46,8 +46,7 @@ namespace DoubanFM.Universal.APIs.Services
 
         protected async Task<T> Post<T>(string path, ParamsBase param) where T : class
         {
-            var restClient = new RestClient();
-            restClient.BaseUrl = baseUrl;
+            var restClient = new RestClient(baseUrl);
             var request = new RestRequest(path, HttpMethod.Post);
             foreach (var p in GetParameters(param))
             {
@@ -55,7 +54,8 @@ namespace DoubanFM.Universal.APIs.Services
             }
             try
             {
-                return await restClient.ExecuteAsync<T>(request);
+                var response= await restClient.Execute<T>(request);
+                return response.Data;
             }
             catch (Exception ex)
             {

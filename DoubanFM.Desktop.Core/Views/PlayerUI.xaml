@@ -56,10 +56,10 @@
 				   Text="{Binding CurrentSong.Title}" FontFamily="Segoe UI Light" FontSize="16" />
 				<ProgressBar Margin="5,5" IsIndeterminate="False" Minimum="0" Maximum="{Binding Player.ChannelLength}" Value="{Binding Player.ChannelPosition}"/>
 				<StackPanel Margin="5,5" HorizontalAlignment="Right" Orientation="Horizontal">
-					<resLib:VolumeControl Width="150" 
+					<resLib:VolumeControl Width="120" Margin="10,0"
 										 IsMuted="{Binding Player.IsMuted,Mode=TwoWay}"
 										 Volume="{Binding Player.Volume, Mode=TwoWay}" />
-					<TextBlock Foreground="White">
+					<TextBlock Foreground="White" Margin="5,0,0,0">
 						<TextBlock.Text>
 							<MultiBinding Converter="{StaticResource ChannelTimeLeftConverter}" FallbackValue="00.00" TargetNullValue="00.00" >
 								<Binding Path="Player.ChannelLength"/>

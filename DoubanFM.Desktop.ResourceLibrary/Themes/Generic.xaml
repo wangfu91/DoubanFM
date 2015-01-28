@@ -63,25 +63,159 @@
         </Setter>
     </Style>
 
+    <Style x:Key="stScrollBtn" TargetType="{x:Type RepeatButton}">
+        <Setter Property="OverridesDefaultStyle" Value="true"/>
+        <Setter Property="IsTabStop" Value="false"/>
+        <Setter Property="Focusable" Value="false"/>
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type RepeatButton}">
+                    <Border Background="{TemplateBinding Background}" />
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <Style x:Key="SliderStyle" TargetType="{x:Type Slider}">
+        <Setter Property="Height" Value="5"/>
+        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Slider}">
+                    <Grid>
+                        <Border x:Name="TrackBackground" Background="{TemplateBinding Background}">
+                            <Rectangle x:Name="PART_SelectionRange" Visibility="Hidden"/>
+                        </Border>
+                        <Track x:Name="PART_Track">
+                            <Track.DecreaseRepeatButton>
+                                <RepeatButton x:Name="LeftRepeatButton" Style="{StaticResource stScrollBtn}" Background="#7FFFFFFF" IsEnabled="False"/>
+                            </Track.DecreaseRepeatButton>
+                            <Track.IncreaseRepeatButton>
+                                <RepeatButton x:Name="RightRepeatButton" Style="{StaticResource stScrollBtn}" Background="#7F000000" IsEnabled="False"/>
+                            </Track.IncreaseRepeatButton>
+                            <Track.Thumb>
+                                <Thumb x:Name="Thumb" Width="0" Height="0"/>
+                            </Track.Thumb>
+                        </Track>
+                        <Rectangle HorizontalAlignment="Left" Width="{Binding ActualWidth, ElementName=LeftRepeatButton}" Fill="{TemplateBinding Foreground}"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
     <Style TargetType="{x:Type local:VolumeControl}">
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:VolumeControl}">
-                    <Grid Height="40" MinWidth="400">
+                    <Grid Height="30" Width="300">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="40"/>
-                            <ColumnDefinition Width="10"/>
+                            <ColumnDefinition Width="30"/>
                             <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="10"/>
                         </Grid.ColumnDefinitions>
-                        <CheckBox x:Name="muteCheckBox" 
+                        <CheckBox x:Name="muteCheckBox" Margin="0,0,5,0"
                                   IsChecked="{Binding IsMuted,RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}" 
                                   Style="{StaticResource LoudSpeakerStyle}"/>
-                        <Slider x:Name="volumeSlider" Grid.Column="2" VerticalAlignment="Center" 
-                                Maximum="1" LargeChange="0.1" SmallChange="0.01"
+                        <Slider x:Name="volumeSlider" Grid.Column="1" VerticalAlignment="Center" Margin="0,0,5,0"
+                                Maximum="1.0" LargeChange="0.1" SmallChange="0.01" Style="{StaticResource SliderStyle}"
                                 Value="{Binding Volume, RelativeSource={RelativeSource TemplatedParent}, Mode=TwoWay}"/>
                     </Grid>
 
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="PauseStyle" BasedOn="{StaticResource CustomCheckBoxStyle}" TargetType="{x:Type CheckBox}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <Viewbox>
+                        <Canvas Width="30" Height="30" Background="{TemplateBinding Background}">
+                            <Rectangle  Width="10" Height="30" Canvas.Left="20" Canvas.Top="0" Stretch="Fill" Fill="{TemplateBinding Foreground}"/>
+                            <Rectangle  Width="10" Height="30" Canvas.Left="0" Canvas.Top="0" Stretch="Fill" Fill="{TemplateBinding Foreground}"/>
+                        </Canvas>
+                    </Viewbox>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type CheckBox}">
+                            <Viewbox>
+                                <Canvas Width="26" Height="30" Background="{TemplateBinding Background}">
+                                    <Path x:Name="Path" Width="25.981" Height="30.0003" Canvas.Left="2.87779e-007" Canvas.Top="-6.35788e-007" Stretch="Fill" Fill="{TemplateBinding Foreground}" Data="F1 M 25.981,15.0001L 2.87779e-007,-6.35788e-007L 2.87779e-007,30.0003L 25.981,15.0001 Z "/>
+                                </Canvas>
+                            </Viewbox>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Trigger>
+        </Style.Triggers>
+
+    </Style>
+    <Style x:Key="NextStyle" BasedOn="{StaticResource CustomButtonStyle}" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox>
+                        <Canvas Width="30" Height="20" Clip="F1 M 0,0L 30,0L 30,20L 0,20L 0,0" Background="Transparent">
+                            <Canvas Width="30" Height="30" Canvas.Left="0" Canvas.Top="0">
+                                <Path x:Name="Path" Width="30" Height="20" Canvas.Left="-1.98682e-008" Canvas.Top="-9.53674e-007" Stretch="Fill" Data="M 30,-9.53674e-007L 26,-9.53674e-007L 26,8L 13,-9.53674e-007L 13,8L -1.98682e-008,-9.53674e-007L -1.98682e-008,20L 13,12L 13,20L 26,12L 26,20L 30,20L 30,-9.53674e-007 Z " Fill="{TemplateBinding Foreground}"/>
+                            </Canvas>
+                        </Canvas>
+                    </Viewbox>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="LikeStyle" BasedOn="{StaticResource CustomCheckBoxStyle}" TargetType="{x:Type CheckBox}">
+        <Setter Property="BorderBrush" Value="White"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type CheckBox}">
+                    <Viewbox>
+                        <Canvas Width="256" Height="220" Clip="F1 M 0,0L 256,0L 256,220L 0,220L 0,0" Background="{TemplateBinding Background}">
+                            <Path x:Name="PART_Path" Width="256" Height="216.961" Canvas.Left="1.67144e-005" Canvas.Top="5.03886" Stretch="Fill" Fill="{TemplateBinding Foreground}" Data="F1 M 128,220C 154.667,200.333 186,172 202,156C 218,140 256,94 256,69C 256,-1.99995 194.288,0.999451 176,5C 144,12 135.016,36.0526 128,44C 120.984,36.0526 112,13 80,6C 61.7118,1.99945 2.61674e-005,-0.999954 5.82235e-006,70C 2.61674e-005,95 38,140 54,156C 70,172 101.333,200.333 128,220" Stroke="{TemplateBinding BorderBrush}" StrokeStartLineCap="Round" StrokeThickness="0"/>
+                        </Canvas>
+                    </Viewbox>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsChecked" Value="True">
+                            <Setter Property="StrokeThickness" TargetName="PART_Path" Value="20"/>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="StrokeThickness" TargetName="PART_Path" Value="0"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsChecked" Value="True">
+                <Setter Property="Foreground" Value="#DFE75849"/>
+            </Trigger>
+            <Trigger Property="IsMouseOver" Value="True">
+                <Setter Property="Foreground" Value="#7F000000"/>
+            </Trigger>
+            <Trigger Property="IsEnabled" Value="False">
+                <Setter Property="Foreground" Value="#7F222222"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    <Style x:Key="NeverStyle" BasedOn="{StaticResource CustomButtonStyle}" TargetType="{x:Type Button}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Button}">
+                    <Viewbox>
+                        <Canvas Width="256" Height="256" Clip="F1 M 0,0L 256,0L 256,256L 0,256L 0,0" Background="{TemplateBinding Background}">
+                            <Path Width="185" Height="256" Canvas.Left="35.5" Canvas.Top="4.57764e-005" Stretch="Fill" Fill="{TemplateBinding Foreground}" Data="M 198.667,84L 198.667,236C 198.667,247.046 189.712,256 178.667,256L 77.3332,256C 66.2875,256 57.3332,247.046 57.3332,236L 57.3332,84C 57.3332,82.6301 57.471,81.2925 57.7333,80L 198.267,80C 198.529,81.2925 198.667,82.6301 198.667,84 Z M 91.2256,108.496L 91.2256,227.504L 108.774,227.504L 108.774,108.496L 91.2256,108.496 Z M 147.226,108.496L 147.226,227.504L 164.774,227.504L 164.774,108.496L 147.226,108.496 Z M 85,4.57764e-005L 171,4.57764e-005C 173.761,4.57764e-005 176,2.2386 176,5.00005L 176,32L 220.5,32L 220.5,64L 35.5,64L 35.5,32L 80,32L 80,5.00005C 80,2.2386 82.2386,4.57764e-005 85,4.57764e-005 Z M 101,16.0001C 98.2385,16.0001 95.9999,18.2387 95.9999,21.0001L 95.9999,32L 160,32L 160,21.0001C 160,18.2387 157.761,16.0001 155,16.0001L 101,16.0001 Z "/>
+                        </Canvas>
+                    </Viewbox>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -91,39 +225,51 @@
         <Setter Property="Template">
             <Setter.Value>
                 <ControlTemplate TargetType="{x:Type local:PlayControl}">
-                    <StackPanel Orientation="Horizontal" >
+                    <!--<StackPanel Orientation="Horizontal" >
                         <Button Height="75" Width="75"
-                BorderThickness="0"                
-                Command="{Binding BanCommand}"
-                Style="{StaticResource CustomButtonStyle}">
+                                BorderThickness="0"                
+                                Command="{Binding BanCommand}"
+                                Style="{StaticResource CustomButtonStyle}">
                             <Image Source="../Assets/Delete.png"/>
                         </Button>
 
                         <Button Height="75" Width="75"
-				BorderThickness="0" 
-				Command="{Binding LikeCommand}"
-                Style="{StaticResource CustomButtonStyle}">
+				                BorderThickness="0" 
+				                Command="{Binding LikeCommand}"
+                                Style="{StaticResource CustomButtonStyle}">
                             <Image Source="{Binding CurrentSong.Like,Converter={StaticResource BoolToImageConverter},ConverterParameter=Like}" />
                         </Button>
 
 
                         <Button Height="75" Width="75"
-				BorderThickness="0" 
-				Command="{Binding Player.PlayPauseCommand}" 
-                Style="{StaticResource CustomButtonStyle}">
+				                BorderThickness="0" 
+				                Command="{Binding Player.PlayPauseCommand}" 
+                                Style="{StaticResource CustomButtonStyle}">
                             <Image Source="{Binding Player.IsPlaying,Converter={StaticResource BoolToImageConverter},ConverterParameter=Play}"/>
                         </Button>
 
 
                         <Button Height="75" Width="75"
-				BorderThickness="0" 
-				Command="{Binding PlayNextCommand}"
-                Style="{StaticResource CustomButtonStyle}">
+				                BorderThickness="0" 
+				                Command="{Binding PlayNextCommand}"
+                                Style="{StaticResource CustomButtonStyle}">
                             <Image Source="../Assets/Media-Next.png"/>
                         </Button>
+                    </StackPanel>-->
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+                        <Button Height="45" Width="45" Margin="10,0"
+                                  Style="{StaticResource NeverStyle}"/>
+                        <CheckBox Height="45" Width="45" Margin="10,0"
+                                  Style="{StaticResource LikeStyle}"/>
+                        <CheckBox  Height="45" Width="45" Margin="10,0"
+                                   Style="{StaticResource PauseStyle}"/>
+                        <Button Height="45" Width="45" Margin="10,0"
+                                  Style="{StaticResource NextStyle}"/>
                     </StackPanel>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
     </Style>
+
+
 </ResourceDictionary>
