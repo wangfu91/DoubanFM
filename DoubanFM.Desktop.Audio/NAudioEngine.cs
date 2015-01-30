@@ -74,7 +74,7 @@ namespace DoubanFM.Desktop.Audio
 
             waveOutDevice.PlaybackStopped += waveOutDevice_PlaybackStopped;
 
-            this.PlayPauseCommand = new DelegateCommand(() =>
+            this.PlayCommand = new DelegateCommand(() =>
                 {
                     if (IsPlaying)
                         Pause();
@@ -223,9 +223,11 @@ namespace DoubanFM.Desktop.Audio
         #endregion
 
         #region Commands
-        public ICommand PlayPauseCommand { get; set; }
+        public ICommand PlayCommand { get; set; }
 
-        public ICommand PlayNextCommand { get; set; }
+		public ICommand PauseCommand { get; set; }
+
+		public ICommand PlayNextCommand { get; set; }
 
         public ICommand StopCommand { get; set; }
         #endregion

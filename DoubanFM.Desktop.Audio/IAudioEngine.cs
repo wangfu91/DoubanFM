@@ -5,29 +5,31 @@ using WPFSoundVisualizationLib;
 
 namespace DoubanFM.Desktop.Audio
 {
-    public interface IAudioEngine :IDisposable,INotifyPropertyChanged,ISpectrumPlayer
-    {
-        bool CanPlay { get; set; }
+	public interface IAudioEngine : IDisposable, INotifyPropertyChanged, ISpectrumPlayer
+	{
+		bool CanPlay { get; set; }
 
-        bool CanPause { get; set; }
+		bool CanPause { get; set; }
 
-        bool CanStop { get; set; }
+		bool CanStop { get; set; }
 
-        //Note:IsPlaying already defined in ISpectrumPlayer.
-        //bool IsPlaying { get; set; }
+		//Note:IsPlaying already defined in ISpectrumPlayer.
+		//bool IsPlaying { get; set; }
 
-        ICommand PlayPauseCommand { get; set; }
+		ICommand PlayCommand { get; set; }
 
-        event EventHandler TrackEnded;
+		ICommand PauseCommand { get; set; }
 
-        void OpenFile(string filePath);
+		event EventHandler TrackEnded;
 
-        void OpenUrl(string url);
+		void OpenFile(string filePath);
 
-        void Stop();
+		void OpenUrl(string url);
 
-        void Pause();
+		void Stop();
 
-        void Play();
-    }
+		void Pause();
+
+		void Play();
+	}
 }
