@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Threading;
 
 namespace DoubanFM.Desktop.Core.ViewModels
 {
@@ -17,11 +18,15 @@ namespace DoubanFM.Desktop.Core.ViewModels
         private UserService _userService;
         private SongService _songService;
         private ChannelService _channelService;
+        private LyricsService _lyricsService;
         private IAudioEngine _playEngine;
         private ChannelList _channelList;
         private Song _currentSong;
+        private string _currentLyrics;
         private Channel _currentChannel;
         private Queue<Song> _playList;
+        private DispatcherTimer _timer = new DispatcherTimer();
+        private LyricController _lyricsController;
 
         public IAudioEngine Player
         {
@@ -39,9 +44,23 @@ namespace DoubanFM.Desktop.Core.ViewModels
                     OnPropertyChanged(() => this.CurrentSong);
                     if (_currentSong != null)
                     {
+                        GetLyrics();
                         Player.OpenUrl(_currentSong.URL);
-                        Player.Play();
+                        Player.PlayCommand.Execute(null);
                     }
+                }
+            }
+        }
+
+        public string CurrentLyrics
+        {
+            get { return _currentLyrics; }
+            set
+            {
+                if(value!=_currentLyrics)
+                {
+                    _currentLyrics = value;
+                    OnPropertyChanged(() => this.CurrentLyrics);
                 }
             }
         }
@@ -152,7 +171,24 @@ namespace DoubanFM.Desktop.Core.ViewModels
                     CurrentSong = PlayList.Dequeue();
                 }
             });
+
+            _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromSeconds(0.4);
+            _timer.Tick += _timer_Tick;
+            _timer.Start();
+
         }
+
+        void _timer_Tick(object sender, EventArgs e)
+        {
+            if(_lyricsController!=null)
+            {
+                _lyricsController.CurrentTime = TimeSpan.FromSeconds(Player.ChannelPosition);
+                _lyricsController.Refresh();
+                CurrentLyrics = _lyricsController.CurrentLyrics;
+            }
+        }
+
 
         private async Task Login(string email, string password)
         {
@@ -161,6 +197,7 @@ namespace DoubanFM.Desktop.Core.ViewModels
             var userSvcParams = new UserParams(loginResult);
             _channelService = new ChannelService(loginResult);
             _songService = new SongService(loginResult);
+            _lyricsService = new LyricsService();
         }
 
 
@@ -182,6 +219,16 @@ namespace DoubanFM.Desktop.Core.ViewModels
             var result = await _songService.GetSongs(CurrentChannel.ChannelId);
             SetPlayList(result);
             CurrentSong = PlayList.Dequeue();
+        }
+
+        private async void GetLyrics()
+        {
+            var _lyrics = await _lyricsService.GetLyrics(_currentSong);
+            _lyricsController = null;
+            if(!string.IsNullOrEmpty(_lyrics.LrcCode))
+            {
+                _lyricsController = new LyricController(_lyrics);
+            }
         }
 
         private void SetPlayList(SongResult result)

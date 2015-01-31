@@ -7,11 +7,19 @@ namespace DoubanFM.Desktop.Audio
 {
 	public interface IAudioEngine : IDisposable, INotifyPropertyChanged, ISpectrumPlayer
 	{
-		bool CanPlay { get; set; }
+		bool CanPlay { get;}
 
-		bool CanPause { get; set; }
+		bool CanPause { get; }
 
-		bool CanStop { get; set; }
+		bool CanStop { get;  }
+
+        bool IsMuted { get; set; }
+
+        double Volume { get; set; }
+
+		double ChannelPosition { get; set; }
+
+		double ChannelLength { get;}
 
 		//Note:IsPlaying already defined in ISpectrumPlayer.
 		//bool IsPlaying { get; set; }

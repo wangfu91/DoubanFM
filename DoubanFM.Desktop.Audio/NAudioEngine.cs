@@ -12,7 +12,7 @@ using WPFSoundVisualizationLib;
 
 namespace DoubanFM.Desktop.Audio
 {
-    public class NAudioEngine :IAudioEngine
+    public class NAudioEngine 
     {
         #region Fields
         private static NAudioEngine instance;
@@ -561,6 +561,31 @@ namespace DoubanFM.Desktop.Audio
 
         #endregion
 
+
+
+        public bool IsMuted
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public double Volume
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+            set
+            {
+                throw new NotImplementedException();
+            }
+        }
     }
 
 }

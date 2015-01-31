@@ -20,15 +20,44 @@
             <ColumnDefinition Width="300"/>
         </Grid.ColumnDefinitions>
         <Grid x:Name="leftPanel">
-            <resLib:AnimatedTabControl x:Name="controlPanel" >
+            <Grid x:Name="coverGrid">
+                <Grid.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Grid.RenderTransform>
+                <Grid x:Name="covers">
+                    <Image Height="300" Width="300" Source="{Binding CurrentSong.Picture}" Stretch="UniformToFill" Panel.ZIndex="1"/>
+                    <Image Source="/DoubanFM.Desktop.ResourceLibrary;component/Assets/DoubanFM_NoCover.png" Stretch="UniformToFill" Panel.ZIndex="0"/>
+                </Grid>
+                <Grid x:Name="lyricsPanel" VerticalAlignment="Bottom" Height="70" >
+                    <Border Background="#F00CCCCC">
+                        <Border.OpacityMask>
+                            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                <GradientStop Offset="0"/>
+                                <GradientStop Color="#CC38FFA8" Offset="0.815"/>
+                                <GradientStop Color="#9047FFAE" Offset="0.422"/>
+                            </LinearGradientBrush>
+                        </Border.OpacityMask>
+                    </Border>
+                    <TextBlock x:Name="currentLyrics" Foreground="White" Margin="7"
+                               HorizontalAlignment="Center" VerticalAlignment="Bottom"
+                               TextWrapping="Wrap" TextTrimming="WordEllipsis"
+                               Text="{Binding CurrentLyrics}"/>
+                </Grid>
+            </Grid>
+            <!--<resLib:AnimatedTabControl x:Name="controlPanel" >
                 <TabItem Header="Cover">
-                    <!--<Image Source="/ResourceLibrary;component/Assets/CD-Music.png" Opacity="0.6" Stretch="None" Panel.ZIndex="0"/>-->
+                    --><!--<Image Source="/ResourceLibrary;component/Assets/CD-Music.png" Opacity="0.6" Stretch="None" Panel.ZIndex="0"/>--><!--
                     <Image Height="300" Source="{Binding CurrentSong.Picture}" Stretch="UniformToFill" Panel.ZIndex="1"/>
                 </TabItem>
                 <TabItem Header="Channels">
                     <resLib:ChannelListControl Height="300"/>
                 </TabItem>
-            </resLib:AnimatedTabControl>
+            </resLib:AnimatedTabControl>-->
         </Grid>
         <Grid x:Name="rightPanel" Grid.Column="1">
             <Grid.RowDefinitions>

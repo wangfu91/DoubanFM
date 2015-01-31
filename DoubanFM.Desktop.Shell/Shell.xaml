@@ -1,15 +1,18 @@
-﻿<Window x:Class="DoubanFM.Desktop.Shell.Shell"
+﻿<resLib:WindowBase x:Class="DoubanFM.Desktop.Shell.Shell"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://www.codeplex.com/prism"
+        xmlns:resLib="clr-namespace:DoubanFM.Desktop.ResourceLibrary;assembly=DoubanFM.Desktop.ResourceLibrary"
         Title="DoubanFM" 
-        WindowStartupLocation="CenterScreen"
-        MouseLeftButtonDown="DragWindow"   
-        Background="{x:Null}" 
         WindowStyle="None"
-        AllowsTransparency="True">
+        AllowsTransparency="True"
+        ResizeMode="CanMinimize"
+        WindowStartupLocation="CenterScreen"
+        Background="{x:Null}" 
+        
+        >
 
-    <Grid>
+    <Grid x:Name="MainPanel" Background="SkyBlue">
         <ItemsControl 
             x:Name="MainRegion" 
             HorizontalAlignment="Center" 
@@ -17,4 +20,4 @@
             prism:RegionManager.RegionName="MainRegion"/>
 
     </Grid>
-</Window>
+</resLib:WindowBase>

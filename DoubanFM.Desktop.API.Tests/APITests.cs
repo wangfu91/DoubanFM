@@ -146,7 +146,7 @@ namespace DoubanFM.Desktop.API.Tests
         public async Task GetDoubanLyricsTest()
         {
             var lyricsService = new LyricsService();
-            var song = new Song { SID = "1742969" };
+            var song = new Song { SID = "1742965" };
             var lyrics = await lyricsService.GetLyrics(song);
             Assert.IsNotNull(lyrics);
         }

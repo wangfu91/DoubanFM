@@ -1,4 +1,5 @@
-﻿using Microsoft.Practices.Prism.Modularity;
+﻿using DoubanFM.Desktop.ResourceLibrary;
+using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.ServiceLocation;
 using System.Windows;
@@ -28,7 +29,7 @@ namespace DoubanFM.Desktop.Shell
         {
             base.InitializeShell();
 
-            Application.Current.MainWindow = (Window)this.Shell;
+            Application.Current.MainWindow = (WindowBase)this.Shell;
             Application.Current.MainWindow.Show();
         }
 
