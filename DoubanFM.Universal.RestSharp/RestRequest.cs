@@ -10,6 +10,7 @@ using System.Xml.Serialization;
 using Newtonsoft.Json;
 using System.Linq;
 using Newtonsoft.Json.Linq;
+using System.Reflection;
 
 namespace DoubanFM.Universal.RestSharp
 {
@@ -368,7 +369,7 @@ namespace DoubanFM.Universal.RestSharp
 
             //TODO: Handle generic lists
             //foreach (var prop in t.DeclaredProperties.Where(c => !(c.PropertyType.GetTypeInfo().IsSimpleType())))
-            foreach (var prop in type.GetProperties().Where(c => !(c.PropertyType.IsSimpleType())))
+            foreach (var prop in type.GetRuntimeProperties().Where(c => !(c.PropertyType.IsSimpleType())))
             {
                 Debug.WriteLine(prop.Name);
                 var xnode = element.Descendants().FirstOrDefault(c => c.Name.ToString() == prop.Name);
@@ -379,7 +380,7 @@ namespace DoubanFM.Universal.RestSharp
             }
 
             //foreach (var prop in t.DeclaredProperties.Where(c => c.GetCustomAttributes(typeof(XmlAttributeAttribute), true).Any()))
-            foreach (var prop in type.GetProperties().Where(c => c.GetCustomAttributes(typeof(XmlAttributeAttribute), true).Any()))
+            foreach (var prop in type.GetRuntimeProperties().Where(c => c.GetCustomAttributes(typeof(XmlAttributeAttribute), true).Any()))
             {
                 var attribs = prop.GetCustomAttributes(true);
                 if (attribs.Any(c => c is IgnoreDataMemberAttribute || c is XmlIgnoreAttribute)) continue;

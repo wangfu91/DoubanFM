@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using System.Reflection;
 
 namespace DoubanFM.Universal.RestSharp
 {
@@ -18,8 +19,8 @@ namespace DoubanFM.Universal.RestSharp
         public static bool IsSimpleType(this Type type)
         {
             return
-                type.IsValueType ||
-                type.IsPrimitive ||
+                type.GetTypeInfo().IsValueType ||
+                type.GetTypeInfo().IsPrimitive ||
                 new Type[]
                 {
                     typeof (String),

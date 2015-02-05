@@ -136,12 +136,12 @@ namespace DoubanFM.Universal.RestSharp
 
             if (displayName == null)
             {
-                var attributes = thisAssembly.GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
-                if (attributes.Length == 0)
+                var attributes = thisAssembly.GetCustomAttributes(typeof(AssemblyTitleAttribute));
+                if (attributes.Count() == 0)
                 {
                     throw new Exception("The assembly containing the class inheriting from PortableRest.RestClient must have an AssemblyTitle attribute specified.");
                 }
-                displayName = ((AssemblyTitleAttribute)attributes[0]).Title;
+                displayName = ((AssemblyTitleAttribute)attributes.First()).Title;
             }
 
             var prAssembly = typeof(RestRequest).GetTypeInfo().Assembly;
@@ -328,8 +328,8 @@ namespace DoubanFM.Universal.RestSharp
             }
 
             //RWM: Not sure if this is sufficient, or if HEAD supports a body, will need to check into the RFC.
-            if (restRequest.Method != HttpMethod.Get && restRequest.Method != HttpMethod.Head && restRequest.Method != HttpMethod.Trace)
-            {
+            //if (restRequest.Method != HttpMethod.Get && restRequest.Method != HttpMethod.Head && restRequest.Method != HttpMethod.Trace)
+            //{
                 //RWM: This feels hacky. May need some tweaking.
                 if (restRequest.ContentType == ContentTypes.ByteArray)
                 {
@@ -344,7 +344,7 @@ namespace DoubanFM.Universal.RestSharp
                     var contentString = new StringContent(restRequest.GetRequestBody(), Encoding.UTF8, restRequest.GetContentType());
                     message.Content = contentString;
                 }
-            }
+            //}
 
             return await _client.SendAsync(message, cancellationToken).ConfigureAwait(false);
         }
