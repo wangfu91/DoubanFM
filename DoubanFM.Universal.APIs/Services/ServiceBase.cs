@@ -24,6 +24,7 @@ namespace DoubanFM.Universal.APIs.Services
 			restClient.BaseUrl = baseUrl;
 			var request = new RestRequest(path, HttpMethod.Get);
 			request.ContentType = ContentTypes.FormUrlEncoded;
+			restClient.UserAgent = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)";
 
 			//ForEach method has been removed form WinRT, 
 			//<see cref="http://stackoverflow.com/questions/10299458/is-the-listt-foreach-method-gone" >
@@ -54,6 +55,9 @@ namespace DoubanFM.Universal.APIs.Services
 			restClient.BaseUrl = baseUrl;
 			var request = new RestRequest(path, HttpMethod.Post);
 			request.ContentType = ContentTypes.FormUrlEncoded;
+			restClient.UserAgent = "Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 6.1; Trident/5.0)";
+			
+
 			foreach (var p in GetParameters(param))
 			{
 				request.AddParameter(p.Name, p.GetValue(param));
