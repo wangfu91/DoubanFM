@@ -12,12 +12,26 @@
         
         >
 
-    <Grid x:Name="MainPanel" Background="SkyBlue">
-        <ItemsControl 
-            x:Name="MainRegion" 
-            HorizontalAlignment="Center" 
-            VerticalAlignment="Center"
-            prism:RegionManager.RegionName="MainRegion"/>
+    <Grid x:Name="Layout" >
+
+        <resLib:AnimatedTabControl >
+            <TabItem Header="Cover" Background="Transparent">
+                <Grid x:Name="MainPanel">
+                    <ItemsControl 
+                       prism:RegionManager.RegionName="NowPlayingRegion"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Channels" Background="Transparent">
+                <Grid Background="Transparent">
+                    <ItemsControl 
+                        prism:RegionManager.RegionName="ChannelsRegion"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Settings" Background="Transparent">
+                <ItemsControl 
+                    prism:RegionManager.RegionName="SettingsRegion"/>
+            </TabItem>
+        </resLib:AnimatedTabControl>
 
     </Grid>
 </resLib:WindowBase>

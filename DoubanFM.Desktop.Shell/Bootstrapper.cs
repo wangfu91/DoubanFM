@@ -8,7 +8,7 @@ namespace DoubanFM.Desktop.Shell
 {
     public class Bootstrapper : UnityBootstrapper
     {
-        private readonly CallbackLogger callbackLogger = new CallbackLogger();
+        private readonly CallbackLogger _callbackLogger = new CallbackLogger();
 
         /// <summary>
         /// Creates the shell or main window of the application.
@@ -61,7 +61,10 @@ namespace DoubanFM.Desktop.Shell
         {
             base.ConfigureModuleCatalog();
             var moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
-            moduleCatalog.AddModule(typeof(DoubanFM.Desktop.Core.ModuleInit), InitializationMode.WhenAvailable);
+            moduleCatalog.AddModule(typeof(DoubanFM.Desktop.NowPlaying.NowPlayingModule), InitializationMode.WhenAvailable);
+            moduleCatalog.AddModule(typeof(DoubanFM.Desktop.Channels.ChannelsModule), InitializationMode.WhenAvailable);
+            moduleCatalog.AddModule(typeof(DoubanFM.Desktop.Settings.SettingsModule), InitializationMode.OnDemand);
+
 
         }
     }

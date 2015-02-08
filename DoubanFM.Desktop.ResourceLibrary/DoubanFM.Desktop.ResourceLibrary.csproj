@@ -52,7 +52,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AnimatedTabControl.cs" />
-    <Compile Include="ChannelListControl.cs" />
+    <Compile Include="CustomResources.cs" />
     <Compile Include="PlayControl.cs" />
     <Compile Include="ShadowWindow.xaml.cs">
       <DependentUpon>ShadowWindow.xaml</DependentUpon>

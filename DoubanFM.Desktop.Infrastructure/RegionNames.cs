@@ -3,10 +3,11 @@ namespace DoubanFM.Desktop.Infrastructure
 {
     public static class RegionNames
     {
-        public const string MainRegion = "MainRegion";
+        public const string NowPlaying = "NowPlayingRegion";
 
-        //public const string PlayControlRegin = "PlayControlRegion";
+        public const string Channels = "ChannelsRegion";
 
-        //public const string PlayListRegion = "PlayListRegion";
+        public const string Settings = "SettingsRegion";
+
     }
 }
