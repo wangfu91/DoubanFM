@@ -263,14 +263,20 @@
 							<Image Source="../Assets/Media-Next.png"/>
 						</Button>
 					</StackPanel>-->
-					<StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-						<Button Height="45" Width="45" Margin="10,0"
+					<Grid >
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition/>
+							<ColumnDefinition/>
+							<ColumnDefinition/>
+							<ColumnDefinition/>
+						</Grid.ColumnDefinitions>
+						<Button Height="35" Width="35" Margin="5,0"
 								Style="{StaticResource NeverStyle}"
 								Command="{Binding BanCommand}"/>
-						<CheckBox Height="45" Width="45" Margin="10,0"
+						<CheckBox Height="35" Width="35" Margin="5,0" Grid.Column="1"
 								  Style="{StaticResource LikeStyle}"
 								  IsChecked="{Binding CurrentSong.Like,Mode=TwoWay}"/>
-						<CheckBox  Height="45" Width="45" Margin="10,0"
+						<CheckBox  Height="35" Width="35" Margin="5,0" Grid.Column="2"
 								   Style="{StaticResource PauseStyle}"
 								   IsChecked="{Binding Player.IsPlaying,Mode=OneWay}">
 							<i:Interaction.Triggers>
@@ -282,10 +288,10 @@
 								</i:EventTrigger>
 							</i:Interaction.Triggers>
 						</CheckBox>
-						<Button Height="45" Width="45" Margin="10,0"
+						<Button Height="35" Width="35" Margin="5,0" Grid.Column="3"
 								Style="{StaticResource NextStyle}"
 								Command="{Binding PlayNextCommand}"/>
-					</StackPanel>
+					</Grid>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
@@ -443,13 +449,13 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-    
+
 	<ControlTemplate x:Key="WindowBaseTemplate" TargetType="{x:Type Window}">
 		<Grid Background="{TemplateBinding Background}">
 			<ContentPresenter/>
 		</Grid>
 	</ControlTemplate>
-    
+
 	<Style TargetType="{x:Type local:WindowBase}">
 		<Setter Property="WindowStyle" Value="None"/>
 		<Setter Property="ResizeMode" Value="NoResize"/>

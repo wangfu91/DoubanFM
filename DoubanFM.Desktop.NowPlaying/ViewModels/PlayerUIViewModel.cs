@@ -2,11 +2,12 @@
 using DoubanFM.Desktop.API.Services;
 using DoubanFM.Desktop.Audio;
 using DoubanFM.Desktop.Infrastructure;
+using DoubanFM.Desktop.Infrastructure.Events;
 using Microsoft.Practices.Prism.Commands;
+using Microsoft.Practices.Prism.PubSubEvents;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using System.Windows.Threading;
@@ -28,7 +29,88 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
         private Queue<Song> _playList;
         private DispatcherTimer _timer = new DispatcherTimer();
         private LyricController _lyricsController;
+        private IEventAggregator _eventAggregator;
+        private SubscriptionToken _subscriptionToken;
 
+        public PlayerUIViewModel(
+            IEventAggregator eventAggregator,
+            IAudioEngine playEngine)
+        {
+            this._eventAggregator = eventAggregator;
+            this._playEngine = playEngine;
+            PlayList = new Queue<Song>();
+
+            var switchChannelEvent = _eventAggregator.GetEvent<SwitchChannelEvent>();
+            if (_subscriptionToken != null)
+            {
+                switchChannelEvent.Unsubscribe(_subscriptionToken);
+            }
+            _subscriptionToken = switchChannelEvent.Subscribe(async c =>
+                {
+                    CurrentChannel = c;
+                    await GetSongs();
+                }, true);
+
+            playEngine.TrackEnded += playEngine_TrackeEnded;
+            PlayNextCommand = new DelegateCommand(async () =>
+            {
+                if (PlayList.Count > 0)
+                {
+                    CurrentSong = PlayList.Dequeue();
+                    SetPlayList(await _songService.Skip(CurrentSong.SID, CurrentChannel.ChannelId));
+                }
+                else
+                {
+                    SetPlayList(await _songService.Skip(CurrentSong.SID, CurrentChannel.ChannelId));
+                    CurrentSong = PlayList.Dequeue();
+                }
+            });
+
+            LikeCommand = new DelegateCommand(async () =>
+            {
+                if (CurrentSong.Like)
+                {
+                    var result = await _songService.Unlike(CurrentSong.SID, CurrentChannel.ChannelId);
+                    if (result.R == 0)
+                    {
+                        CurrentSong.Like = false;
+                        SetPlayList(result);
+                    }
+                }
+                else
+                {
+                    var result = await _songService.Like(CurrentSong.SID, CurrentChannel.ChannelId);
+                    if (result.R == 0)
+                    {
+                        CurrentSong.Like = true;
+                        SetPlayList(result);
+                    }
+                }
+
+            });
+
+            BanCommand = new DelegateCommand(async () =>
+            {
+                if (PlayList.Count > 0)
+                {
+                    CurrentSong = PlayList.Dequeue();
+                    SetPlayList(await _songService.Ban(CurrentSong.SID, CurrentChannel.ChannelId));
+                }
+                else
+                {
+                    SetPlayList(await _songService.Ban(CurrentSong.SID, CurrentChannel.ChannelId));
+                    CurrentSong = PlayList.Dequeue();
+                }
+            });
+
+            Initialize();
+
+            _timer = new DispatcherTimer();
+            _timer.Interval = TimeSpan.FromSeconds(0.4);
+            _timer.Tick += _timer_Tick;
+            _timer.Start();
+
+        }
         public IAudioEngine Player
         {
             get { return _playEngine; }
@@ -115,70 +197,6 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
 
 
 
-
-        public PlayerUIViewModel(IAudioEngine playEngine)
-        {
-            this._playEngine = playEngine;
-            PlayList = new Queue<Song>();
-            playEngine.TrackEnded += playEngine_TrackeEnded;
-            Initialize();
-            PlayNextCommand = new DelegateCommand(async () =>
-            {
-                if (PlayList.Count > 0)
-                {
-                    CurrentSong = PlayList.Dequeue();
-                    SetPlayList(await _songService.Skip(CurrentSong.SID, CurrentChannel.ChannelId));
-                }
-                else
-                {
-                    SetPlayList(await _songService.Skip(CurrentSong.SID, CurrentChannel.ChannelId));
-                    CurrentSong = PlayList.Dequeue();
-                }
-            });
-
-            LikeCommand = new DelegateCommand(async () =>
-            {
-                if (CurrentSong.Like)
-                {
-                    var result = await _songService.Unlike(CurrentSong.SID, CurrentChannel.ChannelId);
-                    if (result.R == 0)
-                    {
-                        CurrentSong.Like = false;
-                        SetPlayList(result);
-                    }
-                }
-                else
-                {
-                    var result = await _songService.Like(CurrentSong.SID, CurrentChannel.ChannelId);
-                    if (result.R == 0)
-                    {
-                        CurrentSong.Like = true;
-                        SetPlayList(result);
-                    }
-                }
-
-            });
-
-            BanCommand = new DelegateCommand(async () =>
-            {
-                if (PlayList.Count > 0)
-                {
-                    CurrentSong = PlayList.Dequeue();
-                    SetPlayList(await _songService.Ban(CurrentSong.SID, CurrentChannel.ChannelId));
-                }
-                else
-                {
-                    SetPlayList(await _songService.Ban(CurrentSong.SID, CurrentChannel.ChannelId));
-                    CurrentSong = PlayList.Dequeue();
-                }
-            });
-
-            _timer = new DispatcherTimer();
-            _timer.Interval = TimeSpan.FromSeconds(0.4);
-            _timer.Tick += _timer_Tick;
-            _timer.Start();
-
-        }
 
         void _timer_Tick(object sender, EventArgs e)
         {

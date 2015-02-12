@@ -1,12 +1,9 @@
 ﻿using DoubanFM.Desktop.API.Models;
 using DoubanFM.Desktop.API.Services;
 using DoubanFM.Desktop.Infrastructure;
-using System;
-using System.Collections.Generic;
+using DoubanFM.Desktop.Infrastructure.Events;
+using Microsoft.Practices.Prism.PubSubEvents;
 using System.Collections.ObjectModel;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace DoubanFM.Desktop.Channels.ViewModels
 {
@@ -14,10 +11,14 @@ namespace DoubanFM.Desktop.Channels.ViewModels
     {
         private IChannelService _channelSerivce;
         private Channel _currentChannel;
+        private IEventAggregator _eventAggregator;
 
-        public ChannelListViewModel(IChannelService channelService)
+        public ChannelListViewModel(
+            IChannelService channelService,
+            IEventAggregator eventAggregator)
         {
             this._channelSerivce = channelService;
+            this._eventAggregator = eventAggregator;
             this.ChannelList = new ObservableCollection<Channel>();
 
             GetChannels();
@@ -34,7 +35,17 @@ namespace DoubanFM.Desktop.Channels.ViewModels
                 {
                     _currentChannel = value;
                     OnPropertyChanged(() => this.CurrentChannel);
+                    HandleCurrentChannelChange();
                 }
+            }
+        }
+
+        private void HandleCurrentChannelChange()
+        {
+            if (CurrentChannel != null)
+            {
+                _eventAggregator.GetEvent<SwitchChannelEvent>()
+                    .Publish(CurrentChannel);
             }
         }
 
