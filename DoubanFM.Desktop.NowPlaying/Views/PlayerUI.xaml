@@ -3,6 +3,8 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+			 xmlns:sys="clr-namespace:System;assembly=mscorlib"
+			 xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
 			 xmlns:resLib="clr-namespace:DoubanFM.Desktop.ResourceLibrary;assembly=DoubanFM.Desktop.ResourceLibrary"
 			 xmlns:svl="clr-namespace:WPFSoundVisualizationLib;assembly=WPFSoundVisualizationLib"
 			 xmlns:converters="clr-namespace:DoubanFM.Desktop.Infrastructure.Converters;assembly=DoubanFM.Desktop.Infrastructure"
@@ -11,6 +13,19 @@
 	<UserControl.Resources>
 		<converters:ChannelTimeLeftConverter x:Key="ChannelTimeLeftConverter"/>
 		<converters:OrdinaryColorToTranspantConverter x:Key="OrdinaryColorToTranspantConverter"/>
+		<PowerEase x:Key="Smooth" Power="3" PresentationOptions:Freeze="True"/>
+
+		<Storyboard x:Key="SlideCoverRightStoryboard">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="CoverGrid">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="246" EasingFunction="{StaticResource Smooth}"/>
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
+		<Storyboard x:Key="SlideCoverLeftStoryboard">
+			<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="CoverGrid">
+				<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0" EasingFunction="{StaticResource Smooth}"/>
+			</DoubleAnimationUsingKeyFrames>
+		</Storyboard>
+
 	</UserControl.Resources>
 	<Grid>
 		<Grid.ColumnDefinitions>
@@ -18,7 +33,14 @@
 			<ColumnDefinition Width="266"/>
 		</Grid.ColumnDefinitions>
 		<Grid x:Name="leftPanel">
-			<Grid x:Name="coverGrid">
+			<Grid x:Name="CoverGrid" Panel.ZIndex="0">
+				<Grid.Triggers>
+					<EventTrigger RoutedEvent="MouseEnter">
+						<EventTrigger.Actions>
+							<BeginStoryboard Storyboard="{StaticResource SlideCoverRightStoryboard}"/>
+						</EventTrigger.Actions>
+					</EventTrigger>
+				</Grid.Triggers>
 				<Grid.RenderTransform>
 					<TransformGroup>
 						<ScaleTransform/>
@@ -60,6 +82,13 @@
 			</resLib:AnimatedTabControl>-->
 		</Grid>
 		<Grid x:Name="rightPanel" Grid.Column="1" >
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+						<EventTrigger.Actions>
+							<BeginStoryboard Storyboard="{StaticResource SlideCoverLeftStoryboard}"/>
+						</EventTrigger.Actions>
+					</EventTrigger>
+            </Grid.Triggers>
 			<Grid.RowDefinitions>
 				<RowDefinition />
 				<RowDefinition/>
