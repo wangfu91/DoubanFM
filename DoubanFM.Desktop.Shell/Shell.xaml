@@ -8,30 +8,27 @@
         AllowsTransparency="True"
         ResizeMode="CanMinimize"
         WindowStartupLocation="CenterScreen"
-        Background="{x:Null}" 
-        
-        >
+        Background="{x:Null}" >
 
-    <Grid x:Name="Layout" >
+    <Grid x:Name="Layout" Background="#F00CCCCC" >
+        <StackPanel x:Name="WindowStateControls" Height="30" Margin="0,10,15,0" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal" >
+            <Button x:Name="ButtonMinimize"  Style="{StaticResource MinimizeStyle}"/>
+            <Border Width="10"/>
+            <Button x:Name="ButtonToNotifyIcon" Style="{StaticResource ToNotifyIconStyle}"/>
+            <Border Width="10"/>
+            <Button x:Name="ButtonExit" Style="{StaticResource ExitStyle}"/>
+        </StackPanel>
 
-        <resLib:AnimatedTabControl >
-            <TabItem Header="Cover" Background="Transparent">
-                <Grid x:Name="MainPanel">
-                    <ItemsControl 
-                       prism:RegionManager.RegionName="NowPlayingRegion"/>
-                </Grid>
+        <resLib:AnimatedTabControl Margin="0,10,0,0">
+            <TabItem Header="{StaticResource TabItemNowPlaying}" Margin="10,0,0,0" >
+                <ItemsControl prism:RegionManager.RegionName="NowPlayingRegion"/>
             </TabItem>
-            <TabItem Header="Channels" Background="Transparent">
-                <Grid Background="Transparent">
-                    <ItemsControl 
-                        prism:RegionManager.RegionName="ChannelsRegion"/>
-                </Grid>
+            <TabItem Header="{StaticResource TabControlChannels}">
+                <ItemsControl prism:RegionManager.RegionName="ChannelsRegion"/>
             </TabItem>
-            <TabItem Header="Settings" Background="Transparent">
-                <ItemsControl 
-                    prism:RegionManager.RegionName="SettingsRegion"/>
+            <TabItem Header="{StaticResource TabItemSettings}" >
+                <ItemsControl prism:RegionManager.RegionName="SettingsRegion"/>
             </TabItem>
         </resLib:AnimatedTabControl>
-
     </Grid>
 </resLib:WindowBase>

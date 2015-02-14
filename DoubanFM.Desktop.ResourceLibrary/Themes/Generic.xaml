@@ -345,28 +345,44 @@
 		</Style.Triggers>
 	</Style>
 
+	<Style x:Key="TabItemStyle" TargetType="{x:Type TabItem}">
+		<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+		<Setter Property="OverridesDefaultStyle" Value="True"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type TabItem}">
+					<Grid SnapsToDevicePixels="True">
+						<Border Background="{TemplateBinding Background}">
+							<ContentPresenter ContentSource="Header"/>
+						</Border>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<Trigger Property="IsSelected" Value="True">
+							<Setter Property="Panel.ZIndex" Value="100"/>
+							<Setter Property="Background" Value="#7F000000"/>
+						</Trigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+
 	<Style TargetType="{x:Type local:AnimatedTabControl}">
-		<Setter Property="Foreground" Value="{DynamicResource {x:Static SystemColors.ControlTextBrushKey}}"/>
-		<Setter Property="Padding" Value="4,4,4,4"/>
-		<Setter Property="BorderThickness" Value="1"/>
-		<Setter Property="Background" Value="#F9F9F9"/>
-		<Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-		<Setter Property="VerticalContentAlignment" Value="Stretch"/>
+		<Setter Property="ItemContainerStyle" Value="{StaticResource TabItemStyle}"/>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type local:AnimatedTabControl}">
-
-					<Grid ClipToBounds="true" SnapsToDevicePixels="true" KeyboardNavigation.TabNavigation="Local">
+					<Grid Background="{TemplateBinding Background}" ClipToBounds="true" SnapsToDevicePixels="true" KeyboardNavigation.TabNavigation="Local">
 						<Grid.RowDefinitions>
 							<RowDefinition Height="Auto"/>
 							<RowDefinition Height="*"/>
 						</Grid.RowDefinitions>
-
-						<Border Height="30" Margin="10,0,10,10"  HorizontalAlignment="Left" VerticalAlignment="Top" Width="Auto" Grid.Row="1" CornerRadius="12,12,12,12" Background="{TemplateBinding Background}" BorderThickness="2,2,2,2" BorderBrush="#FFFFFFFF">
-							<TabPanel x:Name="HeaderPanel" HorizontalAlignment="Center" VerticalAlignment="Center" IsItemsHost="true" Grid.Column="0" Grid.Row="0" KeyboardNavigation.TabIndex="1"/>
+						<Border Panel.ZIndex="1">
+							<StackPanel IsItemsHost="True" Orientation="Horizontal" HorizontalAlignment="Stretch" VerticalAlignment="Center" KeyboardNavigation.TabIndex="1"/>
 						</Border>
-
-						<Grid Grid.Row="1" Margin="0,40,0,0" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+						
+						<Grid Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 							<Viewport3D x:Name="vp3D" Visibility="Hidden" Width="Auto" Height="Auto">
 								<Viewport3D.Camera>
 									<PerspectiveCamera x:Name="camera" Position="0,0,0.5" LookDirection="0,0,-1" FieldOfView="90" />
@@ -417,15 +433,14 @@
 								</Viewport3D.Children>
 							</Viewport3D>
 							<Border x:Name="BorderOut" VerticalAlignment="Stretch">
-								<Border x:Name="BorderIn" VerticalAlignment="Stretch" Background="#00000000" >
+								<Border x:Name="BorderIn" VerticalAlignment="Stretch" >
 									<Grid>
-										<ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent" Margin="20"/>
+										<ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent"/>
 									</Grid>
 								</Border>
 							</Border>
 						</Grid>
 					</Grid>
-
 					<ControlTemplate.Triggers>
 						<EventTrigger RoutedEvent="local:AnimatedTabControl.SelectionChanging">
 							<BeginStoryboard>
@@ -444,8 +459,6 @@
 						</EventTrigger>
 					</ControlTemplate.Triggers>
 				</ControlTemplate>
-
-
 			</Setter.Value>
 		</Setter>
 	</Style>
