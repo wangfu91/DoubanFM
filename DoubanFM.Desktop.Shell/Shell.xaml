@@ -1,34 +1,36 @@
 ﻿<resLib:WindowBase x:Class="DoubanFM.Desktop.Shell.Shell"
-        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        xmlns:prism="http://www.codeplex.com/prism"
-        xmlns:resLib="clr-namespace:DoubanFM.Desktop.ResourceLibrary;assembly=DoubanFM.Desktop.ResourceLibrary"
-        Title="DoubanFM" 
-        WindowStyle="None"
-        AllowsTransparency="True"
-        ResizeMode="CanMinimize"
-        WindowStartupLocation="CenterScreen"
-        Background="{x:Null}" >
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+		xmlns:prism="http://www.codeplex.com/prism"
+		xmlns:resLib="clr-namespace:DoubanFM.Desktop.ResourceLibrary;assembly=DoubanFM.Desktop.ResourceLibrary"
+		mc:Ignorable="d"            
+		Title="DoubanFM" 
+		WindowStyle="None"
+		AllowsTransparency="True"
+		ResizeMode="CanMinimize"
+		WindowStartupLocation="CenterScreen"
+		Background="{x:Null}" 
+		d:DesignHeight="286" d:DesignWidth="512">
 
-    <Grid x:Name="Layout" Background="#F00CCCCC" >
-        <StackPanel x:Name="WindowStateControls" Height="30" Margin="0,10,15,0" VerticalAlignment="Top" HorizontalAlignment="Right" Orientation="Horizontal" >
-            <Button x:Name="ButtonMinimize"  Style="{StaticResource MinimizeStyle}"/>
-            <Border Width="10"/>
-            <Button x:Name="ButtonToNotifyIcon" Style="{StaticResource ToNotifyIconStyle}"/>
-            <Border Width="10"/>
-            <Button x:Name="ButtonExit" Style="{StaticResource ExitStyle}"/>
-        </StackPanel>
+	<Grid x:Name="Layout" Height="286" Width="512">
+		<StackPanel Height="40" Orientation="Horizontal" Panel.ZIndex="1" VerticalAlignment="Top" HorizontalAlignment="Right" >
+			<Button Margin="5" Style="{StaticResource MinimizeStyle}"/>
+			<Button Margin="5" Style="{StaticResource ToNotifyIconStyle}"/>
+			<Button Margin="5" Style="{StaticResource ExitStyle}"/>
+		</StackPanel>
 
-        <resLib:AnimatedTabControl Margin="0,10,0,0">
-            <TabItem Header="{StaticResource TabItemNowPlaying}" Margin="10,0,0,0" >
-                <ItemsControl prism:RegionManager.RegionName="NowPlayingRegion"/>
-            </TabItem>
-            <TabItem Header="{StaticResource TabControlChannels}">
-                <ItemsControl prism:RegionManager.RegionName="ChannelsRegion"/>
-            </TabItem>
-            <TabItem Header="{StaticResource TabItemSettings}" >
-                <ItemsControl prism:RegionManager.RegionName="SettingsRegion"/>
-            </TabItem>
-        </resLib:AnimatedTabControl>
-    </Grid>
+		<resLib:AnimatedTabControl Background="DeepSkyBlue"  >
+			<TabItem Header="{StaticResource TabItemNowPlaying}">
+				<ItemsControl prism:RegionManager.RegionName="NowPlayingRegion" />
+			</TabItem>
+			<TabItem Header="{StaticResource TabControlChannels}">
+				<ContentControl prism:RegionManager.RegionName="ChannelsRegion"/>
+			</TabItem>
+			<TabItem Header="{StaticResource TabItemSettings}" >
+				<ContentControl prism:RegionManager.RegionName="SettingsRegion"/>
+			</TabItem>
+		</resLib:AnimatedTabControl>
+	</Grid>
 </resLib:WindowBase>

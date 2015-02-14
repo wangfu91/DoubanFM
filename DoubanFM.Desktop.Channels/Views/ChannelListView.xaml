@@ -6,11 +6,9 @@
 			 xmlns:resLib="clr-namespace:DoubanFM.Desktop.ResourceLibrary;assembly=DoubanFM.Desktop.ResourceLibrary"
 			 xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" 
 			 mc:Ignorable="d" 
-			 d:DesignHeight="246" d:DesignWidth="512" Background="#F00CCCCC">
+			 d:DesignHeight="246" d:DesignWidth="512" Background="Transparent">
 	
 	<UserControl.Resources>
-
-
 		<LinearGradientBrush x:Key="MetroColor1" StartPoint="0,1" EndPoint="1,0" PresentationOptions:Freeze="True">
 			<GradientStop Color="#FFE93613" Offset="0" PresentationOptions:Freeze="True"/>
 			<GradientStop Color="#FFFF593A" Offset="1" PresentationOptions:Freeze="True"/>
@@ -295,8 +293,9 @@
 		</Style>
 
 	</UserControl.Resources>
-	<Grid>
-		<ListBox Height="246" Width="512" ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+    <Grid Height="246" Width="512">
+		<ListBox HorizontalAlignment="Center" Margin="10,10,0,10"
+                 ScrollViewer.HorizontalScrollBarVisibility="Disabled"
 				 Style="{StaticResource ChannelListStyle}"
 				 ItemsSource="{Binding ChannelList}"
 				 SelectedItem="{Binding CurrentChannel,Mode=TwoWay}">

@@ -9,7 +9,7 @@
 			 xmlns:svl="clr-namespace:WPFSoundVisualizationLib;assembly=WPFSoundVisualizationLib"
 			 xmlns:converters="clr-namespace:DoubanFM.Desktop.Infrastructure.Converters;assembly=DoubanFM.Desktop.Infrastructure"
 			 mc:Ignorable="d" 
-			 d:DesignHeight="246" d:DesignWidth="512" Background="#F00CCCCC">
+			 d:DesignHeight="246" d:DesignWidth="512" Background="Transparent">
 	<UserControl.Resources>
 		<converters:ChannelTimeLeftConverter x:Key="ChannelTimeLeftConverter"/>
 		<converters:OrdinaryColorToTranspantConverter x:Key="OrdinaryColorToTranspantConverter"/>
@@ -34,7 +34,7 @@
 					<Image Source="/DoubanFM.Desktop.ResourceLibrary;component/Assets/DoubanFM_NoCover.png" Stretch="UniformToFill" Panel.ZIndex="0"/>
 				</Grid>
 				<Grid x:Name="lyricsPanel" VerticalAlignment="Bottom" Height="50" >
-					<Border Background="#F00CCCCC">
+					<Border Background="DeepSkyBlue">
 						<Border.OpacityMask>
 							<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
 								<GradientStop Offset="0"/>
@@ -97,10 +97,10 @@
 				</StackPanel>
 			</StackPanel>
 
-			<Grid x:Name="SpectrumPanel" Grid.Row="2" Height="50" Margin="-5,0" VerticalAlignment="Bottom" Panel.ZIndex="0">
+			<Grid x:Name="SpectrumPanel" Grid.Row="2" Height="50" Margin="-5,0,-5,-10" Opacity="0.8" VerticalAlignment="Bottom" Panel.ZIndex="0">
 				<Grid Opacity="0.8">
 					<Grid.Effect>
-						<BlurEffect Radius="16"/>
+						<BlurEffect Radius="7"/>
 					</Grid.Effect>
 					<Grid.ColumnDefinitions>
 						<ColumnDefinition />
@@ -114,7 +114,7 @@
 							<VisualBrush Visual="{Binding ElementName=spectrumAnalyzer}" Stretch="None" AlignmentX="Left" AlignmentY="Bottom"/>
 						</Rectangle.Fill>
 					</Rectangle>
-					<svl:SpectrumAnalyzer x:Name="spectrumAnalyzer" Grid.Column="1" BarSpacing="0" PeakStyle="{x:Null}" IsFrequencyScaleLinear="True" AveragePeaks="True">
+					<svl:SpectrumAnalyzer x:Name="spectrumAnalyzer" Grid.Column="1" BarSpacing="0" PeakStyle="{x:Null}" IsFrequencyScaleLinear="True" Margin="-1,0,0,-1" AveragePeaks="True">
 						<svl:SpectrumAnalyzer.BarStyle>
 							<Style TargetType="{x:Type Rectangle}">
 								<Setter Property="Fill">
