@@ -95,8 +95,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Shell.xaml.cs">
-      <DependentUpon>Shell.xaml</DependentUpon>
+    <Compile Include="ViewModels\ShellViewModel.cs" />
+    <Compile Include="Views\ShellView.xaml.cs">
+      <DependentUpon>ShellView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -138,10 +139,6 @@
       <Project>{d7165270-a7a8-4c3f-aba6-cc127f74f4ed}</Project>
       <Name>DoubanFM.Desktop.Channels</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DoubanFM.Desktop.Core\DoubanFM.Desktop.Core.csproj">
-      <Project>{5e51965d-1129-475c-b48b-bf01a86bb6da}</Project>
-      <Name>DoubanFM.Desktop.Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\DoubanFM.Desktop.Infrastructure\DoubanFM.Desktop.Infrastructure.csproj">
       <Project>{fd7645b4-79f7-4f80-8bb5-d78991907dc6}</Project>
       <Name>DoubanFM.Desktop.Infrastructure</Name>
@@ -160,18 +157,15 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Page Include="Shell.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Themes\Generic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ShellView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controls\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

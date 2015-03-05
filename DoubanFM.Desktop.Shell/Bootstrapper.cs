@@ -1,4 +1,6 @@
 ﻿using DoubanFM.Desktop.ResourceLibrary;
+using DoubanFM.Desktop.Shell.ViewModels;
+using DoubanFM.Desktop.Shell.Views;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.ServiceLocation;
@@ -16,7 +18,11 @@ namespace DoubanFM.Desktop.Shell
         /// <returns>The shell of the application.</returns>
         protected override DependencyObject CreateShell()
         {
-            return ServiceLocator.Current.GetInstance<Shell>();
+			//return ServiceLocator.Current.GetInstance<Views.ShellView>();
+
+			//Use container to create an instance of the shell.
+			var view=this.Container.TryResolve<ShellView>();
+			return view;
         }
 
         /// <summary>
@@ -52,7 +58,7 @@ namespace DoubanFM.Desktop.Shell
         {
             base.ConfigureContainer();
 
-
+			this.Container.RegisterInstance<ShellViewModel>(new ShellViewModel());
             //this.Container.RegisterInstance<CallbackLogger>(this.callbackLogger);
 
         }

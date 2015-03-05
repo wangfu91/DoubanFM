@@ -1,4 +1,5 @@
-﻿using DoubanFM.Desktop.Settings.ViewModels;
+﻿using DoubanFM.Desktop.ResourceLibrary;
+using DoubanFM.Desktop.Shell.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,23 +12,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DoubanFM.Desktop.Settings.Views
+namespace DoubanFM.Desktop.Shell.Views
 {
 	/// <summary>
-	/// Interaction logic for SettingsView.xaml
+	/// Interaction logic for Shell.xaml
 	/// </summary>
-	public partial class SettingsView : UserControl
+	public partial class ShellView : WindowBase
 	{
-		public SettingsView()
+		public ShellView()
 		{
 			InitializeComponent();
 		}
 
-		public SettingsView(SettingsViewModel viewModel)
-			: this()
+		public ShellView(ShellViewModel viewModel)
 		{
 			this.DataContext = viewModel;
 		}

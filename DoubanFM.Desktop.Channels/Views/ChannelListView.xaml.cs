@@ -16,15 +16,20 @@ using System.Windows.Shapes;
 
 namespace DoubanFM.Desktop.Channels.Views
 {
-    /// <summary>
-    /// Interaction logic for ChannelList.xaml
-    /// </summary>
-    public partial class ChannelListView : UserControl
-    {
-        public ChannelListView(ChannelListViewModel viewModel)
-        {
-            InitializeComponent();
-            this.DataContext = viewModel;
-        }
-    }
+	/// <summary>
+	/// Interaction logic for ChannelList.xaml
+	/// </summary>
+	public partial class ChannelListView : UserControl
+	{
+		public ChannelListView()
+		{
+			InitializeComponent();
+		}
+
+		public ChannelListView(ChannelListViewModel viewModel)
+			: this()
+		{
+			this.DataContext = viewModel;
+		}
+	}
 }
