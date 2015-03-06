@@ -16,19 +16,22 @@ using System.Windows.Shapes;
 
 namespace DoubanFM.Desktop.Shell.Views
 {
-	/// <summary>
-	/// Interaction logic for Shell.xaml
-	/// </summary>
-	public partial class ShellView : WindowBase
-	{
-		public ShellView()
-		{
-			InitializeComponent();
-		}
+    /// <summary>
+    /// Interaction logic for Shell.xaml
+    /// </summary>
+    public partial class ShellView : WindowBase
+    {
+        //The default parameter-less constructor is necessary to allow the view to work in design-time tools,
+        //sunch as VS and Blend.
+        public ShellView()
+        {
+            InitializeComponent();
+        }
 
-		public ShellView(ShellViewModel viewModel)
-		{
-			this.DataContext = viewModel;
-		}
-	}
+        public ShellView(ShellViewModel viewModel)
+            : this()
+        {
+            this.DataContext = viewModel;
+        }
+    }
 }

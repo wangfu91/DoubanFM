@@ -3,6 +3,7 @@ using DoubanFM.Desktop.Shell.ViewModels;
 using DoubanFM.Desktop.Shell.Views;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.UnityExtensions;
+using Microsoft.Practices.Unity;
 using Microsoft.Practices.ServiceLocation;
 using System.Windows;
 

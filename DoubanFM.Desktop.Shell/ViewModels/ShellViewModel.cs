@@ -12,8 +12,6 @@ namespace DoubanFM.Desktop.Shell.ViewModels
 {
 	public class ShellViewModel : ViewModelBase
 	{
-		private Window _mainWindow = App.Current.MainWindow;
-
 		public ShellViewModel()
 		{
 			this.MinimizeCommand = new DelegateCommand(Minimize);
@@ -30,19 +28,20 @@ namespace DoubanFM.Desktop.Shell.ViewModels
 
 		private void Minimize()
 		{
-			_mainWindow.WindowState = WindowState.Minimized;
+			App.Current.MainWindow.WindowState = WindowState.Minimized;
 		}
 
 		private void SwitchToMiniMode()
 		{
-			_mainWindow.WindowState = WindowState.Minimized;
-			_mainWindow.Hide();
+			App.Current.MainWindow.WindowState = WindowState.Minimized;
+			//TODO: After Hide MainWindow should exist in SystemTray, but it dispear, can only shutdown it down use TaskManager.
+            //App.Current.MainWindow.Hide();
 		}
 
 		private void Exit()
 		{
-			_mainWindow.Close();
-			App.Current.Shutdown();
+			App.Current.MainWindow.Close();
+			//App.Current.Shutdown();
 		}
 
 	}

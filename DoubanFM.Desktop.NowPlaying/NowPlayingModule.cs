@@ -1,5 +1,6 @@
 ﻿using DoubanFM.Desktop.Audio;
 using DoubanFM.Desktop.Infrastructure;
+using DoubanFM.Desktop.NowPlaying.ViewModels;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
 using Microsoft.Practices.Unity;
