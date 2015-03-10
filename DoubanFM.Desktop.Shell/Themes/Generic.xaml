@@ -134,15 +134,9 @@
                             <StackPanel IsItemsHost="True" Orientation="Vertical" KeyboardNavigation.TabIndex="1"/>
                         </Border>
 
-                        <Grid Grid.Column="1" Background="{TemplateBinding Background}" >
-                            <Border x:Name="BorderOut" >
-                                <Border x:Name="BorderIn" >
-                                    <Grid>
-                                        <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent"/>
-                                    </Grid>
-                                </Border>
-                            </Border>
-                        </Grid>
+                        <Border Background="#7F000000" Grid.Column="1" ClipToBounds="True">
+                            <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent"/>
+                        </Border>
                     </Grid>
                 </ControlTemplate>
             </Setter.Value>

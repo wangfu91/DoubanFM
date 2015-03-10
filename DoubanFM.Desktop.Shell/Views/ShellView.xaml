@@ -58,10 +58,10 @@
                                          Controls:TabControlHelper.Transition="Up"
                                          TabStripPlacement="Left" >
             <Controls:MetroTabItem Header="{StaticResource TabItemChannels}" Style="{StaticResource CustomTabItemStyle}" >
-                <ContentControl x:Name="channels" prism:RegionManager.RegionName="ChannelsRegion"/>
+                <ContentControl x:Name="channels" prism:RegionManager.RegionName="ChannelsRegion" />
             </Controls:MetroTabItem>
             <Controls:MetroTabItem Header="{StaticResource TabItemSettings}" >
-                <ContentControl x:Name="settings" prism:RegionManager.RegionName="SettingsRegion"/>
+                <ContentControl x:Name="settings" prism:RegionManager.RegionName="SettingsRegion" />
             </Controls:MetroTabItem>
         </Controls:MetroAnimatedTabControl>
 
