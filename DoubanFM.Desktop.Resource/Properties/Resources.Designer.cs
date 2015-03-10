@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DoubanFM.Desktop.ResourceLibrary.Properties {
+namespace DoubanFM.Desktop.Resource.Properties {
     
     
     /// <summary>
@@ -38,7 +38,7 @@ namespace DoubanFM.Desktop.ResourceLibrary.Properties {
         internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if ((resourceMan == null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DoubanFM.Desktop.ResourceLibrary.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("DoubanFM.Desktop.Resource.Properties.Resources", typeof(Resources).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;

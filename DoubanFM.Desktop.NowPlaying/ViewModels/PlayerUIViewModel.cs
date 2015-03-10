@@ -17,7 +17,7 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
     public class PlayerUIViewModel : ViewModelBase
     {
         private LoginService _loginService;
-        private UserService _userService;
+        //private UserService _userService;
         private SongService _songService;
         private ChannelService _channelService;
         private LyricsService _lyricsService;

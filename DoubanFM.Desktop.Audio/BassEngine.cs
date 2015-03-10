@@ -464,7 +464,7 @@ namespace DoubanFM.Desktop.Audio
             }
             catch(DllNotFoundException ex)
             {
-                var currPath = Environment.CurrentDirectory;
+                Debug.WriteLine(ex.Message);
             }
 
         }

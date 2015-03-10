@@ -1,4 +1,4 @@
-﻿using DoubanFM.Desktop.ResourceLibrary;
+﻿using DoubanFM.Desktop.Resource.Controls;
 using DoubanFM.Desktop.Shell.ViewModels;
 using System;
 using System.Collections.Generic;

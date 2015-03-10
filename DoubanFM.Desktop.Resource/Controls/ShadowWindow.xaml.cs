@@ -16,7 +16,7 @@ using System.Windows.Shapes;
 using DoubanFM.Desktop.Interop;
 using System.Windows.Interop;
 
-namespace DoubanFM.Desktop.ResourceLibrary
+namespace DoubanFM.Desktop.Resource.Controls
 {
     /// <summary>
     /// 阴影窗口，用于在无边框的矩形窗口四周显示类似Aero特效的阴影
@@ -104,7 +104,7 @@ namespace DoubanFM.Desktop.ResourceLibrary
         /// <returns>图片的URI</returns>
         private static Uri GetImageUri(string filename)
         {
-            return new Uri("pack://application:,,,/DoubanFM.Desktop.ResourceLibrary;component/Assets/Shadow/" + filename);
+            return new Uri("pack://application:,,,/DoubanFM.Desktop.Resource;component/Assets/Shadow/" + filename);
         }
 
         /// <summary>

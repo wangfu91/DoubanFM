@@ -96,9 +96,9 @@
       <Project>{fd7645b4-79f7-4f80-8bb5-d78991907dc6}</Project>
       <Name>DoubanFM.Desktop.Infrastructure</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DoubanFM.Desktop.ResourceLibrary\DoubanFM.Desktop.ResourceLibrary.csproj">
-      <Project>{6bf4a4fd-6d35-4b9f-aee3-bb0d21025868}</Project>
-      <Name>DoubanFM.Desktop.ResourceLibrary</Name>
+    <ProjectReference Include="..\DoubanFM.Desktop.Resource\DoubanFM.Desktop.Resource.csproj">
+      <Project>{67413bec-a0c1-4523-8f38-2fa8d787cf22}</Project>
+      <Name>DoubanFM.Desktop.Resource</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

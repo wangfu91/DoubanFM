@@ -147,9 +147,9 @@
       <Project>{2e7b28a9-f49b-494f-9e6b-1c2e69156239}</Project>
       <Name>DoubanFM.Desktop.NowPlaying</Name>
     </ProjectReference>
-    <ProjectReference Include="..\DoubanFM.Desktop.ResourceLibrary\DoubanFM.Desktop.ResourceLibrary.csproj">
-      <Project>{6bf4a4fd-6d35-4b9f-aee3-bb0d21025868}</Project>
-      <Name>DoubanFM.Desktop.ResourceLibrary</Name>
+    <ProjectReference Include="..\DoubanFM.Desktop.Resource\DoubanFM.Desktop.Resource.csproj">
+      <Project>{67413bec-a0c1-4523-8f38-2fa8d787cf22}</Project>
+      <Name>DoubanFM.Desktop.Resource</Name>
     </ProjectReference>
     <ProjectReference Include="..\DoubanFM.Desktop.Settings\DoubanFM.Desktop.Settings.csproj">
       <Project>{9a10e24d-0522-4cfd-9c14-72b3fdd26ecb}</Project>

@@ -3,10 +3,10 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-			 xmlns:resLib="clr-namespace:DoubanFM.Desktop.ResourceLibrary;assembly=DoubanFM.Desktop.ResourceLibrary"
+			 xmlns:Controls="clr-namespace:DoubanFM.Desktop.Resource.Controls;assembly=DoubanFM.Desktop.Resource"
 			 xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" 
 			 mc:Ignorable="d" 
-			 d:DesignHeight="246" d:DesignWidth="512" Background="Transparent">
+			 d:DesignHeight="300" d:DesignWidth="300" Background="Transparent">
 	
 	<UserControl.Resources>
 		<LinearGradientBrush x:Key="MetroColor1" StartPoint="0,1" EndPoint="1,0" PresentationOptions:Freeze="True">
@@ -150,7 +150,7 @@
 			<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
 			<Setter Property="SnapsToDevicePixels" Value="True"/>
 			<Setter Property="Margin" Value="3"/>
-			<Setter Property="BorderThickness" Value="5"/>
+			<Setter Property="BorderThickness" Value="3"/>
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type ListBoxItem }">
@@ -293,9 +293,10 @@
 		</Style>
 
 	</UserControl.Resources>
-    <Grid Height="246" Width="512">
-		<ListBox HorizontalAlignment="Center" Margin="10,10,0,10"
+    <Grid >
+		<ListBox Margin="5"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
 				 Style="{StaticResource ChannelListStyle}"
 				 ItemsSource="{Binding ChannelList}"
 				 SelectedItem="{Binding CurrentChannel,Mode=TwoWay}">

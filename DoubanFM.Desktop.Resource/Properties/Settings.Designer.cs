@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DoubanFM.Desktop.ResourceLibrary.Properties
+namespace DoubanFM.Desktop.Resource.Properties
 {
     
     

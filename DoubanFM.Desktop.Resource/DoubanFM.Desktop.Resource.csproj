@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{6BF4A4FD-6D35-4B9F-AEE3-BB0D21025868}</ProjectGuid>
+    <ProjectGuid>{67413BEC-A0C1-4523-8F38-2FA8D787CF22}</ProjectGuid>
     <OutputType>library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DoubanFM.Desktop.ResourceLibrary</RootNamespace>
-    <AssemblyName>DoubanFM.Desktop.ResourceLibrary</AssemblyName>
+    <RootNamespace>DoubanFM.Desktop.Resource</RootNamespace>
+    <AssemblyName>DoubanFM.Desktop.Resource</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -51,24 +51,53 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AnimatedTabControl.cs" />
-    <Compile Include="CustomResources.cs" />
-    <Compile Include="PlayControl.cs" />
-    <Compile Include="ShadowWindow.xaml.cs">
-      <DependentUpon>ShadowWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="VolumeControl.cs" />
-    <Compile Include="WindowBase.cs" />
-    <Page Include="ShadowWindow.xaml">
-      <SubType>Designer</SubType>
+    <Page Include="Controls\ShadowWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Behaviors\ReloadBehavior.cs" />
+    <Compile Include="Controls\MetroAnimatedTabControl.cs" />
+    <Page Include="Themes\MetroAnimatedTabControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\MetroTabItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\PlayControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\VolumeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\WindowBase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controls\BaseMetroTabControl.cs" />
+    <Compile Include="CustomResources.cs" />
+    <Compile Include="Controls\Helper\ControlsHelper.cs" />
+    <Compile Include="Controls\Helper\TabControlHelper.cs" />
+    <Compile Include="Controls\MetroContentControl.cs" />
+    <Compile Include="Controls\MetroTabItem.cs" />
+    <Compile Include="Controls\PlayControl.cs" />
+    <Compile Include="Controls\ShadowWindow.xaml.cs">
+      <DependentUpon>ShadowWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Controls\TransitioningContentControl.cs" />
+    <Compile Include="Controls\TreeHelper.cs" />
+    <Compile Include="Controls\VisualStates.cs" />
+    <Compile Include="Controls\VolumeControl.cs" />
+    <Compile Include="Controls\WindowBase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -93,57 +122,99 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\DoubanFM.Desktop.DwmHelper\DoubanFM.Desktop.DwmHelper.csproj">
-      <Project>{e4dcdd79-a00c-43a4-9366-7a2583dcc5b8}</Project>
-      <Name>DoubanFM.Desktop.DwmHelper</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DoubanFM.Desktop.Infrastructure\DoubanFM.Desktop.Infrastructure.csproj">
-      <Project>{fd7645b4-79f7-4f80-8bb5-d78991907dc6}</Project>
-      <Name>DoubanFM.Desktop.Infrastructure</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\DoubanFM.Desktop.Interop\DoubanFM.Desktop.Interop.csproj">
-      <Project>{25ef9700-0f3d-4321-9388-6215cc5fa139}</Project>
-      <Name>DoubanFM.Desktop.Interop</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Assets\CD-Music.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Delete.png" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Assets\DoubanFM_NoCover.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\Heart.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Light\heart.PNG" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\Light\next.PNG" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\Light\trash.PNG" />
-    <Resource Include="Assets\Red-Heart.png" />
-    <Resource Include="Assets\Media-Play.png" />
-    <Resource Include="Assets\Media-Pause.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\Media-Next.png" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="Assets\DoubanFM_NoCover.png" />
+    <Resource Include="Assets\Media-Pause.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Media-Play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Assets\Red-Heart.png" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Assets\Shadow\ACTIVESHADOWBOTTOM.PNG" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\Shadow\ACTIVESHADOWBOTTOMLEFT.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\Shadow\ACTIVESHADOWBOTTOMRIGHT.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\Shadow\ACTIVESHADOWLEFT.PNG" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\Shadow\ACTIVESHADOWRIGHT.PNG" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\Shadow\ACTIVESHADOWTOP.PNG" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\Shadow\ACTIVESHADOWTOPLEFT.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\Shadow\ACTIVESHADOWTOPRIGHT.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\Shadow\INACTIVESHADOWBOTTOM.PNG" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\Shadow\INACTIVESHADOWBOTTOMLEFT.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\Shadow\INACTIVESHADOWBOTTOMRIGHT.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\Shadow\INACTIVESHADOWLEFT.PNG" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\Shadow\INACTIVESHADOWRIGHT.PNG" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\Shadow\INACTIVESHADOWTOP.PNG" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\Shadow\INACTIVESHADOWTOPLEFT.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Resource Include="Assets\Shadow\INACTIVESHADOWTOPRIGHT.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DoubanFM.Desktop.DwmHelper\DoubanFM.Desktop.DwmHelper.csproj">
+      <Project>{E4DCDD79-A00C-43A4-9366-7A2583DCC5B8}</Project>
+      <Name>DoubanFM.Desktop.DwmHelper</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DoubanFM.Desktop.Infrastructure\DoubanFM.Desktop.Infrastructure.csproj">
+      <Project>{FD7645B4-79F7-4F80-8BB5-D78991907DC6}</Project>
+      <Name>DoubanFM.Desktop.Infrastructure</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\DoubanFM.Desktop.Interop\DoubanFM.Desktop.Interop.csproj">
+      <Project>{25EF9700-0F3D-4321-9388-6215CC5FA139}</Project>
+      <Name>DoubanFM.Desktop.Interop</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

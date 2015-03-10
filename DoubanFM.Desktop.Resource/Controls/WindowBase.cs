@@ -14,7 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using DoubanFM.Desktop.DwmHelper;
 
-namespace DoubanFM.Desktop.ResourceLibrary
+namespace DoubanFM.Desktop.Resource.Controls
 {
     /// <summary>
     /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
@@ -23,14 +23,14 @@ namespace DoubanFM.Desktop.ResourceLibrary
     /// Add this XmlNamespace attribute to the root element of the markup file where it is 
     /// to be used:
     ///
-    ///     xmlns:MyNamespace="clr-namespace:DoubanFM.Desktop.ResourceLibrary"
+    ///     xmlns:MyNamespace="clr-namespace:DoubanFM.Desktop.Resource"
     ///
     ///
     /// Step 1b) Using this custom control in a XAML file that exists in a different project.
     /// Add this XmlNamespace attribute to the root element of the markup file where it is 
     /// to be used:
     ///
-    ///     xmlns:MyNamespace="clr-namespace:DoubanFM.Desktop.ResourceLibrary;assembly=DoubanFM.Desktop.ResourceLibrary"
+    ///     xmlns:MyNamespace="clr-namespace:DoubanFM.Desktop.Resource;assembly=DoubanFM.Desktop.Resource"
     ///
     /// You will also need to add a project reference from the project where the XAML file lives
     /// to this project and Rebuild to avoid compilation errors:

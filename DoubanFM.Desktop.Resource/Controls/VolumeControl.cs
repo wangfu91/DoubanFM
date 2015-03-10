@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DoubanFM.Desktop.ResourceLibrary
+namespace DoubanFM.Desktop.Resource.Controls
 {
     /// <summary>
     /// Follow steps 1a or 1b and then 2 to use this custom control in a XAML file.
@@ -22,14 +22,14 @@ namespace DoubanFM.Desktop.ResourceLibrary
     /// Add this XmlNamespace attribute to the root element of the markup file where it is 
     /// to be used:
     ///
-    ///     xmlns:MyNamespace="clr-namespace:DoubanFM.Desktop.ResourceLibrary"
+    ///     xmlns:MyNamespace="clr-namespace:DoubanFM.Desktop.Resource"
     ///
     ///
     /// Step 1b) Using this custom control in a XAML file that exists in a different project.
     /// Add this XmlNamespace attribute to the root element of the markup file where it is 
     /// to be used:
     ///
-    ///     xmlns:MyNamespace="clr-namespace:DoubanFM.Desktop.ResourceLibrary;assembly=DoubanFM.Desktop.ResourceLibrary"
+    ///     xmlns:MyNamespace="clr-namespace:DoubanFM.Desktop.Resource;assembly=DoubanFM.Desktop.Resource"
     ///
     /// You will also need to add a project reference from the project where the XAML file lives
     /// to this project and Rebuild to avoid compilation errors:
@@ -41,16 +41,32 @@ namespace DoubanFM.Desktop.ResourceLibrary
     /// Step 2)
     /// Go ahead and use your control in the XAML file.
     ///
-    ///     <MyNamespace:PlayControl/>
+    ///     <MyNamespace:VolumeControl/>
     ///
     /// </summary>
-    public class PlayControl : Control
+    public class VolumeControl : Control
     {
-        static PlayControl()
+        static VolumeControl()
         {
-            DefaultStyleKeyProperty.OverrideMetadata(typeof(PlayControl), new FrameworkPropertyMetadata(typeof(PlayControl)));
+            DefaultStyleKeyProperty.OverrideMetadata(typeof(VolumeControl), new FrameworkPropertyMetadata(typeof(VolumeControl)));
         }
 
+        public static readonly DependencyProperty VolumeProperty =
+    DependencyProperty.Register("Volume", typeof(double), typeof(VolumeControl));
 
+        public static readonly DependencyProperty IsMuteProperty =
+            DependencyProperty.Register("IsMuted", typeof(bool), typeof(VolumeControl));
+
+        public double Volume
+        {
+            get { return (double)GetValue(VolumeProperty); }
+            set { SetValue(VolumeProperty, value); }
+        }
+
+        public bool IsMuted
+        {
+            get { return (bool)GetValue(IsMuteProperty); }
+            set { SetValue(IsMuteProperty, value); }
+        }
     }
 }
