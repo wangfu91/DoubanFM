@@ -36,6 +36,9 @@
     <Reference Include="Microsoft.Practices.Prism.Mvvm.Desktop">
       <HintPath>..\packages\Prism.Mvvm.1.1.1\lib\net45\Microsoft.Practices.Prism.Mvvm.Desktop.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.Prism.PubSubEvents">
+      <HintPath>..\packages\Prism.PubSubEvents.1.1.2\lib\portable-sl5+windowsphone8+windows8+net40+wpa81\Microsoft.Practices.Prism.PubSubEvents.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.Prism.SharedInterfaces">
       <HintPath>..\packages\Prism.Mvvm.1.1.1\lib\net45\Microsoft.Practices.Prism.SharedInterfaces.dll</HintPath>
     </Reference>
@@ -58,12 +61,19 @@
     <Compile Include="Converters\ChannelTimeLeftConverter.cs" />
     <Compile Include="Converters\DoubleToTimeSpanConverter.cs" />
     <Compile Include="Converters\OrdinaryColorToTranspantConverter.cs" />
+    <Compile Include="Events\SwitchChannelEvent.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RegionNames.cs" />
     <Compile Include="ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\DoubanFM.Desktop.API\DoubanFM.Desktop.API.csproj">
+      <Project>{7dcbbb96-146a-416e-aac8-ad32d54be596}</Project>
+      <Name>DoubanFM.Desktop.API</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

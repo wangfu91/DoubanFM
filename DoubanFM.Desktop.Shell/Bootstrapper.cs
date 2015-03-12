@@ -1,68 +1,78 @@
-﻿using DoubanFM.Desktop.ResourceLibrary;
+﻿using DoubanFM.Desktop.Resource.Controls;
+using DoubanFM.Desktop.Shell.ViewModels;
+using DoubanFM.Desktop.Shell.Views;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.UnityExtensions;
+using Microsoft.Practices.Unity;
 using Microsoft.Practices.ServiceLocation;
 using System.Windows;
 
 namespace DoubanFM.Desktop.Shell
 {
-    public class Bootstrapper : UnityBootstrapper
-    {
-        private readonly CallbackLogger callbackLogger = new CallbackLogger();
+	public class Bootstrapper : UnityBootstrapper
+	{
+		private readonly CallbackLogger _callbackLogger = new CallbackLogger();
 
-        /// <summary>
-        /// Creates the shell or main window of the application.
-        /// </summary>
-        /// <returns>The shell of the application.</returns>
-        protected override DependencyObject CreateShell()
-        {
-            return ServiceLocator.Current.GetInstance<Shell>();
-        }
+		/// <summary>
+		/// Creates the shell or main window of the application.
+		/// </summary>
+		/// <returns>The shell of the application.</returns>
+		protected override DependencyObject CreateShell()
+		{
+			//return ServiceLocator.Current.GetInstance<Views.ShellView>();
 
-        /// <summary>
-        /// Initializes the shell.
-        /// </summary>
-        /// <remarks>
-        /// The base implemention ensures the shell is composed in the container.
-        /// </remarks>
-        protected override void InitializeShell()
-        {
-            base.InitializeShell();
+			//Use container to create an instance of the shell.
+			var view=this.Container.TryResolve<ShellView>();
+			return view;
+		}
 
-            Application.Current.MainWindow = (WindowBase)this.Shell;
-            Application.Current.MainWindow.Show();
-        }
+		/// <summary>
+		/// Initializes the shell.
+		/// </summary>
+		/// <remarks>
+		/// The base implemention ensures the shell is composed in the container.
+		/// </remarks>
+		protected override void InitializeShell()
+		{
+			base.InitializeShell();
 
-        /// <summary>
-        /// Create the <see cref="ILoggerFacade"/> Used by the bootstrapper.
-        /// </summary>
-        /// <returns></returns>
-        protected override Microsoft.Practices.Prism.Logging.ILoggerFacade CreateLogger()
-        {
-            return base.CreateLogger();
+			Application.Current.MainWindow = (WindowBase)this.Shell;
+			Application.Current.MainWindow.Show();
+		}
 
-            //return this.callbackLogger;
-        }
+		/// <summary>
+		/// Create the <see cref="ILoggerFacade"/> Used by the bootstrapper.
+		/// </summary>
+		/// <returns></returns>
+		protected override Microsoft.Practices.Prism.Logging.ILoggerFacade CreateLogger()
+		{
+			return base.CreateLogger();
 
-        /// <summary>
-        /// Configures the <see cref="IUnityContainer"/>. 
-        /// May be overwritten in a derived class to add specific type mappings required by the application.
-        /// </summary>
-        protected override void ConfigureContainer()
-        {
-            base.ConfigureContainer();
+			//return this.callbackLogger;
+		}
+
+		/// <summary>
+		/// Configures the <see cref="IUnityContainer"/>. 
+		/// May be overwritten in a derived class to add specific type mappings required by the application.
+		/// </summary>
+		protected override void ConfigureContainer()
+		{
+			base.ConfigureContainer();
+
+			this.Container.RegisterInstance<ShellViewModel>(new ShellViewModel());
+			//this.Container.RegisterInstance<CallbackLogger>(this.callbackLogger);
+
+		}
+
+		protected override void ConfigureModuleCatalog()
+		{
+			base.ConfigureModuleCatalog();
+			var moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
+			moduleCatalog.AddModule(typeof(DoubanFM.Desktop.NowPlaying.NowPlayingModule), InitializationMode.WhenAvailable);
+			moduleCatalog.AddModule(typeof(DoubanFM.Desktop.Channels.ChannelsModule), InitializationMode.WhenAvailable);
+			moduleCatalog.AddModule(typeof(DoubanFM.Desktop.Settings.SettingsModule), InitializationMode.OnDemand);
 
 
-            //this.Container.RegisterInstance<CallbackLogger>(this.callbackLogger);
-
-        }
-
-        protected override void ConfigureModuleCatalog()
-        {
-            base.ConfigureModuleCatalog();
-            var moduleCatalog = (ModuleCatalog)this.ModuleCatalog;
-            moduleCatalog.AddModule(typeof(DoubanFM.Desktop.Core.ModuleInit), InitializationMode.WhenAvailable);
-
-        }
-    }
+		}
+	}
 }

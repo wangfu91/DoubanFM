@@ -442,22 +442,29 @@ namespace DoubanFM.Desktop.Audio
             //}
             //The device to use... -1 = default device, 0 = no sound, 1 = first real output device. 
             var defaultDevice = -1;
-            var init = Bass.BASS_Init(defaultDevice, sampleFrequency, BASSInit.BASS_DEVICE_SPEAKERS, handle);
-            if (init)
+            try
             {
-                int pluginAAC = Bass.BASS_PluginLoad("bass_aac.dll");
+                var init = Bass.BASS_Init(defaultDevice, sampleFrequency, BASSInit.BASS_DEVICE_SPEAKERS, handle);
+                if (init)
+                {
+                    int pluginAAC = Bass.BASS_PluginLoad("bass_aac.dll");
 #if DEBUG
-                BASS_INFO info = new BASS_INFO();
-                Bass.BASS_GetInfo(info);
-                Debug.WriteLine(info.ToString());
-                BASS_PLUGININFO aacInfo = Bass.BASS_PluginGetInfo(pluginAAC);
-                foreach (BASS_PLUGINFORM f in aacInfo.formats)
-                    Debug.WriteLine("Type={0}, Name={1}, Exts={2}", f.ctype, f.name, f.exts);
+                    BASS_INFO info = new BASS_INFO();
+                    Bass.BASS_GetInfo(info);
+                    Debug.WriteLine(info.ToString());
+                    BASS_PLUGININFO aacInfo = Bass.BASS_PluginGetInfo(pluginAAC);
+                    foreach (BASS_PLUGINFORM f in aacInfo.formats)
+                        Debug.WriteLine("Type={0}, Name={1}, Exts={2}", f.ctype, f.name, f.exts);
 #endif
+                }
+                else
+                {
+                    Debug.WriteLine("Bass Initialize error!");
+                }
             }
-            else
+            catch(DllNotFoundException ex)
             {
-                Debug.WriteLine("Bass Initialize error!");
+                Debug.WriteLine(ex.Message);
             }
 
         }
