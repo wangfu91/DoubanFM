@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.22512.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DoubanFM.Tests", "DoubanFM.Tests", "{37EC7D07-3463-4892-9008-F569289F1A97}"
 EndProject
@@ -22,8 +22,6 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubanFM.Universal.API.Tests", "DoubanFM.Universal.API.Tests\DoubanFM.Universal.API.Tests.csproj", "{679A066D-4178-4951-82F3-4D5EB64D79FC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubanFM.Universal.RestSharp", "DoubanFM.Universal.RestSharp\DoubanFM.Universal.RestSharp.csproj", "{6C441BF9-68DC-421B-A63B-C21A73E41E27}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RestSharp.Portable", "RestSharp.Portable\RestSharp.Portable.csproj", "{BBF41098-382D-41A8-B86F-77EA59DD773A}"
 EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
@@ -304,36 +302,6 @@ Global
 		{6C441BF9-68DC-421B-A63B-C21A73E41E27}.Release-Signed|x64.Build.0 = Release|Any CPU
 		{6C441BF9-68DC-421B-A63B-C21A73E41E27}.Release-Signed|x86.ActiveCfg = Release|Any CPU
 		{6C441BF9-68DC-421B-A63B-C21A73E41E27}.Release-Signed|x86.Build.0 = Release|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Debug|ARM.ActiveCfg = Debug|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Debug|ARM.Build.0 = Debug|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Debug|x64.Build.0 = Debug|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Debug|x86.ActiveCfg = Debug|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Debug|x86.Build.0 = Debug|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Release|ARM.ActiveCfg = Release|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Release|ARM.Build.0 = Release|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Release|Mixed Platforms.Build.0 = Release|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Release|x64.ActiveCfg = Release|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Release|x64.Build.0 = Release|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Release|x86.ActiveCfg = Release|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Release|x86.Build.0 = Release|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Release-Signed|Any CPU.ActiveCfg = Release|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Release-Signed|Any CPU.Build.0 = Release|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Release-Signed|ARM.ActiveCfg = Release|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Release-Signed|ARM.Build.0 = Release|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Release-Signed|Mixed Platforms.ActiveCfg = Release|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Release-Signed|Mixed Platforms.Build.0 = Release|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Release-Signed|x64.ActiveCfg = Release|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Release-Signed|x64.Build.0 = Release|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Release-Signed|x86.ActiveCfg = Release|Any CPU
-		{BBF41098-382D-41A8-B86F-77EA59DD773A}.Release-Signed|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
