@@ -3,10 +3,12 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:design="clr-namespace:DoubanFM.Desktop.Channels.Design"
 			 xmlns:Controls="clr-namespace:DoubanFM.Desktop.Resource.Controls;assembly=DoubanFM.Desktop.Resource"
 			 xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" 
 			 mc:Ignorable="d" 
-			 d:DesignHeight="300" d:DesignWidth="300" Background="Transparent">
+			 d:DesignHeight="300" d:DesignWidth="300" Background="Transparent"
+             d:DataContext="{d:DesignInstance design:ChannelListDesignViewModel,IsDesignTimeCreatable=True}">
 	
 	<UserControl.Resources>
 		<LinearGradientBrush x:Key="MetroColor1" StartPoint="0,1" EndPoint="1,0" PresentationOptions:Freeze="True">
@@ -145,12 +147,13 @@
 			<Setter Property="HorizontalAlignment" Value="Center"/>
 			<Setter Property="VerticalAlignment" Value="Center"/>
 			<Setter Property="Width" Value="110"/>
-			<Setter Property="MinHeight" Value="70"/>
+			<Setter Property="Height" Value="60"/>
 			<Setter Property="Background" Value="{Binding (ItemsControl.AlternationIndex), Converter={StaticResource AlternationConverter}, RelativeSource={RelativeSource Self}}"/>
 			<Setter Property="FocusVisualStyle" Value="{x:Null}"/>
 			<Setter Property="SnapsToDevicePixels" Value="True"/>
-			<Setter Property="Margin" Value="3"/>
+			<Setter Property="Margin" Value="5"/>
 			<Setter Property="BorderThickness" Value="3"/>
+            <Setter Property="Panel.ZIndex" Value="0"/>
 			<Setter Property="Template">
 				<Setter.Value>
 					<ControlTemplate TargetType="{x:Type ListBoxItem }">
@@ -167,7 +170,7 @@
 
 							<VisualStateManager.VisualStateGroups>
 								<VisualStateGroup x:Name="CommonStates">
-									<VisualState x:Name="Normal">
+									<VisualState x:Name="Normal">                                        
 										<Storyboard PresentationOptions:Freeze="True">
 											<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
 												<EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1"/>
@@ -254,6 +257,11 @@
 								</CheckBox.OpacityMask>
 							</CheckBox>
 						</Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Panel.ZIndex" Value="1"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
 					</ControlTemplate>
 				</Setter.Value>
 			</Setter>
@@ -294,7 +302,7 @@
 
 	</UserControl.Resources>
     <Grid >
-		<ListBox Margin="5"
+		<ListBox Margin="5" HorizontalAlignment="Center"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
 				 Style="{StaticResource ChannelListStyle}"

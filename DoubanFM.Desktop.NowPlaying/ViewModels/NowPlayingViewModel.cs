@@ -14,7 +14,7 @@ using System.Windows.Threading;
 
 namespace DoubanFM.Desktop.NowPlaying.ViewModels
 {
-    public class PlayerUIViewModel : ViewModelBase
+    public class NowPlayingViewModel : ViewModelBase
     {
         private LoginService _loginService;
         //private UserService _userService;
@@ -32,7 +32,7 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
         private IEventAggregator _eventAggregator;
         private SubscriptionToken _subscriptionToken;
 
-        public PlayerUIViewModel(
+        public NowPlayingViewModel(
             IEventAggregator eventAggregator,
             IAudioEngine playEngine)
         {

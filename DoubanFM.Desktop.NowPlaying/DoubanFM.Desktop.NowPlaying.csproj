@@ -79,11 +79,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Design\NowPlayingDesignViewModel.cs" />
     <Compile Include="NowPlayingModule.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="ViewModels\PlayerUIViewModel.cs" />
-    <Compile Include="Views\PlayerUI.xaml.cs">
-      <DependentUpon>PlayerUI.xaml</DependentUpon>
+    <Compile Include="ViewModels\NowPlayingViewModel.cs" />
+    <Compile Include="Views\NowPlayingView.xaml.cs">
+      <DependentUpon>NowPlayingView.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -110,7 +111,7 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Page Include="Views\PlayerUI.xaml">
+    <Page Include="Views\NowPlayingView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

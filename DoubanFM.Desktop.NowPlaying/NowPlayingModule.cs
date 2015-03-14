@@ -28,7 +28,7 @@ namespace DoubanFM.Desktop.NowPlaying
             this._container.RegisterInstance<IAudioEngine>(BassEngine.Instance);
 
             this._regionManager.RegisterViewWithRegion(RegionNames.NowPlaying,
-                                                 () => this._container.Resolve<Views.PlayerUI>());
+                                                 () => this._container.Resolve<Views.NowPlayingView>());
         }
     }
 }
