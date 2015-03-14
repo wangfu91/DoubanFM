@@ -111,7 +111,10 @@
 										 Volume="{Binding Player.Volume, Mode=TwoWay}" />-->
                     <TextBlock Foreground="White" Margin="5,0,0,0">
                         <TextBlock.Text>
-                            <MultiBinding Converter="{StaticResource ChannelTimeLeftConverter}" FallbackValue="00.00" TargetNullValue="00.00" >
+                            <MultiBinding Converter="{StaticResource ChannelTimeLeftConverter}" 
+                                          StringFormat="-{0:m\:ss}" 
+                                          FallbackValue="00.00" 
+                                          TargetNullValue="00.00">
                                 <Binding Path="Player.ChannelLength"/>
                                 <Binding Path="Player.ChannelPosition"/>
                             </MultiBinding>
