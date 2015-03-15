@@ -4,36 +4,17 @@
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:design="clr-namespace:DoubanFM.Desktop.NowPlaying.Design"
-			 xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
-			 xmlns:Controls="clr-namespace:DoubanFM.Desktop.Resource.Controls;assembly=DoubanFM.Desktop.Resource"
+		     xmlns:Controls="clr-namespace:DoubanFM.Desktop.Resource.Controls;assembly=DoubanFM.Desktop.Resource"
 			 xmlns:svl="clr-namespace:WPFSoundVisualizationLib;assembly=WPFSoundVisualizationLib"
-			 xmlns:converters="clr-namespace:DoubanFM.Desktop.Infrastructure.Converters;assembly=DoubanFM.Desktop.Infrastructure"
 			 mc:Ignorable="d" 
 			 d:DesignHeight="300" d:DesignWidth="300" Background="Transparent"
              d:DataContext="{d:DesignInstance design:NowPlayingDesignViewModel,IsDesignTimeCreatable=True}">
     <UserControl.Resources>
-        <converters:ChannelTimeLeftConverter x:Key="ChannelTimeLeftConverter"/>
-        <converters:OrdinaryColorToTranspantConverter x:Key="OrdinaryColorToTranspantConverter"/>
-        <PowerEase x:Key="Smooth" Power="3" PresentationOptions:Freeze="True"/>
-
-        <Storyboard x:Key="SlideCoverRightStoryboard">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="CoverGrid">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="300" EasingFunction="{StaticResource Smooth}"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CoverGrid"
-                             To="0.5" Duration="0:0:0.5"/>
-            <DoubleAnimation Storyboard.TargetProperty="Radius" Storyboard.TargetName="CoverBlurEffect"
-                             To="5" Duration="0:0:0.5"/>
-        </Storyboard>
-        <Storyboard x:Key="SlideCoverLeftStoryboard">
-            <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="CoverGrid">
-                <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0" EasingFunction="{StaticResource Smooth}"/>
-            </DoubleAnimationUsingKeyFrames>
-            <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CoverGrid"
-                             To="1" Duration="0:0:0.5"/>
-            <DoubleAnimation Storyboard.TargetProperty="Radius" Storyboard.TargetName="CoverBlurEffect"
-                             To="0" Duration="0:0:0.5"/>
-        </Storyboard>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/DoubanFM.Desktop.Resource;component/Themes/Generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
         <Grid x:Name="CoverGrid" Width="300" HorizontalAlignment="Left" Margin="-300,0,0,0">
@@ -112,7 +93,7 @@
 				   TextWrapping="NoWrap" 
 				   TextTrimming="WordEllipsis"
 				   Text="{Binding CurrentSong.Title}" FontFamily="Segoe UI Light" FontSize="16" />
-                <ProgressBar Margin="5,5" Height="3" IsIndeterminate="False" Minimum="0" Maximum="{Binding Player.ChannelLength}" Value="{Binding Player.ChannelPosition}"/>
+                <ProgressBar Margin="5,5" Height="6" IsIndeterminate="False"  Style="{StaticResource MetroProgressBarStyle}" Minimum="0" Maximum="{Binding Player.ChannelLength}" Value="{Binding Player.ChannelPosition}" />
                 <StackPanel Margin="5,5" HorizontalAlignment="Right" Orientation="Horizontal">
                     <!--<resLib:VolumeControl Width="120" Margin="10,0" HorizontalAlignment="Right"
 										 IsMuted="{Binding Player.IsMuted,Mode=TwoWay}"
@@ -131,11 +112,10 @@
                 </StackPanel>
             </StackPanel>
 
-            <Grid x:Name="SpectrumPanel" Grid.Row="2" Height="50" Margin="-5,0,-5,-10"
-                  Opacity="0.8" VerticalAlignment="Bottom" Panel.ZIndex="0">
+            <Grid x:Name="SpectrumPanel" Grid.Row="2" Height="50" Margin="-5,0,-5,-10" VerticalAlignment="Bottom" Panel.ZIndex="0">
                 <Grid >
                     <Grid.Effect>
-                        <BlurEffect Radius="6"/>
+                        <BlurEffect Radius="7"/>
                     </Grid.Effect>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
