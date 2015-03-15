@@ -60,6 +60,12 @@
             <Controls:MetroTabItem Header="{StaticResource TabItemChannels}" Style="{StaticResource CustomTabItemStyle}" >
                 <ContentControl x:Name="channels" prism:RegionManager.RegionName="ChannelsRegion" />
             </Controls:MetroTabItem>
+            <Controls:MetroTabItem Header="{StaticResource TabItemSearch}" >
+                <ContentControl x:Name="search" prism:RegionManager.RegionName="SearchRegion" />
+            </Controls:MetroTabItem>
+            <Controls:MetroTabItem Header="{StaticResource TabItemAccount}" >
+                <ContentControl x:Name="Account" prism:RegionManager.RegionName="AccountRegion" />
+            </Controls:MetroTabItem>
             <Controls:MetroTabItem Header="{StaticResource TabItemSettings}" >
                 <ContentControl x:Name="settings" prism:RegionManager.RegionName="SettingsRegion" />
             </Controls:MetroTabItem>

@@ -11,7 +11,9 @@
              d:DataContext="{d:DesignInstance design:ChannelListDesignViewModel,IsDesignTimeCreatable=True}">
 	
 	<UserControl.Resources>
-		<LinearGradientBrush x:Key="MetroColor1" StartPoint="0,1" EndPoint="1,0" PresentationOptions:Freeze="True">
+        <SolidColorBrush x:Key="ListItemBorderBrush_Selected" Color="DeepSkyBlue" />
+        
+        <LinearGradientBrush x:Key="MetroColor1" StartPoint="0,1" EndPoint="1,0" PresentationOptions:Freeze="True">
 			<GradientStop Color="#FFE93613" Offset="0" PresentationOptions:Freeze="True"/>
 			<GradientStop Color="#FFFF593A" Offset="1" PresentationOptions:Freeze="True"/>
 		</LinearGradientBrush>
@@ -178,13 +180,13 @@
 											<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
 												<EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1"/>
 											</DoubleAnimationUsingKeyFrames>
-											<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CbFavorite">
+											<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FavoriteVisual">
 												<EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
 											</DoubleAnimationUsingKeyFrames>
-											<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="OpacityMask.(LinearGradientBrush.GradientStops)[1].(GradientStop.Offset)" Storyboard.TargetName="CbFavorite">
+											<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="OpacityMask.(LinearGradientBrush.GradientStops)[1].(GradientStop.Offset)" Storyboard.TargetName="FavoriteVisual">
 												<EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
 											</DoubleAnimationUsingKeyFrames>
-											<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="OpacityMask.(LinearGradientBrush.GradientStops)[2].(GradientStop.Offset)" Storyboard.TargetName="CbFavorite">
+											<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="OpacityMask.(LinearGradientBrush.GradientStops)[2].(GradientStop.Offset)" Storyboard.TargetName="FavoriteVisual">
 												<EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="0"/>
 											</DoubleAnimationUsingKeyFrames>
 										</Storyboard>
@@ -197,17 +199,17 @@
 											<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
 												<EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1.2"/>
 											</DoubleAnimationUsingKeyFrames>
-											<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CbFavorite" BeginTime="0:0:1">
+											<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FavoriteVisual" BeginTime="0:0:1">
 												<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
 											</DoubleAnimationUsingKeyFrames>
-											<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="OpacityMask.(LinearGradientBrush.GradientStops)[1].(GradientStop.Offset)" Storyboard.TargetName="CbFavorite" BeginTime="0:0:1">
+											<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="OpacityMask.(LinearGradientBrush.GradientStops)[1].(GradientStop.Offset)" Storyboard.TargetName="FavoriteVisual" BeginTime="0:0:1">
 												<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
 													<EasingDoubleKeyFrame.EasingFunction>
 														<CircleEase EasingMode="EaseOut"/>
 													</EasingDoubleKeyFrame.EasingFunction>
 												</EasingDoubleKeyFrame>
 											</DoubleAnimationUsingKeyFrames>
-											<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="OpacityMask.(LinearGradientBrush.GradientStops)[2].(GradientStop.Offset)" Storyboard.TargetName="CbFavorite" BeginTime="0:0:1">
+											<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="OpacityMask.(LinearGradientBrush.GradientStops)[2].(GradientStop.Offset)" Storyboard.TargetName="FavoriteVisual" BeginTime="0:0:1">
 												<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1">
 													<EasingDoubleKeyFrame.EasingFunction>
 														<CircleEase EasingMode="EaseOut"/>
@@ -217,35 +219,34 @@
 										</Storyboard>
 									</VisualState>
 									<VisualState x:Name="Disabled"/>
-
 								</VisualStateGroup>
-								<VisualStateGroup x:Name="SelectionStates">
+								
+                                <VisualStateGroup x:Name="SelectionStates">
 									<VisualState x:Name="Unselected"/>
 									<VisualState x:Name="Selected">
-										<Storyboard AutoReverse="True" RepeatBehavior="Forever" PresentationOptions:Freeze="True">
-											<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="border1">
-												<EasingColorKeyFrame KeyTime="0" Value="#7FFFFFFF"/>
-											</ColorAnimationUsingKeyFrames>
-										</Storyboard>
-									</VisualState>
-									<VisualState x:Name="SelectedUnfocused">
-										<Storyboard AutoReverse="True" RepeatBehavior="Forever" PresentationOptions:Freeze="True">
-											<ColorAnimationUsingKeyFrames Storyboard.TargetProperty="(Border.BorderBrush).(SolidColorBrush.Color)" Storyboard.TargetName="border1">
-												<EasingColorKeyFrame KeyTime="0" Value="#7FFFFFFF"/>
-											</ColorAnimationUsingKeyFrames>
-										</Storyboard>
-									</VisualState>
+                                        <Storyboard>
+                                            <DoubleAnimation Duration="0" Storyboard.TargetName="SelectedVisual" Storyboard.TargetProperty="Opacity" To="1" />
+                                        </Storyboard>
+                                    </VisualState>
 								</VisualStateGroup>
-								<VisualStateGroup x:Name="ValidationStates">
+								
+                                <VisualStateGroup x:Name="ValidationStates">
 									<VisualState x:Name="Valid"/>
 									<VisualState x:Name="InvalidFocused"/>
 									<VisualState x:Name="InvalidUnfocused"/>
 								</VisualStateGroup>
-
+                                
 							</VisualStateManager.VisualStateGroups>
 							<ContentPresenter x:Name="contentPresenter" RenderTransformOrigin="0.5,0.5" HorizontalAlignment="{TemplateBinding HorizontalAlignment}" VerticalAlignment="{TemplateBinding VerticalAlignment}"/>
-							<Border x:Name="border1" BorderThickness="{TemplateBinding BorderThickness}" BorderBrush="Transparent"/>
-							<CheckBox x:Name="CbFavorite" Width="16" Height="32" Margin="0,-2,8,0" HorizontalAlignment="Right" VerticalAlignment="Top" Opacity="0"
+                            <Border Name="SelectedVisual" BorderThickness="{TemplateBinding BorderThickness}" IsHitTestVisible="False" BorderBrush="{StaticResource ListItemBorderBrush_Selected}" Background="#00FFFFFF" Opacity="0">
+                                <Grid Margin="-1" Background="#00FFFFFF" IsHitTestVisible="False">
+                                    <Path Data="M0,0L36,0 36,36z" Fill="{StaticResource ListItemBorderBrush_Selected}" VerticalAlignment="Top" HorizontalAlignment="Right"
+                                          Height="30" Width="30" SnapsToDevicePixels="True" />
+                                    <Path Data="M13.473633,3.4513931C13.546549,3.4513931,13.610352,3.4741802,13.665039,3.5197525L15.039063,4.5793228C15.066406,4.6021099 15.09261,4.63515 15.117676,4.6784439 15.14274,4.7217388 15.155272,4.7616148 15.155273,4.7980728 15.155272,4.8755474 15.132486,4.9484634 15.086914,5.0168228L7.4169922,14.867409 2.5087891,9.5832291 2.0712891,9.1115494C2.0211587,9.0477476 1.9960938,8.9793882 1.9960938,8.9064713 1.9960938,8.8198833 2.0302734,8.7424088 2.0986328,8.6740494L3.3564453,7.4914322C3.4156899,7.4413023 3.4863279,7.4162374 3.5683594,7.4162369 3.6093748,7.4162374 3.6503904,7.4242125 3.6914063,7.4401627 3.7324216,7.4561133 3.7666013,7.4800391 3.7939453,7.51194L7.2597656,11.251198 13.227539,3.5676041C13.295897,3.4901304,13.377929,3.4513931,13.473633,3.4513931z"
+                                          Fill="#FFFFFFFF" Margin="0,1,3,0" VerticalAlignment="Top" HorizontalAlignment="Right" SnapsToDevicePixels="True" />
+                                </Grid>
+                            </Border>
+                            <CheckBox x:Name="FavoriteVisual" Width="16" Height="32" Margin="8,-2,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Opacity="0"
 								  Style="{StaticResource FavoriteStyle}">
 								<CheckBox.OpacityMask>
 									<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
