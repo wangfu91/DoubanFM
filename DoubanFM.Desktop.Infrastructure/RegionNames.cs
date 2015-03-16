@@ -9,5 +9,9 @@ namespace DoubanFM.Desktop.Infrastructure
 
         public const string Settings = "SettingsRegion";
 
+		public const string Account = "AccountRegion";
+
+		public const string Search = "SearchRegion";
+
     }
 }

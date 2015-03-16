@@ -33,6 +33,13 @@ namespace DoubanFM.Desktop.Infrastructure.Tests.Converters
 			converter.Convert(source, typeof(object[]), null, null);
 		}
 
+		[TestMethod]
+		[ExpectedException(typeof(NotImplementedException))]
+		public void ShouldThrowNotImplementedExceptionInConvertBack()
+		{
+			var convertedValue = converter.ConvertBack(null, null, null, null);
+		}
+
 		[TestCleanup]
 		public void Cleanup()
 		{

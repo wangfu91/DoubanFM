@@ -34,7 +34,8 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
 
         public NowPlayingViewModel(
             IEventAggregator eventAggregator,
-            IAudioEngine playEngine)
+            IAudioEngine playEngine,
+			ISongService songService)
         {
             this._eventAggregator = eventAggregator;
             this._playEngine = playEngine;

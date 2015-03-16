@@ -46,9 +46,9 @@ namespace DoubanFM.Desktop.Shell
 		/// <returns></returns>
 		protected override Microsoft.Practices.Prism.Logging.ILoggerFacade CreateLogger()
 		{
-			return base.CreateLogger();
+			//return base.CreateLogger();
 
-			//return this.callbackLogger;
+			return this._callbackLogger;
 		}
 
 		/// <summary>
@@ -60,7 +60,7 @@ namespace DoubanFM.Desktop.Shell
 			base.ConfigureContainer();
 
 			this.Container.RegisterInstance<ShellViewModel>(new ShellViewModel());
-			//this.Container.RegisterInstance<CallbackLogger>(this.callbackLogger);
+			this.Container.RegisterInstance<CallbackLogger>(this._callbackLogger);
 
 		}
 

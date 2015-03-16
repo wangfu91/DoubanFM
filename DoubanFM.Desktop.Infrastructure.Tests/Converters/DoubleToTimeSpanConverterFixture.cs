@@ -89,6 +89,13 @@ namespace DoubanFM.Desktop.Infrastructure.Tests.Converters
 			Assert.AreEqual<TimeSpan>(expect, (TimeSpan)result);
 		}
 
+		[TestMethod]
+		[ExpectedException(typeof(NotImplementedException))]
+		public void ShouldThrowNotImplementedExceptionInConvertBack()
+		{
+			var convertedValue = converter.ConvertBack(null, null, null, null);
+		}
+
 		[TestCleanup]
 		public void Cleanup()
 		{
