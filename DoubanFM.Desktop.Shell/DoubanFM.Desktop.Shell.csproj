@@ -131,6 +131,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\DoubanFM.Desktop.Account\DoubanFM.Desktop.Account.csproj">
+      <Project>{a73e77f6-3104-48b4-94a3-00355c16411a}</Project>
+      <Name>DoubanFM.Desktop.Account</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DoubanFM.Desktop.API\DoubanFM.Desktop.API.csproj">
       <Project>{7dcbbb96-146a-416e-aac8-ad32d54be596}</Project>
       <Name>DoubanFM.Desktop.API</Name>

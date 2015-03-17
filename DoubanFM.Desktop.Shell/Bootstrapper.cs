@@ -71,7 +71,7 @@ namespace DoubanFM.Desktop.Shell
 			moduleCatalog.AddModule(typeof(DoubanFM.Desktop.NowPlaying.NowPlayingModule), InitializationMode.WhenAvailable);
 			moduleCatalog.AddModule(typeof(DoubanFM.Desktop.Channels.ChannelsModule), InitializationMode.WhenAvailable);
 			moduleCatalog.AddModule(typeof(DoubanFM.Desktop.Settings.SettingsModule), InitializationMode.OnDemand);
-
+            moduleCatalog.AddModule(typeof(DoubanFM.Desktop.Account.AccountModule), InitializationMode.WhenAvailable);
 
 		}
 	}

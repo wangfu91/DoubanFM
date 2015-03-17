@@ -6,7 +6,19 @@
              xmlns:local="clr-namespace:DoubanFM.Desktop.Account.Views"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
+    <UserControl.Resources>
+        <ImageBrush x:Key="DefaultUserImageBrush" ImageSource="pack://application:,,,/DoubanFM.Desktop.Resource;component\Assets\UserDefault.png" Stretch="Uniform"/>
+    </UserControl.Resources>
     <Grid>
-            
+        <Border CornerRadius="40" BorderBrush="White" BorderThickness="2" Height="80" Width="80" HorizontalAlignment="Left" VerticalAlignment="Top"
+                Background="{StaticResource DefaultUserImageBrush}" ClipToBounds="True">
+            <Image Source="{Binding User.Icon}" Stretch="Uniform"/>
+        </Border>
+        <TextBlock HorizontalAlignment="Left" Margin="157,59,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="34" Width="99"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="42,146,0,0" VerticalAlignment="Top" Width="214"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="42,182,0,0" VerticalAlignment="Top" Width="214"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="42,218,0,0" VerticalAlignment="Top" Width="214"/>
+        <Button Content="Button" HorizontalAlignment="Left" Margin="42,255,0,0" VerticalAlignment="Top" Width="214"/>
+
     </Grid>
 </UserControl>

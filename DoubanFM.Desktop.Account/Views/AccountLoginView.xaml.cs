@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DoubanFM.Desktop.Account.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -24,5 +25,10 @@ namespace DoubanFM.Desktop.Account.Views
 		{
 			InitializeComponent();
 		}
+
+        public AccountLoginView(AccountLoginViewModel viewModel)
+        {
+            this.DataContext = viewModel;
+        }
 	}
 }
