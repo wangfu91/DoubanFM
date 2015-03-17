@@ -1,15 +1,12 @@
-﻿<UserControl x:Class="DoubanFM.Desktop.Account.Views.AccountView"
+﻿<UserControl x:Class="DoubanFM.Desktop.Account.Views.UserInfoView"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DoubanFM.Desktop.Account.Views"
-             xmlns:prism="http://www.codeplex.com/prism"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300">
-    
-    <Grid x:Name="root">
-        <Grid prism:RegionManager.RegionName="ItemRegion"/>
+    <Grid>
+            
     </Grid>
-
 </UserControl>

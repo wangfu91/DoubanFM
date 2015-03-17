@@ -30,7 +30,7 @@ namespace DoubanFM.Desktop.Account
 			this._container.RegisterType<IUserService, UserService>(new ContainerControlledLifetimeManager());
 
 			this._regionManager.RegisterViewWithRegion(RegionNames.Account,
-				() => this._container.Resolve<Views.AccountView>());
+				() => this._container.Resolve<Views.AccountLoginView>());
 		}
 	}
 }

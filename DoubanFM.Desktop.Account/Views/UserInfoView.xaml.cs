@@ -18,9 +18,9 @@ namespace DoubanFM.Desktop.Account.Views
 	/// <summary>
 	/// Interaction logic for InfoView.xaml
 	/// </summary>
-	public partial class InfoView : UserControl
+	public partial class UserInfoView : UserControl
 	{
-		public InfoView()
+		public UserInfoView()
 		{
 			InitializeComponent();
 		}

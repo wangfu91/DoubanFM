@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace DoubanFM.Desktop.Account.Views
 {
 	/// <summary>
-	/// Interaction logic for AccountView.xaml
+	/// Interaction logic for LoginView.xaml
 	/// </summary>
-	public partial class AccountView : UserControl
+	public partial class AccountLoginView : UserControl
 	{
-		public AccountView()
+		public AccountLoginView()
 		{
 			InitializeComponent();
 		}
