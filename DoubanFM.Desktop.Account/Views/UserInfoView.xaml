@@ -5,8 +5,9 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DoubanFM.Desktop.Account.Views"
              xmlns:design="clr-namespace:DoubanFM.Desktop.Account.Design"
+             xmlns:extension="clr-namespace:DoubanFM.Desktop.Infrastructure.Extension;assembly=DoubanFM.Desktop.Infrastructure"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300"
+             d:DesignHeight="300" d:DesignWidth="300" extension:d.Background="SkyBlue"
              d:DataContext="{d:DesignInstance design:UserInfoDesignViewModel,IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>

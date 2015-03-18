@@ -6,8 +6,9 @@
              xmlns:design="clr-namespace:DoubanFM.Desktop.NowPlaying.Design"
 		     xmlns:Controls="clr-namespace:DoubanFM.Desktop.Resource.Controls;assembly=DoubanFM.Desktop.Resource"
 			 xmlns:svl="clr-namespace:WPFSoundVisualizationLib;assembly=WPFSoundVisualizationLib"
+             xmlns:extension="clr-namespace:DoubanFM.Desktop.Infrastructure.Extension;assembly=DoubanFM.Desktop.Infrastructure"
 			 mc:Ignorable="d" 
-			 d:DesignHeight="300" d:DesignWidth="300" Background="Transparent"
+			 d:DesignHeight="300" d:DesignWidth="300" extension:d.Background="SkyBlue"
              d:DataContext="{d:DesignInstance design:NowPlayingDesignViewModel,IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>

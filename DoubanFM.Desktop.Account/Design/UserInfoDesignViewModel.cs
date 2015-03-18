@@ -13,7 +13,7 @@ namespace DoubanFM.Desktop.Account.Design
 	{
 		public UserInfoDesignViewModel()
 		{
-			if (IsInDesignMode)
+			if (Infrastructure.Extension.d.IsInDesignMode)
 				LoadDesignTimeData();
 			else
 				return;
@@ -29,15 +29,6 @@ namespace DoubanFM.Desktop.Account.Design
 				BannedNum = 113,
 				Icon = "http://img3.douban.com/icon/u67242159-1.jpg"
 			};
-		}
-
-		public bool IsInDesignMode
-		{
-			get
-			{
-				return (bool)DesignerProperties.IsInDesignModeProperty
-					.GetMetadata(typeof(DependencyObject)).DefaultValue;
-			}
 		}
 
 		public User User { get; set; }

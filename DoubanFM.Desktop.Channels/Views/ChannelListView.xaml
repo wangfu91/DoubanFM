@@ -6,8 +6,9 @@
              xmlns:design="clr-namespace:DoubanFM.Desktop.Channels.Design"
 			 xmlns:Controls="clr-namespace:DoubanFM.Desktop.Resource.Controls;assembly=DoubanFM.Desktop.Resource"
 			 xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" 
+             xmlns:extension="clr-namespace:DoubanFM.Desktop.Infrastructure.Extension;assembly=DoubanFM.Desktop.Infrastructure"
 			 mc:Ignorable="d" 
-			 d:DesignHeight="300" d:DesignWidth="300" Background="Transparent"
+			 d:DesignHeight="300" d:DesignWidth="300" extension:d.Background="SkyBlue"
              d:DataContext="{d:DesignInstance design:ChannelListDesignViewModel,IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>

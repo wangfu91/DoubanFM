@@ -13,7 +13,7 @@ namespace DoubanFM.Desktop.Channels.Design
     {
         public ChannelListDesignViewModel()
         {
-            if (IsInDesignMode)
+            if (Infrastructure.Extension.d.IsInDesignMode)
                 LoadDesignTimeData();
             else
                 return;
@@ -48,15 +48,6 @@ namespace DoubanFM.Desktop.Channels.Design
 
             CurrentChannel = ChannelList.First();
 
-        }
-
-        public bool IsInDesignMode
-        {
-            get
-            {
-                return (bool)DesignerProperties.IsInDesignModeProperty
-                            .GetMetadata(typeof(DependencyObject)).DefaultValue;
-            }
         }
 
         public List<Channel> ChannelList { get; set; }

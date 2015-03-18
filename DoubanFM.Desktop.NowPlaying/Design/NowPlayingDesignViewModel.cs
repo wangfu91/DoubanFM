@@ -13,7 +13,7 @@ namespace DoubanFM.Desktop.NowPlaying.Design
     {
         public NowPlayingDesignViewModel()
         {
-            if (IsInDesignMode)
+            if (Infrastructure.Extension.d.IsInDesignMode)
                 LoadDesignTimeData();
             else
                 return;
@@ -31,15 +31,6 @@ namespace DoubanFM.Desktop.NowPlaying.Design
                 Length=257,
                 Picture = "http://img3.douban.com/lpic/s4165622.jpg"
             };
-        }
-
-        public bool IsInDesignMode
-        {
-            get
-            {
-                return (bool)DesignerProperties.IsInDesignModeProperty
-                            .GetMetadata(typeof(DependencyObject)).DefaultValue;
-            }
         }
 
         public Song CurrentSong { get; set; }
