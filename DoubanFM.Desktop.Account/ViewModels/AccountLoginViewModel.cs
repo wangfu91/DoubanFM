@@ -2,6 +2,7 @@
 using DoubanFM.Desktop.API.Services;
 using DoubanFM.Desktop.Infrastructure;
 using DoubanFM.Desktop.Infrastructure.Events;
+using DoubanFM.Desktop.Infrastructure.Extension;
 using Microsoft.Practices.Prism.Commands;
 using Microsoft.Practices.Prism.PubSubEvents;
 using System;
@@ -37,7 +38,22 @@ namespace DoubanFM.Desktop.Account.ViewModels
             this._userService = userService;
 
             LoginCommand = new DelegateCommand<object>(Login);
+
+			//Instead manual type in email and password everytime, here add a auto fire logic, just for test.
+			//AutoFire();
         }
+
+		/// <summary>
+		/// Auto fire UserLoggedIn event, for test purposes only.
+		/// </summary>
+		//private void AutoFire()
+		//{
+		//	this.UserEmail = "wangfu91@hotmail.com";
+		//	var passwordBox = new PasswordBox();
+		//	passwordBox.Password = "wf19912012";
+
+		//	this.LoginCommand.Execute(passwordBox);
+		//}
 
         private async void Login(object obj)
         {
@@ -47,7 +63,7 @@ namespace DoubanFM.Desktop.Account.ViewModels
             var password = passwordBox.SecurePassword;
             if (!string.IsNullOrWhiteSpace(password.ToString()))
             {
-                _loginResult = await _loginService.LoginWithEmail(UserEmail, password.ToString());
+                _loginResult = await _loginService.LoginWithEmail(UserEmail, password.ConvertToUnsecureString());
                 if (_loginResult.R == "0")
                 {
                     _eventAggregator.GetEvent<UserLoggedInEvent>().Publish(_loginResult);
@@ -74,5 +90,5 @@ namespace DoubanFM.Desktop.Account.ViewModels
 
         public ICommand LoginCommand { get; set; }
 
-    }
+	}
 }

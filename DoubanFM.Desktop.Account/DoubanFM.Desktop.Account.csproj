@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="AccountModule.cs" />
     <Compile Include="Controllers\AccountRegionController.cs" />
+    <Compile Include="Design\UserInfoDesignViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AccountLoginViewModel.cs" />
     <Compile Include="ViewModels\UserInfoViewModel.cs" />
@@ -107,9 +108,7 @@
       <Name>DoubanFM.Desktop.Resource</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Design\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Page Include="Views\UserInfoView.xaml">
       <Generator>MSBuild:Compile</Generator>

@@ -40,12 +40,16 @@ namespace DoubanFM.Desktop.Account.Controllers
 
             var accountRegion = this.regionManager.Regions[RegionNames.Account];
             if (accountRegion == null) return;
-
             var loginView = accountRegion.GetView("AccountLoginView");
             if(loginView!=null)
             {
                 accountRegion.Remove(loginView);
             }
+
+			foreach (var item in accountRegion.Views)
+			{
+				accountRegion.Remove(item);
+			}
 
             var userInfoView = this.container.Resolve<Views.UserInfoView>();
             accountRegion.Add(userInfoView);

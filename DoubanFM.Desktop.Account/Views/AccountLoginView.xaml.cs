@@ -26,9 +26,10 @@ namespace DoubanFM.Desktop.Account.Views
 			InitializeComponent();
 		}
 
-        public AccountLoginView(AccountLoginViewModel viewModel)
-        {
-            this.DataContext = viewModel;
-        }
+		public AccountLoginView(AccountLoginViewModel viewModel)
+			: this()
+		{
+			this.DataContext = viewModel;
+		}
 	}
 }

@@ -1,4 +1,5 @@
-﻿using DoubanFM.Desktop.API.Services;
+﻿using DoubanFM.Desktop.Account.Controllers;
+using DoubanFM.Desktop.API.Services;
 using DoubanFM.Desktop.Infrastructure;
 using Microsoft.Practices.Prism.Modularity;
 using Microsoft.Practices.Prism.Regions;
@@ -16,6 +17,8 @@ namespace DoubanFM.Desktop.Account
 		private readonly IUnityContainer _container;
 		private readonly IRegionManager _regionManager;
 
+		private AccountRegionController _regionController;
+
 		public AccountModule(
 			IUnityContainer container,
 			IRegionManager regionManager)
@@ -31,6 +34,8 @@ namespace DoubanFM.Desktop.Account
 
 			this._regionManager.RegisterViewWithRegion(RegionNames.Account,
 				() => this._container.Resolve<Views.AccountLoginView>());
+
+			this._regionController = this._container.Resolve<AccountRegionController>();
 		}
 	}
 }
