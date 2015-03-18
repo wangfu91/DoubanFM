@@ -24,8 +24,8 @@ namespace DoubanFM.Desktop.Channels
 
         public void Initialize()
         {
-            this._container.RegisterInstance<IChannelService>(new ChannelService());
-
+            //this._container.RegisterInstance<IChannelService>(new ChannelService());
+			this._container.RegisterType<IChannelService, ChannelService>(new ContainerControlledLifetimeManager());
             this._regionManager.RegisterViewWithRegion(RegionNames.Channels,
                                                  () => this._container.Resolve<Views.ChannelListView>());
         }

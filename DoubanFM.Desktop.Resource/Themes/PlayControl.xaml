@@ -3,27 +3,10 @@
                     xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
                     xmlns:Controls="clr-namespace:DoubanFM.Desktop.Resource.Controls"
                     >
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/DoubanFM.Desktop.Resource;component/Themes/Common.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
 
-    <Style x:Key="CustomButtonBaseStyle" TargetType="ButtonBase">
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="#7F000000"/>
-            </Trigger>
-            <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Foreground" Value="White"/>
-            </Trigger>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="#7F222222"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key= "CustomButtonStyle"  BasedOn="{StaticResource CustomButtonBaseStyle}" TargetType="Button"/>
-
-    <Style x:Key="CustomCheckBoxStyle" BasedOn="{StaticResource CustomButtonBaseStyle}" TargetType="CheckBox"/>
 
     <Style x:Key="PauseStyle" BasedOn="{StaticResource CustomCheckBoxStyle}" TargetType="{x:Type CheckBox}">
         <Setter Property="Template">
@@ -34,7 +17,6 @@
                             <Path x:Name="Path" Width="25.981" Height="30.0003" Canvas.Left="2.87779e-007" Canvas.Top="-6.35788e-007" Stretch="Fill" Fill="{TemplateBinding Foreground}" Data="F1 M 25.981,15.0001L 2.87779e-007,-6.35788e-007L 2.87779e-007,30.0003L 25.981,15.0001 Z "/>
                         </Canvas>
                     </Viewbox>
-
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
@@ -56,7 +38,7 @@
         </Style.Triggers>
 
     </Style>
-    
+
     <Style x:Key="NextStyle" BasedOn="{StaticResource CustomButtonStyle}" TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>
@@ -72,7 +54,7 @@
             </Setter.Value>
         </Setter>
     </Style>
-    
+
     <Style x:Key="LikeStyle" BasedOn="{StaticResource CustomCheckBoxStyle}" TargetType="{x:Type CheckBox}">
         <Setter Property="BorderBrush" Value="White"/>
         <Setter Property="Template">
@@ -106,7 +88,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    
+
     <Style x:Key="NeverStyle" BasedOn="{StaticResource CustomButtonStyle}" TargetType="{x:Type Button}">
         <Setter Property="Template">
             <Setter.Value>

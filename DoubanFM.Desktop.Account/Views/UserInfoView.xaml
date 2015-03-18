@@ -5,20 +5,34 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DoubanFM.Desktop.Account.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300">
+             d:DesignHeight="300" d:DesignWidth="300" Background="SkyBlue">
     <UserControl.Resources>
-        <ImageBrush x:Key="DefaultUserImageBrush" ImageSource="pack://application:,,,/DoubanFM.Desktop.Resource;component\Assets\UserDefault.png" Stretch="Uniform"/>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/DoubanFM.Desktop.Resource;component/Themes/Common.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            
+            <ImageBrush x:Key="DefaultUserImageBrush" ImageSource="pack://application:,,,/DoubanFM.Desktop.Resource;component\Assets\UserDefault.png" Stretch="Uniform"/>
+        </ResourceDictionary>
     </UserControl.Resources>
     <Grid>
-        <Border CornerRadius="40" BorderBrush="White" BorderThickness="2" Height="80" Width="80" HorizontalAlignment="Left" VerticalAlignment="Top"
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="30"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+            <Border Margin="5" CornerRadius="40" BorderBrush="White" BorderThickness="2" Height="80" Width="80" 
                 Background="{StaticResource DefaultUserImageBrush}" ClipToBounds="True">
-            <Image Source="{Binding User.Icon}" Stretch="Uniform"/>
-        </Border>
-        <TextBlock HorizontalAlignment="Left" Margin="157,59,0,0" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" Height="34" Width="99"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="42,146,0,0" VerticalAlignment="Top" Width="214"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="42,182,0,0" VerticalAlignment="Top" Width="214"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="42,218,0,0" VerticalAlignment="Top" Width="214"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="42,255,0,0" VerticalAlignment="Top" Width="214"/>
-
+                <Image Source="{Binding User.Icon}" Stretch="Uniform"/>
+            </Border>
+            <TextBlock Margin="10" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Text="{Binding User.Name}" Width="150" Height="30"/>
+        </StackPanel>
+        <Button Grid.Row="1" Margin="10" Content="{Binding User.PlayedNum}" Style="{StaticResource CustomButtonStyle}" />
+        <Button Grid.Row="2" Margin="10" Content="{Binding User.LikedNum}" Style="{StaticResource CustomButtonStyle}"/>
+        <Button Grid.Row="3" Margin="10" Content="{Binding User.BannedNum}" Style="{StaticResource CustomButtonStyle}"/>
+        <!--<Button Grid.Row="4" Margin="5" Content="{Binding User.}" Style="{StaticResource CustomButtonStyle}"/>-->
     </Grid>
 </UserControl>

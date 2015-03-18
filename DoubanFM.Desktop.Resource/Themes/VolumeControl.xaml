@@ -4,27 +4,10 @@
                     >
 
 
-    <Style x:Key="CustomButtonBaseStyle" TargetType="ButtonBase">
-        <Setter Property="Foreground" Value="White"/>
-        <Setter Property="Background" Value="Transparent"/>
-        <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="True">
-                <Setter Property="Foreground" Value="#7F000000"/>
-            </Trigger>
-            <Trigger Property="IsPressed" Value="True">
-                <Setter Property="Foreground" Value="White"/>
-            </Trigger>
-            <Trigger Property="IsEnabled" Value="False">
-                <Setter Property="Foreground" Value="#7F222222"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
-    <Style x:Key= "CustomButtonStyle"  BasedOn="{StaticResource CustomButtonBaseStyle}" TargetType="Button"/>
-
-    <Style x:Key="CustomCheckBoxStyle" BasedOn="{StaticResource CustomButtonBaseStyle}" TargetType="CheckBox"/>
-
+    <ResourceDictionary.MergedDictionaries>
+        <ResourceDictionary Source="pack://application:,,,/DoubanFM.Desktop.Resource;component/Themes/Common.xaml"/>
+    </ResourceDictionary.MergedDictionaries>
+    
     <Style x:Key="stScrollBtn" TargetType="{x:Type RepeatButton}">
         <Setter Property="OverridesDefaultStyle" Value="true"/>
         <Setter Property="IsTabStop" Value="false"/>

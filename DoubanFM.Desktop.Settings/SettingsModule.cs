@@ -24,8 +24,6 @@ namespace DoubanFM.Desktop.Settings
 
         public void Initialize()
         {
-            this._container.RegisterInstance<IUserService>(new UserService());
-
             this._regionManager.RegisterViewWithRegion(RegionNames.Settings,
                                                  () => this._container.Resolve<Views.SettingsView>());
         }
