@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:extension="clr-namespace:DoubanFM.Desktop.Infrastructure.Extension;assembly=DoubanFM.Desktop.Infrastructure"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" extension:d.Background="SkyBlue" >
+             d:DesignHeight="300" d:DesignWidth="260" extension:d.Background="DeepSkyBlue" >
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>

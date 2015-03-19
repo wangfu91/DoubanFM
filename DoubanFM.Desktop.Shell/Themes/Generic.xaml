@@ -132,8 +132,14 @@
                             <StackPanel IsItemsHost="True" Orientation="Vertical" KeyboardNavigation.TabIndex="1"/>
                         </Border>
 
-                        <Border Background="#7F000000" Grid.Column="1" ClipToBounds="True">
-                            <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent"/>
+                        <Border  Grid.Column="1" ClipToBounds="True">
+                            <Border.Background>
+                                <ImageBrush ImageSource="pack://application:,,,/DoubanFM.Desktop.Resource;component/Assets/DoubanFM_NoCover.png" Stretch="UniformToFill" />
+                            </Border.Background>
+                            <Grid Background="#7F000000">
+
+                                <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent"/>
+                            </Grid>
                         </Border>
                     </Grid>
                 </ControlTemplate>

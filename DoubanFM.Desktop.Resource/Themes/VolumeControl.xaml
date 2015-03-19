@@ -2,11 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:Controls="clr-namespace:DoubanFM.Desktop.Resource.Controls"
                     >
-
-
-    <ResourceDictionary.MergedDictionaries>
-        <ResourceDictionary Source="pack://application:,,,/DoubanFM.Desktop.Resource;component/Themes/Common.xaml"/>
-    </ResourceDictionary.MergedDictionaries>
     
     <Style x:Key="stScrollBtn" TargetType="{x:Type RepeatButton}">
         <Setter Property="OverridesDefaultStyle" Value="true"/>

@@ -5,6 +5,8 @@
     <Style x:Key="CustomButtonBaseStyle" TargetType="ButtonBase">
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="BorderBrush" Value="Transparent"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Style.Triggers>
             <Trigger Property="IsMouseOver" Value="True">
@@ -19,8 +21,8 @@
         </Style.Triggers>
     </Style>
 
-    <Style x:Key= "CustomButtonStyle"  BasedOn="{StaticResource CustomButtonBaseStyle}" TargetType="Button"/>
+    <Style x:Key= "CustomButtonStyle"  BasedOn="{StaticResource CustomButtonBaseStyle}" TargetType="{x:Type Button}"/>
 
-    <Style x:Key="CustomCheckBoxStyle" BasedOn="{StaticResource CustomButtonBaseStyle}" TargetType="CheckBox"/>
+    <Style x:Key="CustomCheckBoxStyle" BasedOn="{StaticResource CustomButtonBaseStyle}" TargetType="{x:Type CheckBox}"/>
 
 </ResourceDictionary>

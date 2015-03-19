@@ -3,7 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:DoubanFM.Desktop.Resource"
     xmlns:converters="clr-namespace:DoubanFM.Desktop.Infrastructure.Converters;assembly=DoubanFM.Desktop.Infrastructure"
-    xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options"
     >
     <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
     <converters:BooleanNegationToVisibilityConverter x:Key="BooleanNegationToVisibilityConverter"/>
@@ -11,34 +10,16 @@
 
     <converters:ChannelTimeLeftConverter x:Key="ChannelTimeLeftConverter"/>
     <converters:OrdinaryColorToTranspantConverter x:Key="OrdinaryColorToTranspantConverter"/>
-    <PowerEase x:Key="Smooth" Power="3" PresentationOptions:Freeze="True"/>
-
-    <Storyboard x:Key="SlideCoverRightStoryboard">
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="CoverGrid">
-            <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="300" EasingFunction="{StaticResource Smooth}"/>
-        </DoubleAnimationUsingKeyFrames>
-        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CoverGrid"
-                             To="0.5" Duration="0:0:0.5"/>
-        <DoubleAnimation Storyboard.TargetProperty="Radius" Storyboard.TargetName="CoverBlurEffect"
-                             To="5" Duration="0:0:0.5"/>
-    </Storyboard>
-    <Storyboard x:Key="SlideCoverLeftStoryboard">
-        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="CoverGrid">
-            <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0" EasingFunction="{StaticResource Smooth}"/>
-        </DoubleAnimationUsingKeyFrames>
-        <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CoverGrid"
-                             To="1" Duration="0:0:0.5"/>
-        <DoubleAnimation Storyboard.TargetProperty="Radius" Storyboard.TargetName="CoverBlurEffect"
-                             To="0" Duration="0:0:0.5"/>
-    </Storyboard>
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/DoubanFM.Desktop.Resource;component/Themes/Common.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/DoubanFM.Desktop.Resource;component/Themes/MetroAnimatedTabControl.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/DoubanFM.Desktop.Resource;component/Themes/MetroTabItem.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/DoubanFM.Desktop.Resource;component/Themes/PlayControl.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/DoubanFM.Desktop.Resource;component/Themes/VolumeControl.xaml"/>
+        <ResourceDictionary Source="pack://application:,,,/DoubanFM.Desktop.Resource;component/Themes/ChannelListControl.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/DoubanFM.Desktop.Resource;component/Themes/WindowBase.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/DoubanFM.Desktop.Resource;component/Themes/MetroProgressBar.xaml"/>
+        
     </ResourceDictionary.MergedDictionaries>
 
 

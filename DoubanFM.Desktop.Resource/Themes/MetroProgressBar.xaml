@@ -2,8 +2,8 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:System="clr-namespace:System;assembly=mscorlib">
 
-    <SolidColorBrush x:Key="ProgressBarFillBrush" Color="#FF06B025" />
-    <SolidColorBrush x:Key="ProgressBarTrackBrush" Color="White" />
+    <SolidColorBrush x:Key="ProgressBarFillBrush" Color="White" />
+    <SolidColorBrush x:Key="ProgressBarTrackBrush" Color="#7F000000" />
     <Thickness x:Key="OutlineBorderThickness">0</Thickness>
     <System:Double x:Key="ProgressBarMinHeight">6</System:Double>
     <SolidColorBrush x:Key="TransparentOutlineBrush">Transparent</SolidColorBrush>
