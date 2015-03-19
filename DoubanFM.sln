@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
 VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DoubanFM.Tests", "DoubanFM.Tests", "{37EC7D07-3463-4892-9008-F569289F1A97}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DoubanFM.Desktop.Tests", "DoubanFM.Desktop.Tests", "{37EC7D07-3463-4892-9008-F569289F1A97}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A9C8536E-29F9-412C-9F40-97792713BBB3}"
 	ProjectSection(SolutionItems) = preProject

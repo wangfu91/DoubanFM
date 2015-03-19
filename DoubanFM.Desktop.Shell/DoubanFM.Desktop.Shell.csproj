@@ -139,6 +139,10 @@
       <Project>{7dcbbb96-146a-416e-aac8-ad32d54be596}</Project>
       <Name>DoubanFM.Desktop.API</Name>
     </ProjectReference>
+    <ProjectReference Include="..\DoubanFM.Desktop.Audio\DoubanFM.Desktop.Audio.csproj">
+      <Project>{177660a5-401c-403b-b343-3039fd028a89}</Project>
+      <Name>DoubanFM.Desktop.Audio</Name>
+    </ProjectReference>
     <ProjectReference Include="..\DoubanFM.Desktop.Channels\DoubanFM.Desktop.Channels.csproj">
       <Project>{d7165270-a7a8-4c3f-aba6-cc127f74f4ed}</Project>
       <Name>DoubanFM.Desktop.Channels</Name>
