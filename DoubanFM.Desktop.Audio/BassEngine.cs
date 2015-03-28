@@ -2,22 +2,27 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
+using System.Runtime.InteropServices;
+using System.Windows;
 using System.Windows.Input;
+using System.Windows.Interop;
 using System.Windows.Threading;
 using Un4seen.Bass;
 using WPFSoundVisualizationLib;
 
 namespace DoubanFM.Desktop.Audio
 {
-    public class BassEngine : IAudioEngine
+    public sealed class BassEngine : IAudioEngine
     {
         #region Fileds
         private static BassEngine _instance;
         private bool _disposed;
-        private int _fileStreamhandle;
+        //private int _fileStreamhandle;
         private int _activeStreamHandle;
         private double _channelLength;
         private bool _canPlay;
@@ -34,13 +39,16 @@ namespace DoubanFM.Desktop.Audio
         /// 保存正在打开的文件的地址，当短时间内多次打开网络文件时，这个字段保存最后一次打开的文件，可以使其他打开文件的操作失效
         /// </summary>
         private string _openningStream = null;
-        private BASS_DEVICEINFO _device;
-
+        private BASS_DEVICEINFO _deviceInfo;
+        private BASSFlag openUrlConfig = (BASSFlag)Enum.Parse(typeof(BASSFlag), ConfigurationManager.AppSettings["Bass.OpenUrlConfig"]);
+        private BASSFlag openFileConfig = (BASSFlag)Enum.Parse(typeof(BASSFlag), ConfigurationManager.AppSettings["Bass.OpenFileConfig"]);
         private readonly SYNCPROC endTrackSyncProc;
         private readonly DispatcherTimer positionTimer = new DispatcherTimer(DispatcherPriority.ApplicationIdle);
         private readonly int fftDataSize = (int)FFTDataSize.FFT2048;
         private readonly int maxFFT = (int)(BASSData.BASS_DATA_AVAILABLE | BASSData.BASS_DATA_FFT2048);
-
+        private readonly BASSInit _initFlags = (BASSInit)Enum.Parse(typeof(BASSInit), ConfigurationManager.AppSettings["Bass.InitFlags"]);
+        private static readonly List<int> pluginHandles;
+        private static readonly Dictionary<string, IntPtr> stringHandles = new Dictionary<string, IntPtr>();
         #endregion
 
         #region events
@@ -53,30 +61,37 @@ namespace DoubanFM.Desktop.Audio
             get
             {
                 if (_instance == null)
-                {
-                    _instance = new BassEngine();
-                }
+                    _instance= new BassEngine();
                 return _instance;
             }
+        }
+
+        /// <summary>
+        /// 显式初始化
+        /// </summary>
+        public static void ExplicitInitialize(BASS_DEVICEINFO deviceInfo = null)
+        {
+            if (_instance == null)
+                _instance = new BassEngine(deviceInfo);
         }
         #endregion
 
         #region Notification Properties
-        public int FileStreamHandle
-        {
-            get
-            {
-                return _fileStreamhandle;
-            }
-            private set
-            {
-                if (value != _fileStreamhandle)
-                {
-                    _fileStreamhandle = value;
-                    NotifyPropertyChanged("FileStreamHandle");
-                }
-            }
-        }
+        //public int FileStreamHandle
+        //{
+        //    get
+        //    {
+        //        return _fileStreamhandle;
+        //    }
+        //    private set
+        //    {
+        //        if (value != _fileStreamhandle)
+        //        {
+        //            _fileStreamhandle = value;
+        //            NotifyPropertyChanged("FileStreamHandle");
+        //        }
+        //    }
+        //}
 
 
         public int ActiveStreamHandle
@@ -250,12 +265,13 @@ namespace DoubanFM.Desktop.Audio
 
         public BASS_DEVICEINFO Device
         {
-            get { return _device; }
+            get { return _deviceInfo; }
             set
             {
-                if (value != _device)
+                if (value != _deviceInfo)
                 {
-                    _device = value;
+                    _deviceInfo = value;
+                    ChangeDevice(_deviceInfo);
                     NotifyPropertyChanged("Device");
                 }
             }
@@ -278,7 +294,44 @@ namespace DoubanFM.Desktop.Audio
 
         #region  Constructor
 
-        private BassEngine()
+
+        static BassEngine()
+        {
+            //注册Bass.Net，不注册就会弹出一个启动画面
+            BassNet.Registration("yk000123@sina.com", "2X34201017282922");
+            //判断当前系统是32位系统还是64位系统，并加载对应版本的bass.dll
+            string exeFolder = Path.GetDirectoryName(Assembly.GetEntryAssembly().GetModules()[0].FullyQualifiedName);
+            string libraryPathSetting = Un4seen.Bass.Utils.Is64Bit ? "Bass.LibraryPathX64" : "Bass.LibraryPathX86";
+            string bassDllBasePath = Path.Combine(exeFolder, ConfigurationManager.AppSettings[libraryPathSetting]);
+
+            // now load all libs manually
+            Un4seen.Bass.Bass.LoadMe(bassDllBasePath);
+            var loadedPlugins =
+                Un4seen.Bass.Bass.BASS_PluginLoadDirectory(
+                    string.Format(ConfigurationManager.AppSettings["Bass.PluginPathFormat"], bassDllBasePath));
+            if (loadedPlugins != null)
+            {
+                foreach (var item in loadedPlugins)
+                {
+                    Debug.WriteLine(string.Format("Plugin loaded: {0}", item.Value));
+                }
+                pluginHandles = loadedPlugins.Keys.ToList();
+            }
+            else
+            {
+                pluginHandles = new List<int>();
+            }
+
+            //BassMix.LoadMe(targetPath);
+            //...
+            //loadedPlugIns = Bass.BASS_PluginLoadDirectory(targetPath);
+            //...
+
+            SetConfigs(ConfigurationManager.AppSettings["Bass.SetConfigOnInitialization"]);
+
+        }
+
+        private BassEngine(BASS_DEVICEINFO deviceInfo = null)
         {
             this.PlayCommand = new DelegateCommand(() =>
             {
@@ -294,9 +347,7 @@ namespace DoubanFM.Desktop.Audio
 
             this.StopCommand = new DelegateCommand(() => Stop(), () => CanStop);
 
-            //注册Bass.Net，不注册就会弹出一个启动画面
-            BassNet.Registration("yk000123@sina.com", "2X34201017282922");
-            Initialize();
+            Initialize(deviceInfo);
             endTrackSyncProc = (handle, channel, data, user) =>
                 {
                     OnTrackEnded();
@@ -342,8 +393,9 @@ namespace DoubanFM.Desktop.Audio
             }
         }
 
-        public void OpenFile(string path)
+        public void OpenFile(string fileName)
         {
+            _openningStream = fileName;
             Stop();
             if (ActiveStreamHandle != 0)
             {
@@ -351,13 +403,13 @@ namespace DoubanFM.Desktop.Audio
                 Bass.BASS_StreamFree(ActiveStreamHandle);
             }
 
-            if (File.Exists(path))
+            if (File.Exists(fileName))
             {
-                FileStreamHandle = ActiveStreamHandle = Bass.BASS_StreamCreateFile(path, 0, 0, BASSFlag.BASS_SAMPLE_FLOAT | BASSFlag.BASS_STREAM_PRESCAN);
+                ActiveStreamHandle = Bass.BASS_StreamCreateFile(fileName, 0, 0, openFileConfig);
                 if (ActiveStreamHandle != 0)
                 {
 
-                    ChannelLength = Bass.BASS_ChannelBytes2Seconds(FileStreamHandle, Bass.BASS_ChannelGetLength(FileStreamHandle, 0));
+                    ChannelLength = Bass.BASS_ChannelBytes2Seconds(ActiveStreamHandle, Bass.BASS_ChannelGetLength(ActiveStreamHandle, 0));
 
                     //Obtain the sample rate of the sstream
                     var info = new BASS_CHANNELINFO();
@@ -378,7 +430,7 @@ namespace DoubanFM.Desktop.Audio
                 }
                 else
                 {
-                    Debug.WriteLine(string.Format("Failed to open file: {0},Error Code: {1}", path, Bass.BASS_ErrorGetCode()));
+                    Debug.WriteLine(string.Format("Failed to open file: {0},Error Code: {1}", fileName, Bass.BASS_ErrorGetCode()));
                 }
             }
         }
@@ -387,7 +439,7 @@ namespace DoubanFM.Desktop.Audio
         {
             _openningStream = url;
             Stop();
-            int handle = Bass.BASS_StreamCreateURL(url, 0, BASSFlag.BASS_STREAM_RESTRATE, null, IntPtr.Zero);
+            int handle = Bass.BASS_StreamCreateURL(url, 0, openUrlConfig, null, IntPtr.Zero);
             if (handle != 0)
             {
                 if (_openningStream == url)
@@ -428,7 +480,96 @@ namespace DoubanFM.Desktop.Audio
         #endregion
 
         #region Private Methods
-        private void Initialize()
+
+        /// <summary>
+        /// Set a config with string value type.
+        /// </summary>
+        /// <param name="config">config name</param>
+        /// <param name="value">string value</param>
+        /// <returns>success or not</returns>
+        private static bool SetConfig(BASSConfig config, string value)
+        {
+            var configName = config.ToString();
+            if (stringHandles.ContainsKey(configName) && stringHandles[configName] != IntPtr.Zero)
+            {
+                Marshal.FreeHGlobal(stringHandles[configName]);
+                stringHandles.Remove(configName);
+            }
+
+            var handle = value == null ? IntPtr.Zero : Marshal.StringToHGlobalAnsi(value);
+            if (Un4seen.Bass.Bass.BASS_SetConfigPtr(config, handle))
+            {
+                if (handle != IntPtr.Zero)
+                {
+                    stringHandles[configName] = handle;
+                }
+                return true;
+            }
+            if (handle != IntPtr.Zero)
+            {
+                Marshal.FreeHGlobal(handle);
+            }
+            return false;
+        }
+
+        /// <summary>
+        /// Set configs presented as a string.
+        /// </summary>
+        /// <param name="configs">The configs.</param>
+        /// <exception cref="System.IO.InvalidDataException">
+        /// </exception>
+        /// <exception cref="System.Exception">
+        /// </exception>
+        private static void SetConfigs(string configs)
+        {
+            foreach (var config in configs.Split('|'))
+            {
+                if (config == string.Empty) continue;
+
+                var spaceIndex = config.IndexOf(' ');
+                if (spaceIndex == -1)
+                {
+                    throw new InvalidDataException(string.Format("Config 'Bass.SetConfigOnInitialization' is invalid. Invalid config string: {0}", config));
+                }
+                var configNameString = config.Substring(0, spaceIndex);
+                BASSConfig configName;
+                if (!BASSConfig.TryParse(configNameString, out configName)
+                    || !Enum.IsDefined(typeof(BASSConfig), configName))
+                {
+                    throw new InvalidDataException(string.Format("Config 'Bass.SetConfigOnInitialization' is invalid. Invalid config name: {0}", configNameString));
+                }
+
+                var configValueString = config.Substring(spaceIndex + 1);
+                int configValueInt;
+                if (int.TryParse(configValueString, out configValueInt))
+                {
+                    if (!Bass.BASS_SetConfig(configName, configValueInt))
+                    {
+                        throw new Exception(string.Format("Set config {0} with value {1} failed. Error code {2}",
+                            configName, configValueInt, Bass.BASS_ErrorGetCode()));
+                    }
+                    continue;
+                }
+                bool configValueBool;
+                if (bool.TryParse(configValueString, out configValueBool))
+                {
+                    if (!Bass.BASS_SetConfig(configName, configValueBool))
+                    {
+                        throw new Exception(string.Format("Set config {0} with value {1} failed. Error code {2}",
+                            configName, configValueBool, Bass.BASS_ErrorGetCode()));
+                    }
+                    continue;
+                }
+                if (!SetConfig(configName, configValueString))
+                {
+                    throw new Exception(string.Format("Set config {0} with value {1} failed. Error code {2}",
+                            configName, configValueString, Bass.BASS_ErrorGetCode()));
+                }
+            }
+
+        }
+
+        private void Initialize(BASS_DEVICEINFO device = null)
         {
             positionTimer.Interval = TimeSpan.FromMilliseconds(50);
             positionTimer.Tick += positionTimer_Tick;
@@ -436,35 +577,39 @@ namespace DoubanFM.Desktop.Audio
             IsPlaying = false;
 
             IntPtr handle = IntPtr.Zero;
-            //if (Application.Current.MainWindow != null)
-            //{
-            //    handle = new WindowInteropHelper(Application.Current.MainWindow).EnsureHandle();
-            //}
-            //The device to use... -1 = default device, 0 = no sound, 1 = first real output device. 
-            var defaultDevice = -1;
-            try
+            if (Application.Current.MainWindow != null)
             {
-                var init = Bass.BASS_Init(defaultDevice, sampleFrequency, BASSInit.BASS_DEVICE_SPEAKERS, handle);
-                if (init)
-                {
-                    int pluginAAC = Bass.BASS_PluginLoad("bass_aac.dll");
-#if DEBUG
-                    BASS_INFO info = new BASS_INFO();
-                    Bass.BASS_GetInfo(info);
-                    Debug.WriteLine(info.ToString());
-                    BASS_PLUGININFO aacInfo = Bass.BASS_PluginGetInfo(pluginAAC);
-                    foreach (BASS_PLUGINFORM f in aacInfo.formats)
-                        Debug.WriteLine("Type={0}, Name={1}, Exts={2}", f.ctype, f.name, f.exts);
-#endif
-                }
-                else
-                {
-                    Debug.WriteLine("Bass Initialize error!");
-                }
+                handle = new WindowInteropHelper(Application.Current.MainWindow).EnsureHandle();
             }
-            catch(DllNotFoundException ex)
+            //The device to use... -1 = default device, 0 = no sound, 1 = first real output device. 
+            var deviceNO = FindDevice(device, true);
+
+            var init = Bass.BASS_Init(deviceNO, sampleFrequency, _initFlags, handle);
+            if (init)
             {
-                Debug.WriteLine(ex.Message);
+                var error = Bass.BASS_ErrorGetCode();
+                int count = Bass.BASS_GetDeviceCount();
+                for (deviceNO = -1; deviceNO < count; ++deviceNO)
+                {
+                    if (deviceNO != 0 && Un4seen.Bass.Bass.BASS_Init(deviceNO, sampleFrequency, _initFlags, handle))
+                    {
+                        break;
+                    }
+                }
+                if (deviceNO == count)
+                {
+                    throw new BassInitializationFailureException(error);
+                }
+
+            }
+
+            if (device == null && deviceNO == FindDefaultDevice())
+            {
+                Device = null;
+            }
+            else
+            {
+                Device = Bass.BASS_GetDeviceInfo(Bass.BASS_GetDevice());
             }
 
         }
@@ -620,42 +765,49 @@ namespace DoubanFM.Desktop.Audio
         /// <returns></returns>
         private static int FindDevice(BASS_DEVICEINFO device, bool returnDefault = false)
         {
-            int deviceNO = -1;
-            var devices = Bass.BASS_GetDeviceInfos();
+            if (device != null)
+            {
+                int deviceNO = -1;
+                var devices = Bass.BASS_GetDeviceInfos();
 
-            var filteredDevices =
-               from d in devices
-               where d.name == device.name
-               select Array.IndexOf(devices, d);
-            if (deviceNO == -1)
-            {
-                if (filteredDevices.Count() == 1)
+                var filteredDevices =
+                   from d in devices
+                   where d.name == device.name
+                   select Array.IndexOf(devices, d);
+                if (deviceNO == -1)
                 {
-                    deviceNO = filteredDevices.First();
+                    if (filteredDevices.Count() == 1)
+                    {
+                        deviceNO = filteredDevices.First();
+                    }
                 }
-            }
-            if (deviceNO == -1)
-            {
-                filteredDevices =
-                    from d in devices
-                    where d.driver == device.driver
-                    select Array.IndexOf(devices, d);
-                if (filteredDevices.Count() == 1)
+                if (deviceNO == -1)
                 {
-                    deviceNO = filteredDevices.First();
+                    filteredDevices =
+                        from d in devices
+                        where d.driver == device.driver
+                        select Array.IndexOf(devices, d);
+                    if (filteredDevices.Count() == 1)
+                    {
+                        deviceNO = filteredDevices.First();
+                    }
                 }
-            }
-            if (deviceNO == -1 && returnDefault)
-            {
-                return deviceNO;
-            }
-            else if (deviceNO != -1)
-            {
-                return deviceNO;
+                if (deviceNO == -1 && returnDefault)
+                {
+                    return deviceNO;
+                }
+                else if (deviceNO != -1)
+                {
+                    return deviceNO;
+                }
+                else
+                {
+                    throw new Exception("找不到此设备：" + device.name);
+                }
             }
             else
             {
-                throw new Exception("找不到此设备：" + device.name);
+                return FindDefaultDevice();
             }
         }
 
@@ -664,18 +816,14 @@ namespace DoubanFM.Desktop.Audio
         /// 返回默认设备的序号
         /// </summary>
         /// <returns></returns>
-        private static BASS_DEVICEINFO GetDefaultDevice()
+        private static int FindDefaultDevice()
         {
-            var devices = Bass.BASS_GetDeviceInfos().ToList();
-            if (devices.Where(d => d.IsDefault).Count() > 0)
+            var devices = Un4seen.Bass.Bass.BASS_GetDeviceInfos();
+            for (int i = 0; i < devices.Length; ++i)
             {
-                var device = devices.First();
-                return device;
+                if (devices[i].IsDefault) return i;
             }
-            else
-            {
-                throw new Exception("没有默认设备");
-            }
+            throw new Exception("没有默认设备");
         }
 
         #endregion
