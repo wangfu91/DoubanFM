@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using WPFSoundVisualizationLib;
 
@@ -30,9 +31,9 @@ namespace DoubanFM.Desktop.Audio
 
 		event EventHandler TrackEnded;
 
-		void OpenFile(string filePath);
+		Task OpenFile(string filePath);
 
-		void OpenUrl(string url);
+		Task OpenUrl(string url);
 
 		void Stop();
 
