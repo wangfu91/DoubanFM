@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Models\Album.cs" />
     <Compile Include="Models\Channel.cs" />
+    <Compile Include="Models\Helper\BoolConverter.cs" />
     <Compile Include="Models\LoginResult.cs" />
     <Compile Include="Models\Lyrics.cs" />
     <Compile Include="Models\ModelBase.cs" />

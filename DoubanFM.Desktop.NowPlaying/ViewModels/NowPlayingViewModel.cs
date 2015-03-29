@@ -128,9 +128,7 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
                     OnPropertyChanged(() => this.CurrentSong);
                     if (_currentSong != null)
                     {
-                        GetLyrics();
-                        Player.OpenUrl(_currentSong.URL);
-                        Player.PlayCommand.Execute(null);
+						ChangeSong();
                     }
                 }
             }
@@ -234,14 +232,22 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
             }
         }
 
-        private async Task GetSongs()
+		private async void ChangeSong()
+		{
+			await GetLyrics();
+			await Player.OpenUrl(_currentSong.URL);
+			Player.PlayCommand.Execute(null);
+
+		}
+
+		private async Task GetSongs()
         {
             var result = await _songService.GetSongs(CurrentChannel.ChannelId);
             SetPlayList(result);
             CurrentSong = PlayList.Dequeue();
         }
 
-        private async void GetLyrics()
+        private async Task GetLyrics()
         {
             var _lyrics = await _lyricsService.GetLyrics(_currentSong);
             _lyricsController = null;

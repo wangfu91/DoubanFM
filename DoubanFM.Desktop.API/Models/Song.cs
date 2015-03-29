@@ -420,6 +420,7 @@ namespace DoubanFM.Desktop.API.Models
         /// 是否已喜欢
         /// </summary>
         [JsonProperty("like")]
+		[JsonConverter(typeof(BoolConverter))]
         public bool Like
         {
             get
