@@ -8,11 +8,7 @@ using System.Threading.Tasks;
 
 namespace DoubanFM.Desktop.Infrastructure.Events
 {
-    public class UserLoggedInEvent:PubSubEvent<LoginResult>
-    {
-    }
-
-    public class UserLoggedOutEvent:PubSubEvent<LoginResult>
+    public class UserStateChangedEvent:PubSubEvent<LoginResult>
     {
     }
 }

@@ -9,7 +9,7 @@ namespace DoubanFM.Desktop.API.Services
 {
     public class LyricController
     {
-                /// <summary>
+        /// <summary>
         /// 歌词本身
         /// </summary>
         protected Lyrics Lyrics { get; private set; }
@@ -54,7 +54,8 @@ namespace DoubanFM.Desktop.API.Services
                 if (currentTime != value)
                 {
                     currentTime = value;
-                    Refresh();
+                    RefreshAsync().ConfigureAwait(false);
+                    //Deployment.Current.Dispatcher.InvokeAsync(async () => await RefreshAsync());
                 }
             }
         }
@@ -109,35 +110,38 @@ namespace DoubanFM.Desktop.API.Services
         /// <summary>
         /// 根据当前时间刷新歌词状态
         /// </summary>
-        public void Refresh()
+        public async Task RefreshAsync()
         {
-            if (SortedTimes.Count == 0)
+            await Task.Run(() =>
             {
-                CurrentIndex = -1;
-                PreviousLyrics = null;
-                CurrentLyrics = null;
-                NextLyrics = null;
-            }
-            else
-            {
-                while (true)
+                if (SortedTimes.Count == 0)
                 {
-                    if (CurrentIndex >= 0 && CurrentIndex < SortedTimes.Count && SortedTimes[CurrentIndex] > CurrentTime)
-                        --CurrentIndex;
-                    else if (CurrentIndex + 1 < SortedTimes.Count && SortedTimes[CurrentIndex + 1] <= CurrentTime)
-                        ++CurrentIndex;
-                    else break;
+                    CurrentIndex = -1;
+                    PreviousLyrics = null;
+                    CurrentLyrics = null;
+                    NextLyrics = null;
                 }
-                if (CurrentIndex - 1 >= 0 && CurrentIndex - 1 < SortedTimes.Count)
-                    PreviousLyrics = TimeAndLyrics[SortedTimes[CurrentIndex - 1]];
-                else PreviousLyrics = null;
-                if (CurrentIndex >= 0 && CurrentIndex < SortedTimes.Count)
-                    CurrentLyrics = TimeAndLyrics[SortedTimes[CurrentIndex]];
-                else CurrentLyrics = null;
-                if (CurrentIndex + 1 >= 0 && CurrentIndex + 1 < SortedTimes.Count)
-                    NextLyrics = TimeAndLyrics[SortedTimes[CurrentIndex + 1]];
-                else NextLyrics = null;
-            }
+                else
+                {
+                    while (true)
+                    {
+                        if (CurrentIndex >= 0 && CurrentIndex < SortedTimes.Count && SortedTimes[CurrentIndex] > CurrentTime)
+                            --CurrentIndex;
+                        else if (CurrentIndex + 1 < SortedTimes.Count && SortedTimes[CurrentIndex + 1] <= CurrentTime)
+                            ++CurrentIndex;
+                        else break;
+                    }
+                    if (CurrentIndex - 1 >= 0 && CurrentIndex - 1 < SortedTimes.Count)
+                        PreviousLyrics = TimeAndLyrics[SortedTimes[CurrentIndex - 1]];
+                    else PreviousLyrics = null;
+                    if (CurrentIndex >= 0 && CurrentIndex < SortedTimes.Count)
+                        CurrentLyrics = TimeAndLyrics[SortedTimes[CurrentIndex]];
+                    else CurrentLyrics = null;
+                    if (CurrentIndex + 1 >= 0 && CurrentIndex + 1 < SortedTimes.Count)
+                        NextLyrics = TimeAndLyrics[SortedTimes[CurrentIndex + 1]];
+                    else NextLyrics = null;
+                }
+            });
         }
 
         /// <summary>

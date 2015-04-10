@@ -65,7 +65,7 @@
     <Compile Include="Converters\DoubleToTimeSpanConverter.cs" />
     <Compile Include="Converters\OrdinaryColorToTranspantConverter.cs" />
     <Compile Include="Events\SwitchChannelEvent.cs" />
-    <Compile Include="Events\UserStateEvents.cs" />
+    <Compile Include="Events\UserStateChangedEvents.cs" />
     <Compile Include="Extension\DesignerPropertiesExtension.cs" />
     <Compile Include="Extension\SecureStringExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -14,16 +14,6 @@ namespace DoubanFM.Desktop.API.Services
     {
         public const string BaseUrl = "http://music.douban.com/";
 
-        public async Task<Lyrics> GetLyrics(Song song)
-        {
-            var client = new RestClient(BaseUrl);
-            var request = new RestRequest("api/song/info", Method.GET);
-            request.AddParameter("song_id", song.SID);
-            var response = await client.ExecuteTaskAsync(request);
-            var lyrics = Serialize<SongInfo>(response).Lyric;
-            return new Lyrics(lyrics);
-        }
-
         public async Task<Lyrics> GetLyrics(string sid)
         {
             var client = new RestClient(BaseUrl);
@@ -32,7 +22,6 @@ namespace DoubanFM.Desktop.API.Services
             var response = await client.ExecuteTaskAsync(request);
             var lyrics = Serialize<SongInfo>(response).Lyric;
             return new Lyrics(lyrics);
-
         }
 
         private T Serialize<T>(IRestResponse response)

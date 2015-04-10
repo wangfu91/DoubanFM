@@ -147,10 +147,9 @@ namespace DoubanFM.Desktop.API.Tests
         {
             var lyricsService = new LyricsService();
             var song = new Song { SID = "1742965" };
-            var lyrics = await lyricsService.GetLyrics(song);
+            var lyrics = await lyricsService.GetLyrics(song.SID);
             Assert.IsNotNull(lyrics);
         }
-
 
     }
 

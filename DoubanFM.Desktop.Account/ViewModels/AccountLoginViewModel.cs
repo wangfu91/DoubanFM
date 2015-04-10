@@ -37,25 +37,10 @@ namespace DoubanFM.Desktop.Account.ViewModels
             this._loginService = loginService;
             this._userService = userService;
 
-            LoginCommand = new DelegateCommand<object>(Login);
-
-			//Instead manual type in email and password everytime, here add a auto fire logic, just for test.
-			//AutoFire();
+            LoginCommand = new DelegateCommand<object>(async c => await Login(c));
         }
 
-		/// <summary>
-		/// Auto fire UserLoggedIn event, for test purposes only.
-		/// </summary>
-		//private void AutoFire()
-		//{
-		//	this.UserEmail = "wangfu91@hotmail.com";
-		//	var passwordBox = new PasswordBox();
-		//	passwordBox.Password = "wf19912012";
-
-		//	this.LoginCommand.Execute(passwordBox);
-		//}
-
-        private async void Login(object obj)
+        private async Task Login(object obj)
         {
             var passwordBox = obj as PasswordBox;
             if (passwordBox == null) return;
@@ -66,7 +51,7 @@ namespace DoubanFM.Desktop.Account.ViewModels
                 _loginResult = await _loginService.LoginWithEmail(UserEmail, password.ConvertToUnsecureString());
                 if (_loginResult.R == "0")
                 {
-                    _eventAggregator.GetEvent<UserLoggedInEvent>().Publish(_loginResult);
+                    _eventAggregator.GetEvent<UserStateChangedEvent>().Publish(_loginResult);
                 }
                 else
                 {
@@ -90,5 +75,5 @@ namespace DoubanFM.Desktop.Account.ViewModels
 
         public ICommand LoginCommand { get; set; }
 
-	}
+    }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace DoubanFM.Desktop.Audio.Tests
 {
@@ -9,10 +10,10 @@ namespace DoubanFM.Desktop.Audio.Tests
         private BassEngine player;
 
         [TestInitialize]
-        public void BassEngineSetup()
+        public async Task BassEngineSetup()
         {
             player = BassEngine.Instance;
-            player.OpenFile(@"C:\You Raise Me Up.mp3");
+            await player.OpenFile(@"C:\You Raise Me Up.mp3");
         }
 
         [TestCleanup]
@@ -40,10 +41,10 @@ namespace DoubanFM.Desktop.Audio.Tests
         }
 
         [TestMethod]
-        public void BassEngineOpenUrlTest()
+        public async Task BassEngineOpenUrlTest()
         {
             player.Stop();
-            player.OpenUrl("http://mr4.douban.com/201412202338/4fb9ab5029d055808ddc1733e62cc044/view/song/small/p1742971_1v.mp3");
+            await player.OpenUrl("http://mr4.douban.com/201412202338/4fb9ab5029d055808ddc1733e62cc044/view/song/small/p1742971_1v.mp3");
             player.Play();
             Assert.IsTrue(player.IsPlaying);
             Thread.Sleep(15000);

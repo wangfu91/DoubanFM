@@ -27,11 +27,12 @@ namespace DoubanFM.Desktop.NowPlaying
 
         public void Initialize()
         {
-			this._container.RegisterType<IEventAggregator>(new ContainerControlledLifetimeManager());
+            this._container.RegisterType<IEventAggregator>(new ContainerControlledLifetimeManager());
             this._container.RegisterInstance<IAudioEngine>(BassEngine.Instance);
-			this._container.RegisterType<ISongService, SongService>(new ContainerControlledLifetimeManager());
+            this._container.RegisterType<ISongService, SongService>(new ContainerControlledLifetimeManager());
+            this._container.RegisterType<ILyricsService, LyricsService>(new ContainerControlledLifetimeManager());
 
-			this._regionManager.RegisterViewWithRegion(RegionNames.NowPlaying,
+            this._regionManager.RegisterViewWithRegion(RegionNames.NowPlaying,
                                                  () => this._container.Resolve<Views.NowPlayingView>());
         }
     }
