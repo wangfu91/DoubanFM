@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.31101.0
+# Visual Studio 14
+VisualStudioVersion = 14.0.22609.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DoubanFM.Desktop.Tests", "DoubanFM.Desktop.Tests", "{37EC7D07-3463-4892-9008-F569289F1A97}"
 EndProject
@@ -48,6 +48,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubanFM.Desktop.Infrastructure.Tests", "DoubanFM.Desktop.Infrastructure.Tests\DoubanFM.Desktop.Infrastructure.Tests.csproj", "{14B8525F-38AE-4C76-86FF-67641B20A116}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubanFM.Desktop.Account", "DoubanFM.Desktop.Account\DoubanFM.Desktop.Account.csproj", "{A73E77F6-3104-48B4-94A3-00355C16411A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubanFM.Desktop.NowPlaying.Tests", "DoubanFM.Desktop.NowPlaying.Tests\DoubanFM.Desktop.NowPlaying.Tests.csproj", "{014DF920-27F9-41CD-BD25-86202A051C57}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -364,6 +366,36 @@ Global
 		{A73E77F6-3104-48B4-94A3-00355C16411A}.Release-Signed|x64.Build.0 = Release|Any CPU
 		{A73E77F6-3104-48B4-94A3-00355C16411A}.Release-Signed|x86.ActiveCfg = Release|Any CPU
 		{A73E77F6-3104-48B4-94A3-00355C16411A}.Release-Signed|x86.Build.0 = Release|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Debug|ARM.Build.0 = Debug|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Debug|x64.Build.0 = Debug|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Debug|x86.Build.0 = Debug|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Release|ARM.ActiveCfg = Release|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Release|ARM.Build.0 = Release|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Release|x64.ActiveCfg = Release|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Release|x64.Build.0 = Release|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Release|x86.ActiveCfg = Release|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Release|x86.Build.0 = Release|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Release-Signed|Any CPU.ActiveCfg = Release|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Release-Signed|Any CPU.Build.0 = Release|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Release-Signed|ARM.ActiveCfg = Release|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Release-Signed|ARM.Build.0 = Release|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Release-Signed|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Release-Signed|Mixed Platforms.Build.0 = Release|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Release-Signed|x64.ActiveCfg = Release|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Release-Signed|x64.Build.0 = Release|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Release-Signed|x86.ActiveCfg = Release|Any CPU
+		{014DF920-27F9-41CD-BD25-86202A051C57}.Release-Signed|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -385,5 +417,6 @@ Global
 		{9A10E24D-0522-4CFD-9C14-72B3FDD26ECB} = {333A5489-BB60-4A3B-85E4-EC8A32981048}
 		{14B8525F-38AE-4C76-86FF-67641B20A116} = {37EC7D07-3463-4892-9008-F569289F1A97}
 		{A73E77F6-3104-48B4-94A3-00355C16411A} = {333A5489-BB60-4A3B-85E4-EC8A32981048}
+		{014DF920-27F9-41CD-BD25-86202A051C57} = {37EC7D07-3463-4892-9008-F569289F1A97}
 	EndGlobalSection
 EndGlobal

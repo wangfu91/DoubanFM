@@ -16,13 +16,11 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
 {
     public class NowPlayingViewModel : ViewModelBase
     {
-        private LoginService _loginService;
-        //private UserService _userService;
-        private SongService _songService;
-        private ChannelService _channelService;
-        private LyricsService _lyricsService;
+
+        #region Fields
+        private ISongService _songService;
+        private ILyricsService _lyricsService;
         private IAudioEngine _playEngine;
-        private ChannelList _channelList;
         private Song _currentSong;
         private string _currentLyrics;
         private Channel _currentChannel;
@@ -30,81 +28,36 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
         private DispatcherTimer _timer = new DispatcherTimer();
         private LyricController _lyricsController;
         private IEventAggregator _eventAggregator;
-        private SubscriptionToken _subscriptionToken;
+        private bool _isLoggedIn;
+        #endregion
 
+        #region Constructor
         public NowPlayingViewModel(
             IEventAggregator eventAggregator,
             IAudioEngine playEngine,
-			ISongService songService)
+            ISongService songService,
+            ILyricsService lyricService)
         {
             this._eventAggregator = eventAggregator;
             this._playEngine = playEngine;
+            this._songService = songService;
+            this._lyricsService = lyricService;
+
             PlayList = new Queue<Song>();
 
             var switchChannelEvent = _eventAggregator.GetEvent<SwitchChannelEvent>();
-            if (_subscriptionToken != null)
-            {
-                switchChannelEvent.Unsubscribe(_subscriptionToken);
-            }
-            _subscriptionToken = switchChannelEvent.Subscribe(async c =>
-                {
-                    CurrentChannel = c;
-                    await GetSongs();
-                }, true);
+            switchChannelEvent.Subscribe(async c => await HandleChannelChange(c));
+
+            var userStateChnagedEvent = _eventAggregator.GetEvent<UserStateChangedEvent>();
+            userStateChnagedEvent.Subscribe(HandleUserStateChange);
 
             playEngine.TrackEnded += playEngine_TrackeEnded;
-            PlayNextCommand = new DelegateCommand(async () =>
-            {
-                if (PlayList.Count > 0)
-                {
-                    CurrentSong = PlayList.Dequeue();
-                    SetPlayList(await _songService.Skip(CurrentSong.SID, CurrentChannel.ChannelId));
-                }
-                else
-                {
-                    SetPlayList(await _songService.Skip(CurrentSong.SID, CurrentChannel.ChannelId));
-                    CurrentSong = PlayList.Dequeue();
-                }
-            });
 
-            LikeCommand = new DelegateCommand(async () =>
-            {
-                if (CurrentSong.Like)
-                {
-                    var result = await _songService.Unlike(CurrentSong.SID, CurrentChannel.ChannelId);
-                    if (result.R == 0)
-                    {
-                        CurrentSong.Like = false;
-                        SetPlayList(result);
-                    }
-                }
-                else
-                {
-                    var result = await _songService.Like(CurrentSong.SID, CurrentChannel.ChannelId);
-                    if (result.R == 0)
-                    {
-                        CurrentSong.Like = true;
-                        SetPlayList(result);
-                    }
-                }
+            PlayNextCommand = new DelegateCommand(async () => await PlayNext());
 
-            });
+            LikeCommand = new DelegateCommand(async () => await Like(), () => this.IsLoggedIn);
 
-            BanCommand = new DelegateCommand(async () =>
-            {
-                if (PlayList.Count > 0)
-                {
-                    CurrentSong = PlayList.Dequeue();
-                    SetPlayList(await _songService.Ban(CurrentSong.SID, CurrentChannel.ChannelId));
-                }
-                else
-                {
-                    SetPlayList(await _songService.Ban(CurrentSong.SID, CurrentChannel.ChannelId));
-                    CurrentSong = PlayList.Dequeue();
-                }
-            });
-
-            Initialize();
+            BanCommand = new DelegateCommand(async () => await Ban(), () => this.IsLoggedIn);
 
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromSeconds(0.4);
@@ -112,6 +65,11 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
             _timer.Start();
 
         }
+
+        #endregion
+
+        #region Properties
+
         public IAudioEngine Player
         {
             get { return _playEngine; }
@@ -128,7 +86,7 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
                     OnPropertyChanged(() => this.CurrentSong);
                     if (_currentSong != null)
                     {
-						ChangeSong();
+                        ChangeSong().ConfigureAwait(false);
                     }
                 }
             }
@@ -174,73 +132,40 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
             }
         }
 
-        public ChannelList ChannelList
+        public bool IsLoggedIn
         {
-            get { return _channelList; }
-            set
+            get { return _isLoggedIn; }
+            private set
             {
-                if (value != _channelList)
+                if (value != _isLoggedIn)
                 {
-                    _channelList = value;
-                    OnPropertyChanged(() => this.ChannelList);
+                    _isLoggedIn = value;
+                    OnPropertyChanged(() => this.IsLoggedIn);
                 }
             }
         }
 
+        #endregion
 
+        #region Commands
         public ICommand PlayNextCommand { get; set; }
 
         public ICommand LikeCommand { get; set; }
 
         public ICommand BanCommand { get; set; }
 
+        #endregion
 
-
-
-        void _timer_Tick(object sender, EventArgs e)
+        #region Private Methods
+        private async Task ChangeSong()
         {
-            if (_lyricsController != null)
-            {
-                _lyricsController.CurrentTime = TimeSpan.FromSeconds(Player.ChannelPosition);
-                _lyricsController.Refresh();
-                CurrentLyrics = _lyricsController.CurrentLyrics;
-            }
+            await GetLyrics();
+            await Player.OpenUrl(_currentSong.URL);
+            if (Player.PlayCommand.CanExecute(null))
+                Player.PlayCommand.Execute(null);
         }
 
-
-        private async Task Login(string email, string password)
-        {
-            _loginService = new LoginService();
-            var loginResult = await _loginService.LoginWithEmail(email, password);
-            var userSvcParams = new UserParams(loginResult);
-            _channelService = new ChannelService(loginResult);
-            _songService = new SongService(loginResult);
-            _lyricsService = new LyricsService();
-        }
-
-
-        private async void Initialize()
-        {
-            await Login("wangfu91@hotmail.com", "wf19912012");
-
-            ChannelList = await _channelService.GetChannels();
-            if (ChannelList != null)
-            {
-                CurrentChannel = ChannelList.Channels.First();
-                CurrentChannel.ChannelId = "-3";
-                await GetSongs();
-            }
-        }
-
-		private async void ChangeSong()
-		{
-			await GetLyrics();
-			await Player.OpenUrl(_currentSong.URL);
-			Player.PlayCommand.Execute(null);
-
-		}
-
-		private async Task GetSongs()
+        private async Task GetSongs()
         {
             var result = await _songService.GetSongs(CurrentChannel.ChannelId);
             SetPlayList(result);
@@ -249,7 +174,7 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
 
         private async Task GetLyrics()
         {
-            var _lyrics = await _lyricsService.GetLyrics(_currentSong);
+            var _lyrics = await _lyricsService.GetLyrics(_currentSong.SID);
             _lyricsController = null;
             if (!string.IsNullOrEmpty(_lyrics.LrcCode))
             {
@@ -266,7 +191,81 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
             }
         }
 
+        private async Task HandleChannelChange(Channel selectedChannel)
+        {
+            CurrentChannel = selectedChannel;
+            await GetSongs();
+        }
 
+        private void HandleUserStateChange(LoginResult result)
+        {
+            if (result != null)
+            {
+                this._songService = new SongService(result);
+                this.IsLoggedIn = true;
+            }
+            else
+            {
+                this._songService = new SongService();
+                this.IsLoggedIn = false;
+            }
+        }
+
+        private async Task PlayNext()
+        {
+            if (PlayList.Count > 0)
+            {
+                CurrentSong = PlayList.Dequeue();
+                SetPlayList(await _songService.Skip(CurrentSong.SID, CurrentChannel.ChannelId));
+            }
+            else
+            {
+                SetPlayList(await _songService.Skip(CurrentSong.SID, CurrentChannel.ChannelId));
+                CurrentSong = PlayList.Dequeue();
+            }
+
+        }
+
+        private async Task Ban()
+        {
+            if (PlayList.Count > 0)
+            {
+                CurrentSong = PlayList.Dequeue();
+                SetPlayList(await _songService.Ban(CurrentSong.SID, CurrentChannel.ChannelId));
+            }
+            else
+            {
+                SetPlayList(await _songService.Ban(CurrentSong.SID, CurrentChannel.ChannelId));
+                CurrentSong = PlayList.Dequeue();
+            }
+        }
+
+
+        private async Task Like()
+        {
+            if (CurrentSong.Like)
+            {
+                var result = await _songService.Unlike(CurrentSong.SID, CurrentChannel.ChannelId);
+                if (result.R == 0)
+                {
+                    CurrentSong.Like = false;
+                    SetPlayList(result);
+                }
+            }
+            else
+            {
+                var result = await _songService.Like(CurrentSong.SID, CurrentChannel.ChannelId);
+                if (result.R == 0)
+                {
+                    CurrentSong.Like = true;
+                    SetPlayList(result);
+                }
+            }
+        }
+
+        #endregion
+
+        #region Event Handlers
         private async void playEngine_TrackeEnded(object sender, EventArgs e)
         {
 
@@ -283,5 +282,18 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
                 CurrentSong = PlayList.Dequeue();
             }
         }
+
+        private async void _timer_Tick(object sender, EventArgs e)
+        {
+            if (_lyricsController != null)
+            {
+                _lyricsController.CurrentTime = TimeSpan.FromSeconds(Player.ChannelPosition);
+                await _lyricsController.RefreshAsync();
+                CurrentLyrics = _lyricsController.CurrentLyrics;
+            }
+        }
+
+        #endregion
+
     }
 }

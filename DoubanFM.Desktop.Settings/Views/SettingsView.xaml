@@ -4,6 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:extension="clr-namespace:DoubanFM.Desktop.Infrastructure.Extension;assembly=DoubanFM.Desktop.Infrastructure"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="260" extension:d.Background="DeepSkyBlue" >
     <UserControl.Resources>
@@ -16,6 +17,18 @@
     </UserControl.Resources>
 
     <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition />
+            <RowDefinition />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+        <controls:ToggleSwitch Margin="20,10"  Foreground="White" SwitchForeground="SkyBlue"
+                Header="Show lyrics ?"
+                IsChecked="False"/>
+        
+        <controls:ToggleSwitch Grid.Row="1" Margin="20,10" Foreground="White" SwitchForeground="SkyBlue"
+                               Header="Show Spectrum ?"
+                               IsChecked="True"/>
 
     </Grid>
 </UserControl>

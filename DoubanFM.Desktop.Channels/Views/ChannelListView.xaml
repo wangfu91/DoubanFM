@@ -24,7 +24,7 @@
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  ScrollViewer.VerticalScrollBarVisibility="Hidden"
 				 Style="{StaticResource ChannelListStyle}"
-				 ItemsSource="{Binding ChannelList}"
+				 ItemsSource="{Binding ChannelsView}"
 				 SelectedItem="{Binding CurrentChannel,Mode=TwoWay}">
 
         </ListBox>
