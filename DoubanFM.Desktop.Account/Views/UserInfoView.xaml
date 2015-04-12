@@ -14,8 +14,22 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="pack://application:,,,/DoubanFM.Desktop.Resource;component/Themes/Common.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            
+
             <ImageBrush x:Key="DefaultUserImageBrush" ImageSource="pack://application:,,,/DoubanFM.Desktop.Resource;component\Assets\UserDefault.png" Stretch="Uniform"/>
+
+            <Style x:Key="LogoutButtonStyle" BasedOn="{StaticResource CustomButtonStyle}" TargetType="{x:Type Button}">
+                <Setter Property="Template">
+                    <Setter.Value>
+                        <ControlTemplate TargetType="{x:Type Button}">
+                            <Canvas Width="30" Height="30" Background="{TemplateBinding Background}">
+                                <Path Width="30" Height="30" Fill="{TemplateBinding Foreground}" Stretch="Uniform" 
+                                        Data="M15.562651,5.992L19.503002,9.9320652 15.562651,13.876 15.562651,11.257537 8.2460012,11.257537 8.2460012,8.6065233 15.562651,8.6065233z M0,0L4.6106536,0 11.182139,0 12.364322,0 13.824001,0 13.824001,7.5144913 12.364322,7.5144913 12.364322,2.0964124 11.182139,2.0964124 4.6106536,2.0964124 4.6106536,17.780358 11.182139,17.780358 12.364322,17.780358 12.364322,12.351849 13.824001,12.351849 13.824001,19.878001 12.364322,19.878001 11.182139,19.878001 4.6106536,19.878001 0,19.878001z" />
+                            </Canvas>
+                        </ControlTemplate>
+                    </Setter.Value>
+                </Setter>
+            </Style>
+
         </ResourceDictionary>
     </UserControl.Resources>
     <Grid Width="255">
@@ -24,12 +38,12 @@
             <RowDefinition/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Border Margin="5" CornerRadius="40" BorderBrush="White" BorderThickness="2" Height="80" Width="80" 
                 Background="{StaticResource DefaultUserImageBrush}" ClipToBounds="True">
-                <Image Source="{Binding User.Icon}" Stretch="Uniform">
+                <Image Source="{Binding User.Icon}" Stretch="Uniform" >
                     <Image.Clip>
                         <EllipseGeometry Center="38,38" RadiusX="38" RadiusY="38"/>
                     </Image.Clip>
@@ -38,9 +52,24 @@
             <TextBlock Margin="10" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Foreground="White" FontSize="24"
                        Text="{Binding User.Name}" Width="150" Height="40" TextAlignment="Justify"/>
         </StackPanel>
-        <Button Grid.Row="1" Margin="10" Content="{Binding User.PlayedNum}" Style="{StaticResource CustomButtonStyle}" />
-        <Button Grid.Row="2" Margin="10" Content="{Binding User.LikedNum}" Style="{StaticResource CustomButtonStyle}"/>
-        <Button Grid.Row="3" Margin="10" Content="{Binding User.BannedNum}" Style="{StaticResource CustomButtonStyle}"/>
-        <!--<Button Grid.Row="4" Margin="5" Content="{Binding User.}" Style="{StaticResource CustomButtonStyle}"/>-->
+        <StackPanel  Grid.Row="1" Margin="10" Orientation="Horizontal"  >
+            <Canvas Width="20" Height="20" Margin="60,0,0,0">
+                <Path  Width="20" Height="20" Stretch="Fill" Fill="White" Data="F1 M 25.981,15.0001L 2.87779e-007,-6.35788e-007L 2.87779e-007,30.0003L 25.981,15.0001 Z "/>
+            </Canvas>
+            <Button Margin="10,0" Content="{Binding User.PlayedNum}" Style="{StaticResource HyperLinkButtonStyle}" />
+        </StackPanel>
+        <StackPanel Grid.Row="2" Margin="10" Orientation="Horizontal" >
+            <Canvas Width="20" Height="20" Margin="60,0,0,0">
+                <Path Width="20" Height="20"  Stretch="Fill" Fill="White" Data="F1 M 128,220C 154.667,200.333 186,172 202,156C 218,140 256,94 256,69C 256,-1.99995 194.288,0.999451 176,5C 144,12 135.016,36.0526 128,44C 120.984,36.0526 112,13 80,6C 61.7118,1.99945 2.61674e-005,-0.999954 5.82235e-006,70C 2.61674e-005,95 38,140 54,156C 70,172 101.333,200.333 128,220" />
+            </Canvas>
+            <Button Margin="10,0" Content="{Binding User.LikedNum}" Style="{StaticResource HyperLinkButtonStyle}"/>
+        </StackPanel>
+        <StackPanel Margin="10" Grid.Row="3" Orientation="Horizontal" >
+            <Canvas Width="20" Height="20" Margin="60,0,0,0">
+                <Path Width="20" Height="20" Stretch="Fill" Fill="White" Data="M 198.667,84L 198.667,236C 198.667,247.046 189.712,256 178.667,256L 77.3332,256C 66.2875,256 57.3332,247.046 57.3332,236L 57.3332,84C 57.3332,82.6301 57.471,81.2925 57.7333,80L 198.267,80C 198.529,81.2925 198.667,82.6301 198.667,84 Z M 91.2256,108.496L 91.2256,227.504L 108.774,227.504L 108.774,108.496L 91.2256,108.496 Z M 147.226,108.496L 147.226,227.504L 164.774,227.504L 164.774,108.496L 147.226,108.496 Z M 85,4.57764e-005L 171,4.57764e-005C 173.761,4.57764e-005 176,2.2386 176,5.00005L 176,32L 220.5,32L 220.5,64L 35.5,64L 35.5,32L 80,32L 80,5.00005C 80,2.2386 82.2386,4.57764e-005 85,4.57764e-005 Z M 101,16.0001C 98.2385,16.0001 95.9999,18.2387 95.9999,21.0001L 95.9999,32L 160,32L 160,21.0001C 160,18.2387 157.761,16.0001 155,16.0001L 101,16.0001 Z "/>
+            </Canvas>
+            <Button Margin="10,0" Content="{Binding User.BannedNum}" Style="{StaticResource HyperLinkButtonStyle}"/>
+        </StackPanel>
+        <Button Grid.Row="4" Margin="0,5,20,20" HorizontalAlignment="Right" Style="{StaticResource LogoutButtonStyle}"  Command="{Binding LogOffCommand}"/>
     </Grid>
 </UserControl>

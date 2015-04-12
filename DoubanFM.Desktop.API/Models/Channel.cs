@@ -22,7 +22,7 @@ namespace DoubanFM.Desktop.API.Models
         public string AbbrEN { get; set; }
 
         [JsonProperty("channel_id")]
-        public string ChannelId { get; set; }
+        public int ChannelId { get; set; }
 
         [JsonProperty("name_en")]
         public string NameEN { get; set; }

@@ -22,49 +22,49 @@ namespace DoubanFM.Desktop.API.Services
             };
         }
 
-        public async Task<SongResult> GetSongs(string channel)
+        public async Task<SongResult> GetSongs(int channel)
         {
-            songParams.channel = channel;
+            songParams.channel = channel.ToString();
             songParams.type = "n";
             return await Post<SongResult>(SongRequestPath, songParams);
         }
 
-        public async Task<SongResult> Like(string sid, string channel)
+        public async Task<SongResult> Like(string sid, int channel)
         {
             songParams.sid = sid;
-            songParams.channel = channel;
+            songParams.channel = channel.ToString();
             songParams.type = "r";
             return await Get<SongResult>(SongRequestPath, songParams);
         }
 
-        public async Task<SongResult> Unlike(string sid, string channel)
+        public async Task<SongResult> Unlike(string sid, int channel)
         {
             songParams.sid = sid;
-            songParams.channel = channel;
+            songParams.channel = channel.ToString();
             songParams.type = "u";
             return await Get<SongResult>(SongRequestPath, songParams);
         }
 
-        public async Task<SongResult> Ban(string sid, string channel)
+        public async Task<SongResult> Ban(string sid, int channel)
         {
             songParams.sid = sid;
-            songParams.channel = channel;
+            songParams.channel = channel.ToString();
             songParams.type = "b";
             return await Get<SongResult>(SongRequestPath, songParams);
         }
 
-        public async Task<SongResult> Skip(string sid, string channel)
+        public async Task<SongResult> Skip(string sid, int channel)
         {
             songParams.sid = sid;
-            songParams.channel = channel;
+            songParams.channel = channel.ToString();
             songParams.type = "s";
             return await Get<SongResult>(SongRequestPath, songParams);
         }
 
-        public async Task<SongResult> NormalEnd(string sid, string channel)
+        public async Task<SongResult> NormalEnd(string sid, int channel)
         {
             songParams.sid = sid;
-            songParams.channel = channel;
+            songParams.channel = channel.ToString();
             songParams.type = "e";
             return await Get<SongResult>(SongRequestPath, songParams);
         }

@@ -22,11 +22,11 @@
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
-        <controls:ToggleSwitch Margin="20,10"  Foreground="White" SwitchForeground="SkyBlue"
+        <controls:ToggleSwitch Margin="20,10"  Foreground="White"
                 Header="Show lyrics ?"
                 IsChecked="False"/>
         
-        <controls:ToggleSwitch Grid.Row="1" Margin="20,10" Foreground="White" SwitchForeground="SkyBlue"
+        <controls:ToggleSwitch Grid.Row="1" Margin="20,10" Foreground="White"
                                Header="Show Spectrum ?"
                                IsChecked="True"/>
 

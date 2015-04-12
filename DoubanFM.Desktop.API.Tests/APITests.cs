@@ -50,7 +50,7 @@ namespace DoubanFM.Desktop.API.Tests
         public async Task GetSongsByChannelTest()
         {
             var songService = new SongService();
-            var songs = await songService.GetSongs("1");
+            var songs = await songService.GetSongs(1);
             Assert.IsNotNull(songs);
         }
 
@@ -58,7 +58,7 @@ namespace DoubanFM.Desktop.API.Tests
         public async Task GetLikedSongsTest()
         {
             var songService = new SongService(loginResult);
-            var songs = await songService.GetSongs("-3");
+            var songs = await songService.GetSongs(-3);
             Assert.IsNotNull(songs);
         }
 
@@ -100,7 +100,7 @@ namespace DoubanFM.Desktop.API.Tests
         public async Task LikeASongTest()
         {
             var songService = new SongService(loginResult);
-            var result = await songService.Like("1742969", "1");
+            var result = await songService.Like("1742969", 1);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.R == 0);
         }
@@ -110,7 +110,7 @@ namespace DoubanFM.Desktop.API.Tests
         {
             var songService = new SongService(loginResult);
 
-            var result = await songService.Unlike("1742969", "1");
+            var result = await songService.Unlike("1742969", 1);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.R == 0);
         }
@@ -119,7 +119,7 @@ namespace DoubanFM.Desktop.API.Tests
         public async Task BanASongTest()
         {
             var songService = new SongService(loginResult);
-            var result = await songService.Ban("1671513", "1");
+            var result = await songService.Ban("1671513", 1);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.R == 0);
         }
@@ -128,7 +128,7 @@ namespace DoubanFM.Desktop.API.Tests
         public async Task NormalEndASongTest()
         {
             var songService = new SongService(loginResult);
-            var result = await songService.NormalEnd("1742969", "1");
+            var result = await songService.NormalEnd("1742969", 1);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.R == 0);
         }
@@ -137,7 +137,7 @@ namespace DoubanFM.Desktop.API.Tests
         public async Task SkipASongTest()
         {
             var songService = new SongService(loginResult);
-            var result = await songService.Skip("1742969", "1");
+            var result = await songService.Skip("1742969", 1);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.R == 0);
         }

@@ -133,9 +133,9 @@
                         </Border>
 
                         <Border  Grid.Column="1" ClipToBounds="True">
-                            <Border.Background>
+                            <!--<Border.Background>
                                 <ImageBrush ImageSource="pack://application:,,,/DoubanFM.Desktop.Resource;component/Assets/DoubanFM_NoCover.png" Stretch="UniformToFill" />
-                            </Border.Background>
+                            </Border.Background>-->
                             <Grid Background="#7F000000">
 
                                 <ContentPresenter x:Name="PART_SelectedContentHost" ContentSource="SelectedContent"/>

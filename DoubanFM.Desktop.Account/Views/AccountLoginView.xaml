@@ -4,9 +4,10 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:DoubanFM.Desktop.Account.Views"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:extension="clr-namespace:DoubanFM.Desktop.Infrastructure.Extension;assembly=DoubanFM.Desktop.Infrastructure"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="260" extension:d.Background="DeepSkyBlue">
+             d:DesignHeight="300" d:DesignWidth="260" extension:d.Background="DeepSkyBlue" >
     <UserControl.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -43,12 +44,22 @@
                 <RowDefinition/>
                 <RowDefinition/>
             </Grid.RowDefinitions>
-            <TextBox Margin="10,10,50,10" Grid.Row="0" TextWrapping="NoWrap" Text="{Binding UserEmail}" Padding="0,10"/>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <TextBox Margin="10,10,50,10" Grid.Row="0" Grid.ColumnSpan="2" TextWrapping="NoWrap" Text="{Binding UserEmail}" Padding="0,10" 
+                     controls:TextBoxHelper.Watermark="Email"
+                     controls:TextBoxHelper.ClearTextButton="True"/>
             <!--For security reason, Password is not a Dependency Property, so a binding cannot set on it.-->
             <!--There is a great post on StackOverflow, which provides several workaround on this problem:-->
             <!--http://stackoverflow.com/questions/1483892/how-to-bind-to-a-passwordbox-in-mvvm-->
-            <PasswordBox x:Name="txtPassword" Margin="10,10,50,10" Grid.Row="1" Padding="0,10"/>
-            <Button Grid.Row="2"  HorizontalAlignment="Right" Style="{StaticResource LoginButtonStyle}"
+            <PasswordBox x:Name="txtPassword" Margin="10,10,50,10" Grid.Row="1" Grid.ColumnSpan="2" Padding="0,10" 
+                         controls:TextBoxHelper.Watermark="Password"
+                         controls:TextBoxHelper.ClearTextButton="True"/>
+            <Button Grid.Row="2" Margin="10,0,0,0" VerticalAlignment="Center" Foreground="White"
+                    Content="Forget Password ?" Style="{StaticResource HyperLinkButtonStyle}" />
+            <Button Grid.Row="2" Grid.Column="1" HorizontalAlignment="Right" Style="{StaticResource LoginButtonStyle}" Height="50" Margin="5,0"
                     Command="{Binding LoginCommand}" CommandParameter="{Binding ElementName=txtPassword}">
             </Button>
         </Grid>

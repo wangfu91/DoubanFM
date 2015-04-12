@@ -141,6 +141,9 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
                 {
                     _isLoggedIn = value;
                     OnPropertyChanged(() => this.IsLoggedIn);
+
+                    this.BanCommand.RaiseCanExecuteChanged();
+                    this.LikeCommand.RaiseCanExecuteChanged();
                 }
             }
         }
@@ -148,11 +151,11 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
         #endregion
 
         #region Commands
-        public ICommand PlayNextCommand { get; set; }
+        public DelegateCommand PlayNextCommand { get; set; }
 
-        public ICommand LikeCommand { get; set; }
+        public DelegateCommand LikeCommand { get; set; }
 
-        public ICommand BanCommand { get; set; }
+        public DelegateCommand BanCommand { get; set; }
 
         #endregion
 

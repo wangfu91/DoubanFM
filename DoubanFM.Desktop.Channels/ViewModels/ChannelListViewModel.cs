@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.ComponentModel;
 using System.Windows.Data;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace DoubanFM.Desktop.Channels.ViewModels
 {
@@ -18,7 +19,7 @@ namespace DoubanFM.Desktop.Channels.ViewModels
         private Channel _currentChannel;
         private IEventAggregator _eventAggregator;
         private bool _isLoggedIn;
-        private CollectionViewSource _channelListViewSource;
+        private Channel _redHeartChannel;
 
         public ChannelListViewModel(
             IChannelService channelService,
@@ -26,20 +27,14 @@ namespace DoubanFM.Desktop.Channels.ViewModels
         {
             this._channelSerivce = channelService;
             this._eventAggregator = eventAggregator;
-            this._channelListViewSource = new CollectionViewSource();
+            this._redHeartChannel = new Channel { Name = "红心兆赫", SeqId = 0, AbbrEN = "My", ChannelId = -3 };
+            this.ChannelList = new ObservableCollection<Channel>();
 
-            _eventAggregator.GetEvent<UserStateChangedEvent>().Subscribe(async s => await HandleUserStateChange(s));
+            _eventAggregator.GetEvent<UserStateChangedEvent>().Subscribe(HandleUserStateChange);
             GetChannels().ConfigureAwait(false);
         }
 
-        public ICollectionView ChannelsView
-        {
-            get { return this._channelListViewSource.View; }
-            private set
-            {
-                OnPropertyChanged(() => this.ChannelsView);
-            }
-        }
+        public ObservableCollection<Channel> ChannelList { get; private set; }
 
         public Channel CurrentChannel
         {
@@ -79,29 +74,40 @@ namespace DoubanFM.Desktop.Channels.ViewModels
 
         private async Task GetChannels()
         {
-            var channelList = new ObservableCollection<Channel>();
             var results = await _channelSerivce.GetChannels();
             if (results != null && results.Channels.Count > 0)
             {
-                results.Channels.ForEach(channelList.Add);
+                results.Channels.ForEach(ChannelList.Add);
             }
-            this._channelListViewSource.Source = channelList;
-            this.ChannelsView = this._channelListViewSource.View;
+            this.CurrentChannel = ChannelList.FirstOrDefault();
         }
 
-        private async Task HandleUserStateChange(LoginResult result)
+        private void HandleUserStateChange(LoginResult result)
         {
+
+
             if (result != null)
             {
                 IsLoggedIn = true;
                 _channelSerivce = new ChannelService(result);
+                if (!ChannelList.Contains(_redHeartChannel))
+                {
+                    ChannelList.Insert(0, _redHeartChannel);
+                }
             }
             else
             {
                 IsLoggedIn = false;
                 _channelSerivce = new ChannelService();
+                var redHeartSelected = CurrentChannel.ChannelId == -3;
+                ChannelList.Remove(_redHeartChannel);
+                if (redHeartSelected)
+                {
+                    CurrentChannel = ChannelList.FirstOrDefault();
+                }
+
             }
-            await GetChannels();
+            //await GetChannels();
         }
 
     }
