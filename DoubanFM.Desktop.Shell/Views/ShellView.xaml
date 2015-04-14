@@ -11,10 +11,10 @@
 		ResizeMode="CanMinimize"
 		WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
-		Background="{x:Null}" 
+		Background="{Binding BackgroundColor}"
 		d:DesignHeight="300" d:DesignWidth="600">
 
-    <Grid x:Name="Layout" Height="300" Width="600" Background="DeepSkyBlue">
+    <Grid x:Name="Layout" Height="300" Width="600" >
         <Grid.Triggers>
             <EventTrigger RoutedEvent="Mouse.MouseEnter">
                 <EventTrigger.Actions>

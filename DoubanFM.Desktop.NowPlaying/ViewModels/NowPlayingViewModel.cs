@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace DoubanFM.Desktop.NowPlaying.ViewModels
@@ -29,6 +30,7 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
         private LyricController _lyricsController;
         private IEventAggregator _eventAggregator;
         private bool _isLoggedIn;
+        private BitmapImage _currentAlbumImage;
         #endregion
 
         #region Constructor
@@ -86,10 +88,20 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
                     OnPropertyChanged(() => this.CurrentSong);
                     if (_currentSong != null)
                     {
-                        ChangeSong().ConfigureAwait(false);
+                        HandleCurrentSongChange().ConfigureAwait(false);
                     }
                 }
             }
+        }
+
+        public BitmapImage CurrentAlbumImage
+        {
+            get { return _currentAlbumImage; }
+            set
+            {
+                OnPropertyChanged(() => this.CurrentAlbumImage);
+            }
+
         }
 
         public string CurrentLyrics
@@ -160,12 +172,24 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
         #endregion
 
         #region Private Methods
-        private async Task ChangeSong()
+        private async Task HandleCurrentSongChange()
         {
-            await GetLyrics();
+            LoadAlbumImage();
             await Player.OpenUrl(_currentSong.URL);
             if (Player.PlayCommand.CanExecute(null))
                 Player.PlayCommand.Execute(null);
+
+            //await GetLyrics();
+        }
+
+        private void LoadAlbumImage()
+        {
+            _currentAlbumImage = new BitmapImage();
+            _currentAlbumImage.BeginInit();
+            _currentAlbumImage.DownloadCompleted += _currentAlbumCover_DownloadCompleted;
+            _currentAlbumImage.UriSource = new Uri(CurrentSong.Picture);
+            _currentAlbumImage.EndInit();
+            this.CurrentAlbumImage = _currentAlbumImage;
         }
 
         private async Task GetSongs()
@@ -294,6 +318,13 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
                 await _lyricsController.RefreshAsync();
                 CurrentLyrics = _lyricsController.CurrentLyrics;
             }
+        }
+
+        private void _currentAlbumCover_DownloadCompleted(object sender, EventArgs e)
+        {
+            var bmp = sender as BitmapImage;
+            var color = ColorFunctions.GetImageColor(bmp);
+            _eventAggregator.GetEvent<SwitchBackgroudColorEvent>().Publish(color);
         }
 
         #endregion

@@ -35,5 +35,6 @@ namespace DoubanFM.Desktop.NowPlaying.Views
             this.DataContext = viewModel;
             this.spectrumAnalyzer.RegisterSoundPlayer(viewModel.Player);
         }
+
     }
 }

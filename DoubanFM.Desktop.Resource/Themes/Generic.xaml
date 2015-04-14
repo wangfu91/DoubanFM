@@ -1,15 +1,8 @@
 <ResourceDictionary
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="clr-namespace:DoubanFM.Desktop.Resource"
-    xmlns:converters="clr-namespace:DoubanFM.Desktop.Infrastructure.Converters;assembly=DoubanFM.Desktop.Infrastructure"
+    xmlns:local="clr-namespace:DoubanFM.Desktop.Resource"    
     >
-    <converters:BoolToVisibilityConverter x:Key="BoolToVisibilityConverter"/>
-    <converters:BooleanNegationToVisibilityConverter x:Key="BooleanNegationToVisibilityConverter"/>
-    <converters:BoolToImageConverter x:Key="BoolToImageConverter"/>
-
-    <converters:ChannelTimeLeftConverter x:Key="ChannelTimeLeftConverter"/>
-    <converters:OrdinaryColorToTranspantConverter x:Key="OrdinaryColorToTranspantConverter"/>
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="pack://application:,,,/DoubanFM.Desktop.Resource;component/Themes/Common.xaml"/>
         <ResourceDictionary Source="pack://application:,,,/DoubanFM.Desktop.Resource;component/Themes/MetroAnimatedTabControl.xaml"/>
