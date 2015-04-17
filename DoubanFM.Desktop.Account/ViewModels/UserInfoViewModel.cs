@@ -72,5 +72,13 @@ namespace DoubanFM.Desktop.Account.ViewModels
                 }
             }
         }
+
+
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            this.User = null;
+        }
     }
 }

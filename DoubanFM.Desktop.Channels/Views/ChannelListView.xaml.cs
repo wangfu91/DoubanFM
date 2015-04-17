@@ -29,7 +29,6 @@ namespace DoubanFM.Desktop.Channels.Views
         public ChannelListView(ChannelListViewModel viewModel)
             : this()
         {
-            InitializeComponent();
             this.DataContext = viewModel;
         }
     }

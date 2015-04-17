@@ -9,20 +9,23 @@ namespace DoubanFM.Desktop.Infrastructure
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
-
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
-            if (!disposed)
+            if (this.disposed)
             {
-                if (disposing)
-                {
-                    //TODO:Implement Dispose method.
-                }
-                disposed = true;
+                return;
             }
+
+            if (disposing)
+            {
+                //TODO: release some common object, eg. logger.
+            }
+
+            this.disposed = true;
         }
     }
 

@@ -75,5 +75,10 @@ namespace DoubanFM.Desktop.Account.ViewModels
 
         public ICommand LoginCommand { get; set; }
 
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+        }
+
     }
 }

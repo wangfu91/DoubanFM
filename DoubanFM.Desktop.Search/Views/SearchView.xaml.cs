@@ -1,4 +1,4 @@
-﻿using DoubanFM.Desktop.NowPlaying.ViewModels;
+﻿using DoubanFM.Desktop.Search.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,26 +14,22 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace DoubanFM.Desktop.NowPlaying.Views
+namespace DoubanFM.Desktop.Search.Views
 {
     /// <summary>
-    /// Interaction logic for NowPlayingView.xaml
+    /// Interaction logic for SearchView.xaml
     /// </summary>
-    public partial class NowPlayingView : UserControl
+    public partial class SearchView : UserControl
     {
-        //The default parameter-less constructor is necessary to allow the view to work in design-time tools,
-        //sunch as VS and Blend.
-        public NowPlayingView()
+        public SearchView()
         {
             InitializeComponent();
         }
 
-        public NowPlayingView(NowPlayingViewModel viewModel)
+        public SearchView(SearchViewModel viewModel)
             : this()
         {
             this.DataContext = viewModel;
-            this.spectrumAnalyzer.RegisterSoundPlayer(viewModel.Player);
         }
-
     }
 }

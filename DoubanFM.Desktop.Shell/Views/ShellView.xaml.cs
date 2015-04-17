@@ -33,5 +33,6 @@ namespace DoubanFM.Desktop.Shell.Views
         {
             this.DataContext = viewModel;
         }
+
     }
 }

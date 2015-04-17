@@ -2,9 +2,11 @@
 		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 		xmlns:prism="http://www.codeplex.com/prism"
 		xmlns:Controls="clr-namespace:DoubanFM.Desktop.Resource.Controls;assembly=DoubanFM.Desktop.Resource"
+        xmlns:Infrastructure="clr-namespace:DoubanFM.Desktop.Infrastructure;assembly=DoubanFM.Desktop.Infrastructure"
 		mc:Ignorable="d"            
 		Title="DoubanFM" 
 		WindowStyle="None"		
@@ -57,17 +59,23 @@
                                          Controls:TabControlHelper.IsUnderlined="True"
                                          Controls:TabControlHelper.Transition="Up"
                                          TabStripPlacement="Left" >
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged" >
+                    <prism:InvokeCommandAction Command="{Binding ModuleLoadRequestCommand}" TriggerParameterPath="AddedItems"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
             <Controls:MetroTabItem Header="{StaticResource TabItemChannels}" Style="{StaticResource CustomTabItemStyle}" >
-                <ContentControl x:Name="channels" prism:RegionManager.RegionName="ChannelsRegion" />
+                <ContentControl x:Name="channels" prism:RegionManager.RegionName="ChannelsRegion" Tag="Channel"/>
             </Controls:MetroTabItem>
             <Controls:MetroTabItem Header="{StaticResource TabItemSearch}" >
-                <ContentControl x:Name="search" prism:RegionManager.RegionName="SearchRegion" />
+                <ContentControl x:Name="search" prism:RegionManager.RegionName="SearchRegion" Tag="Search"/>
             </Controls:MetroTabItem>
             <Controls:MetroTabItem Header="{StaticResource TabItemAccount}" >
-                <ContentControl x:Name="Account" prism:RegionManager.RegionName="AccountRegion" />
+                <ContentControl x:Name="Account" prism:RegionManager.RegionName="AccountRegion" Tag="Account"/>
             </Controls:MetroTabItem>
             <Controls:MetroTabItem Header="{StaticResource TabItemSettings}" >
-                <ContentControl x:Name="settings" prism:RegionManager.RegionName="SettingsRegion" />
+                <ContentControl x:Name="settings" prism:RegionManager.RegionName="SettingsRegion" Tag="Settings" />
             </Controls:MetroTabItem>
         </Controls:MetroAnimatedTabControl>
 

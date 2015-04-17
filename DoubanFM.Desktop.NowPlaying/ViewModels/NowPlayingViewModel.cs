@@ -329,5 +329,23 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
 
         #endregion
 
+        #region Dispose
+
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            this.CurrentAlbumImage = null;
+            this.PlayList = null;
+            this.CurrentSong = null;
+            this.CurrentChannel = null;
+            this.CurrentLyrics = null;
+            this._playEngine.TrackEnded -= playEngine_TrackeEnded;
+            this._timer.Tick -= _timer_Tick;
+            this._currentAlbumImage.DownloadCompleted -= _currentAlbumCover_DownloadCompleted;
+        }
+
+        #endregion
+
+
     }
 }

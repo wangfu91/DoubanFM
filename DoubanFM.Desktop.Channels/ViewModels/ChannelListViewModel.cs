@@ -110,5 +110,12 @@ namespace DoubanFM.Desktop.Channels.ViewModels
             //await GetChannels();
         }
 
+        protected override void Dispose(bool disposing)
+        {
+            base.Dispose(disposing);
+            this.CurrentChannel = null;
+            this.ChannelList = null;
+        }
+
     }
 }

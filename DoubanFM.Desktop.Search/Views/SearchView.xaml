@@ -1,0 +1,53 @@
+﻿<UserControl x:Class="DoubanFM.Desktop.Search.Views.SearchView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DoubanFM.Desktop.Search.Views"
+             xmlns:extension="clr-namespace:DoubanFM.Desktop.Infrastructure.Extension;assembly=DoubanFM.Desktop.Infrastructure"
+             xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:design="clr-namespace:DoubanFM.Desktop.Search.Design"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300" extension:d.Background="DeepSkyBlue">
+             <!--d:DataContext="{d:DesignInstance design:SearchDesignViewModel,IsDesignTimeCreatable=True}">-->
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/DoubanFM.Desktop.Resource;component/Themes/Common.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <TextBox Margin="10"
+                         Controls:TextBoxHelper.Watermark="Search..."
+                         Controls:TextBoxHelper.ClearTextButton="True"
+                         Controls:TextBoxHelper.ButtonCommand="{Binding StartSearchCommand}">
+            <TextBox.Style>
+                <Style TargetType="{x:Type TextBox}"
+                               BasedOn="{StaticResource SearchMetroTextBox}">
+                    <Style.Triggers>
+                        <Trigger Property="Controls:TextBoxHelper.HasText"
+                                         Value="True">
+                            <Setter Property="Controls:TextBoxHelper.ButtonTemplate"
+                                            Value="{DynamicResource ChromelessButtonTemplate}" />
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </TextBox.Style>
+        </TextBox>
+
+        <Controls:ProgressRing Grid.Row="1"
+                                       IsActive="{Binding IsSearching}"
+                                       Width="60"
+                                       Height="60" />
+
+
+    </Grid>
+</UserControl>
