@@ -36,7 +36,7 @@ namespace DoubanFM.Desktop.Search.ViewModels
         }
         private void Search()
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
         }
 
         protected override void Dispose(bool disposing)

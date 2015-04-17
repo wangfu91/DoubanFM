@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Media;
 
 namespace DoubanFM.Desktop.NowPlaying.Design
 {
@@ -31,8 +32,20 @@ namespace DoubanFM.Desktop.NowPlaying.Design
                 Length=257,
                 Picture = "http://img3.douban.com/lpic/s4165622.jpg"
             };
+
+            CurrentChannel = new Channel
+            {
+                Name = "华语"
+            };
+
+            BackgroundColor = new SolidColorBrush(Colors.DeepSkyBlue);
+            
         }
 
         public Song CurrentSong { get; set; }
+
+        public Channel CurrentChannel { get; set; }
+
+        public Brush BackgroundColor { get; set; }
     }
 }

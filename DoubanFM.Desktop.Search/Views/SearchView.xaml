@@ -8,8 +8,8 @@
              xmlns:Controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:design="clr-namespace:DoubanFM.Desktop.Search.Design"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" extension:d.Background="DeepSkyBlue">
-             <!--d:DataContext="{d:DesignInstance design:SearchDesignViewModel,IsDesignTimeCreatable=True}">-->
+             d:DesignHeight="300" d:DesignWidth="255" extension:d.Background="DeepSkyBlue"
+             d:DataContext="{d:DesignInstance design:SearchDesignViewModel,IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -20,28 +20,15 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid>
+    <Grid Width="255">
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
-        <TextBox Margin="10"
+        <TextBox Margin="10" 
                          Controls:TextBoxHelper.Watermark="Search..."
-                         Controls:TextBoxHelper.ClearTextButton="True"
-                         Controls:TextBoxHelper.ButtonCommand="{Binding StartSearchCommand}">
-            <TextBox.Style>
-                <Style TargetType="{x:Type TextBox}"
-                               BasedOn="{StaticResource SearchMetroTextBox}">
-                    <Style.Triggers>
-                        <Trigger Property="Controls:TextBoxHelper.HasText"
-                                         Value="True">
-                            <Setter Property="Controls:TextBoxHelper.ButtonTemplate"
-                                            Value="{DynamicResource ChromelessButtonTemplate}" />
-                        </Trigger>
-                    </Style.Triggers>
-                </Style>
-            </TextBox.Style>
-        </TextBox>
+                         Controls:TextBoxHelper.ButtonCommand="{Binding StartSearchCommand}"
+                         Style="{DynamicResource SearchMetroTextBox}"/>
 
         <Controls:ProgressRing Grid.Row="1"
                                        IsActive="{Binding IsSearching}"

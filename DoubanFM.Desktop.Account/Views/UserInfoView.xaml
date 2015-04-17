@@ -7,7 +7,7 @@
              xmlns:design="clr-namespace:DoubanFM.Desktop.Account.Design"
              xmlns:extension="clr-namespace:DoubanFM.Desktop.Infrastructure.Extension;assembly=DoubanFM.Desktop.Infrastructure"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="260" extension:d.Background="DeepSkyBlue"
+             d:DesignHeight="300" d:DesignWidth="255" extension:d.Background="DeepSkyBlue"
              d:DataContext="{d:DesignInstance design:UserInfoDesignViewModel,IsDesignTimeCreatable=True}">
     <UserControl.Resources>
         <ResourceDictionary>
@@ -41,7 +41,7 @@
             <RowDefinition Height="60"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-            <Border Margin="5" CornerRadius="40" BorderBrush="White" BorderThickness="2" Height="80" Width="80" 
+            <Border Margin="10" CornerRadius="40" BorderBrush="White" BorderThickness="2" Height="80" Width="80" 
                 Background="{StaticResource DefaultUserImageBrush}" ClipToBounds="True">
                 <Image Source="{Binding User.Icon}" Stretch="Uniform" >
                     <Image.Clip>

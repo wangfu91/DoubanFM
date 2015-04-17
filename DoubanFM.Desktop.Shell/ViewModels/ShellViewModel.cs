@@ -74,7 +74,7 @@ namespace DoubanFM.Desktop.Shell.ViewModels
                     this._moduleManager.LoadModule("AccountModule");
                     break;
                 case "Search":
-                    //this._moduleManager.LoadModule(RegionNames.Search);
+                    this._moduleManager.LoadModule("SearchModule");
                     break;
                 case "Settings":
                     this._moduleManager.LoadModule("SettingsModule");

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
@@ -31,6 +32,8 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
         private IEventAggregator _eventAggregator;
         private bool _isLoggedIn;
         private BitmapImage _currentAlbumImage;
+        private Brush _backgroundColor;
+
         #endregion
 
         #region Constructor
@@ -160,6 +163,19 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
             }
         }
 
+        public Brush BackgroundColor
+        {
+            get { return _backgroundColor; }
+            set
+            {
+                if (value != _backgroundColor)
+                {
+                    _backgroundColor = value;
+                    OnPropertyChanged(() => this.BackgroundColor);
+                }
+            }
+        }
+
         #endregion
 
         #region Commands
@@ -179,7 +195,7 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
             if (Player.PlayCommand.CanExecute(null))
                 Player.PlayCommand.Execute(null);
 
-            //await GetLyrics();
+            await GetLyrics();
         }
 
         private void LoadAlbumImage()
@@ -324,6 +340,7 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
         {
             var bmp = sender as BitmapImage;
             var color = ColorFunctions.GetImageColor(bmp);
+            this.BackgroundColor = new SolidColorBrush(color);
             _eventAggregator.GetEvent<SwitchBackgroudColorEvent>().Publish(color);
         }
 

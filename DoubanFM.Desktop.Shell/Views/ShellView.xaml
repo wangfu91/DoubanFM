@@ -7,6 +7,7 @@
 		xmlns:prism="http://www.codeplex.com/prism"
 		xmlns:Controls="clr-namespace:DoubanFM.Desktop.Resource.Controls;assembly=DoubanFM.Desktop.Resource"
         xmlns:Infrastructure="clr-namespace:DoubanFM.Desktop.Infrastructure;assembly=DoubanFM.Desktop.Infrastructure"
+        xmlns:extension="clr-namespace:DoubanFM.Desktop.Infrastructure.Extension;assembly=DoubanFM.Desktop.Infrastructure"
 		mc:Ignorable="d"            
 		Title="DoubanFM" 
 		WindowStyle="None"		
@@ -14,7 +15,8 @@
 		WindowStartupLocation="CenterScreen"
         AllowsTransparency="True"
 		Background="{Binding BackgroundColor}"
-		d:DesignHeight="300" d:DesignWidth="600">
+		d:DesignHeight="300" d:DesignWidth="600" 
+        extension:d.Background="DeepSkyBlue">
 
     <Grid x:Name="Layout" Height="300" Width="600" >
         <Grid.Triggers>

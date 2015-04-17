@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.22609.0
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40302.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DoubanFM.Desktop.Tests", "DoubanFM.Desktop.Tests", "{37EC7D07-3463-4892-9008-F569289F1A97}"
 EndProject
@@ -60,6 +60,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{F37C62
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DoubanFM.Desktop.Search", "DoubanFM.Desktop.Search\DoubanFM.Desktop.Search.csproj", "{1A3768F2-D4CA-4ECA-89B3-EDF5C8EA752C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "screenshots", "screenshots", "{BEABBBE4-98FC-4534-9E2A-E9B86684FAC6}"
+	ProjectSection(SolutionItems) = preProject
+		screenshots\screenShot01.PNG = screenshots\screenShot01.PNG
+		screenshots\screenShot02.PNG = screenshots\screenShot02.PNG
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -459,5 +465,6 @@ Global
 		{A73E77F6-3104-48B4-94A3-00355C16411A} = {333A5489-BB60-4A3B-85E4-EC8A32981048}
 		{014DF920-27F9-41CD-BD25-86202A051C57} = {37EC7D07-3463-4892-9008-F569289F1A97}
 		{1A3768F2-D4CA-4ECA-89B3-EDF5C8EA752C} = {333A5489-BB60-4A3B-85E4-EC8A32981048}
+		{BEABBBE4-98FC-4534-9E2A-E9B86684FAC6} = {A9C8536E-29F9-412C-9F40-97792713BBB3}
 	EndGlobalSection
 EndGlobal
