@@ -225,6 +225,10 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
             {
                 _lyricsController = new LyricController(_lyrics);
             }
+            else
+            {
+                CurrentLyrics = string.Empty;
+            }
         }
 
         private void SetPlayList(SongResult result)
