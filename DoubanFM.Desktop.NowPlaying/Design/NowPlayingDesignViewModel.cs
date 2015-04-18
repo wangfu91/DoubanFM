@@ -24,21 +24,23 @@ namespace DoubanFM.Desktop.NowPlaying.Design
         {
             CurrentSong=new Song
             {
-                Artist="张靓颖",
-                Company="少城时代",
-                Title="朝思暮想",
-                AlbumTitle="我相信",
+                Artist = "Rogue Wave",
+                Company = "Hollywood Records",
+                Title = "No Time",
+                AlbumTitle = "Iron Man 3: Heroe...",
                 Like=true,
-                Length=257,
-                Picture = "http://img3.douban.com/lpic/s4165622.jpg"
+                Length=194,
+                Picture = "http://img5.douban.com/lpic/s26379626.jpg"
             };
 
             CurrentChannel = new Channel
             {
-                Name = "华语"
+                Name = "红心兆赫"
             };
 
             BackgroundColor = new SolidColorBrush(Colors.DeepSkyBlue);
+
+            CurrentAlbumImage = CurrentSong.Picture;
             
         }
 
@@ -47,5 +49,7 @@ namespace DoubanFM.Desktop.NowPlaying.Design
         public Channel CurrentChannel { get; set; }
 
         public Brush BackgroundColor { get; set; }
+
+        public string CurrentAlbumImage { get; set; }
     }
 }

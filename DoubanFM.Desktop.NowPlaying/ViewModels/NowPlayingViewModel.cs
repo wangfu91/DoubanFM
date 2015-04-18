@@ -9,6 +9,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -200,12 +201,13 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
 
         private void LoadAlbumImage()
         {
-            _currentAlbumImage = new BitmapImage();
-            _currentAlbumImage.BeginInit();
-            _currentAlbumImage.DownloadCompleted += _currentAlbumCover_DownloadCompleted;
-            _currentAlbumImage.UriSource = new Uri(CurrentSong.Picture);
-            _currentAlbumImage.EndInit();
-            this.CurrentAlbumImage = _currentAlbumImage;
+            //Always initialize BitmapImage from UI thread, so that there won't be any cross thread issue,
+            //also DownloadCompleted event can be fired properly even if invoke this method in an async way.
+            Application.Current.Dispatcher.Invoke(() =>
+                {
+                    _currentAlbumImage = new BitmapImage(new Uri(CurrentSong.Picture));
+                    _currentAlbumImage.DownloadCompleted += _currentAlbumImage_DownloadCompleted;
+                });
         }
 
         private async Task GetSongs()
@@ -311,20 +313,9 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
         #region Event Handlers
         private async void playEngine_TrackeEnded(object sender, EventArgs e)
         {
-
-            if (PlayList.Count > 0)
-            {
-                CurrentSong = PlayList.Dequeue();
-                var result = await _songService.NormalEnd(CurrentSong.SID, CurrentChannel.ChannelId);
-                SetPlayList(result);
-            }
-            else
-            {
-                var result = await _songService.NormalEnd(CurrentSong.SID, CurrentChannel.ChannelId);
-                SetPlayList(result);
-                CurrentSong = PlayList.Dequeue();
-            }
+            await PlayNext();
         }
+
 
         private async void _timer_Tick(object sender, EventArgs e)
         {
@@ -336,10 +327,10 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
             }
         }
 
-        private void _currentAlbumCover_DownloadCompleted(object sender, EventArgs e)
+        private void _currentAlbumImage_DownloadCompleted(object sender, EventArgs e)
         {
-            var bmp = sender as BitmapImage;
-            var color = ColorFunctions.GetImageColor(bmp);
+            this.CurrentAlbumImage = _currentAlbumImage;
+            var color = ColorFunctions.GetImageColor(_currentAlbumImage);
             this.BackgroundColor = new SolidColorBrush(color);
             _eventAggregator.GetEvent<SwitchBackgroudColorEvent>().Publish(color);
         }
@@ -358,7 +349,7 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
             this.CurrentLyrics = null;
             this._playEngine.TrackEnded -= playEngine_TrackeEnded;
             this._timer.Tick -= _timer_Tick;
-            this._currentAlbumImage.DownloadCompleted -= _currentAlbumCover_DownloadCompleted;
+            this._currentAlbumImage.DownloadCompleted -= _currentAlbumImage_DownloadCompleted;
         }
 
         #endregion

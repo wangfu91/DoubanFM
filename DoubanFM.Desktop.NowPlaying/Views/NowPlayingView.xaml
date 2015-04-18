@@ -93,29 +93,29 @@
 			</Grid.Triggers>
 			<TextBlock Margin="15,0" Text="{Binding CurrentChannel.Name}" Foreground="White" VerticalAlignment="Center" FontFamily="Segoe UI" />
 			<StackPanel Margin="10,10" Grid.Row="1">
-				<TextBlock  HorizontalAlignment="Left" VerticalAlignment="Top" 
+				<TextBlock  VerticalAlignment="Top" 
 				   Margin="5,0"
 				   Foreground="White"
 				   TextWrapping="NoWrap"
 				   TextTrimming="WordEllipsis"
-				   Text="{Binding CurrentSong.Artist}" FontFamily="Segoe UI Light" FontSize="36"
+				   Text="{Binding CurrentSong.Artist}" FontFamily="Segoe UI" FontSize="36"
 				   />
-				<TextBlock HorizontalAlignment="Left" VerticalAlignment="Top"
+				<TextBlock VerticalAlignment="Top"
 				   Margin="5,0"
 				   Foreground="White"
 				   TextWrapping="NoWrap"
 				   TextTrimming="WordEllipsis"
-				   Text="{Binding CurrentSong.AlbumTitle,Mode=TwoWay}" FontFamily="Segoe UI Light" FontSize="12"
+				   Text="{Binding CurrentSong.AlbumTitle,Mode=TwoWay}" FontFamily="Segoe UI"
 				   />
 			</StackPanel>
 
 			<StackPanel Grid.Row="2" Margin="10,10">
-				<TextBlock HorizontalAlignment="Left" VerticalAlignment="Top"
+				<TextBlock VerticalAlignment="Top"
 				   Foreground="White"
 				   Margin="5,5"
 				   TextWrapping="NoWrap" 
 				   TextTrimming="WordEllipsis"
-				   Text="{Binding CurrentSong.Title}" FontFamily="Segoe UI Light" FontSize="16" />
+				   Text="{Binding CurrentSong.Title}" FontFamily="Segoe UI" FontSize="16" />
 				<ProgressBar Margin="5,5" Height="6" IsIndeterminate="False"  Style="{StaticResource MetroProgressBarStyle}" Minimum="0" Maximum="{Binding Player.ChannelLength}" Value="{Binding Player.ChannelPosition}" />
 				<StackPanel Margin="5,5" HorizontalAlignment="Right" Orientation="Horizontal">
 					<!--<resLib:VolumeControl Width="120" Margin="10,0" HorizontalAlignment="Right"
