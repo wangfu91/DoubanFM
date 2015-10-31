@@ -1,16 +1,11 @@
 ﻿using DoubanFM.Desktop.API.Services;
 using DoubanFM.Desktop.Audio;
 using DoubanFM.Desktop.Infrastructure;
-using DoubanFM.Desktop.NowPlaying.ViewModels;
-using Microsoft.Practices.Prism.Modularity;
-using Microsoft.Practices.Prism.PubSubEvents;
-using Microsoft.Practices.Prism.Regions;
+using Prism.Events;
+using Prism.Modularity;
+using Prism.Regions;
 using Microsoft.Practices.Unity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace DoubanFM.Desktop.NowPlaying
 {

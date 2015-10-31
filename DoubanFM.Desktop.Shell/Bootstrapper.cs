@@ -1,12 +1,13 @@
 ﻿using DoubanFM.Desktop.Resource.Controls;
 using DoubanFM.Desktop.Shell.ViewModels;
 using DoubanFM.Desktop.Shell.Views;
-using Microsoft.Practices.Prism.Modularity;
-using Microsoft.Practices.Prism.UnityExtensions;
 using Microsoft.Practices.Unity;
 using Microsoft.Practices.ServiceLocation;
 using System.Windows;
-using Microsoft.Practices.Prism.PubSubEvents;
+using Prism.Unity;
+using Prism.Logging;
+using Prism.Events;
+using Prism.Modularity;
 
 namespace DoubanFM.Desktop.Shell
 {
@@ -45,7 +46,7 @@ namespace DoubanFM.Desktop.Shell
         /// Create the <see cref="ILoggerFacade"/> Used by the bootstrapper.
         /// </summary>
         /// <returns></returns>
-        protected override Microsoft.Practices.Prism.Logging.ILoggerFacade CreateLogger()
+        protected override ILoggerFacade CreateLogger()
         {
             //return base.CreateLogger();
 

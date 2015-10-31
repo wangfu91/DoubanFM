@@ -2,14 +2,10 @@
 using DoubanFM.Desktop.API.Services;
 using DoubanFM.Desktop.Infrastructure;
 using DoubanFM.Desktop.Infrastructure.Events;
-using Microsoft.Practices.Prism.PubSubEvents;
 using System.Collections.ObjectModel;
-using System;
 using System.Threading.Tasks;
-using System.ComponentModel;
-using System.Windows.Data;
-using System.Collections.Generic;
 using System.Linq;
+using Prism.Events;
 
 namespace DoubanFM.Desktop.Channels.ViewModels
 {

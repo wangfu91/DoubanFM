@@ -1,5 +1,5 @@
-﻿using Microsoft.Practices.Prism.Commands;
-using NAudio.Wave;
+﻿using NAudio.Wave;
+using Prism.Commands;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;

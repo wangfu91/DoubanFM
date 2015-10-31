@@ -1,14 +1,9 @@
 ﻿using DoubanFM.Desktop.Infrastructure;
 using DoubanFM.Desktop.Infrastructure.Events;
-using Microsoft.Practices.Prism.Commands;
-using Microsoft.Practices.Prism.Modularity;
-using Microsoft.Practices.Prism.PubSubEvents;
-using System;
+using Prism.Commands;
+using Prism.Events;
+using Prism.Modularity;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;

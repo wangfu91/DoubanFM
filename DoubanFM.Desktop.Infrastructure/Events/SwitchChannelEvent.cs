@@ -1,5 +1,5 @@
 ﻿using DoubanFM.Desktop.API.Models;
-using Microsoft.Practices.Prism.PubSubEvents;
+using Prism.Events;
 
 namespace DoubanFM.Desktop.Infrastructure.Events
 {

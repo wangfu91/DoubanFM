@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Prism.PubSubEvents;
+﻿using Prism.Events;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,9 +1,9 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
-using Microsoft.Practices.Prism.PubSubEvents;
 using DoubanFM.Desktop.API.Services;
 using DoubanFM.Desktop.Audio;
+using Moq;
+using Prism.Events;
 
 namespace DoubanFM.Desktop.NowPlaying.Tests
 {

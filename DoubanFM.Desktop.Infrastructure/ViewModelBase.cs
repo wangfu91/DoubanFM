@@ -1,4 +1,4 @@
-﻿using Microsoft.Practices.Prism.Mvvm;
+﻿using Prism.Mvvm;
 using System;
 
 namespace DoubanFM.Desktop.Infrastructure

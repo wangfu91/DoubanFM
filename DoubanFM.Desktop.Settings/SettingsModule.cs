@@ -1,13 +1,7 @@
-﻿using DoubanFM.Desktop.API.Services;
-using DoubanFM.Desktop.Infrastructure;
-using Microsoft.Practices.Prism.Modularity;
-using Microsoft.Practices.Prism.Regions;
+﻿using DoubanFM.Desktop.Infrastructure;
 using Microsoft.Practices.Unity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Prism.Modularity;
+using Prism.Regions;
 
 namespace DoubanFM.Desktop.Settings
 {
