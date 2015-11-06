@@ -15,9 +15,9 @@ namespace DoubanFM.Desktop.API.Tests
         {
             loginResult = new LoginResult
             {
-                UserId = "67242159",
-                Token = "7c2c65101c",
-                Expire = "1434431471"
+                DoubanUserId = "67242159",
+                AccessToken = "7c2c65101c",
+                ExpireIn = 1434431471
             };
         }
 
@@ -69,9 +69,9 @@ namespace DoubanFM.Desktop.API.Tests
             var loginSerice = new LoginService();
             var loginInfo = await loginSerice.LoginWithEmail("wangfu91@hotmail.com", "wf19912012");
             Assert.IsNotNull(loginInfo);
-            if (string.IsNullOrEmpty(loginInfo.Token))
+            if (string.IsNullOrEmpty(loginInfo.AccessToken))
             {
-                Assert.Fail(loginInfo.Err);
+                Assert.Fail();
             }
         }
 
@@ -81,9 +81,9 @@ namespace DoubanFM.Desktop.API.Tests
             var loginSerice = new LoginService();
             var loginInfo = await loginSerice.LoginWithUserName("Coding4u", "wf19912012");
             Assert.IsNotNull(loginInfo);
-            if (string.IsNullOrEmpty(loginInfo.Token))
+            if (string.IsNullOrEmpty(loginInfo.AccessToken))
             {
-                Assert.Fail(loginInfo.Err);
+                Assert.Fail();
             }
         }
 
@@ -91,7 +91,7 @@ namespace DoubanFM.Desktop.API.Tests
         public async Task GetUsesrInfoTest()
         {
             var userService = new UserService();
-            var user = await userService.GetUserInfo("67242159", "7c2c65101c", "1434431471");
+            var user = await userService.GetUserInfo("67242159", "7c2c65101c", 1434431471);
             Assert.IsNotNull(user);
             Assert.IsFalse(string.IsNullOrEmpty(user.Name));
         }

@@ -43,7 +43,7 @@ namespace DoubanFM.Desktop.Account.ViewModels
             if (!string.IsNullOrWhiteSpace(password.ToString()))
             {
                 _loginResult = await _loginService.LoginWithEmail(UserEmail, password.ConvertToUnsecureString());
-                if (_loginResult.R == "0")
+                if (!string.IsNullOrEmpty(_loginResult.AccessToken))
                 {
                     _eventAggregator.GetEvent<UserStateChangedEvent>().Publish(_loginResult);
                 }

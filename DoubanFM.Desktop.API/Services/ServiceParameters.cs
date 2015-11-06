@@ -6,12 +6,27 @@ namespace DoubanFM.Desktop.API.Services
     {
         public string app_name
         {
-            get { return "radio_desktop_win"; }
+            get { return "radio_win8"; }
         }
 
         public string version
         {
-            get { return "100"; }
+            get { return "1"; }
+        }
+
+        public string from
+        {
+            get { return "s:win8|y:win8desktop|f:1"; }
+        }
+
+        public string context
+        {
+            get { return "fmwin8app"; }
+        }
+
+        public string apikey
+        {
+            get { return "01620243a8d2134d042606cafa7639e7"; }
         }
     }
 
@@ -31,7 +46,7 @@ namespace DoubanFM.Desktop.API.Services
 
         public string token { get; set; }
 
-        public string expire { get; set; }
+        public long expire { get; set; }
 
         public UserParams()
         {
@@ -40,9 +55,9 @@ namespace DoubanFM.Desktop.API.Services
 
         public UserParams(LoginResult loginResult)
         {
-            this.user_id = loginResult.UserId;
-            this.token = loginResult.Token;
-            this.expire = loginResult.Expire;
+            this.user_id = loginResult.DoubanUserId;
+            this.token = loginResult.AccessToken;
+            this.expire = loginResult.ExpireIn;
         }
 
     }

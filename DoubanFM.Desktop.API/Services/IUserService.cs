@@ -5,6 +5,6 @@ namespace DoubanFM.Desktop.API.Services
 {
     public interface IUserService
     {
-        Task<User> GetUserInfo(string userId, string token, string expire);
+        Task<User> GetUserInfo(string userId, string token, long expire);
     }
 }

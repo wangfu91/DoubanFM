@@ -45,9 +45,9 @@ namespace DoubanFM.Desktop.Account.ViewModels
         private async Task GetUserInfo()
         {
             var userInfo = await this._userService.GetUserInfo(
-                this._loginResult.UserId,
-                this._loginResult.Token,
-                this._loginResult.Expire);
+                this._loginResult.DoubanUserId,
+                this._loginResult.AccessToken,
+                this._loginResult.ExpireIn);
 
             if (userInfo != null)
             {
