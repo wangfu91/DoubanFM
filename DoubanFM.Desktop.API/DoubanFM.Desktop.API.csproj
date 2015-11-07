@@ -59,7 +59,7 @@
     <Compile Include="Models\ProRate.cs" />
     <Compile Include="Models\Song.cs" />
     <Compile Include="Models\SongInfo.cs" />
-    <Compile Include="Models\SongResult.cs" />
+    <Compile Include="Models\PlayList.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\ChannelService.cs" />
@@ -71,8 +71,8 @@
     <Compile Include="Services\LoginService.cs" />
     <Compile Include="Services\LyricController.cs" />
     <Compile Include="Services\LyricsService.cs" />
+    <Compile Include="Services\SearchService.cs" />
     <Compile Include="Services\ServiceBase.cs" />
-    <Compile Include="Services\ServiceParameters.cs" />
     <Compile Include="Services\SongService.cs" />
     <Compile Include="Services\UserService.cs" />
   </ItemGroup>
@@ -80,12 +80,16 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="SampleData\Channels.json" />
+    <None Include="SampleData\app_channels.json" />
+    <None Include="SampleData\hot_channels.json" />
     <None Include="SampleData\LoginResult.json" />
+    <None Include="SampleData\playlist.json" />
+    <None Include="SampleData\rec_channels.json" />
     <None Include="SampleData\RedHeart.json" />
     <None Include="SampleData\SongInfo.json" />
     <None Include="SampleData\Songs.json" />
-    <None Include="SampleData\UserInfo.json" />
+    <None Include="SampleData\up_trending_channels.json" />
+    <None Include="SampleData\user_info.json" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
@@ -96,6 +100,7 @@
     </PropertyGroup>
     <Error Condition="!Exists('$(SolutionDir)\.nuget\NuGet.targets')" Text="$([System.String]::Format('$(ErrorText)', '$(SolutionDir)\.nuget\NuGet.targets'))" />
   </Target>
+  <ProjectExtensions />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

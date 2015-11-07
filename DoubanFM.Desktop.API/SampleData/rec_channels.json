@@ -1,0 +1,23 @@
+{
+  "status": true,
+  "data": {
+    "channels": [
+      {
+        "song_to_start": "",
+        "intro": "为你推荐 林宥嘉 以及相似的艺术家",
+        "name": "林宥嘉 系",
+        "song_num": 0,
+        "creator": {
+          "url": "http:\/\/site.douban.com\/douban.fm\/",
+          "name": "豆瓣FM",
+          "id": 1
+        },
+        "collected": "false",
+        "banner": "http:\/\/img4.douban.com\/img\/fmadmin\/chlBanner\/31348.jpg",
+        "cover": "http:\/\/img4.douban.com\/img\/fmadmin\/icon\/31348.jpg",
+        "id": 21167,
+        "hot_songs": [ "如同悲伤被下载了两次", "光影", "晚安" ]
+      }
+    ]
+  }
+}

@@ -16,8 +16,8 @@ namespace DoubanFM.Desktop.API.Tests
             loginResult = new LoginResult
             {
                 DoubanUserId = "67242159",
-                AccessToken = "7c2c65101c",
-                ExpireIn = 1434431471
+                AccessToken = "a28eb0e67d934cf0e7ac12b378b9e6d0",
+                ExpireIn = 7776000
             };
         }
 
@@ -28,37 +28,28 @@ namespace DoubanFM.Desktop.API.Tests
         }
 
         [TestMethod]
-        public async Task GetChannelsTest()
+        public async Task GetAppChannelsTest()
         {
-            var channelService = new ChannelService();
-            var channelList = await channelService.GetChannels();
-            Assert.IsNotNull(channelList);
-            Assert.IsTrue(channelList.Channels.Count > 0);
+            var channelService = new ChannelService(loginResult.AccessToken);
+            var channelGroupList = await channelService.GetAppChannels();
+            Assert.IsNotNull(channelGroupList);
+            Assert.IsTrue(channelGroupList.Groups.Count > 0);
         }
+  
 
         [TestMethod]
-        public async Task GetChannelsAfterLoginTest()
+        public async Task GetPlayListByChannelTest()
         {
-            var channelService = new ChannelService(loginResult);
-            var channelList = await channelService.GetChannels();
-            Assert.IsNotNull(channelList);
-            Assert.IsTrue(channelList.Channels.Count > 0);
-
-        }
-
-        [TestMethod]
-        public async Task GetSongsByChannelTest()
-        {
-            var songService = new SongService();
-            var songs = await songService.GetSongs(1);
-            Assert.IsNotNull(songs);
+            var songService = new SongService(loginResult.AccessToken);
+            var songs = await songService.GetPlayList(1);
+            Assert.IsNotNull(songs.Songs);
         }
 
         [TestMethod]
         public async Task GetLikedSongsTest()
         {
-            var songService = new SongService(loginResult);
-            var songs = await songService.GetSongs(-3);
+            var songService = new SongService(loginResult.AccessToken);
+            var songs = await songService.GetPlayList(-3);
             Assert.IsNotNull(songs);
         }
 
@@ -74,24 +65,13 @@ namespace DoubanFM.Desktop.API.Tests
                 Assert.Fail();
             }
         }
-
-        [TestMethod]
-        public async Task LoginWithUserNameTest()
-        {
-            var loginSerice = new LoginService();
-            var loginInfo = await loginSerice.LoginWithUserName("Coding4u", "wf19912012");
-            Assert.IsNotNull(loginInfo);
-            if (string.IsNullOrEmpty(loginInfo.AccessToken))
-            {
-                Assert.Fail();
-            }
-        }
+ 
 
         [TestMethod]
         public async Task GetUsesrInfoTest()
         {
             var userService = new UserService();
-            var user = await userService.GetUserInfo("67242159", "7c2c65101c", 1434431471);
+            var user = await userService.GetUserInfo(loginResult.DoubanUserId, loginResult.AccessToken);
             Assert.IsNotNull(user);
             Assert.IsFalse(string.IsNullOrEmpty(user.Name));
         }
@@ -99,7 +79,7 @@ namespace DoubanFM.Desktop.API.Tests
         [TestMethod]
         public async Task LikeASongTest()
         {
-            var songService = new SongService(loginResult);
+            var songService = new SongService(loginResult.AccessToken);
             var result = await songService.Like("1742969", 1);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.R == 0);
@@ -108,7 +88,7 @@ namespace DoubanFM.Desktop.API.Tests
         [TestMethod]
         public async Task UnlikeASongTest()
         {
-            var songService = new SongService(loginResult);
+            var songService = new SongService(loginResult.AccessToken);
 
             var result = await songService.Unlike("1742969", 1);
             Assert.IsNotNull(result);
@@ -118,7 +98,7 @@ namespace DoubanFM.Desktop.API.Tests
         [TestMethod]
         public async Task BanASongTest()
         {
-            var songService = new SongService(loginResult);
+            var songService = new SongService(loginResult.AccessToken);
             var result = await songService.Ban("1671513", 1);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.R == 0);
@@ -127,7 +107,7 @@ namespace DoubanFM.Desktop.API.Tests
         [TestMethod]
         public async Task NormalEndASongTest()
         {
-            var songService = new SongService(loginResult);
+            var songService = new SongService(loginResult.AccessToken);
             var result = await songService.NormalEnd("1742969", 1);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.R == 0);
@@ -136,7 +116,7 @@ namespace DoubanFM.Desktop.API.Tests
         [TestMethod]
         public async Task SkipASongTest()
         {
-            var songService = new SongService(loginResult);
+            var songService = new SongService(loginResult.AccessToken);
             var result = await songService.Skip("1742969", 1);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.R == 0);

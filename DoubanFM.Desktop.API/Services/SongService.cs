@@ -1,4 +1,6 @@
 ﻿using DoubanFM.Desktop.API.Models;
+using System.Collections.Generic;
+using System.Net.Http;
 using System.Threading.Tasks;
 
 namespace DoubanFM.Desktop.API.Services
@@ -20,69 +22,90 @@ namespace DoubanFM.Desktop.API.Services
 
         private const string playList = "playlist";
         private const string likedSongs = "liked_songs";
+        private const string songDetail = "song_detail";
+        private const string songUrl = "song_url";
 
-        private SongParams songParams;
+        private string accessToken;
 
-        public SongService()
+        public SongService(string accessToken)
         {
-            songParams = new SongParams();
+            this.accessToken = accessToken;
         }
 
-        public SongService(LoginResult loginResult)
+        public SongService() { }
+
+        public async Task<PlayList> GetPlayList(int channel)
         {
-            songParams = new SongParams
+            var paramSet = new Dictionary<string, string>
             {
-                user_id = loginResult.AccessToken,
-                token = loginResult.AccessToken,
-                expire = loginResult.ExpireIn
+                { "channel",channel.ToString() },
+                {"type","n" }
             };
+            var requestUri = BuildRequestUri(BaseUrl, playList, paramSet);
+
+            return await SendRequestAsync<PlayList>(requestUri, accessToken, HttpMethod.Post);
         }
 
-        public async Task<SongResult> GetSongs(int channel)
+        public async Task<PlayList> Like(string sid, int channel)
         {
-            songParams.channel = channel.ToString();
-            songParams.type = "n";
-            return await Post<SongResult>(playList, songParams);
+            var paramSet = new Dictionary<string, string>
+            {
+                {"sid",sid },
+                { "channel",channel.ToString() },
+                {"type","r" }
+            };
+            var requestUri = BuildRequestUri(BaseUrl, playList, paramSet);
+            return await SendRequestAsync<PlayList>(requestUri, accessToken, HttpMethod.Get);
+          
         }
 
-        public async Task<SongResult> Like(string sid, int channel)
+        public async Task<PlayList> Unlike(string sid, int channel)
         {
-            songParams.sid = sid;
-            songParams.channel = channel.ToString();
-            songParams.type = "r";
-            return await Get<SongResult>(playList, songParams);
+            var paramSet = new Dictionary<string, string>
+            {
+                {"sid",sid },
+                { "channel",channel.ToString() },
+                {"type","u" }
+            };
+            var requestUri = BuildRequestUri(BaseUrl, playList, paramSet);
+            return await SendRequestAsync<PlayList>(requestUri, accessToken, HttpMethod.Get);
         }
 
-        public async Task<SongResult> Unlike(string sid, int channel)
+        public async Task<PlayList> Ban(string sid, int channel)
         {
-            songParams.sid = sid;
-            songParams.channel = channel.ToString();
-            songParams.type = "u";
-            return await Get<SongResult>(playList, songParams);
+            var paramSet = new Dictionary<string, string>
+            {
+                {"sid",sid },
+                { "channel",channel.ToString() },
+                {"type","b" }
+            };
+            var requestUri = BuildRequestUri(BaseUrl, playList, paramSet);
+            return await SendRequestAsync<PlayList>(requestUri, accessToken, HttpMethod.Get);
+
         }
 
-        public async Task<SongResult> Ban(string sid, int channel)
+        public async Task<PlayList> Skip(string sid, int channel)
         {
-            songParams.sid = sid;
-            songParams.channel = channel.ToString();
-            songParams.type = "b";
-            return await Get<SongResult>(playList, songParams);
+            var paramSet = new Dictionary<string, string>
+            {
+                {"sid",sid },
+                { "channel",channel.ToString() },
+                {"type","s" }
+            };
+            var requestUri = BuildRequestUri(BaseUrl, playList, paramSet);
+            return await SendRequestAsync<PlayList>(requestUri, accessToken, HttpMethod.Get);
         }
 
-        public async Task<SongResult> Skip(string sid, int channel)
+        public async Task<PlayList> NormalEnd(string sid, int channel)
         {
-            songParams.sid = sid;
-            songParams.channel = channel.ToString();
-            songParams.type = "s";
-            return await Get<SongResult>(playList, songParams);
-        }
-
-        public async Task<SongResult> NormalEnd(string sid, int channel)
-        {
-            songParams.sid = sid;
-            songParams.channel = channel.ToString();
-            songParams.type = "e";
-            return await Get<SongResult>(playList, songParams);
+            var paramSet = new Dictionary<string, string>
+            {
+                {"sid",sid },
+                { "channel",channel.ToString() },
+                {"type","e" }
+            };
+            var requestUri = BuildRequestUri(BaseUrl, playList, paramSet);
+            return await SendRequestAsync<PlayList>(requestUri, accessToken, HttpMethod.Get);
         }
 
     }

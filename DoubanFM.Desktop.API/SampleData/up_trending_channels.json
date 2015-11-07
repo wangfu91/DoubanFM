@@ -1,0 +1,369 @@
+{
+  "status": true,
+  "data": {
+    "channels": [
+      {
+        "related_artists": [ ],
+        "creator": {
+          "url": "http:\/\/site.douban.com\/douban.fm\/",
+          "name": "豆瓣FM",
+          "id": 1
+        },
+        "intro": "让你的耳朵吸收新鲜正能量",
+        "banner": "http:\/\/img4.douban.com\/img\/fmadmin\/chlBanner\/26376.jpg",
+        "id": 61,
+        "name": "新歌",
+        "cover": "http:\/\/img4.douban.com\/img\/fmadmin\/icon\/26376.jpg",
+        "song_to_start": "",
+        "song_num": "10000+",
+        "collected": "false",
+        "hot_songs": [ "Hello", "一次就好", "星空" ]
+      },
+      {
+        "related_artists": [ ],
+        "creator": {
+          "url": "http:\/\/site.douban.com\/douban.fm\/",
+          "name": "豆瓣FM",
+          "id": 1
+        },
+        "intro": "我不在喝咖啡，就在听咖啡兆赫。",
+        "banner": "http:\/\/img3.doubanio.com\/img\/fmadmin\/chlBanner\/26379.jpg",
+        "id": 32,
+        "name": "咖啡",
+        "cover": "http:\/\/img3.doubanio.com\/img\/fmadmin\/icon\/26379.jpg",
+        "song_to_start": "",
+        "song_num": 1710,
+        "collected": "false",
+        "hot_songs": [ "End Of The World", "Jambalaya", "Hometown Glory" ]
+      },
+      {
+        "related_artists": [ ],
+        "creator": {
+          "url": "http:\/\/site.douban.com\/douban.fm\/",
+          "name": "豆瓣FM",
+          "id": 1
+        },
+        "intro": "生于八零年代的我们，听着这些歌成长",
+        "banner": "http:\/\/img4.douban.com\/img\/fmadmin\/chlBanner\/26386.jpg",
+        "id": 4,
+        "name": "八零",
+        "cover": "http:\/\/img4.douban.com\/img\/fmadmin\/icon\/26386.jpg",
+        "song_to_start": "",
+        "song_num": 883,
+        "collected": "false",
+        "hot_songs": [ "断点 (国)", "She Will Be Loved", "Never Grow Old" ]
+      },
+      {
+        "related_artists": [ ],
+        "creator": {
+          "url": "http:\/\/site.douban.com\/douban.fm\/",
+          "name": "豆瓣FM",
+          "id": 1
+        },
+        "intro": "更新鲜的歌曲，更新鲜的声音",
+        "banner": "http:\/\/img4.douban.com\/img\/fmadmin\/chlBanner\/26387.jpg",
+        "id": 5,
+        "name": "九零",
+        "cover": "http:\/\/img4.douban.com\/img\/fmadmin\/icon\/26387.jpg",
+        "song_to_start": "",
+        "song_num": 874,
+        "collected": "false",
+        "hot_songs": [ "そばにいるね", "无赖 (原唱:主唱:郑中基", "Love Has It All (英)" ]
+      },
+      {
+        "related_artists": [ ],
+        "creator": {
+          "url": "http:\/\/site.douban.com\/douban.fm\/",
+          "name": "豆瓣FM",
+          "id": 1
+        },
+        "intro": "Rock and Roll Ain't Noise Pollution，Welcome to the Jungle.",
+        "banner": "http:\/\/img3.douban.com\/img\/fmadmin\/chlBanner\/31095.jpg",
+        "id": 7,
+        "name": "摇滚",
+        "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/icon\/31095.jpg",
+        "song_to_start": "",
+        "song_num": 3654,
+        "collected": "false",
+        "hot_songs": [ "Don't Cry (original)", "Hotel California", "真的爱你" ]
+      },
+      {
+        "related_artists": [ ],
+        "creator": {
+          "url": "http:\/\/site.douban.com\/douban.fm\/",
+          "name": "豆瓣FM",
+          "id": 1
+        },
+        "intro": "James Blunt、Bob Dylan 以及 Taylor Swift",
+        "banner": "http:\/\/img3.douban.com\/img\/fmadmin\/chlBanner\/26390.jpg",
+        "id": 8,
+        "name": "民谣",
+        "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/icon\/26390.jpg",
+        "song_to_start": "",
+        "song_num": 3781,
+        "collected": "false",
+        "hot_songs": [ "Valder Fields", "Say Hello", "You Belong To Me" ]
+      },
+      {
+        "related_artists": [ ],
+        "creator": {
+          "url": "http:\/\/site.douban.com\/douban.fm\/",
+          "name": "豆瓣FM",
+          "id": 1
+        },
+        "intro": "在属于你的放松地带，释放心灵",
+        "banner": "http:\/\/img3.douban.com\/img\/fmadmin\/chlBanner\/26391.jpg",
+        "id": 9,
+        "name": "轻音乐",
+        "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/icon\/26391.jpg",
+        "song_to_start": "",
+        "song_num": 2736,
+        "collected": "false",
+        "hot_songs": [ "Song From A Secret Garden", "Down By The Salley Gardens" ]
+      },
+      {
+        "related_artists": [ ],
+        "creator": {
+          "url": "http:\/\/site.douban.com\/douban.fm\/",
+          "name": "豆瓣FM",
+          "id": 1
+        },
+        "intro": "彼时感动你的电影，此刻温暖你的声音",
+        "banner": "http:\/\/img3.douban.com\/img\/fmadmin\/chlBanner\/26395.jpg",
+        "id": 10,
+        "name": "电影原声",
+        "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/icon\/26395.jpg",
+        "song_to_start": "",
+        "song_num": 4377,
+        "collected": "false",
+        "hot_songs": [ "The End Of The World", "Le Papillon", "Por Una Cabeza" ]
+      },
+      {
+        "related_artists": [ ],
+        "creator": {
+          "url": "http:\/\/site.douban.com\/douban.fm\/",
+          "name": "豆瓣FM",
+          "id": 1
+        },
+        "intro": "这里没有喧哗与吵闹，静下心来感受世界的美好",
+        "banner": "http:\/\/img3.douban.com\/img\/fmadmin\/chlBanner\/26375.jpg",
+        "id": 76,
+        "name": "小清新",
+        "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/icon\/26375.jpg",
+        "song_to_start": "",
+        "song_num": 180,
+        "collected": "false",
+        "hot_songs": [ "I'll be there", "我 (国语版)", "纪念" ]
+      },
+      {
+        "related_artists": [ ],
+        "creator": {
+          "url": "http:\/\/site.douban.com\/douban.fm\/",
+          "name": "豆瓣FM",
+          "id": 1
+        },
+        "intro": "每天发现一首好听的歌",
+        "banner": "http:\/\/img3.douban.com\/img\/fmadmin\/chlBanner\/26383.jpg",
+        "id": 1,
+        "name": "华语",
+        "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/icon\/26383.jpg",
+        "song_to_start": "",
+        "song_num": 1189,
+        "collected": "false",
+        "hot_songs": [ "蜗牛", "遗憾", "心动" ]
+      },
+      {
+        "related_artists": [ ],
+        "creator": {
+          "url": "http:\/\/site.douban.com\/douban.fm\/",
+          "name": "豆瓣FM",
+          "id": 1
+        },
+        "intro": "关于欧美流行音乐的一切，就在这里了",
+        "banner": "http:\/\/img3.douban.com\/img\/fmadmin\/chlBanner\/26384.jpg",
+        "id": 2,
+        "name": "欧美",
+        "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/icon\/26384.jpg",
+        "song_to_start": "",
+        "song_num": 3599,
+        "collected": "false",
+        "hot_songs": [ "We Are Young (feat. Janelle Monáe)", "Payphone (feat. Wiz Khalifa)", "Good Time" ]
+      },
+      {
+        "related_artists": [ ],
+        "creator": {
+          "url": "http:\/\/site.douban.com\/douban.fm\/",
+          "name": "豆瓣FM",
+          "id": 1
+        },
+        "intro": "那些年我们心水的劲歌金曲",
+        "banner": "http:\/\/img4.douban.com\/img\/fmadmin\/chlBanner\/26388.jpg",
+        "id": 6,
+        "name": "粤语",
+        "cover": "http:\/\/img4.douban.com\/img\/fmadmin\/icon\/26388.jpg",
+        "song_to_start": "",
+        "song_num": 2704,
+        "collected": "false",
+        "hot_songs": [ "真的爱你", "囍帖街", "千秋万世" ]
+      },
+      {
+        "related_artists": [ ],
+        "creator": {
+          "url": "http:\/\/site.douban.com\/douban.fm\/",
+          "name": "豆瓣FM",
+          "id": 1
+        },
+        "intro": "",
+        "banner": "http:\/\/img3.douban.com\/img\/fmadmin\/chlBanner\/26392.jpg",
+        "id": 13,
+        "name": "爵士",
+        "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/icon\/26392.jpg",
+        "song_to_start": "",
+        "song_num": 4163,
+        "collected": "false",
+        "hot_songs": [ "End Of The World", "Quizás, Quizás, Quizás (Perhaps, Perhaps, Perhaps)", "Bitter Heart" ]
+      },
+      {
+        "related_artists": [ ],
+        "creator": {
+          "url": "http:\/\/site.douban.com\/douban.fm\/",
+          "name": "豆瓣FM",
+          "id": 1
+        },
+        "intro": "古典乐也能听得轻松随性",
+        "banner": "http:\/\/img3.douban.com\/img\/fmadmin\/chlBanner\/26382.jpg",
+        "id": 27,
+        "name": "古典",
+        "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/icon\/26382.jpg",
+        "song_to_start": "",
+        "song_num": 2646,
+        "collected": "false",
+        "hot_songs": [ "Arioso", "Moment Musical No.3", "La Primavera; 1. Allegro" ]
+      },
+      {
+        "related_artists": [ ],
+        "creator": {
+          "url": "http:\/\/site.douban.com\/douban.fm\/",
+          "name": "豆瓣FM",
+          "id": 1
+        },
+        "intro": "工作学习的时候听什么",
+        "banner": "http:\/\/img3.douban.com\/img\/fmadmin\/chlBanner\/27132.jpg",
+        "id": 153,
+        "name": "工作学习",
+        "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/icon\/27132.jpg",
+        "song_to_start": "",
+        "song_num": 0,
+        "collected": "false",
+        "hot_songs": [ "Everybody", "南山南", "岁月神偷" ]
+      },
+      {
+        "related_artists": [ ],
+        "creator": {
+          "url": "http:\/\/www.douban.com\/people\/48254923\/",
+          "name": "Bin's",
+          "id": 48254923
+        },
+        "intro": "细听着别人的歌声，诉说着自己的故事。",
+        "banner": "http:\/\/img3.douban.com\/img\/fmadmin\/chlBanner\/27675.jpg",
+        "id": 1000382,
+        "name": "你的歌词我的故事",
+        "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/icon\/27675.jpg",
+        "song_to_start": "",
+        "song_num": 540,
+        "collected": "false",
+        "hot_songs": [ "七月七日晴", "如果有来生" ]
+      },
+      {
+        "related_artists": [ ],
+        "creator": {
+          "url": "http:\/\/www.douban.com\/people\/shaochaowen\/",
+          "name": "訞訞じ☆veJ",
+          "id": 23798671
+        },
+        "intro": "一萬年太久，只爭朝夕~",
+        "banner": "http:\/\/img3.douban.com\/img\/fmadmin\/chlBanner\/21005.jpg",
+        "id": 1003498,
+        "name": "一生所愛",
+        "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/icon\/21005.jpg",
+        "song_to_start": "",
+        "song_num": 399,
+        "collected": "false",
+        "hot_songs": [ "天下之大", "没有人像你", "时间煮雨" ]
+      },
+      {
+        "related_artists": [ ],
+        "creator": {
+          "url": "http:\/\/www.douban.com\/people\/53523131\/",
+          "name": "HAO",
+          "id": 53523131
+        },
+        "intro": "SING FOR YOU.......在这里，没有语言的区别，只有音符的组合，节奏的连续，心灵的跳动.......",
+        "banner": "http:\/\/img3.douban.com\/img\/fmadmin\/chlBanner\/26020.jpg",
+        "id": 1000276,
+        "name": "欧美的调调很动听",
+        "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/icon\/26020.jpg",
+        "song_to_start": "",
+        "song_num": 198,
+        "collected": "false",
+        "hot_songs": [ "Le Papillon", "Skin Deep", "Troublemaker Ft. Sweet Rush" ]
+      },
+      {
+        "related_artists": [ ],
+        "creator": {
+          "url": "http:\/\/www.douban.com\/people\/2546298\/",
+          "name": "rebecca0816",
+          "id": 2546298
+        },
+        "intro": "浅吟清唱。",
+        "banner": "http:\/\/img3.douban.com\/img\/fmadmin\/chlBanner\/20653.jpg",
+        "id": 1002891,
+        "name": "看书浇花晒太阳",
+        "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/icon\/20653.jpg",
+        "song_to_start": "",
+        "song_num": 1228,
+        "collected": "false",
+        "hot_songs": [ "Somebody That I Used To Know", "The Rose" ]
+      },
+      {
+        "related_artists": [
+          {
+            "cover": "https:\/\/s.doubanio.com\/f\/music\/17ec83e0f23ae42866d13807e1e357980a831ca3\/pics\/music\/musician\/band-default-large.gif",
+            "id": "121563",
+            "name": "The Island Band"
+          },
+          {
+            "cover": "https:\/\/s.doubanio.com\/f\/music\/17ec83e0f23ae42866d13807e1e357980a831ca3\/pics\/music\/musician\/band-default-large.gif",
+            "id": "121103",
+            "name": "Tal & Acacia"
+          },
+          {
+            "cover": "http:\/\/img3.doubanio.com\/img\/fmadmin\/large\/45119.jpg",
+            "id": "82177",
+            "name": "In the Valley Below"
+          },
+          {
+            "cover": "https:\/\/s.doubanio.com\/f\/music\/17ec83e0f23ae42866d13807e1e357980a831ca3\/pics\/music\/musician\/band-default-large.gif",
+            "id": "120892",
+            "name": "Little Giants"
+          }
+        ],
+        "creator": {
+          "url": "http:\/\/site.douban.com\/douban.fm\/",
+          "name": "豆瓣FM",
+          "id": 1
+        },
+        "intro": "为你推荐 The Island Band 以及相似的艺术家",
+        "banner": "https:\/\/s.doubanio.com\/f\/fm\/b1a1636eff81e777ea99c1607bca08a7363482d8\/pics\/fm\/open_channel\/def_chl_cover_chlBanner.png",
+        "id": 131563,
+        "name": "The Island Band 系",
+        "cover": "https:\/\/s.doubanio.com\/f\/fm\/3ed0faaae2cafe572a6a2bd3b9d57d2576941c95\/pics\/fm\/open_channel\/def_chl_cover_icon.png",
+        "song_to_start": "",
+        "song_num": 0,
+        "collected": "false",
+        "hot_songs": [ ]
+      }
+    ],
+    "total": 2198
+  }
+}

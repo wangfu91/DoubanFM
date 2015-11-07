@@ -1,0 +1,36 @@
+{
+  "r": 0,
+  "version_max": 100,
+  "is_show_quick_start": 0,
+  "song": [
+    {
+      "status": 0,
+      "picture": "http:\/\/img3.douban.com\/lpic\/s3206295.jpg",
+      "alert_msg": "",
+      "albumtitle": "玩具",
+      "promo": { },
+      "singers": [
+        {
+          "related_site_id": 0,
+          "is_site_artist": false,
+          "id": "3804",
+          "name": "王菲"
+        }
+      ],
+      "file_ext": "mp3",
+      "like": 0,
+      "album": "\/subject\/1395078\/",
+      "ver": 0,
+      "ssid": "f58a",
+      "title": "约定",
+      "url": "http:\/\/mr7.doubanio.com\/69e42631b65470b51ef2bbc6a437cdd8\/1\/fm\/song\/p966134_128k.mp3",
+      "artist": "王菲",
+      "subtype": "",
+      "length": 265,
+      "sid": "966134",
+      "aid": "1395078",
+      "sha256": "14224c93173140f56df373c2c2fb28120970384cb4958c4189d265eff2f73d4a",
+      "kbps": "128"
+    }
+  ]
+}

@@ -25,7 +25,6 @@ namespace DoubanFM.Desktop.NowPlaying.Design
             CurrentSong=new Song
             {
                 Artist = "Rogue Wave",
-                Company = "Hollywood Records",
                 Title = "No Time",
                 AlbumTitle = "Iron Man 3: Heroe...",
                 Like=true,

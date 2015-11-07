@@ -6,7 +6,7 @@ namespace DoubanFM.Desktop.API.Models
     /// <summary>
     /// 播放列表
     /// </summary>
-    public class SongResult
+    public class PlayList
     {
         [JsonProperty("r")]
         public int R { get; set; }

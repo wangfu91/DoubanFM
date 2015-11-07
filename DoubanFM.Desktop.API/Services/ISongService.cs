@@ -5,17 +5,17 @@ namespace DoubanFM.Desktop.API.Services
 {
     public interface ISongService
     {
-        Task<SongResult> GetSongs(int channelId);
+        Task<PlayList> GetPlayList(int channelId);
 
-        Task<SongResult> Like(string sid, int channelId);
+        Task<PlayList> Like(string sid, int channelId);
 
-        Task<SongResult> Unlike(string sid, int channelId);
+        Task<PlayList> Unlike(string sid, int channelId);
 
-        Task<SongResult> Skip(string sid, int channelId);
+        Task<PlayList> Skip(string sid, int channelId);
 
-        Task<SongResult> NormalEnd(string sid, int channelId);
+        Task<PlayList> NormalEnd(string sid, int channelId);
 
-        Task<SongResult> Ban(string sid, int channelId);
+        Task<PlayList> Ban(string sid, int channelId);
 
     }
 

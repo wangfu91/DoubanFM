@@ -1,0 +1,752 @@
+{
+  "groups": [
+    {
+      "chls": [
+        {
+          "style": {
+            "display_text": "",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "intro": "我的个性化音乐频道",
+          "name": "我的私人",
+          "song_num": 4048,
+          "collected": "disabled",
+          "cover": "http:\/\/img3.douban.com\/icon\/ul67242159-1.jpg",
+          "id": 0
+        },
+        {
+          "style": {
+            "display_text": "185首",
+            "bg_color": "0xe06b59",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "红心",
+          "cover": "https:\/\/s.doubanio.com\/f\/fm\/b5153e0ab43615038d4de3e4a0890893b8ff848d\/pics\/fm\/channel_-3_cover.png",
+          "intro": "我喜欢过的音乐",
+          "song_num": 185,
+          "collected": "disabled",
+          "id": -3
+        },
+        {
+          "style": {
+            "display_text": "1189首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "华语",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/26383.jpg",
+          "intro": "每天发现一首好听的歌",
+          "song_num": 1189,
+          "collected": "true",
+          "id": 1
+        }
+      ],
+      "group_id": 0,
+      "group_name": "我的兆赫"
+    },
+    {
+      "chls": [
+        {
+          "style": {
+            "display_text": "",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "Westlife 系",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/31302.jpg",
+          "intro": "为你推荐 Westlife 以及相似的艺术家",
+          "song_num": 0,
+          "collected": "false",
+          "id": 17666
+        },
+        {
+          "style": {
+            "display_text": "",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "So Quiet 系",
+          "cover": "http:\/\/img3.doubanio.com\/img\/fmadmin\/medium\/47909.jpg",
+          "intro": "为你推荐 So Quiet 以及相似的艺术家",
+          "song_num": 0,
+          "collected": "false",
+          "id": 22931
+        },
+        {
+          "style": {
+            "display_text": "",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "赵立 系",
+          "cover": "https:\/\/s.doubanio.com\/f\/fm\/c779337495ddceb9cb30aa2b558ce12aea590812\/pics\/fm\/open_channel\/def_chl_cover_medium.png",
+          "intro": "为你推荐 赵立 以及相似的艺术家",
+          "song_num": 0,
+          "collected": "false",
+          "id": 47381
+        },
+        {
+          "style": {
+            "display_text": "",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "Duncan James 系",
+          "cover": "http:\/\/img4.douban.com\/img\/fmadmin\/medium\/4706.jpg",
+          "intro": "为你推荐 Duncan James 以及相似的艺术家",
+          "song_num": 0,
+          "collected": "false",
+          "id": 17232
+        },
+        {
+          "style": {
+            "display_text": "",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "吉田潔 系",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/31845.jpg",
+          "intro": "为你推荐 吉田潔 以及相似的艺术家",
+          "song_num": 0,
+          "collected": "false",
+          "id": 34951
+        }
+      ],
+      "group_id": 1,
+      "group_name": "推荐艺术家兆赫"
+    },
+    {
+      "chls": [
+        {
+          "style": {
+            "display_text": "",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "(rondo) Alla Turca Allegretto",
+          "artist": "Wilhelm Backhaus",
+          "cover": "http:\/\/img4.douban.com\/lpic\/s2814907.jpg",
+          "start": "32361g8885g2032361",
+          "intro": "为你推荐与 Wilhelm Backhaus - (rondo) Alla Turca Allegretto 相似的歌曲",
+          "song_num": 0,
+          "collected": "false",
+          "id": 2032361
+        },
+        {
+          "style": {
+            "display_text": "",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "喜欢一个人的心情",
+          "artist": "江语晨",
+          "cover": "http:\/\/img4.douban.com\/lpic\/s3344387.jpg",
+          "start": "1393204g4264g3393204",
+          "intro": "为你推荐与 江语晨 - 喜欢一个人的心情 相似的歌曲",
+          "song_num": 0,
+          "collected": "false",
+          "id": 3393204
+        },
+        {
+          "style": {
+            "display_text": "",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "Heartbeats",
+          "artist": "Amy Diamond",
+          "cover": "http:\/\/img4.douban.com\/lpic\/s4420548.jpg",
+          "start": "1913181g7bd6g3913181",
+          "intro": "为你推荐与 Amy Diamond - Heartbeats 相似的歌曲",
+          "song_num": 0,
+          "collected": "false",
+          "id": 3913181
+        },
+        {
+          "style": {
+            "display_text": "",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "Going Out",
+          "artist": "久石譲",
+          "cover": "http:\/\/img3.douban.com\/lpic\/s3272681.jpg",
+          "start": "546726gcefcg2546726",
+          "intro": "为你推荐与 久石譲 - Going Out 相似的歌曲",
+          "song_num": 0,
+          "collected": "false",
+          "id": 2546726
+        },
+        {
+          "style": {
+            "display_text": "",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "恰似你的温柔",
+          "artist": "邓丽君",
+          "cover": "http:\/\/img3.douban.com\/lpic\/s4437195.jpg",
+          "start": "98512g5118g2098512",
+          "intro": "为你推荐与 邓丽君 - 恰似你的温柔 相似的歌曲",
+          "song_num": 0,
+          "collected": "false",
+          "id": 2098512
+        }
+      ],
+      "group_id": 2,
+      "group_name": "推荐单曲兆赫"
+    },
+    {
+      "chls": [
+        {
+          "style": {
+            "display_text": "1189首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "华语",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/26383.jpg",
+          "intro": "每天发现一首好听的歌",
+          "song_num": 1189,
+          "collected": "true",
+          "id": 1
+        },
+        {
+          "style": {
+            "display_text": "3599首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "欧美",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/26384.jpg",
+          "intro": "关于欧美流行音乐的一切，就在这里了",
+          "song_num": 3599,
+          "collected": "false",
+          "id": 2
+        },
+        {
+          "style": {
+            "display_text": "1162首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "七零",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/26385.jpg",
+          "intro": "曾经一无所有的你，在告别的年代道一声“青春无悔”",
+          "song_num": 1162,
+          "collected": "false",
+          "id": 3
+        },
+        {
+          "style": {
+            "display_text": "883首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "八零",
+          "cover": "http:\/\/img4.douban.com\/img\/fmadmin\/medium\/26386.jpg",
+          "intro": "生于八零年代的我们，听着这些歌成长",
+          "song_num": 883,
+          "collected": "false",
+          "id": 4
+        },
+        {
+          "style": {
+            "display_text": "874首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "九零",
+          "cover": "http:\/\/img4.douban.com\/img\/fmadmin\/medium\/26387.jpg",
+          "intro": "更新鲜的歌曲，更新鲜的声音",
+          "song_num": 874,
+          "collected": "false",
+          "id": 5
+        },
+        {
+          "style": {
+            "display_text": "2704首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "粤语",
+          "cover": "http:\/\/img4.douban.com\/img\/fmadmin\/medium\/26388.jpg",
+          "intro": "那些年我们心水的劲歌金曲",
+          "song_num": 2704,
+          "collected": "false",
+          "id": 6
+        },
+        {
+          "style": {
+            "display_text": "5999首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "日语",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/26373.jpg",
+          "intro": "日语流行音乐，来这里听就对了",
+          "song_num": 5999,
+          "collected": "false",
+          "id": 17
+        },
+        {
+          "style": {
+            "display_text": "1151首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "韩语",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/26374.jpg",
+          "intro": "韩语流行音乐就在这里",
+          "song_num": 1151,
+          "collected": "false",
+          "id": 18
+        },
+        {
+          "style": {
+            "display_text": "1331首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "法语",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/26380.jpg",
+          "intro": "轻松，优雅，愉悦",
+          "song_num": 1331,
+          "collected": "false",
+          "id": 22
+        }
+      ],
+      "group_id": 4,
+      "group_name": "语言年代兆赫"
+    },
+    {
+      "chls": [
+        {
+          "style": {
+            "display_text": "2872首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "流行",
+          "cover": "http:\/\/img4.douban.com\/img\/fmadmin\/medium\/30078.jpg",
+          "intro": "在豆瓣FM，邂逅你倾心的歌曲",
+          "song_num": 2872,
+          "collected": "false",
+          "id": 194
+        },
+        {
+          "style": {
+            "display_text": "3654首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "摇滚",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/31095.jpg",
+          "intro": "Rock and Roll Ain't Noise Pollution，Welcome to the Jungle.",
+          "song_num": 3654,
+          "collected": "false",
+          "id": 7
+        },
+        {
+          "style": {
+            "display_text": "3781首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "民谣",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/26390.jpg",
+          "intro": "James Blunt、Bob Dylan 以及 Taylor Swift",
+          "song_num": 3781,
+          "collected": "false",
+          "id": 8
+        },
+        {
+          "style": {
+            "display_text": "2736首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "轻音乐",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/26391.jpg",
+          "intro": "在属于你的放松地带，释放心灵",
+          "song_num": 2736,
+          "collected": "false",
+          "id": 9
+        },
+        {
+          "style": {
+            "display_text": "4377首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "电影原声",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/26395.jpg",
+          "intro": "彼时感动你的电影，此刻温暖你的声音",
+          "song_num": 4377,
+          "collected": "false",
+          "id": 10
+        },
+        {
+          "style": {
+            "display_text": "4163首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "爵士",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/26392.jpg",
+          "intro": "",
+          "song_num": 4163,
+          "collected": "false",
+          "id": 13
+        },
+        {
+          "style": {
+            "display_text": "4867首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "电子",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/26393.jpg",
+          "intro": "小心，有电，注意，节拍！",
+          "song_num": 4867,
+          "collected": "false",
+          "id": 14
+        },
+        {
+          "style": {
+            "display_text": "4407首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "说唱",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/26394.jpg",
+          "intro": "",
+          "song_num": 4407,
+          "collected": "false",
+          "id": 15
+        },
+        {
+          "style": {
+            "display_text": "2606首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "R&B",
+          "cover": "http:\/\/img3.doubanio.com\/img\/fmadmin\/medium\/26369.jpg",
+          "intro": "跟随着节拍，一起摇摆。",
+          "song_num": 2606,
+          "collected": "false",
+          "id": 16
+        },
+        {
+          "style": {
+            "display_text": "2646首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "古典",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/26382.jpg",
+          "intro": "古典乐也能听得轻松随性",
+          "song_num": 2646,
+          "collected": "false",
+          "id": 27
+        },
+        {
+          "style": {
+            "display_text": "3781首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "动漫",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/26381.jpg",
+          "intro": "",
+          "song_num": 3781,
+          "collected": "false",
+          "id": 28
+        },
+        {
+          "style": {
+            "display_text": "2751首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "世界音乐",
+          "cover": "http:\/\/img3.doubanio.com\/img\/fmadmin\/medium\/29979.jpg",
+          "intro": "",
+          "song_num": 2751,
+          "collected": "false",
+          "id": 187
+        },
+        {
+          "style": {
+            "display_text": "1843首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "布鲁斯",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/29980.jpg",
+          "intro": "",
+          "song_num": 1843,
+          "collected": "false",
+          "id": 188
+        },
+        {
+          "style": {
+            "display_text": "455首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "拉丁",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/29981.jpg",
+          "intro": "",
+          "song_num": 455,
+          "collected": "false",
+          "id": 189
+        },
+        {
+          "style": {
+            "display_text": "962首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "雷鬼",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/29982.jpg",
+          "intro": "",
+          "song_num": 962,
+          "collected": "false",
+          "id": 190
+        },
+        {
+          "style": {
+            "display_text": "180首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "小清新",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/26375.jpg",
+          "intro": "这里没有喧哗与吵闹，静下心来感受世界的美好",
+          "song_num": 180,
+          "collected": "false",
+          "id": 76
+        }
+      ],
+      "group_id": 5,
+      "group_name": "风格流派兆赫"
+    },
+    {
+      "chls": [
+        {
+          "style": {
+            "display_text": "",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "工作学习",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/27132.jpg",
+          "intro": "工作学习的时候听什么",
+          "song_num": 0,
+          "collected": "false",
+          "id": 153
+        },
+        {
+          "style": {
+            "display_text": "",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "户外",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/27134.jpg",
+          "intro": "户外的时候听什么",
+          "song_num": 0,
+          "collected": "false",
+          "id": 151
+        },
+        {
+          "style": {
+            "display_text": "",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "休息",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/27133.jpg",
+          "intro": "休息的时候听什么",
+          "song_num": 0,
+          "collected": "false",
+          "id": 152
+        },
+        {
+          "style": {
+            "display_text": "",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "亢奋",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/27131.jpg",
+          "intro": "心情亢奋的时候听什么",
+          "song_num": 0,
+          "collected": "false",
+          "id": 154
+        },
+        {
+          "style": {
+            "display_text": "",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "舒缓",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/27130.jpg",
+          "intro": "心情舒缓的时候听什么",
+          "song_num": 0,
+          "collected": "false",
+          "id": 155
+        },
+        {
+          "style": {
+            "display_text": "984首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "Easy",
+          "cover": "http:\/\/img4.douban.com\/img\/fmadmin\/medium\/16597.jpg",
+          "intro": "",
+          "song_num": 984,
+          "collected": "false",
+          "id": 77
+        },
+        {
+          "style": {
+            "display_text": "1710首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "咖啡",
+          "cover": "http:\/\/img3.doubanio.com\/img\/fmadmin\/medium\/26379.jpg",
+          "intro": "我不在喝咖啡，就在听咖啡兆赫。",
+          "song_num": 1710,
+          "collected": "false",
+          "id": 32
+        }
+      ],
+      "group_id": 6,
+      "group_name": "心情场景兆赫"
+    },
+    {
+      "chls": [
+        {
+          "style": {
+            "display_text": "28首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "Hollister热辣歌单",
+          "pro_desc": "",
+          "cover": "http:\/\/img3.doubanio.com\/img\/fmadmin\/medium\/50669.jpg",
+          "intro": "",
+          "song_num": 28,
+          "collected": "false",
+          "brand_icon": "",
+          "id": 251
+        },
+        {
+          "style": {
+            "display_text": "100首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "迷笛 X 蓝鸟之夜",
+          "pro_desc": "",
+          "brand_logo": "http:\/\/t.douban.com\/img\/files\/file-1446001915.jpg",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/52050.jpg",
+          "brand_bg": "http:\/\/t.douban.com\/img\/files\/file-1446001931.jpg",
+          "intro": "",
+          "song_num": 100,
+          "collected": "false",
+          "brand_icon": "",
+          "id": 252
+        },
+        {
+          "style": {
+            "display_text": "16首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "这一刻，从轻开始",
+          "pro_desc": "",
+          "cover": "http:\/\/img4.douban.com\/img\/fmadmin\/medium\/48216.jpg",
+          "intro": "",
+          "song_num": 16,
+          "collected": "disabled",
+          "brand_icon": "",
+          "id": 250
+        },
+        {
+          "style": {
+            "display_text": "72首",
+            "bg_color": "0x499884",
+            "layout_type": 1,
+            "bg_image": ""
+          },
+          "name": "草莓乐堡酒镇",
+          "pro_desc": "",
+          "cover": "http:\/\/img3.douban.com\/img\/fmadmin\/medium\/31092.jpg",
+          "intro": "",
+          "song_num": 72,
+          "collected": "disabled",
+          "brand_icon": "",
+          "id": 245
+        }
+      ],
+      "group_id": 3,
+      "group_name": "品牌兆赫"
+    }
+  ]
+}

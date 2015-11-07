@@ -15,7 +15,6 @@ namespace DoubanFM.Desktop.Channels.ViewModels
         private Channel _currentChannel;
         private IEventAggregator _eventAggregator;
         private bool _isLoggedIn;
-        private Channel _redHeartChannel;
 
         public ChannelListViewModel(
             IChannelService channelService,
@@ -23,7 +22,6 @@ namespace DoubanFM.Desktop.Channels.ViewModels
         {
             this._channelSerivce = channelService;
             this._eventAggregator = eventAggregator;
-            this._redHeartChannel = new Channel { Name = "红心兆赫", SeqId = 0, AbbrEN = "My", ChannelId = -3 };
             this.ChannelList = new ObservableCollection<Channel>();
 
             _eventAggregator.GetEvent<UserStateChangedEvent>().Subscribe(HandleUserStateChange);
@@ -70,40 +68,35 @@ namespace DoubanFM.Desktop.Channels.ViewModels
 
         private async Task GetChannels()
         {
-            var results = await _channelSerivce.GetChannels();
-            if (results != null && results.Channels.Count > 0)
+            var channelGroupList = await _channelSerivce.GetAppChannels();
+            if (channelGroupList != null)
             {
-                results.Channels.ForEach(ChannelList.Add);
+                foreach (var group in channelGroupList.Groups)
+                {
+                    foreach (var channel in group.Channels)
+                    {
+                        ChannelList.Add(channel);
+                    }
+                }
             }
             this.CurrentChannel = ChannelList.FirstOrDefault();
         }
 
-        private void HandleUserStateChange(LoginResult result)
+        private async void HandleUserStateChange(LoginResult result)
         {
 
 
             if (result != null)
             {
                 IsLoggedIn = true;
-                _channelSerivce = new ChannelService(result);
-                if (!ChannelList.Contains(_redHeartChannel))
-                {
-                    ChannelList.Insert(0, _redHeartChannel);
-                }
+                _channelSerivce = new ChannelService(result.AccessToken);
             }
             else
             {
                 IsLoggedIn = false;
-                _channelSerivce = new ChannelService();
-                var redHeartSelected = CurrentChannel.ChannelId == -3;
-                ChannelList.Remove(_redHeartChannel);
-                if (redHeartSelected)
-                {
-                    CurrentChannel = ChannelList.FirstOrDefault();
-                }
-
+                _channelSerivce = new ChannelService("");
             }
-            //await GetChannels();
+            await GetChannels();
         }
 
         protected override void Dispose(bool disposing)
