@@ -80,4 +80,13 @@ namespace DoubanFM.Desktop.API.Models
     }
 
 
+    public class SearchChannels
+    {
+        [JsonProperty("channels")]
+        public List<Channel> Channels { get; set; }
+
+        [JsonProperty("total")]
+        public int Total { get; set; }
+    }   
+
 }

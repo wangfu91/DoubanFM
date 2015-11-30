@@ -1,0 +1,83 @@
+{
+  "channels": [
+    {
+      "style": {
+        "display_text": "",
+        "bg_color": "0x499884",
+        "layout_type": 1,
+        "bg_image": ""
+      },
+      "name": "Taylor Swift 系",
+      "cover": "http:\/\/img4.douban.com\/img\/fmadmin\/large\/31336.jpg",
+      "intro": "为你推荐 Taylor Swift 以及相似的艺术家",
+      "song_num": 0,
+      "collected": "false",
+      "id": 20767
+    },
+    {
+      "style": {
+        "display_text": "",
+        "bg_color": "0x499884",
+        "layout_type": 1,
+        "bg_image": ""
+      },
+      "name": "Enchanted (love song for Taylor Swift)",
+      "artist": "Owl City",
+      "cover": "http:\/\/img3.douban.com\/view\/site\/large\/public\/570676803fc6f60.jpg",
+      "start": "1663824g58bbg3663824",
+      "intro": "为你推荐与 Owl City - Enchanted (love song for Taylor Swift) 相似的歌曲",
+      "song_num": 0,
+      "collected": "false",
+      "id": 3663824
+    },
+    {
+      "style": {
+        "display_text": "",
+        "bg_color": "0x499884",
+        "layout_type": 1,
+        "bg_image": ""
+      },
+      "name": "White horse(翻唱Taylor Swift)",
+      "artist": "杨灿灿",
+      "cover": "http:\/\/img3.douban.com\/view\/site\/large\/public\/4343f88c39c2232.jpg",
+      "start": "1950159g5f30g3950159",
+      "intro": "为你推荐与 杨灿灿 - White horse(翻唱Taylor Swift) 相似的歌曲",
+      "song_num": 0,
+      "collected": "false",
+      "id": 3950159
+    },
+    {
+      "style": {
+        "display_text": "",
+        "bg_color": "0x499884",
+        "layout_type": 1,
+        "bg_image": ""
+      },
+      "name": "Teardrops on my guitar（翻唱Taylor swift）",
+      "artist": "杨灿灿",
+      "cover": "http:\/\/img3.douban.com\/view\/site\/large\/public\/4343f88c39c2232.jpg",
+      "start": "1950163gf47eg3950163",
+      "intro": "为你推荐与 杨灿灿 - Teardrops on my guitar（翻唱Taylor swift） 相似的歌曲",
+      "song_num": 0,
+      "collected": "false",
+      "id": 3950163
+    },
+    {
+      "style": {
+        "display_text": "",
+        "bg_color": "0x499884",
+        "layout_type": 1,
+        "bg_image": ""
+      },
+      "name": "We Are Never Getting Back Together (Taylor Swift cover)",
+      "artist": "Anthem Lights",
+      "cover": "http:\/\/img3.douban.com\/lpic\/s26262591.jpg",
+      "start": "2000001g5940g4000001",
+      "intro": "为你推荐与 Anthem Lights - We Are Never Getting Back Together (Taylor Swift cover) 相似的歌曲",
+      "song_num": 0,
+      "collected": "false",
+      "id": 4000001
+    }
+  ],
+  "total": 177
+}

@@ -142,6 +142,14 @@ namespace DoubanFM.Desktop.API.Tests
             Assert.IsNotNull(lyrics);
         }
 
+        [TestMethod]
+        public async Task SearchChannelTest()
+        {
+            var searchService = new SearchService();
+            var result = await searchService.SearchChannel("Taylor Swift", 0, 100);
+            Assert.IsNotNull(result.Channels);
+        }
+
     }
 
 }

@@ -27,7 +27,6 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
         private Channel _currentChannel;
         private Queue<Song> _playList;
         private DispatcherTimer _timer = new DispatcherTimer();
-        private LyricController _lyricsController;
         private IEventAggregator _eventAggregator;
         private bool _isLoggedIn;
         private BitmapImage _currentAlbumImage;
@@ -221,15 +220,6 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
         private async Task GetLyrics()
         {
             var _lyrics = await _lyricsService.GetLyrics(_currentSong.SID, _currentSong.SSID);
-            _lyricsController = null;
-            if (!string.IsNullOrEmpty(_lyrics.LrcCode))
-            {
-                _lyricsController = new LyricController(_lyrics);
-            }
-            else
-            {
-                CurrentLyrics = string.Empty;
-            }
         }
 
         private void SetPlayList(PlayList result)
@@ -324,12 +314,7 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
 
         private async void _timer_Tick(object sender, EventArgs e)
         {
-            if (_lyricsController != null)
-            {
-                _lyricsController.CurrentTime = TimeSpan.FromSeconds(Player.ChannelPosition);
-                await _lyricsController.RefreshAsync();
-                CurrentLyrics = _lyricsController.CurrentLyrics;
-            }
+
         }
 
         private void _currentAlbumImage_DownloadCompleted(object sender, EventArgs e)
