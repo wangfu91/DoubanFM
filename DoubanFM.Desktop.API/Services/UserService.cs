@@ -19,7 +19,8 @@ namespace DoubanFM.Desktop.API.Services
             {
                 var paramSet = new Dictionary<string, string>
                 {
-                    {"user_id",userId }
+                    {"user_id",userId },
+                    {"scope","music_basic_r" }                    
                 };
 
                 var requestUri = BuildRequestUri(BaseUrl, userInfo, paramSet);

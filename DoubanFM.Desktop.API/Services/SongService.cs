@@ -25,14 +25,13 @@ namespace DoubanFM.Desktop.API.Services
         private const string songDetail = "song_detail";
         private const string songUrl = "song_url";
 
-        private string accessToken;
+        private string accessToken = "";
 
-        public SongService(string accessToken)
+        public string AccessToken
         {
-            this.accessToken = accessToken;
+            set { accessToken = value; }
         }
 
-        public SongService() { }
 
         public async Task<PlayList> GetPlayList(int channel)
         {
@@ -56,7 +55,7 @@ namespace DoubanFM.Desktop.API.Services
             };
             var requestUri = BuildRequestUri(BaseUrl, playList, paramSet);
             return await SendRequestAsync<PlayList>(requestUri, accessToken, HttpMethod.Get);
-          
+
         }
 
         public async Task<PlayList> Unlike(string sid, int channel)

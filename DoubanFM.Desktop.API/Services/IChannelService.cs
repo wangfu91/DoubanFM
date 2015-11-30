@@ -6,6 +6,7 @@ namespace DoubanFM.Desktop.API.Services
 {
     public interface IChannelService
     {
+        string AccessToken { set; }
         Task<ChannelGroupList> GetAppChannels();
         Task<ChannelGroupList> GetHotChannels();
 

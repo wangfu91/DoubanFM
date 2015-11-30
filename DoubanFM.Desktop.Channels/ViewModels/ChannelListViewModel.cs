@@ -85,16 +85,17 @@ namespace DoubanFM.Desktop.Channels.ViewModels
         private async void HandleUserStateChange(LoginResult result)
         {
 
+            _channelSerivce = new ChannelService();
 
             if (result != null)
             {
                 IsLoggedIn = true;
-                _channelSerivce = new ChannelService(result.AccessToken);
+                _channelSerivce = new ChannelService();
+                _channelSerivce.AccessToken = result.AccessToken;
             }
             else
             {
                 IsLoggedIn = false;
-                _channelSerivce = new ChannelService("");
             }
             await GetChannels();
         }

@@ -15,14 +15,12 @@ namespace DoubanFM.Desktop.API.Services
         private const string recentChannels = "recent_channels";
         private const string channelInfo = "channel_info";
 
-        private string accessToken;
+        private string accessToken = "";
 
-        public ChannelService(string accessToken)
+        public string AccessToken
         {
-            this.accessToken = accessToken;
+            set { accessToken = value; }
         }
-
-        public ChannelService() { }
 
         public async Task<ChannelGroupList> GetAppChannels()
         {

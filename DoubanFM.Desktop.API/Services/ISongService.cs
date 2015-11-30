@@ -5,6 +5,8 @@ namespace DoubanFM.Desktop.API.Services
 {
     public interface ISongService
     {
+        string AccessToken { set; }
+
         Task<PlayList> GetPlayList(int channelId);
 
         Task<PlayList> Like(string sid, int channelId);

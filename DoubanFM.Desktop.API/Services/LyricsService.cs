@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using DoubanFM.Desktop.API.Models;
-using RestSharp;
 using System.Net;
 using Newtonsoft.Json.Linq;
 using System.Net.Http;

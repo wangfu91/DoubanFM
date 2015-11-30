@@ -212,7 +212,10 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
         {
             var result = await _songService.GetPlayList(CurrentChannel.Id);
             SetPlayList(result);
-            CurrentSong = PlayList.Dequeue();
+            if (PlayList.Count > 0)
+            {
+                CurrentSong = PlayList.Dequeue();
+            }
         }
 
         private async Task GetLyrics()
@@ -246,14 +249,14 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
 
         private void HandleUserStateChange(LoginResult result)
         {
+            this._songService = new SongService();
             if (result != null)
             {
-                this._songService = new SongService(result.AccessToken);
                 this.IsLoggedIn = true;
+                _songService.AccessToken = result.AccessToken;
             }
             else
             {
-                this._songService = new SongService("");
                 this.IsLoggedIn = false;
             }
         }

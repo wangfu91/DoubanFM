@@ -67,7 +67,9 @@
                 </i:EventTrigger>
             </i:Interaction.Triggers>
 
-            <Controls:MetroTabItem Header="{StaticResource TabItemChannels}" Style="{StaticResource CustomTabItemStyle}" >
+            <!--<Controls:MetroTabItem Header="{StaticResource TabItemChannels}" Style="{StaticResource CustomTabItemStyle}" >-->
+            <Controls:MetroTabItem Header="{StaticResource TabItemChannels}"  >
+
                 <ContentControl x:Name="channels" prism:RegionManager.RegionName="ChannelsRegion" Tag="Channel"/>
             </Controls:MetroTabItem>
             <Controls:MetroTabItem Header="{StaticResource TabItemSearch}" >
