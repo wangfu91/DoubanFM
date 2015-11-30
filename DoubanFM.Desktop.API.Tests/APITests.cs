@@ -137,8 +137,8 @@ namespace DoubanFM.Desktop.API.Tests
         public async Task GetDoubanLyricsTest()
         {
             var lyricsService = new LyricsService();
-            var song = new Song { SID = "1742965" };
-            var lyrics = await lyricsService.GetLyrics(song.SID);
+            var song = new Song { SID = "1675427", SSID= "63fe" };
+            var lyrics = await lyricsService.GetLyrics(song.SID, song.SSID);
             Assert.IsNotNull(lyrics);
         }
 

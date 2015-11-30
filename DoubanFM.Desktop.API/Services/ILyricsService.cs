@@ -9,6 +9,6 @@ namespace DoubanFM.Desktop.API.Services
 {
     public interface ILyricsService
     {
-        Task<Lyrics> GetLyrics(string sid);
+        Task<Lyrics> GetLyrics(string sid, string ssid);
     }
 }

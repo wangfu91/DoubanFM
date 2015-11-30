@@ -65,7 +65,6 @@
     <Compile Include="Services\ISongService.cs" />
     <Compile Include="Services\IUserService.cs" />
     <Compile Include="Services\LoginService.cs" />
-    <Compile Include="Services\LyricController.cs" />
     <Compile Include="Services\LyricsService.cs" />
     <Compile Include="Services\SearchService.cs" />
     <Compile Include="Services\ServiceBase.cs" />

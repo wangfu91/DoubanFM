@@ -14,11 +14,12 @@ namespace DoubanFM.Desktop.API.Services
     {
         private const string lyric = "lyric";
 
-        public async Task<Lyrics> GetLyrics(string sid)
+        public async Task<Lyrics> GetLyrics(string sid, string ssid)
         {
             var paramSet = new Dictionary<string, string>
             {
-                {"song_id",sid }
+                {"sid",sid },
+                {"ssid", ssid }
             };
             var requestUri = BuildRequestUri(BaseUrl, lyric, paramSet);
             return await SendRequestAsync<Lyrics>(requestUri, "", HttpMethod.Get);

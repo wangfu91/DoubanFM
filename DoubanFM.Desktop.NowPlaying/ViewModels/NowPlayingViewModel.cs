@@ -220,7 +220,7 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
 
         private async Task GetLyrics()
         {
-            var _lyrics = await _lyricsService.GetLyrics(_currentSong.SID);
+            var _lyrics = await _lyricsService.GetLyrics(_currentSong.SID, _currentSong.SSID);
             _lyricsController = null;
             if (!string.IsNullOrEmpty(_lyrics.LrcCode))
             {
