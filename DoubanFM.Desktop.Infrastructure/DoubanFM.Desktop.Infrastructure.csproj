@@ -53,6 +53,7 @@
     <Compile Include="Converters\BoolToVisibilityConverter.cs" />
     <Compile Include="Converters\ChannelTimeLeftConverter.cs" />
     <Compile Include="Converters\DoubleToTimeSpanConverter.cs" />
+    <Compile Include="Converters\StringToColorBrushConverter.cs" />
     <Compile Include="Converters\UriToImageConverter.cs" />
     <Compile Include="Converters\OrdinaryColorToTranspantConverter.cs" />
     <Compile Include="Events\SwitchBackgroudColorEvent.cs" />

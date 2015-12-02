@@ -76,18 +76,6 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="SampleData\app_channels.json" />
-    <None Include="SampleData\hot_channels.json" />
-    <None Include="SampleData\LoginResult.json" />
-    <None Include="SampleData\lyric.json" />
-    <None Include="SampleData\playlist.json" />
-    <None Include="SampleData\rec_channels.json" />
-    <None Include="SampleData\RedHeart.json" />
-    <None Include="SampleData\searchChannel.json" />
-    <None Include="SampleData\SongInfo.json" />
-    <None Include="SampleData\Songs.json" />
-    <None Include="SampleData\up_trending_channels.json" />
-    <None Include="SampleData\user_info.json" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

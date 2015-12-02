@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.23107.0
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DoubanFM.Desktop.Tests", "DoubanFM.Desktop.Tests", "{37EC7D07-3463-4892-9008-F569289F1A97}"
 EndProject
@@ -74,6 +74,22 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prism.Wpf", "..\Prism\Source\Wpf\Prism.Wpf\Prism.Wpf.csproj", "{5912FF03-C72B-4F56-BAA1-8642FDBFBC26}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prism", "..\Prism\Source\Prism\Prism.csproj", "{E6C50355-D01E-4CAA-884D-D7929861315C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SampleData", "SampleData", "{54F79B5B-DD70-4FEC-A7CC-3269583CCD9B}"
+	ProjectSection(SolutionItems) = preProject
+		SampleData\app_channels.json = SampleData\app_channels.json
+		SampleData\hot_channels.json = SampleData\hot_channels.json
+		SampleData\LoginResult.json = SampleData\LoginResult.json
+		SampleData\lyric.json = SampleData\lyric.json
+		SampleData\playlist.json = SampleData\playlist.json
+		SampleData\rec_channels.json = SampleData\rec_channels.json
+		SampleData\RedHeart.json = SampleData\RedHeart.json
+		SampleData\searchChannel.json = SampleData\searchChannel.json
+		SampleData\SongInfo.json = SampleData\SongInfo.json
+		SampleData\Songs.json = SampleData\Songs.json
+		SampleData\up_trending_channels.json = SampleData\up_trending_channels.json
+		SampleData\user_info.json = SampleData\user_info.json
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -594,5 +610,6 @@ Global
 		{014DF920-27F9-41CD-BD25-86202A051C57} = {37EC7D07-3463-4892-9008-F569289F1A97}
 		{1A3768F2-D4CA-4ECA-89B3-EDF5C8EA752C} = {333A5489-BB60-4A3B-85E4-EC8A32981048}
 		{BEABBBE4-98FC-4534-9E2A-E9B86684FAC6} = {A9C8536E-29F9-412C-9F40-97792713BBB3}
+		{54F79B5B-DD70-4FEC-A7CC-3269583CCD9B} = {A9C8536E-29F9-412C-9F40-97792713BBB3}
 	EndGlobalSection
 EndGlobal

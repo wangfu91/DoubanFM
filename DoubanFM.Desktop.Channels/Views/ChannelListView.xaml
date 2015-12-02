@@ -7,7 +7,7 @@
 			 xmlns:Controls="clr-namespace:DoubanFM.Desktop.Resource.Controls;assembly=DoubanFM.Desktop.Resource"
              xmlns:extension="clr-namespace:DoubanFM.Desktop.Infrastructure.Extension;assembly=DoubanFM.Desktop.Infrastructure"
 			 mc:Ignorable="d" 
-			 d:DesignHeight="300" d:DesignWidth="260" extension:d.Background="DeepSkyBlue"
+			 d:DesignHeight="300" d:DesignWidth="235" extension:d.Background="DeepSkyBlue"
              d:DataContext="{d:DesignInstance design:ChannelListDesignViewModel,IsDesignTimeCreatable=True}">
 
     <UserControl.Resources>

@@ -10,6 +10,7 @@
     <converters:UriToImageConverter x:Key="UriToImageConverter"/>
     <converters:ChannelTimeLeftConverter x:Key="ChannelTimeLeftConverter"/>
     <converters:OrdinaryColorToTranspantConverter x:Key="OrdinaryColorToTranspantConverter"/>
+    <converters:StringToColorBrushConverter x:Key="StringToColorBrushConverter"/>
 
 
     <Style x:Key="CustomButtonBaseStyle" TargetType="ButtonBase">

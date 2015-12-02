@@ -32,7 +32,6 @@ namespace DoubanFM.Desktop.API.Services
             {
                 request.Headers.Add("User-Agent", USER_AGENT);
                 if (!string.IsNullOrEmpty(accessToken))
-                    //request.Headers.Authorization = new AuthenticationHeaderValue("Bearer", accessToken);
                     request.Headers.Authorization = new AuthenticationHeaderValue(accessToken);
 
                 using (var client = new HttpClient())

@@ -2,7 +2,7 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:PresentationOptions="http://schemas.microsoft.com/winfx/2006/xaml/presentation/options" 
                     >
-    
+
     <SolidColorBrush x:Key="ListItemBorderBrush_Selected" Color="DeepSkyBlue" />
 
     <LinearGradientBrush x:Key="MetroColor1" StartPoint="0,1" EndPoint="1,0" PresentationOptions:Freeze="True">
@@ -118,14 +118,15 @@
 
     <Style x:Key="ChannelStyle" TargetType="{x:Type ListBoxItem}">
         <Setter Property="Foreground" Value="White"/>
-        <Setter Property="HorizontalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Left"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
-        <Setter Property="Width" Value="110"/>
-        <Setter Property="Height" Value="60"/>
-        <Setter Property="Background" Value="{Binding (ItemsControl.AlternationIndex), Converter={StaticResource AlternationConverter}, RelativeSource={RelativeSource Self}}"/>
+        <Setter Property="Width" Value="235"/>
+        <Setter Property="Height" Value="80"/>
+        <!--<Setter Property="Background" Value="{Binding (ItemsControl.AlternationIndex), Converter={StaticResource AlternationConverter}, RelativeSource={RelativeSource Self}}"/>-->
+        <Setter Property="Background" Value="{Binding Style.BgColor,Converter={StaticResource StringToColorBrushConverter}}"/>
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
-        <Setter Property="Margin" Value="5"/>
+        <Setter Property="Margin" Value="7,3"/>
         <Setter Property="BorderThickness" Value="3"/>
         <Setter Property="Panel.ZIndex" Value="0"/>
         <Setter Property="Template">
@@ -249,14 +250,27 @@
         <Setter Property="ItemsPanel">
             <Setter.Value>
                 <ItemsPanelTemplate>
-                    <WrapPanel />
+                    <StackPanel />
                 </ItemsPanelTemplate>
             </Setter.Value>
         </Setter>
         <Setter Property="ItemTemplate">
             <Setter.Value>
                 <DataTemplate>
-                    <TextBlock Text="{Binding Name}" FontSize="20" TextWrapping="Wrap" Padding="10" TextTrimming="CharacterEllipsis"/>
+                    <Grid >
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Image Source="{Binding Cover}" Height="60" Width="60" Stretch="UniformToFill"/>
+                        <StackPanel Grid.Column="1">
+                            <TextBlock Text="{Binding Name}" FontSize="20" TextWrapping="NoWrap" Padding="3" TextTrimming="CharacterEllipsis"/>
+                            <TextBlock Text="{Binding Intro}" FontSize="12" TextWrapping="NoWrap" Padding="3" TextTrimming="CharacterEllipsis"/>
+                            <TextBlock Text="{Binding SongNum}" FontSize="12" TextWrapping="NoWrap" Padding="3" TextTrimming="CharacterEllipsis"/>
+
+
+                        </StackPanel>
+                    </Grid>
                 </DataTemplate>
             </Setter.Value>
         </Setter>
