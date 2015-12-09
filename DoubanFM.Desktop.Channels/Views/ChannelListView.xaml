@@ -22,7 +22,7 @@
     <Grid >
         <ListBox Margin="5" HorizontalAlignment="Center"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
-                 ScrollViewer.VerticalScrollBarVisibility="Hidden"
+                 ScrollViewer.VerticalScrollBarVisibility="Auto"
 				 Style="{StaticResource ChannelListStyle}"
 				 ItemsSource="{Binding ChannelList}"
 				 SelectedItem="{Binding CurrentChannel,Mode=TwoWay}">

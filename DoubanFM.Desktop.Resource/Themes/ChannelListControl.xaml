@@ -122,8 +122,8 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Width" Value="235"/>
         <Setter Property="Height" Value="80"/>
-        <!--<Setter Property="Background" Value="{Binding (ItemsControl.AlternationIndex), Converter={StaticResource AlternationConverter}, RelativeSource={RelativeSource Self}}"/>-->
-        <Setter Property="Background" Value="{Binding Style.BgColor,Converter={StaticResource StringToColorBrushConverter}}"/>
+        <Setter Property="Background" Value="{Binding (ItemsControl.AlternationIndex), Converter={StaticResource AlternationConverter}, RelativeSource={RelativeSource Self}}"/>
+        <!--<Setter Property="Background" Value="{Binding Style.BgColor,Converter={StaticResource StringToColorBrushConverter}}"/>-->
         <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         <Setter Property="SnapsToDevicePixels" Value="True"/>
         <Setter Property="Margin" Value="7,3"/>
@@ -167,10 +167,10 @@
                                 <VisualState x:Name="MouseOver">
                                     <Storyboard PresentationOptions:Freeze="True">
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1.2"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1.1"/>
                                         </DoubleAnimationUsingKeyFrames>
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                                            <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1.2"/>
+                                            <EasingDoubleKeyFrame KeyTime="0:0:0.1" Value="1.1"/>
                                         </DoubleAnimationUsingKeyFrames>
                                         <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Opacity" Storyboard.TargetName="FavoriteVisual" BeginTime="0:0:1">
                                             <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
@@ -262,7 +262,17 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <Image Source="{Binding Cover}" Height="60" Width="60" Stretch="UniformToFill"/>
+                        <Border Margin="5" BorderBrush="White"  Height="60" Width="60" BorderThickness="2"
+                                CornerRadius="30" SnapsToDevicePixels="True">
+                            <Border.Background>
+                                <ImageBrush ImageSource="{Binding Cover}" Stretch="UniformToFill"/>
+                            </Border.Background>
+                            <!--<Image Source="{Binding Cover}" Margin="5" Stretch="UniformToFill">
+                                <Image.Clip>
+                                    <EllipseGeometry Center="30,30" RadiusX="30" RadiusY="30"/>
+                                </Image.Clip>
+                            </Image>-->
+                        </Border>
                         <StackPanel Grid.Column="1">
                             <TextBlock Text="{Binding Name}" FontSize="20" TextWrapping="NoWrap" Padding="3" TextTrimming="CharacterEllipsis"/>
                             <TextBlock Text="{Binding Intro}" FontSize="12" TextWrapping="NoWrap" Padding="3" TextTrimming="CharacterEllipsis"/>
