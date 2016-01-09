@@ -17,10 +17,11 @@
             </ResourceDictionary.MergedDictionaries>
 
         </ResourceDictionary>
+        
 
     </UserControl.Resources>
     <Grid >
-        <ListBox Margin="5" HorizontalAlignment="Center"
+        <ListBox Margin="0,5,5,5" HorizontalAlignment="Center"
                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                  ScrollViewer.VerticalScrollBarVisibility="Auto"
 				 Style="{StaticResource ChannelListStyle}"

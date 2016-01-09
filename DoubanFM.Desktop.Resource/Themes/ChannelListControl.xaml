@@ -69,6 +69,21 @@
         <StaticResource ResourceKey="MetroColor12"/>
     </AlternationConverter>
 
+    <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
+        <Setter Property="Stylus.IsFlicksEnabled" Value="True" />
+        <Style.Triggers>
+            <Trigger Property="Orientation" Value="Horizontal">
+                <Setter Property="Height" Value="3" />
+                <Setter Property="MinHeight" Value="3" />
+            </Trigger>
+            <Trigger Property="Orientation" Value="Vertical">
+                <Setter Property="Width" Value="3" />
+                <Setter Property="MinWidth" Value="3" />
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
     <Style x:Key="FavoriteStyle" BasedOn="{StaticResource CustomCheckBoxStyle}" TargetType="{x:Type CheckBox}">
         <Setter Property="BorderBrush" Value="#7FFFFFFF"/>
         <Setter Property="Template">

@@ -312,7 +312,7 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
         }
 
 
-        private async void _timer_Tick(object sender, EventArgs e)
+        private void _timer_Tick(object sender, EventArgs e)
         {
 
         }

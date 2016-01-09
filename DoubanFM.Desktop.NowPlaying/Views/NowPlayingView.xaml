@@ -152,7 +152,7 @@
 							<VisualBrush Visual="{Binding ElementName=spectrumAnalyzer}" Stretch="None" AlignmentX="Left" AlignmentY="Bottom"/>
 						</Rectangle.Fill>
 					</Rectangle>
-					<svl:SpectrumAnalyzer x:Name="spectrumAnalyzer" Grid.Column="1" BarSpacing="0" PeakStyle="{x:Null}" IsFrequencyScaleLinear="True" Margin="-1,0,0,-1" AveragePeaks="True">
+					<svl:SpectrumAnalyzer x:Name="spectrumAnalyzer" Grid.Column="1" BarSpacing="0" PeakStyle="{x:Null}" IsFrequencyScaleLinear="True" Margin="-5,0,-5,0" AveragePeaks="True">
 						<svl:SpectrumAnalyzer.BarStyle>
 							<Style TargetType="{x:Type Rectangle}">
 								<Setter Property="Fill">
