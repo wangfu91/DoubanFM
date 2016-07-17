@@ -158,3 +158,4 @@ $RECYCLE.BIN/
 *.ps1
 /packages
 /DoubanFM.sln.ide
+/.vs/config

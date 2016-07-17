@@ -16,8 +16,6 @@ namespace DoubanFM.Desktop.NowPlaying.Design
         {
             if (Infrastructure.Extension.d.IsInDesignMode)
                 LoadDesignTimeData();
-            else
-                return;
         }
 
         private void LoadDesignTimeData()

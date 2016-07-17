@@ -71,6 +71,7 @@ namespace DoubanFM.Desktop.Channels.ViewModels
             var channelGroupList = await _channelSerivce.GetAppChannels();
             if (channelGroupList != null)
             {
+                ChannelList.Clear();
                 foreach (var group in channelGroupList.Groups)
                 {
                     foreach (var channel in group.Channels)

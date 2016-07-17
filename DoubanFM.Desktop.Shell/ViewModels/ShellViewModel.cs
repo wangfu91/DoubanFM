@@ -13,8 +13,8 @@ namespace DoubanFM.Desktop.Shell.ViewModels
 {
     public class ShellViewModel : ViewModelBase
     {
-        private IModuleManager _moduleManager;
-        private IEventAggregator _eventAggregator;
+        private readonly IModuleManager _moduleManager;
+        private readonly IEventAggregator _eventAggregator;
         private Brush _backgroundColor;
 
         public ShellViewModel(
@@ -47,21 +47,20 @@ namespace DoubanFM.Desktop.Shell.ViewModels
         }
 
 
-        public ICommand MinimizeCommand { get; set; }
+        public ICommand MinimizeCommand { get; private set; }
 
-        public ICommand SwitchToMiniModeCommand { get; set; }
+        public ICommand SwitchToMiniModeCommand { get; private set; }
 
-        public ICommand ExitCommand { get; set; }
+        public ICommand ExitCommand { get; private set; }
 
-        public ICommand ModuleLoadRequestCommand { get; set; }
+        public ICommand ModuleLoadRequestCommand { get; private set; }
 
 
         private void LoadSelectedModule(IList list)
         {
+            if (list == null || list.Count <= 0) return;
             var tabItem = list[0] as TabItem;
-            if (tabItem == null) return;
-
-            var tag = (tabItem.Content as FrameworkElement).Tag;
+            var tag = (tabItem?.Content as FrameworkElement)?.Tag;
             if (tag == null) return;
             switch (tag.ToString())
             {
