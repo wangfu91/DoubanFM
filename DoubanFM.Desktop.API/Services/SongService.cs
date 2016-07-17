@@ -104,7 +104,7 @@ namespace DoubanFM.Desktop.API.Services
             {
                 {"sid",sid },
                 { "channel",channel.ToString() },
-                {"type","e" }
+                {"type","p" }
             };
             var requestUri = BuildRequestUri(BaseUrl, playList, paramSet);
             return await SendRequestAsync<PlayList>(requestUri, accessToken, HttpMethod.Get);

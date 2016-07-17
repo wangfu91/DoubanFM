@@ -433,7 +433,7 @@ namespace DoubanFM.Desktop.Audio
 					}
 					else
 					{
-						Debug.WriteLine(string.Format("Failed to open file: {0},Error Code: {1}", fileName, Bass.BASS_ErrorGetCode()));
+						Debug.WriteLine($"Failed to open file: {fileName},Error Code: {Bass.BASS_ErrorGetCode()}");
 					}
 				}
 			});
@@ -478,7 +478,7 @@ namespace DoubanFM.Desktop.Audio
 				}
 				else
 				{
-					Debug.WriteLine(string.Format("Failed to open URL: {0}, Error Code: {1}", url, Bass.BASS_ErrorGetCode()));
+					Debug.WriteLine($"Failed to open URL: {url}, Error Code: {Bass.BASS_ErrorGetCode()}");
 				}
 			});
 
@@ -536,14 +536,16 @@ namespace DoubanFM.Desktop.Audio
 				var spaceIndex = config.IndexOf(' ');
 				if (spaceIndex == -1)
 				{
-					throw new InvalidDataException(string.Format("Config 'Bass.SetConfigOnInitialization' is invalid. Invalid config string: {0}", config));
+					throw new InvalidDataException(
+						$"Config 'Bass.SetConfigOnInitialization' is invalid. Invalid config string: {config}");
 				}
 				var configNameString = config.Substring(0, spaceIndex);
 				BASSConfig configName;
 				if (!BASSConfig.TryParse(configNameString, out configName)
 					|| !Enum.IsDefined(typeof(BASSConfig), configName))
 				{
-					throw new InvalidDataException(string.Format("Config 'Bass.SetConfigOnInitialization' is invalid. Invalid config name: {0}", configNameString));
+					throw new InvalidDataException(
+						$"Config 'Bass.SetConfigOnInitialization' is invalid. Invalid config name: {configNameString}");
 				}
 
 				var configValueString = config.Substring(spaceIndex + 1);
@@ -552,8 +554,8 @@ namespace DoubanFM.Desktop.Audio
 				{
 					if (!Bass.BASS_SetConfig(configName, configValueInt))
 					{
-						throw new Exception(string.Format("Set config {0} with value {1} failed. Error code {2}",
-							configName, configValueInt, Bass.BASS_ErrorGetCode()));
+						throw new Exception(
+							$"Set config {configName} with value {configValueInt} failed. Error code {Bass.BASS_ErrorGetCode()}");
 					}
 					continue;
 				}
@@ -562,15 +564,15 @@ namespace DoubanFM.Desktop.Audio
 				{
 					if (!Bass.BASS_SetConfig(configName, configValueBool))
 					{
-						throw new Exception(string.Format("Set config {0} with value {1} failed. Error code {2}",
-							configName, configValueBool, Bass.BASS_ErrorGetCode()));
+						throw new Exception(
+							$"Set config {configName} with value {configValueBool} failed. Error code {Bass.BASS_ErrorGetCode()}");
 					}
 					continue;
 				}
 				if (!SetConfig(configName, configValueString))
 				{
-					throw new Exception(string.Format("Set config {0} with value {1} failed. Error code {2}",
-							configName, configValueString, Bass.BASS_ErrorGetCode()));
+					throw new Exception(
+						$"Set config {configName} with value {configValueString} failed. Error code {Bass.BASS_ErrorGetCode()}");
 				}
 			}
 
@@ -640,7 +642,7 @@ namespace DoubanFM.Desktop.Audio
 #if DEBUG
 			else
 			{
-				Debug.WriteLine("Error={0}", Bass.BASS_ErrorGetCode());
+				Debug.WriteLine($"Error={Bass.BASS_ErrorGetCode()}");
 			}
 #endif
 		}
@@ -664,8 +666,7 @@ namespace DoubanFM.Desktop.Audio
 		#region Event Handleres
 		private void OnTrackEnded()
 		{
-			if (TrackEnded != null)
-				TrackEnded(this, null);
+			TrackEnded?.Invoke(this, null);
 		}
 
 		private void positionTimer_Tick(object sender, EventArgs e)
@@ -688,10 +689,7 @@ namespace DoubanFM.Desktop.Audio
 
 		private void NotifyPropertyChanged(string propName)
 		{
-			if (PropertyChanged != null)
-			{
-				PropertyChanged(this, new PropertyChangedEventArgs(propName));
-			}
+			PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propName));
 		}
 		#endregion
 

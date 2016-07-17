@@ -56,7 +56,7 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
 
             playEngine.TrackEnded += playEngine_TrackeEnded;
 
-            PlayNextCommand = DelegateCommand.FromAsyncHandler(PlayNext);
+            PlayNextCommand = DelegateCommand.FromAsyncHandler(async () => await PlayNext(false));
 
             LikeCommand = DelegateCommand.FromAsyncHandler(Like, () => this.IsLoggedIn);
 
@@ -254,19 +254,15 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
             }
         }
 
-        private async Task PlayNext()
-        {
-            if (PlayList.Count > 0)
-            {
-                CurrentSong = PlayList.Dequeue();
-                SetPlayList(await _songService.Skip(CurrentSong.SID, CurrentChannel.Id));
-            }
-            else
-            {
-                SetPlayList(await _songService.Skip(CurrentSong.SID, CurrentChannel.Id));
-                CurrentSong = PlayList.Dequeue();
-            }
 
+        private async Task PlayNext(bool isNormalEnd = false)
+        {
+            var playList = isNormalEnd
+                ? await _songService.NormalEnd(CurrentSong.SID, CurrentChannel.Id)
+                : await _songService.Skip(CurrentSong.SID, CurrentChannel.Id);
+
+            SetPlayList(playList);
+            CurrentSong = PlayList.Dequeue();
         }
 
         private async Task Ban()
@@ -309,7 +305,7 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
         #region Event Handlers
         private async void playEngine_TrackeEnded(object sender, EventArgs e)
         {
-            await PlayNext();
+            await PlayNext(true);
         }
 
 
