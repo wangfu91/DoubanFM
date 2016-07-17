@@ -9,7 +9,7 @@ namespace DoubanFM.Desktop.API.Services
 {
     public class UserService : ServiceBase, IUserService
     {
-        private const string userInfo = "user_info";
+        private const string UserInfo = "user_info";
 
         public UserService() { }
 
@@ -19,11 +19,10 @@ namespace DoubanFM.Desktop.API.Services
             {
                 var paramSet = new Dictionary<string, string>
                 {
-                    {"user_id",userId },
-                    {"scope","music_basic_r" }                    
+                    {"avatar_size","large" }                    
                 };
 
-                var requestUri = BuildRequestUri(BaseUrl, userInfo, paramSet);
+                var requestUri = BuildRequestUri(BaseUrl, UserInfo, paramSet);
                 return await SendRequestAsync<User>(requestUri,accessToken,HttpMethod.Get);               
             }
 

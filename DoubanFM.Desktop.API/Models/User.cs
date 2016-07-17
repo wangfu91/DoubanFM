@@ -9,7 +9,7 @@ namespace DoubanFM.Desktop.API.Models
 
 
         [JsonProperty("user_id")]
-        public string UserID { get; set; }
+        public string UserId { get; set; }
 
         [JsonProperty("name")]
         public string Name { get; set; }
@@ -38,11 +38,7 @@ namespace DoubanFM.Desktop.API.Models
         [JsonProperty("icon")]
         public string Icon { get; set; }
 
-        public bool IsPro
-        {
-            get { return !ProStatus.Equals("N"); }
-        }
-
+        public bool? IsPro => !ProStatus?.Equals("N");
     }
 
 }

@@ -56,14 +56,13 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
 
             playEngine.TrackEnded += playEngine_TrackeEnded;
 
-            PlayNextCommand = new DelegateCommand(async () => await PlayNext());
+            PlayNextCommand = DelegateCommand.FromAsyncHandler(PlayNext);
 
-            LikeCommand = new DelegateCommand(async () => await Like(), () => this.IsLoggedIn);
+            LikeCommand = DelegateCommand.FromAsyncHandler(Like, () => this.IsLoggedIn);
 
-            BanCommand = new DelegateCommand(async () => await Ban(), () => this.IsLoggedIn);
+            BanCommand = DelegateCommand.FromAsyncHandler(Ban, () => this.IsLoggedIn);
 
-            _timer = new DispatcherTimer();
-            _timer.Interval = TimeSpan.FromSeconds(0.4);
+            _timer = new DispatcherTimer {Interval = TimeSpan.FromSeconds(0.4)};
             _timer.Tick += _timer_Tick;
             _timer.Start();
 

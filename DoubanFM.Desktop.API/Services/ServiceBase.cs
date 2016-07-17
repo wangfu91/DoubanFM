@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,14 +13,12 @@ namespace DoubanFM.Desktop.API.Services
     {
         protected const string BaseUrl = "https://api.douban.com/v2/fm/";
         protected const string USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0";
-
         private readonly Dictionary<string, string> ConstantParamSet = new Dictionary<string, string>
         {
             {"app_name", "radio_win8" },
             {"version", "1" },
-            {"from", "s:win8|y:win8desktop|f:1" },
-            {"context", "fmwin8app" },
-            {"apikey", "01620243a8d2134d042606cafa7639e7" }
+            {"client", "s:win8|y:win8desktop|f:1" },
+            { "apikey", "01620243a8d2134d042606cafa7639e7" }
         };
 
         protected async Task<T> SendRequestAsync<T>(Uri requestUri, string accessToken, HttpMethod method)
@@ -30,9 +26,9 @@ namespace DoubanFM.Desktop.API.Services
 
             using (var request = new HttpRequestMessage(method, requestUri))
             {
-                request.Headers.Add("User-Agent", USER_AGENT);
+                request.Headers.TryAddWithoutValidation("User-Agent", USER_AGENT);
                 if (!string.IsNullOrEmpty(accessToken))
-                    request.Headers.Authorization = new AuthenticationHeaderValue(accessToken);
+                    request.Headers.TryAddWithoutValidation("Authorization", $"Bearer {accessToken}");
 
                 using (var client = new HttpClient())
                 {

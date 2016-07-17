@@ -21,7 +21,7 @@ namespace DoubanFM.Desktop.API.Models
         public string Name { get; set; }
 
         [JsonProperty("sid")]
-        public string SID { get; set; }
+        public string Sid { get; set; }
 
     }
 }

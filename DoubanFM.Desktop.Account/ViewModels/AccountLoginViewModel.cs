@@ -13,8 +13,8 @@ namespace DoubanFM.Desktop.Account.ViewModels
 {
     public class AccountLoginViewModel : ViewModelBase
     {
-        private IEventAggregator _eventAggregator;
-        private ILoginService _loginService;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly ILoginService _loginService;
         private IUserService _userService;
 
         private string _userEmail;
@@ -37,10 +37,9 @@ namespace DoubanFM.Desktop.Account.ViewModels
         private async Task Login(object obj)
         {
             var passwordBox = obj as PasswordBox;
-            if (passwordBox == null) return;
 
-            var password = passwordBox.SecurePassword;
-            if (!string.IsNullOrWhiteSpace(password.ToString()))
+            var password = passwordBox?.SecurePassword;
+            if (!string.IsNullOrWhiteSpace(password?.ToString()))
             {
                 _loginResult = await _loginService.LoginWithEmail(UserEmail, password.ConvertToUnsecureString());
                 if (!string.IsNullOrEmpty(_loginResult.AccessToken))

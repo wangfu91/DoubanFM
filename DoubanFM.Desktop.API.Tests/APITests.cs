@@ -16,8 +16,8 @@ namespace DoubanFM.Desktop.API.Tests
             loginResult = new LoginResult
             {
                 DoubanUserId = "67242159",
-                AccessToken = "a28eb0e67d934cf0e7ac12b378b9e6d0",
-                ExpireIn = 7776000
+                AccessToken = "10d7ee6eed8c887e3287cb4cc8a5997a",
+                ExpireIn = 7775999
             };
         }
 
@@ -50,8 +50,7 @@ namespace DoubanFM.Desktop.API.Tests
         [TestMethod]
         public async Task GetLikedSongsTest()
         {
-            var songService = new SongService();
-            songService.AccessToken = loginResult.AccessToken;
+            var songService = new SongService {AccessToken = loginResult.AccessToken};
             var songs = await songService.GetPlayList(-3);
             Assert.IsNotNull(songs);
         }
@@ -82,8 +81,7 @@ namespace DoubanFM.Desktop.API.Tests
         [TestMethod]
         public async Task LikeASongTest()
         {
-            var songService = new SongService();
-            songService.AccessToken = loginResult.AccessToken;
+            var songService = new SongService {AccessToken = loginResult.AccessToken};
             var result = await songService.Like("1742969", 1);
             Assert.IsNotNull(result);
             Assert.IsTrue(result.R == 0);

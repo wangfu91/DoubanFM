@@ -13,7 +13,7 @@ namespace DoubanFM.Desktop.Channels.ViewModels
     {
         private IChannelService _channelSerivce;
         private Channel _currentChannel;
-        private IEventAggregator _eventAggregator;
+        private readonly IEventAggregator _eventAggregator;
         private bool _isLoggedIn;
 
         public ChannelListViewModel(
@@ -90,8 +90,7 @@ namespace DoubanFM.Desktop.Channels.ViewModels
             if (result != null)
             {
                 IsLoggedIn = true;
-                _channelSerivce = new ChannelService();
-                _channelSerivce.AccessToken = result.AccessToken;
+                _channelSerivce = new ChannelService {AccessToken = result.AccessToken};
             }
             else
             {

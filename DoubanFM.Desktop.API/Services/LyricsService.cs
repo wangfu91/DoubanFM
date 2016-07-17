@@ -12,7 +12,7 @@ namespace DoubanFM.Desktop.API.Services
 {
     public class LyricsService : ServiceBase, ILyricsService
     {
-        private const string lyric = "lyric";
+        private const string Lyric = "lyric";
 
         public async Task<Lyrics> GetLyrics(string sid, string ssid)
         {
@@ -21,7 +21,7 @@ namespace DoubanFM.Desktop.API.Services
                 {"sid",sid },
                 {"ssid", ssid }
             };
-            var requestUri = BuildRequestUri(BaseUrl, lyric, paramSet);
+            var requestUri = BuildRequestUri(BaseUrl, Lyric, paramSet);
             return await SendRequestAsync<Lyrics>(requestUri, "", HttpMethod.Get);
         }
     }

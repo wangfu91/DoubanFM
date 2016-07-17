@@ -13,7 +13,7 @@ namespace DoubanFM.Desktop.Infrastructure.Extension
 		public static string ConvertToUnsecureString(this SecureString securePassword)
 		{
 			if (securePassword == null)
-				throw new ArgumentNullException("securePassword");
+				throw new ArgumentNullException(nameof(securePassword));
 
 			IntPtr unmanagedString = IntPtr.Zero;
 			try
@@ -30,7 +30,7 @@ namespace DoubanFM.Desktop.Infrastructure.Extension
 		public static SecureString ConvertToSecureString(this string password)
 		{
 			if (password == null)
-				throw new ArgumentNullException("password");
+				throw new ArgumentNullException(nameof(password));
 
 			unsafe
 			{

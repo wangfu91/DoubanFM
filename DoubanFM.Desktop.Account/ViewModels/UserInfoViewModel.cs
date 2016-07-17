@@ -12,11 +12,11 @@ namespace DoubanFM.Desktop.Account.ViewModels
     public class UserInfoViewModel : ViewModelBase
     {
 
-        private IEventAggregator _eventAggregator;
-        private ILoginService _loginService;
-        private IUserService _userService;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly ILoginService _loginService;
+        private readonly IUserService _userService;
 
-        private LoginResult _loginResult;
+        private readonly LoginResult _loginResult;
         private User _user;
 
         public ICommand LogOffCommand { get; set; }

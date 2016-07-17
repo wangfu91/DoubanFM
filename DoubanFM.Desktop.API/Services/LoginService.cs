@@ -9,8 +9,8 @@ namespace DoubanFM.Desktop.API.Services
 {
     public class LoginService : ServiceBase, ILoginService
     {
-        private const string baseUrl = "https://www.douban.com/";
-        private const string authPath = "service/auth2/token";
+        private new const string BaseUrl = "https://www.douban.com/";
+        private const string AuthPath = "service/auth2/token";
 
         public async Task<LoginResult> LoginWithEmail(string email, string password)
         {
@@ -26,8 +26,8 @@ namespace DoubanFM.Desktop.API.Services
                     { "username", email }
                 };
 
-                var url = BuildRequestUri(baseUrl, authPath, paramSet);
-                client.DefaultRequestHeaders.UserAgent.ParseAdd(USER_AGENT);
+                var url = BuildRequestUri(BaseUrl, AuthPath, paramSet);
+                client.DefaultRequestHeaders.TryAddWithoutValidation("User-Agent", USER_AGENT);
                 var stringContent = new StringContent("");
                 stringContent.Headers.ContentType = new MediaTypeHeaderValue("application/x-www-form-urlencoded");
                 var response = await client.PostAsync(url, stringContent);

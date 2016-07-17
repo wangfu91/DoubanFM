@@ -7,49 +7,49 @@ namespace DoubanFM.Desktop.API.Services
 {
     public class ChannelService : ServiceBase, IChannelService
     {
-        private const string legacyChannels = "channels";
-        private const string appChannels = "app_channels";
-        private const string hotChannels = "hot_channels";
-        private const string upTrendingChannels = "up_trending_channels";
-        private const string recommendChannels = "rec_channels";
-        private const string recentChannels = "recent_channels";
-        private const string channelInfo = "channel_info";
+        private const string LegacyChannels = "channels";
+        private const string AppChannels = "app_channels";
+        private const string HotChannels = "hot_channels";
+        private const string UpTrendingChannels = "up_trending_channels";
+        private const string RecommendChannels = "rec_channels";
+        private const string RecentChannels = "recent_channels";
+        private const string ChannelInfo = "channel_info";
 
-        private string accessToken = "";
+        private string _accessToken = "";
 
         public string AccessToken
         {
-            set { accessToken = value; }
+            set { _accessToken = value; }
         }
 
         public async Task<ChannelGroupList> GetAppChannels()
         {
-            var requestUri = BuildRequestUri(BaseUrl, appChannels, null);
-            return await SendRequestAsync<ChannelGroupList>(requestUri, accessToken, HttpMethod.Get);
+            var requestUri = BuildRequestUri(BaseUrl, AppChannels, null);
+            return await SendRequestAsync<ChannelGroupList>(requestUri, _accessToken, HttpMethod.Get);
         }
 
         public async Task<ChannelGroupList> GetHotChannels()
         {
-            var requestUri = BuildRequestUri(BaseUrl, hotChannels, null);
-            return await SendRequestAsync<ChannelGroupList>(requestUri, accessToken, HttpMethod.Get);
+            var requestUri = BuildRequestUri(BaseUrl, HotChannels, null);
+            return await SendRequestAsync<ChannelGroupList>(requestUri, _accessToken, HttpMethod.Get);
         }
 
         public async Task<ChannelGroupList> GetUpTrendingChannels()
         {
-            var requestUri = BuildRequestUri(BaseUrl, upTrendingChannels, null);
-            return await SendRequestAsync<ChannelGroupList>(requestUri, accessToken, HttpMethod.Get);
+            var requestUri = BuildRequestUri(BaseUrl, UpTrendingChannels, null);
+            return await SendRequestAsync<ChannelGroupList>(requestUri, _accessToken, HttpMethod.Get);
         }
 
         public async Task<ChannelGroupList> GetRecommendChannels()
         {
-            var requestUri = BuildRequestUri(BaseUrl, recommendChannels, null);
-            return await SendRequestAsync<ChannelGroupList>(requestUri, accessToken, HttpMethod.Get);
+            var requestUri = BuildRequestUri(BaseUrl, RecommendChannels, null);
+            return await SendRequestAsync<ChannelGroupList>(requestUri, _accessToken, HttpMethod.Get);
         }
 
         public async Task<ChannelGroupList> GetRecentChannels()
         {
-            var requestUri = BuildRequestUri(BaseUrl, recentChannels, null);
-            return await SendRequestAsync<ChannelGroupList>(requestUri, accessToken, HttpMethod.Get);
+            var requestUri = BuildRequestUri(BaseUrl, RecentChannels, null);
+            return await SendRequestAsync<ChannelGroupList>(requestUri, _accessToken, HttpMethod.Get);
         }
 
         public async Task<ChannelGroupList> GetChannelInfo(int channelId)
@@ -58,8 +58,8 @@ namespace DoubanFM.Desktop.API.Services
             {
                 {"channel",channelId.ToString() }
             };
-            var requestUri = BuildRequestUri(BaseUrl, recentChannels, paramSet);
-            return await SendRequestAsync<ChannelGroupList>(requestUri, accessToken, HttpMethod.Get);
+            var requestUri = BuildRequestUri(BaseUrl, RecentChannels, paramSet);
+            return await SendRequestAsync<ChannelGroupList>(requestUri, _accessToken, HttpMethod.Get);
         }
 
     }

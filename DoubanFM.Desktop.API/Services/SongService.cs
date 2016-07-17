@@ -38,11 +38,14 @@ namespace DoubanFM.Desktop.API.Services
             var paramSet = new Dictionary<string, string>
             {
                 { "channel",channel.ToString() },
-                {"type","n" }
+                { "mode", "offline" },
+                { "kbps", "64"},
+                { "max", "30" },
+                { "type","n" }
             };
             var requestUri = BuildRequestUri(BaseUrl, playList, paramSet);
 
-            return await SendRequestAsync<PlayList>(requestUri, accessToken, HttpMethod.Post);
+            return await SendRequestAsync<PlayList>(requestUri, accessToken, HttpMethod.Get);
         }
 
         public async Task<PlayList> Like(string sid, int channel)
