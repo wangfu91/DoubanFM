@@ -74,10 +74,7 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
 
         #region Properties
 
-        public IAudioEngine Player
-        {
-            get { return _playEngine; }
-        }
+        public IAudioEngine Player => _playEngine;
 
         public Song CurrentSong
         {

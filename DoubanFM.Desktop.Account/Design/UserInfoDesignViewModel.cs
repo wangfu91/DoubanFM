@@ -15,8 +15,6 @@ namespace DoubanFM.Desktop.Account.Design
 		{
 			if (Infrastructure.Extension.d.IsInDesignMode)
 				LoadDesignTimeData();
-			else
-				return;
 		}
 
 		private void LoadDesignTimeData()
@@ -27,7 +25,7 @@ namespace DoubanFM.Desktop.Account.Design
 				PlayedNum = 3848,
 				LikedNum = 144,
 				BannedNum = 113,
-				Icon = "http://img3.douban.com/icon/u67242159-1.jpg"
+				Icon = @"http://img3.douban.com/icon/ul67242159-1.jpg"
 			};
 		}
 

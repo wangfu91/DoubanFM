@@ -42,12 +42,10 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
             <Border Margin="10" CornerRadius="40" BorderBrush="White" BorderThickness="2" Height="80" Width="80" 
-                Background="{StaticResource DefaultUserImageBrush}" ClipToBounds="True">
-                <Image Source="{Binding User.Icon}" Stretch="Uniform" >
-                    <Image.Clip>
-                        <EllipseGeometry Center="38,38" RadiusX="38" RadiusY="38"/>
-                    </Image.Clip>
-                </Image>
+               ClipToBounds="True">
+                <Border.Background>
+                    <ImageBrush ImageSource="{Binding User.Icon}" Stretch="UniformToFill"/>
+                </Border.Background>
             </Border>
             <TextBlock Margin="10" TextWrapping="NoWrap" TextTrimming="CharacterEllipsis" Foreground="White" FontSize="24"
                        Text="{Binding User.Name}" Width="150" Height="40" TextAlignment="Justify"/>
