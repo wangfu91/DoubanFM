@@ -60,9 +60,11 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
 
             LikeCommand = DelegateCommand.FromAsyncHandler(Like, () => this.IsLoggedIn);
 
+            UnlikeCommand = DelegateCommand.FromAsyncHandler(Unlike, () => this.IsLoggedIn);
+
             BanCommand = DelegateCommand.FromAsyncHandler(Ban, () => this.IsLoggedIn);
 
-            _timer = new DispatcherTimer {Interval = TimeSpan.FromSeconds(0.4)};
+            _timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(0.4) };
             _timer.Tick += _timer_Tick;
             _timer.Start();
 
@@ -176,11 +178,13 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
         #endregion
 
         #region Commands
-        public DelegateCommand PlayNextCommand { get; set; }
+        public DelegateCommand PlayNextCommand { get; private set; }
 
-        public DelegateCommand LikeCommand { get; set; }
+        public DelegateCommand LikeCommand { get; private set; }
 
-        public DelegateCommand BanCommand { get; set; }
+        public DelegateCommand UnlikeCommand { get; private set; }
+
+        public DelegateCommand BanCommand { get; private set; }
 
         #endregion
 
@@ -282,23 +286,21 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
 
         private async Task Like()
         {
-            if (CurrentSong.Like)
+            var result = await _songService.Like(CurrentSong.SID, CurrentChannel.Id);
+            if (result.R == 0)
             {
-                var result = await _songService.Unlike(CurrentSong.SID, CurrentChannel.Id);
-                if (result.R == 0)
-                {
-                    CurrentSong.Like = false;
-                    SetPlayList(result);
-                }
+                CurrentSong.Like = true;
+                SetPlayList(result);
             }
-            else
+        }
+
+        private async Task Unlike()
+        {
+            var result = await _songService.Unlike(CurrentSong.SID, CurrentChannel.Id);
+            if (result.R == 0)
             {
-                var result = await _songService.Like(CurrentSong.SID, CurrentChannel.Id);
-                if (result.R == 0)
-                {
-                    CurrentSong.Like = true;
-                    SetPlayList(result);
-                }
+                CurrentSong.Like = false;
+                SetPlayList(result);
             }
         }
 

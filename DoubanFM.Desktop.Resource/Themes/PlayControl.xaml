@@ -115,8 +115,17 @@
 								Command="{Binding BanCommand}"/>
                         <CheckBox Height="35" Width="35" Margin="5,0" Grid.Column="1"
 								  Style="{StaticResource LikeStyle}"
-								  IsChecked="{Binding CurrentSong.Like,Mode=TwoWay}"
-                                  IsEnabled="{Binding IsLoggedIn}"/>
+								  IsChecked="{Binding CurrentSong.Like}"
+                                  IsEnabled="{Binding IsLoggedIn}">
+                            <i:Interaction.Triggers>
+                                <i:EventTrigger EventName="Checked">
+                                    <i:InvokeCommandAction Command="{Binding LikeCommand}"/>
+                                </i:EventTrigger>
+                                <i:EventTrigger EventName="Unchecked">
+                                    <i:InvokeCommandAction Command="{Binding UnlikeCommand}"/>
+                                </i:EventTrigger>
+                            </i:Interaction.Triggers>
+                        </CheckBox>
                         <CheckBox  Height="35" Width="35" Margin="5,0" Grid.Column="2"
 								   Style="{StaticResource PauseStyle}"
 								   IsChecked="{Binding Player.IsPlaying,Mode=OneWay}">
