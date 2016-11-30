@@ -19,15 +19,17 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
     {
 
         #region Fields
-        private ISongService _songService;
-        private ILyricsService _lyricsService;
-        private IAudioEngine _playEngine;
+        private readonly ISongService _songService;
+        private readonly ILyricsService _lyricsService;
+        private readonly ICredentialManageService _credentialStorageService;
+        private readonly UserStateChangedEvent _userStateChangedEvent;
+        private readonly IAudioEngine _playEngine;
         private Song _currentSong;
         private string _currentLyrics;
         private Channel _currentChannel;
         private Queue<Song> _playList;
         private DispatcherTimer _timer = new DispatcherTimer();
-        private IEventAggregator _eventAggregator;
+        private readonly IEventAggregator _eventAggregator;
         private bool _isLoggedIn;
         private BitmapImage _currentAlbumImage;
         private Brush _backgroundColor;
@@ -39,22 +41,26 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
             IEventAggregator eventAggregator,
             IAudioEngine playEngine,
             ISongService songService,
-            ILyricsService lyricService)
+            ILyricsService lyricService,
+            ICredentialManageService credentialStorageService)
         {
             this._eventAggregator = eventAggregator;
             this._playEngine = playEngine;
             this._songService = songService;
             this._lyricsService = lyricService;
+            this._credentialStorageService = credentialStorageService;
 
             PlayList = new Queue<Song>();
 
             var switchChannelEvent = _eventAggregator.GetEvent<SwitchChannelEvent>();
             switchChannelEvent.Subscribe(async c => await HandleChannelChange(c));
 
-            var userStateChnagedEvent = _eventAggregator.GetEvent<UserStateChangedEvent>();
-            userStateChnagedEvent.Subscribe(HandleUserStateChange);
+            _userStateChangedEvent = _eventAggregator.GetEvent<UserStateChangedEvent>();
+            _userStateChangedEvent.Subscribe(HandleUserStateChange);
 
             playEngine.TrackEnded += playEngine_TrackeEnded;
+
+            LoadedCommand = DelegateCommand.FromAsyncHandler(Loaded);
 
             PlayNextCommand = DelegateCommand.FromAsyncHandler(async () => await PlayNext(false));
 
@@ -67,7 +73,6 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
             _timer = new DispatcherTimer { Interval = TimeSpan.FromSeconds(0.4) };
             _timer.Tick += _timer_Tick;
             _timer.Start();
-
         }
 
         #endregion
@@ -175,6 +180,8 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
         #endregion
 
         #region Commands
+        public DelegateCommand LoadedCommand { get; private set; }
+
         public DelegateCommand PlayNextCommand { get; private set; }
 
         public DelegateCommand LikeCommand { get; private set; }
@@ -186,6 +193,16 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
         #endregion
 
         #region Private Methods
+
+        private async Task Loaded()
+        {
+            var loginResult = await _credentialStorageService.LoadCredentialAsync();
+            if (loginResult != null)
+            {
+                _userStateChangedEvent.Publish(loginResult);
+            }
+        }
+
         private async Task HandleCurrentSongChange()
         {
             LoadAlbumImage();
@@ -239,7 +256,7 @@ namespace DoubanFM.Desktop.NowPlaying.ViewModels
 
         private void HandleUserStateChange(LoginResult result)
         {
-            this._songService = new SongService();
+            //this._songService = new SongService();
             if (result != null)
             {
                 this.IsLoggedIn = true;

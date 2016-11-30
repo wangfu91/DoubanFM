@@ -26,7 +26,7 @@ namespace DoubanFM.Desktop.NowPlaying
             this._container.RegisterInstance<IAudioEngine>(BassEngine.Instance);
             this._container.RegisterType<ISongService, SongService>(new ContainerControlledLifetimeManager());
             this._container.RegisterType<ILyricsService, LyricsService>(new ContainerControlledLifetimeManager());
-
+            this._container.RegisterType<ICredentialManageService, CredentialManageService>(new ContainerControlledLifetimeManager());
             this._regionManager.RegisterViewWithRegion(RegionNames.NowPlaying,
                                                  () => this._container.Resolve<Views.NowPlayingView>());
         }

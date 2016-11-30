@@ -16,6 +16,7 @@ namespace DoubanFM.Desktop.Account.ViewModels
         private readonly IEventAggregator _eventAggregator;
         private readonly ILoginService _loginService;
         private IUserService _userService;
+        private ICredentialManageService _credentialStorageService;
 
         private string _userEmail;
 
@@ -24,17 +25,19 @@ namespace DoubanFM.Desktop.Account.ViewModels
         public AccountLoginViewModel(
             IEventAggregator eventAggregator,
             ILoginService loginService,
-            IUserService userService
+            IUserService userService,
+            ICredentialManageService credentialStorageService
             )
         {
             this._eventAggregator = eventAggregator;
             this._loginService = loginService;
             this._userService = userService;
+            this._credentialStorageService = credentialStorageService;
 
-            LoginCommand = new DelegateCommand<object>(async c => await Login(c));
+            LoginCommand = DelegateCommand<object>.FromAsyncHandler(LoginAsync);
         }
 
-        private async Task Login(object obj)
+        private async Task LoginAsync(object obj)
         {
             var passwordBox = obj as PasswordBox;
 
@@ -45,6 +48,7 @@ namespace DoubanFM.Desktop.Account.ViewModels
                 if (!string.IsNullOrEmpty(_loginResult.AccessToken))
                 {
                     _eventAggregator.GetEvent<UserStateChangedEvent>().Publish(_loginResult);
+                    await _credentialStorageService.SaveCredentialAsync(_loginResult);
                 }
                 else
                 {

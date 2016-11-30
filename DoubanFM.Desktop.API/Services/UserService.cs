@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace DoubanFM.Desktop.API.Services
 {
-    public class UserService : ServiceBase, IUserService
+    public class UserService : ApiServiceBase, IUserService
     {
         private const string UserInfo = "user_info";
 

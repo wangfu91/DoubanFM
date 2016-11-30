@@ -1,4 +1,5 @@
 ﻿using DoubanFM.Desktop.API.Models;
+using DoubanFM.Desktop.API.Services;
 using DoubanFM.Desktop.Infrastructure;
 using DoubanFM.Desktop.Infrastructure.Events;
 using Microsoft.Practices.Unity;
@@ -13,24 +14,30 @@ namespace DoubanFM.Desktop.Account.Controllers
     /// </summary>
     public class AccountRegionController
     {
-        private readonly IUnityContainer container;
-        private readonly IRegionManager regionManager;
-        private readonly IEventAggregator eventAggregator;
+        private readonly IUnityContainer _container;
+        private readonly IRegionManager _regionManager;
+        private readonly IEventAggregator _eventAggregator;
+        private readonly ICredentialManageService _credentialStorageService;
 
         public AccountRegionController(
             IUnityContainer container,
             IRegionManager regionManager,
-            IEventAggregator eventAggregator)
+            IEventAggregator eventAggregator,
+            ICredentialManageService credentialStorageService)
         {
-            if (container == null) throw new ArgumentNullException("container");
-            if (regionManager == null) throw new ArgumentNullException("regionManager");
-            if (eventAggregator == null) throw new ArgumentNullException("eventAggregator");
+            this._container = container;
+            this._regionManager = regionManager;
+            this._eventAggregator = eventAggregator;
+            this._credentialStorageService = credentialStorageService;
 
-            this.container = container;
-            this.regionManager = regionManager;
-            this.eventAggregator = eventAggregator;
+            this._eventAggregator.GetEvent<UserStateChangedEvent>().Subscribe(HandleUserStateChange);
+            TryLoadCredentialAsync();
+        }
 
-            this.eventAggregator.GetEvent<UserStateChangedEvent>().Subscribe(HandleUserStateChange);
+        public async void TryLoadCredentialAsync()
+        {
+            var loginResult = await _credentialStorageService.LoadCredentialAsync();
+            HandleUserStateChange(loginResult);
         }
 
         private void HandleUserStateChange(LoginResult result)
@@ -41,21 +48,12 @@ namespace DoubanFM.Desktop.Account.Controllers
                 UserLoggedOut();
         }
 
-
         private void UserLoggedIn(LoginResult result)
         {
-            this.container.RegisterInstance<LoginResult>(result);
+            this._container.RegisterInstance(result);
 
-            var accountRegion = this.regionManager.Regions[RegionNames.Account];
+            var accountRegion = this._regionManager.Regions[RegionNames.Account];
             if (accountRegion == null) return;
-
-            /*
-            *  var loginView = accountRegion.GetView("AccountLoginView"); //this line failed to get the expected view, always return null, TODO: need investrigate.
-            *  if(loginView!=null) //loginView  is null, 
-            *  {
-            *      accountRegion.Remove(loginView);
-            *  }
-			*/
 
             //Remove all the view hosted in account region so far.
             foreach (var item in accountRegion.Views)
@@ -64,13 +62,13 @@ namespace DoubanFM.Desktop.Account.Controllers
             }
 
             //Add userInfo view to the region, this will automatically active the view too.
-            var userInfoView = this.container.Resolve<Views.UserInfoView>();
+            var userInfoView = this._container.Resolve<Views.UserInfoView>();
             accountRegion.Add(userInfoView);
         }
 
         private void UserLoggedOut()
         {
-            var accountRegion = this.regionManager.Regions[RegionNames.Account];
+            var accountRegion = this._regionManager.Regions[RegionNames.Account];
             if (accountRegion == null) return;
 
             //Remove all the view hosted in account region so far.
@@ -80,9 +78,8 @@ namespace DoubanFM.Desktop.Account.Controllers
             }
 
             //Add login view view to the region, this will automatically active the view too.
-            var loginView = this.container.Resolve<Views.AccountLoginView>();
+            var loginView = this._container.Resolve<Views.AccountLoginView>();
             accountRegion.Add(loginView);
-
         }
     }
 }

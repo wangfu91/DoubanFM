@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace DoubanFM.Desktop.API.Services
 {
-    public abstract class ServiceBase
+    public abstract class ApiServiceBase
     {
         protected const string BaseUrl = "https://api.douban.com/v2/fm/";
         protected const string USER_AGENT = "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:42.0) Gecko/20100101 Firefox/42.0";

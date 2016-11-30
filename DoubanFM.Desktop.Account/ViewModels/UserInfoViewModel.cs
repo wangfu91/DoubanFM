@@ -15,6 +15,7 @@ namespace DoubanFM.Desktop.Account.ViewModels
         private readonly IEventAggregator _eventAggregator;
         private readonly ILoginService _loginService;
         private readonly IUserService _userService;
+        private readonly ICredentialManageService _credentialManageService;
 
         private readonly LoginResult _loginResult;
         private User _user;
@@ -25,11 +26,13 @@ namespace DoubanFM.Desktop.Account.ViewModels
             IEventAggregator eventAggregator,
             ILoginService loginService,
             IUserService userService,
+            ICredentialManageService credentialManageService,
             LoginResult loginResult)
         {
             this._eventAggregator = eventAggregator;
             this._loginService = loginService;
             this._userService = userService;
+            this._credentialManageService = credentialManageService;
             this._loginResult = loginResult;
 
             this.LogOffCommand = new DelegateCommand(LogOff);
@@ -39,6 +42,7 @@ namespace DoubanFM.Desktop.Account.ViewModels
 
         private void LogOff()
         {
+            _credentialManageService.DeleteSavedCredential();
             _eventAggregator.GetEvent<UserStateChangedEvent>().Publish(null);
         }
 

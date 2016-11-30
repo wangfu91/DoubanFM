@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DoubanFM.Desktop.API.Services
 {
-    public class SongService : ServiceBase, ISongService
+    public class SongService : ApiServiceBase, ISongService
     {
 
         /*

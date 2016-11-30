@@ -31,7 +31,7 @@ namespace DoubanFM.Desktop.Account
 		{
 			this._container.RegisterType<ILoginService, LoginService>(new ContainerControlledLifetimeManager());
 			this._container.RegisterType<IUserService, UserService>(new ContainerControlledLifetimeManager());
-
+            this._container.RegisterType<ICredentialManageService, CredentialManageService>(new ContainerControlledLifetimeManager());
 			this._regionManager.RegisterViewWithRegion(RegionNames.Account,
 				() => this._container.Resolve<Views.AccountLoginView>());
 

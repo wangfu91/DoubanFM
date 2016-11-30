@@ -7,7 +7,7 @@ using Newtonsoft.Json;
 
 namespace DoubanFM.Desktop.API.Services
 {
-    public class LoginService : ServiceBase, ILoginService
+    public class LoginService : ApiServiceBase, ILoginService
     {
         private new const string BaseUrl = "https://www.douban.com/";
         private const string AuthPath = "service/auth2/token";

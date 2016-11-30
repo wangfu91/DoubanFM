@@ -8,168 +8,174 @@
 			 xmlns:Controls="clr-namespace:DoubanFM.Desktop.Resource.Controls;assembly=DoubanFM.Desktop.Resource"
 			 xmlns:svl="clr-namespace:WPFSoundVisualizationLib;assembly=WPFSoundVisualizationLib"
 			 xmlns:extension="clr-namespace:DoubanFM.Desktop.Infrastructure.Extension;assembly=DoubanFM.Desktop.Infrastructure"
+             xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
 			 mc:Ignorable="d" 
 			 d:DesignHeight="300" d:DesignWidth="300" extension:d.Background="DeepSkyBlue"
 			 d:DataContext="{d:DesignInstance design:NowPlayingDesignViewModel,IsDesignTimeCreatable=True}">
-	<UserControl.Resources>
-		<ResourceDictionary>
-			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="pack://application:,,,/DoubanFM.Desktop.Resource;component/Themes/Generic.xaml"/>
-			</ResourceDictionary.MergedDictionaries>
-			<PowerEase x:Key="Smooth" Power="3" PresentationOptions:Freeze="True"/>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/DoubanFM.Desktop.Resource;component/Themes/Generic.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <PowerEase x:Key="Smooth" Power="3" PresentationOptions:Freeze="True"/>
 
-			<Storyboard x:Key="SlideCoverRightStoryboard">
-				<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="CoverGrid">
-					<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="300" EasingFunction="{StaticResource Smooth}"/>
-				</DoubleAnimationUsingKeyFrames>
-				<DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CoverGrid"
+            <Storyboard x:Key="SlideCoverRightStoryboard">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="CoverGrid">
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="300" EasingFunction="{StaticResource Smooth}"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CoverGrid"
 							 To="0.5" Duration="0:0:0.5"/>
-				<DoubleAnimation Storyboard.TargetProperty="Radius" Storyboard.TargetName="CoverBlurEffect"
+                <DoubleAnimation Storyboard.TargetProperty="Radius" Storyboard.TargetName="CoverBlurEffect"
 							 To="5" Duration="0:0:0.5"/>
-			</Storyboard>
-			<Storyboard x:Key="SlideCoverLeftStoryboard">
-				<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="CoverGrid">
-					<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0" EasingFunction="{StaticResource Smooth}"/>
-				</DoubleAnimationUsingKeyFrames>
-				<DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CoverGrid"
+            </Storyboard>
+            <Storyboard x:Key="SlideCoverLeftStoryboard">
+                <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)" Storyboard.TargetName="CoverGrid">
+                    <EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="0" EasingFunction="{StaticResource Smooth}"/>
+                </DoubleAnimationUsingKeyFrames>
+                <DoubleAnimation Storyboard.TargetProperty="Opacity" Storyboard.TargetName="CoverGrid"
 							 To="1" Duration="0:0:0.5"/>
-				<DoubleAnimation Storyboard.TargetProperty="Radius" Storyboard.TargetName="CoverBlurEffect"
+                <DoubleAnimation Storyboard.TargetProperty="Radius" Storyboard.TargetName="CoverBlurEffect"
 							 To="0" Duration="0:0:0.5"/>
-			</Storyboard>
-		</ResourceDictionary>
-	</UserControl.Resources>
-	<Grid>
-		<Grid x:Name="CoverGrid" Width="300" HorizontalAlignment="Left" Margin="-300,0,0,0">
-			<Grid.RenderTransform>
-				<TransformGroup>
-					<ScaleTransform/>
-					<SkewTransform/>
-					<RotateTransform/>
-					<TranslateTransform/>
-				</TransformGroup>
-			</Grid.RenderTransform>
-			<Grid.Triggers>
-				<EventTrigger RoutedEvent="MouseLeftButtonUp">
-					<EventTrigger.Actions>
-						<BeginStoryboard Storyboard="{StaticResource SlideCoverRightStoryboard}"/>
-					</EventTrigger.Actions>
-				</EventTrigger>
-			</Grid.Triggers>
-			<Grid x:Name="covers" >
-				<Grid.Effect >
-					<BlurEffect x:Name="CoverBlurEffect" Radius="0"/>
-				</Grid.Effect>
-				<Image Source="{Binding CurrentAlbumImage}" Stretch="UniformToFill" Panel.ZIndex="1"/>
-			</Grid>
-			<Grid x:Name="lyricsPanel" VerticalAlignment="Bottom" Height="30" >
-				<Border Background="{Binding BackgroundColor}">
-					<Border.OpacityMask>
-						<LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-							<GradientStop Offset="0"/>
-							<GradientStop Color="#CC38FFA8" Offset="0.815"/>
-							<GradientStop Color="#9047FFAE" Offset="0.422"/>
-						</LinearGradientBrush>
-					</Border.OpacityMask>
-				</Border>
-				<TextBlock x:Name="currentLyrics" Foreground="White" Margin="5"
+            </Storyboard>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    <Grid>
+        <Grid x:Name="CoverGrid" Width="300" HorizontalAlignment="Left" Margin="-300,0,0,0">
+            <Grid.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Grid.RenderTransform>
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="MouseLeftButtonUp">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard Storyboard="{StaticResource SlideCoverRightStoryboard}"/>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Grid.Triggers>
+            <Grid x:Name="covers" >
+                <Grid.Effect >
+                    <BlurEffect x:Name="CoverBlurEffect" Radius="0"/>
+                </Grid.Effect>
+                <Image Source="{Binding CurrentAlbumImage}" Stretch="UniformToFill" Panel.ZIndex="1"/>
+            </Grid>
+            <Grid x:Name="lyricsPanel" VerticalAlignment="Bottom" Height="30" >
+                <Border Background="{Binding BackgroundColor}">
+                    <Border.OpacityMask>
+                        <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                            <GradientStop Offset="0"/>
+                            <GradientStop Color="#CC38FFA8" Offset="0.815"/>
+                            <GradientStop Color="#9047FFAE" Offset="0.422"/>
+                        </LinearGradientBrush>
+                    </Border.OpacityMask>
+                </Border>
+                <TextBlock x:Name="currentLyrics" Foreground="White" Margin="5"
 							   HorizontalAlignment="Center" VerticalAlignment="Bottom"
 							   TextWrapping="Wrap" TextTrimming="WordEllipsis"
 							   Text="{Binding CurrentLyrics}"/>
-			</Grid>
-		</Grid>
-		<Grid x:Name="playControl" Height="300" Grid.Column="1" >
-			<Grid.RowDefinitions>
-				<RowDefinition Height="30"/>
-				<RowDefinition/>
-				<RowDefinition/>
-				<RowDefinition/>
-			</Grid.RowDefinitions>
-			<Grid.Triggers>
-				<EventTrigger RoutedEvent="MouseEnter">
-					<EventTrigger.Actions>
-						<BeginStoryboard Storyboard="{StaticResource SlideCoverLeftStoryboard}"/>
-					</EventTrigger.Actions>
-				</EventTrigger>
-			</Grid.Triggers>
-			<TextBlock Margin="15,0" Text="{Binding CurrentChannel.Name}" Foreground="White" VerticalAlignment="Center" FontFamily="Segoe UI" />
-			<StackPanel Margin="10,10" Grid.Row="1">
-				<TextBlock  VerticalAlignment="Top" 
+            </Grid>
+        </Grid>
+        <Grid x:Name="playControl" Height="300" Grid.Column="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition/>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <Grid.Triggers>
+                <EventTrigger RoutedEvent="MouseEnter">
+                    <EventTrigger.Actions>
+                        <BeginStoryboard Storyboard="{StaticResource SlideCoverLeftStoryboard}"/>
+                    </EventTrigger.Actions>
+                </EventTrigger>
+            </Grid.Triggers>
+            <TextBlock Margin="15,0" Text="{Binding CurrentChannel.Name}" Foreground="White" VerticalAlignment="Center" FontFamily="Segoe UI" />
+            <StackPanel Margin="10,10" Grid.Row="1">
+                <TextBlock  VerticalAlignment="Top" 
 				   Margin="5,0"
 				   Foreground="White"
 				   TextWrapping="NoWrap"
 				   TextTrimming="WordEllipsis"
 				   Text="{Binding CurrentSong.Artist}" FontFamily="Segoe UI" FontSize="36"
 				   />
-				<TextBlock VerticalAlignment="Top"
+                <TextBlock VerticalAlignment="Top"
 				   Margin="5,0"
 				   Foreground="White"
 				   TextWrapping="NoWrap"
 				   TextTrimming="WordEllipsis"
 				   Text="{Binding CurrentSong.AlbumTitle}" FontFamily="Segoe UI"
 				   />
-			</StackPanel>
+            </StackPanel>
 
-			<StackPanel Grid.Row="2" Margin="10,10">
-				<TextBlock VerticalAlignment="Top"
+            <StackPanel Grid.Row="2" Margin="10,10">
+                <TextBlock VerticalAlignment="Top"
 				   Foreground="White"
 				   Margin="5,5"
 				   TextWrapping="NoWrap" 
 				   TextTrimming="WordEllipsis"
 				   Text="{Binding CurrentSong.Title}" FontFamily="Segoe UI" FontSize="16" />
-				<ProgressBar Margin="5,5" Height="6" IsIndeterminate="False"  Style="{StaticResource MetroProgressBarStyle}" Minimum="0" Maximum="{Binding Player.ChannelLength}" Value="{Binding Player.ChannelPosition}" />
-				<StackPanel Margin="5,5" HorizontalAlignment="Right" Orientation="Horizontal">
-					<!--<resLib:VolumeControl Width="120" Margin="10,0" HorizontalAlignment="Right"
+                <ProgressBar Margin="5,5" Height="6" IsIndeterminate="False"  Style="{StaticResource MetroProgressBarStyle}" Minimum="0" Maximum="{Binding Player.ChannelLength}" Value="{Binding Player.ChannelPosition}" />
+                <StackPanel Margin="5,5" HorizontalAlignment="Right" Orientation="Horizontal">
+                    <!--<resLib:VolumeControl Width="120" Margin="10,0" HorizontalAlignment="Right"
 										 IsMuted="{Binding Player.IsMuted,Mode=TwoWay}"
 										 Volume="{Binding Player.Volume, Mode=TwoWay}" />-->
-					<TextBlock Foreground="White" Margin="5,0,0,0">
-						<TextBlock.Text>
-							<MultiBinding Converter="{StaticResource ChannelTimeLeftConverter}" 
+                    <TextBlock Foreground="White" Margin="5,0,0,0">
+                        <TextBlock.Text>
+                            <MultiBinding Converter="{StaticResource ChannelTimeLeftConverter}" 
 										  StringFormat="-{0:m\:ss}" 
 										  FallbackValue="00.00" 
 										  TargetNullValue="00.00">
-								<Binding Path="Player.ChannelLength"/>
-								<Binding Path="Player.ChannelPosition"/>
-							</MultiBinding>
-						</TextBlock.Text>
-					</TextBlock>
-				</StackPanel>
-			</StackPanel>
+                                <Binding Path="Player.ChannelLength"/>
+                                <Binding Path="Player.ChannelPosition"/>
+                            </MultiBinding>
+                        </TextBlock.Text>
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
 
-			<Grid x:Name="SpectrumPanel" Grid.Row="3" Height="50" Margin="-5,0,-5,-10" VerticalAlignment="Bottom" Panel.ZIndex="0">
-				<Grid >
-					<Grid.Effect>
-						<BlurEffect Radius="7"/>
-					</Grid.Effect>
-					<Grid.ColumnDefinitions>
-						<ColumnDefinition />
-						<ColumnDefinition />
-					</Grid.ColumnDefinitions>
-					<Rectangle RenderTransformOrigin="0.5,0.5">
-						<Rectangle.RenderTransform>
-							<ScaleTransform ScaleX="-1"/>
-						</Rectangle.RenderTransform>
-						<Rectangle.Fill>
-							<VisualBrush Visual="{Binding ElementName=spectrumAnalyzer}" Stretch="None" AlignmentX="Left" AlignmentY="Bottom"/>
-						</Rectangle.Fill>
-					</Rectangle>
-					<svl:SpectrumAnalyzer x:Name="spectrumAnalyzer" Grid.Column="1" BarSpacing="0" PeakStyle="{x:Null}" IsFrequencyScaleLinear="True" Margin="-5,0,-5,0" AveragePeaks="True">
-						<svl:SpectrumAnalyzer.BarStyle>
-							<Style TargetType="{x:Type Rectangle}">
-								<Setter Property="Fill">
-									<Setter.Value>
-										<LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" x:Name="BarBrush">
-											<GradientStop Color="{Binding (GradientBrush.GradientStops)[1].Color, Converter={StaticResource OrdinaryColorToTranspantConverter}, RelativeSource={RelativeSource AncestorType={x:Type LinearGradientBrush}}}" Offset="0"/>
-											<GradientStop Color="Green" Offset="0.7"/>
-										</LinearGradientBrush>
-									</Setter.Value>
-								</Setter>
-							</Style>
-						</svl:SpectrumAnalyzer.BarStyle>
-					</svl:SpectrumAnalyzer>
-				</Grid>
-			</Grid>
+            <Grid x:Name="SpectrumPanel" Grid.Row="3" Height="50" Margin="-5,0,-5,-10" VerticalAlignment="Bottom" Panel.ZIndex="0">
+                <Grid >
+                    <Grid.Effect>
+                        <BlurEffect Radius="7"/>
+                    </Grid.Effect>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <Rectangle RenderTransformOrigin="0.5,0.5">
+                        <Rectangle.RenderTransform>
+                            <ScaleTransform ScaleX="-1"/>
+                        </Rectangle.RenderTransform>
+                        <Rectangle.Fill>
+                            <VisualBrush Visual="{Binding ElementName=spectrumAnalyzer}" Stretch="None" AlignmentX="Left" AlignmentY="Bottom"/>
+                        </Rectangle.Fill>
+                    </Rectangle>
+                    <svl:SpectrumAnalyzer x:Name="spectrumAnalyzer" Grid.Column="1" BarSpacing="0" PeakStyle="{x:Null}" IsFrequencyScaleLinear="True" Margin="-5,0,-5,0" AveragePeaks="True">
+                        <svl:SpectrumAnalyzer.BarStyle>
+                            <Style TargetType="{x:Type Rectangle}">
+                                <Setter Property="Fill">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0.5,0" EndPoint="0.5,1" x:Name="BarBrush">
+                                            <GradientStop Color="{Binding (GradientBrush.GradientStops)[1].Color, Converter={StaticResource OrdinaryColorToTranspantConverter}, RelativeSource={RelativeSource AncestorType={x:Type LinearGradientBrush}}}" Offset="0"/>
+                                            <GradientStop Color="Green" Offset="0.7"/>
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Style>
+                        </svl:SpectrumAnalyzer.BarStyle>
+                    </svl:SpectrumAnalyzer>
+                </Grid>
+            </Grid>
 
-			<Controls:PlayControl  Margin="10,10" Grid.Row="3" Panel.ZIndex="1" />
-		</Grid>
-	</Grid>
+            <Controls:PlayControl  Margin="10,10" Grid.Row="3" Panel.ZIndex="1" />
+        </Grid>
+    </Grid>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Loaded">
+            <i:InvokeCommandAction Command="{Binding LoadedCommand}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
 </UserControl>

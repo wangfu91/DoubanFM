@@ -10,7 +10,7 @@ using System.Net.Http;
 
 namespace DoubanFM.Desktop.API.Services
 {
-    public class LyricsService : ServiceBase, ILyricsService
+    public class LyricsService : ApiServiceBase, ILyricsService
     {
         private const string Lyric = "lyric";
 

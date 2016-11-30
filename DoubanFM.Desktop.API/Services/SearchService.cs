@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace DoubanFM.Desktop.API.Services
 {
-    public class SearchService : ServiceBase, ISearchService
+    public class SearchService : ApiServiceBase, ISearchService
     {
         private const string searchChannel = "search/channel";
 

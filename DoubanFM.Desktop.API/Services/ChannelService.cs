@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace DoubanFM.Desktop.API.Services
 {
-    public class ChannelService : ServiceBase, IChannelService
+    public class ChannelService : ApiServiceBase, IChannelService
     {
         private const string LegacyChannels = "channels";
         private const string AppChannels = "app_channels";
